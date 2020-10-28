@@ -1,0 +1,58 @@
+﻿;Wydatki dzienne w miesiącu ;"W arkuszach wpisujemy wydatki w poszczególnych dniach miasiąca. Dopiero po wpisaniu zaplanowanej kwoty do wydania w kolumnie ""PLAN"" pojawi się informacja w kolumnie ""%PLANU"" ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Kategoria ;Miesięczne wydatki na życie;Plan ;% planu;Suma;20;21;22;23;24;25;26;27;28;29;30;31;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19
+1. MIESZKANIE;Rata kredytu lub czynsz najmu;420 zł;100,0%;420 zł;;;;;;;;;;;;;;;;;;;;;;420;;;;;;;;;
+;Opłaty (gaz, energia, woda itp.);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Środki czystości;100 zł;17,0%;17 zł;;;;;17;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Abonament TV / kablówka;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Konserwacja / dekoracja;250 zł;571,1%;1 428 zł;;250;;676;15;;;;;;152;;;;;;;;335;;;;;;;;;;;;
+;Telefony (stacjonarny, komórka);25 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Inne (ubezp. Nieruchmości, podatek itp.);1 zł;60882,0%;609 zł;;;;;;;;;;;;;;;;;;;;;;;;;609;;;;;;
+2. ŻYWNOŚĆ;Artykuły spożywcze;1 500 zł;108,4%;1 627 zł;63;9;65;46;37;;;;54;;95;9;4;13;;;54;16;4;142;88;466;34;;116;260;5;31;2;;15
+3. TRANSPORT;Paliwo;100 zł;292,4%;292 zł;;20;;;;30;;;;30;;;;50;;;;;;;20;;77;;;;;;;;65
+;Ubezp. samochodu (miesięcznie);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Konserwacja i naprawy;50 zł;56,0%;28 zł;;;;;;;;;;;;;;;7;;;;;;;;;;;;;;;;21
+;Bilety miesięczne;5 zł;24,0%;1 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1;
+;Inne (bilety lotnicze itp.);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+4. UBEZPIECZENIE;Ubezpieczenie (na życie, medyczne);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Inne;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+5. DŁUG;Kredyt (ratalny, samochodowy itp.);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Pożyczka / zadłużenie na karcie kredytowej;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Inne (dług od rodziny, znajomych itp.);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+6. ROZRYWKA I REKREACJA;Restauracja / jedzenie poza domem;250 zł;219,9%;550 zł;;88;;;;;65;;;39;57;;10;;18;;;;;;;38;78;;;;;;;132;25
+;Wyjazdy i podróże;50 zł;21,4%;11 zł;;;;;;;;;;11;;;;;;;;;;;;;;;;;;;;;
+;Wakacje;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Zwierzęta;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Hobby / Sport / Muzyka;100 zł;140,0%;140 zł;;;;;;;;;;;;;;;;;;;;;;;;;;140;;;;;
+;Inne (kino, teatr, CD, DVD;0 zł;50,0%;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+7. UBRANIA;Ubrania;200 zł;165,5%;331 zł;;;;;;;;;;;;;;;;;;;;;;;331;;;;;;;;
+8. OSZCZĘDNOŚCI;Przyszła edukacja dzieci;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Program emerytalny / IKE / ….;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Oszczędności bieżące;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Oszczęd. na duże zakupy (samochód, meble ..);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Inne (np..wydatki okresowe );0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+9. ZDROWIE I OPIEKA MEDYCZNA;Lekarz / dentysta / …..;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Lekarstwa;100 zł;26,8%;27 zł;;;;;;;;;;;;;;;;;;;;;27;;;;;;;;;;
+10. EDUKACJA;Czesne / Przedszkole;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Materiały szkolne;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Opieka nad dzieckiem;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Zajęcia pozalekcyjne i inne;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+11. POZOSTAŁE;Książki i prasa;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Prezenty (także świąteczne);200 zł;196,9%;394 zł;;;;271;123;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Kieszonkowe (mąż, żona, dzieci);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Organizacje charytatywne, kościół itp.;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Higiena osobista (fryzjer, kosmetyki itp.);50 zł;152,5%;76 zł;;;;40;26;;;;10;;;;;;;;;;;;;;;;;;;;;;
+;Inne;0 zł;#DIV/0!;2 036 zł;;;;;;;;;;;;2036;;;;;;;;;;;;;;;;;;;
+;Podsumowanie;3 401 zł;XX;7 985 zł;63 ;367 ;65 ;1 033 ;218 ;30 ;65 ;0 ;65 ;80 ;304 ;2 044 ;14 ;63 ;25 ;0 ;54 ;16 ;338 ;142 ;135 ;924 ;521 ;0 ;725 ;400 ;5 ;31 ;2 ;133 ;125 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;DOCHODY MIESIĘCZNE;Plan;% planu;Kwota;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;DOCHÓD  NETTO - wynagrodzenie, pensja;5 563,18 zł;100,0%;5 563,18 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;INNY DOCHÓD  np. z działalności, dywidenda, premia itp.;0,00 zł;#DIV/0!;500,00 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Dochód z inwestycji, odsetki;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Suma Dochodów;5 563,18 zł;109,0%;6 063,18 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;ZESTAWIENIE;Plan;% planu;Kwota;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Dochody mies;5 563,18 zł;109,0%;6 063,18 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Wydatki mies;3 401,00 zł;234,8%;7 985,48 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;NADWYŻKA/DEFICYT;2 162,18 zł;-88,9%;-1 922,30 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
