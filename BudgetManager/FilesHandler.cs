@@ -19,7 +19,7 @@ namespace BudgetManager
             var files = Directory.GetFiles(pathToHistoricalFolder);
             foreach (var file in files)
             {
-                if (file != "dictionary.csv")
+                if (Path.GetFileNameWithoutExtension(file) != "dictionary")
                 {
                     ReadHistoricalFile(file, dictionary);
                 }
