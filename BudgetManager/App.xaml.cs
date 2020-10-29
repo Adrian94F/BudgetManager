@@ -17,13 +17,12 @@ namespace BudgetManager
         protected void LoadData()
         {
             filesHandler = new FilesHandler();
-            filesHandler.ReadSavedDatabase();
-            filesHandler.ReadHistoricalData();
+            filesHandler.ReadData();
 
         }
         protected void SaveData()
         {
-            filesHandler.SaveDatabase();
+            filesHandler.SaveData();
         }
 
         protected override void OnStartup(StartupEventArgs e)

@@ -9,11 +9,14 @@
     <Grid Margin="0,0,0,0" >
         <TabControl Margin="10,0,10,24">
             <TabItem Header="Dziennik do odpuskwiania">
-                <ScrollViewer Margin="0,0,0,0" PanningMode="Both">
-                    <Grid>
-                        <TextBlock x:Name="debug_log_text_block" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10" Margin="10" />
-                    </Grid>
-                </ScrollViewer>
+                <Grid>
+                    <Image Height="100" Width="100" Source="jew.png" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.5" Margin="0,0,20,0"/>
+                    <ScrollViewer x:Name="logScrollViewer" Margin="0,0,0,0" PanningMode="Both">
+                        <Grid>
+                            <TextBlock x:Name="debugLogTextBlock" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10" Margin="10" />
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
             </TabItem>
             <TabItem Header="Tabela">
                 <Grid>
@@ -23,7 +26,7 @@
                     <Button Content="Poprzedni" HorizontalAlignment="Right" Margin="0,10,90,0" VerticalAlignment="Top" Width="75"/>
                 <Button Content="Następny" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="75"/>
                     <ScrollViewer Margin="0,35,0,0" PanningMode="Both">
-                        <Grid>
+                        <Grid x:Name="dataGrid">
                             
                         </Grid>
                     </ScrollViewer>

@@ -20,10 +20,21 @@ namespace BudgetManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        private BillingPeriod currentPeriod = DataSet.billingPeriods.Last();
+
+
         public MainWindow()
         {
             InitializeComponent();
             PrintDataAsText();
+            PrintBillingPeriodTable();
+        }
+
+
+        private void PrintBillingPeriodTable()
+        {
+            log("Wyświetlanie okresu rozliczeniowego w tabeli (początek: " + currentPeriod.startDate.ToString() + ")");
+            dataGrid = currentPeriod.GetGrid();
         }
 
         private void PrintDataAsText()
@@ -32,25 +43,30 @@ namespace BudgetManager
 
             // print categories
             str += "Liczba kategorii: " + Convert.ToString(DataSet.expenseCategories.Count) + "\n";
-            var count = 0;
             foreach (var category in DataSet.expenseCategories)
             {
-                str += "    " + Convert.ToString(++count) + ". " + category.name + "\n";
+                str += category.name + "   ";
             }
+            str += "\n\n";
 
             // print periods
-            str += "\nLiczba okresów rozliczeniowych: " + Convert.ToString(DataSet.billingPeriods.Count) + "\n";
-            count = 0;
+            str += "Liczba okresów rozliczeniowych: " + Convert.ToString(DataSet.billingPeriods.Count) + "\n";
             foreach (var period in DataSet.billingPeriods)
             {
-                str += "    " + Convert.ToString(++count) + ". od " + period.startDate + ", dochód: " + period.netIncome.ToString() + "zł (+" + period.additionalIncome.ToString() + "zł)\n";
+                str += " " + period.startDate + ", dochód: " + period.netIncome.ToString() + "zł (+" + period.additionalIncome.ToString() + "zł)\n";
                 foreach (var exp in period.expenses)
                 {
-                    str += "            " + exp.date + " " + exp.value.ToString() + "zł (" + exp.category.name + ")\n";
+                    str += "  " + exp.date + " " + exp.value.ToString() + "zł (" + exp.category.name + ")\n";
                 }
             }
 
-            debug_log_text_block.Text += str;
+            log(str);
+        }
+
+        private void log(string txt)
+        {
+            debugLogTextBlock.Text += txt + "\n";
+            logScrollViewer.ScrollToEnd();
         }
     }
 }

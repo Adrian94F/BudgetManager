@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Automation.Peers;
 using System.Data;
 using System.Globalization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BudgetManager
 {
@@ -62,7 +63,7 @@ namespace BudgetManager
             {
                 // check if category exists - if not, create (based on dictionary) new one
                 var categoryFromFile = fileData[row][categoryColumn];
-                if (categoryFromFile == "")
+                if (categoryFromFile == "Podsumowanie")
                 {
                     break;
                 }
@@ -77,16 +78,30 @@ namespace BudgetManager
                 }
                 if (category == null)
                 {
-                    var newCategory = new ExpenseCategory();
-                    newCategory.name = categoryFromFile;
-                    DataSet.expenseCategories.Add(newCategory);
+                    category = new ExpenseCategory();
+                    category.name = categoryFromFile;
+                    DataSet.expenseCategories.Add(category);
                 }
 
                 for (var col = dataStartColumn; col < fileData[row].Length; col++)
                 {
                     // read expenses based on day in the top row
+                    var value = fileData[row][col];
+                    if (value == "" || value == "0")
+                    {
+                        continue;
+                    }
+                    var decimalValue = decimal.Parse(value);
 
+                    var exp = new Expense();
+                    exp.category = category;
+                    exp.value = decimalValue;
+                    exp.comment = "imported";
 
+                    var dayOfPeriod = col - dataStartColumn;
+                    exp.date = period.startDate.AddDays(dayOfPeriod);
+
+                    period.expenses.Add(exp);
                 }
 
                 // read income
@@ -103,10 +118,31 @@ namespace BudgetManager
         }
 
 
-        public void ReadSavedDatabase()
-        { }
+        public void ReadData()
+        {
+            ReadHistoricalData();
+            //ReadSerialized();
+        }
 
-        public void SaveDatabase()
-        { }
+        private void ReadSerialized()
+        {
+            var formatter = new BinaryFormatter();
+            var stream = new FileStream("categories.txt", FileMode.Open, FileAccess.Read);
+            var categories = (HashSet<ExpenseCategory>)formatter.Deserialize(stream);
+            DataSet.expenseCategories = categories;
+            stream = new FileStream("periods.txt", FileMode.Open, FileAccess.Read);
+            var periods = (SortedSet<BillingPeriod>)formatter.Deserialize(stream);
+            DataSet.billingPeriods = periods;
+        }
+
+        public void SaveData()
+        {
+            var formatter = new BinaryFormatter();
+            var stream = new FileStream("categories.txt", FileMode.Create, FileAccess.Write);
+            formatter.Serialize(stream, DataSet.expenseCategories);
+            stream.Close(); stream = new FileStream("periods.txt", FileMode.Create, FileAccess.Write);
+            formatter.Serialize(stream, DataSet.billingPeriods);
+            stream.Close();
+        }
     }
 }

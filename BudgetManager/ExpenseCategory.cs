@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BudgetManager
 {
+    [Serializable]
     class ExpenseCategory
     {
         public string name;

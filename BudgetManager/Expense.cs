@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BudgetManager
 {
+    [Serializable]
     class Expense
     {
         public DateTime date;
