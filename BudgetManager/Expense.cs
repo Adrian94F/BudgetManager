@@ -8,9 +8,9 @@ namespace BudgetManager
 {
     class Expense
     {
-        DateTime date;
-        decimal value;
-        string comment;
-        ExpenseCategory category;
+        public DateTime date;
+        public decimal value;
+        public string comment;
+        public ExpenseCategory category;
     }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Automation.Peers;
 using System.Data;
+using System.Globalization;
 
 namespace BudgetManager
 {
@@ -15,48 +16,92 @@ namespace BudgetManager
         readonly string pathToHistoricalFolder = "..\\..\\import data";
         public void ReadHistoricalData()
         {
-            var dictionary = this.ReadDictionary();
             var files = Directory.GetFiles(pathToHistoricalFolder);
             foreach (var file in files)
             {
-                if (Path.GetFileNameWithoutExtension(file) != "dictionary")
-                {
-                    ReadHistoricalFile(file, dictionary);
-                }
+                ReadHistoricalFile(file);
             }
         }
 
-        void ReadHistoricalFile(string path, KeyValuePair<string, string> dictionary)
+        List<string[]> ReadCsvToArray(string path)
         {
-            var dayRow = 1;
+            var ret = new List<string[]>();
+            var reader = new StreamReader(File.OpenRead(path));
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var splitted = line.Split(';');
+                ret.Add(splitted);
+            }
+            return ret;
+        }
+
+        void ReadHistoricalFile(string path)
+        {
             var dataStartRow = 2;
             var categoryColumn = 1;
             var dataStartColumn = 5;
+            var incomeCol = 4;
+            var netIncomeRow = 48;
+            var addIncomeRow = 49;
 
             // add billing period based on filename
-            var name = Path.GetFileNameWithoutExtension(path);
-            Console.Write(path);
-            DateTime date = Convert.ToDateTime(name);
             var period = new BillingPeriod();
+
+            var name = Path.GetFileNameWithoutExtension(path);
+            var date = Convert.ToDateTime(name);
             period.startDate = date;
+            period.expenses = new HashSet<Expense>();
 
-            DataSet.billingPeriods.Add(period);
 
-            // open the file
-            // csv to table of strings
+            // read csv to array
+            var fileData = ReadCsvToArray(path);
+
             // for every row with category
-            // check if category exists - if not, create (based on dictionary) new one
-            // read expenses based on day in the top row
+            for (var row = dataStartRow; row < fileData.Count; row++)
+            {
+                // check if category exists - if not, create (based on dictionary) new one
+                var categoryFromFile = fileData[row][categoryColumn];
+                if (categoryFromFile == "")
+                {
+                    break;
+                }
+                ExpenseCategory category = null;
+                foreach (var cat in DataSet.expenseCategories)
+                {
+                    if (cat.name == categoryFromFile)
+                    {
+                        category = cat;
+                        break;
+                    }
+                }
+                if (category == null)
+                {
+                    var newCategory = new ExpenseCategory();
+                    newCategory.name = categoryFromFile;
+                    DataSet.expenseCategories.Add(newCategory);
+                }
+
+                for (var col = dataStartColumn; col < fileData[row].Length; col++)
+                {
+                    // read expenses based on day in the top row
+
+
+                }
+
+                // read income
+                var netIncome = fileData[netIncomeRow][incomeCol];
+                netIncome = netIncome != "" ? netIncome : "0";
+                var addIncome = fileData[addIncomeRow][incomeCol];
+                addIncome = addIncome != "" ? addIncome : "0";
+                period.netIncome = decimal.Parse(netIncome, NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
+                period.additionalIncome = decimal.Parse(addIncome, NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
+            }
+
+            // add period
+            DataSet.billingPeriods.Add(period);
         }
 
-        KeyValuePair<string, string> ReadDictionary()
-        {
-            var dict = new KeyValuePair<string, string>();
-
-            // TODO
-
-            return dict;
-        }
 
         public void ReadSavedDatabase()
         { }

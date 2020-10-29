@@ -8,7 +8,7 @@ namespace BudgetManager
 {
     class ExpenseCategory
     {
-        string name;
-        ExpenseCategory parent;
+        public string name;
+        public ExpenseCategory parent;
     }
 }
