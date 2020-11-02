@@ -10,7 +10,7 @@
         <TabControl Margin="10,0,10,10">
             <TabItem Header="Dziennik do odpuskwiania">
                 <Grid>
-                    <Image Height="100" Width="100" Source="jew.png" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.5" Margin="0,0,20,0"/>
+                    <Image Height="255" Width="255" Source="jew.png" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.3" Margin="0,0,20,0" RenderOptions.BitmapScalingMode="Fant"/>
                     <ScrollViewer x:Name="logScrollViewer" Margin="0,0,0,0" PanningMode="Both">
                         <Grid>
                             <TextBlock x:Name="debugLogTextBlock" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10" Margin="10" />
