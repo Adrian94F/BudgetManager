@@ -1,0 +1,61 @@
+﻿;Wydatki dzienne w miesiącu ;"W arkuszach wpisujemy wydatki w poszczególnych dniach miasiąca. Dopiero po wpisaniu zaplanowanej kwoty do wydania w kolumnie ""PLAN"" pojawi się informacja w kolumnie ""%PLANU"" ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Kategoria ;Miesięczne wydatki na życie;Plan ;% planu;Suma;19;20;21;22;23;24;25;26;27;28;29;30;31;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18
+1. MIESZKANIE;Rata kredytu lub czynsz najmu;430 zł;100,0%;430 zł;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14;14
+;Opłaty (gaz, energia, woda itp.);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Środki czystości;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Abonament TV / kablówka;71 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Konserwacja / dekoracja;500 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Telefony (stacjonarny, komórka);114 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Inne (ubezp. Nieruchmości, podatek itp.);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+2. ŻYWNOŚĆ;Artykuły spożywcze;600 zł;72,2%;433 zł;68;;16;18;18;9;9;37;178;2;28;50;;;;;;;;;;;;;;;;;;;
+3. TRANSPORT;Paliwo;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Ubezp. samochodu (miesięcznie);643 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Konserwacja i naprawy;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Bilety miesięczne;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Inne (bilety lotnicze itp.);18 zł;23,0%;4 zł;;;;;;;;4;;;;;;;;;;;;;;;;;;;;;;;
+4. UBEZPIECZENIE;Ubezpieczenie (na życie, medyczne);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Inne;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+5. DŁUG;Kredyt (ratalny, samochodowy itp.);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Pożyczka / zadłużenie na karcie kredytowej;493 zł;100,0%;493 zł;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16
+;Inne (dług od rodziny, znajomych itp.);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+6. ROZRYWKA I REKREACJA;Restauracja / jedzenie poza domem;900 zł;21,9%;197 zł;;48;5;34;;30;54;16;-18;;;29;;;;;;;;;;;;;;;;;;;
+;Wyjazdy i podróże;50 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Wakacje;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Zwierzęta;300 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Hobby / Sport / Muzyka;50 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Inne (kino, teatr, CD, DVD;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+7. UBRANIA;Ubrania;200 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+8. OSZCZĘDNOŚCI;Przyszła edukacja dzieci;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Program emerytalny / IKE / ….;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Oszczędności bieżące;500 zł;100,0%;500 zł;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16;16
+;Oszczęd. na duże zakupy (samochód, meble ..);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Inne (np..wydatki okresowe );0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+9. ZDROWIE I OPIEKA MEDYCZNA;Lekarz / dentysta / …..;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Lekarstwa;120 zł;93,9%;113 zł;95;;;;;;;14;4;;;;;;;;;;;;;;;;;;;;;;
+10. EDUKACJA;Czesne / Przedszkole;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Materiały szkolne;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Opieka nad dzieckiem;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Zajęcia pozalekcyjne i inne;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+11. POZOSTAŁE;Książki i prasa;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Prezenty (także świąteczne);100 zł;250,0%;250 zł;;250;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Kieszonkowe (mąż, żona, dzieci);0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Organizacje charytatywne, kościół itp.;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Higiena osobista (fryzjer, kosmetyki itp.);100 zł;34,5%;35 zł;;;;;21;;;14;;;;;;;;;;;;;;;;;;;;;;;
+;Inne;0 zł;;0 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Podsumowanie;5 189 zł;XX;2 455 zł;208 ;344 ;67 ;98 ;84 ;85;109 ;131 ;210 ;48 ;74 ;125 ;46;46;46 ;46 ;46 ;46 ;46 ;46;46;46 ;46 ;46 ;46 ;46 ;46;46;46 ;46 ;46 
+;;;;Pozostało;5115;4771;4704;4606;4522;4437;4328;4198;3987;3940;3865;3741;3695;3649;3603;3557;3511;3465;3419;3373;3327;3281;3236;3190;3144;3098;3052;3006;2960;2914;2868
+;;;;Pozostało (plan);5115;4947;4780;4613;4445;4278;4110;3943;3776;3608;3441;3273;3106;2939;2771;2604;2437;2269;2102;1934;1767;1600;1432;1265;1097;930;763;595;428;260;93
+;DOCHODY MIESIĘCZNE;Plan;% planu;Kwota;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31
+;DOCHÓD  NETTO - wynagrodzenie, pensja;5 323,18 zł;100,0%;5 323,18 zł;;;;;;;;;;;;5678;;;;;;;;;;;;;;;;;;;
+;INNY DOCHÓD  np. z działalności, dywidenda, premia itp.;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Dochód z inwestycji, odsetki;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Suma Dochodów;5 323,18 zł;100,0%;5 323,18 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;ZESTAWIENIE;Plan;% planu;Kwota;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Dochody mies;5 323,18 zł;100,0%;5 323,18 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Wydatki mies;5 189,03 zł;47,3%;2 454,82 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;NADWYŻKA/DEFICYT;134,15 zł;2138,2%;2 868,36 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Zostało dni:;;;20;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Szacowany maksymalny wydatek na dzień:;;;143,42 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Szacowana maksymalna suma na dzień:;;;216,03 zł;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

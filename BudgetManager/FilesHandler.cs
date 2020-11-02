@@ -15,6 +15,8 @@ namespace BudgetManager
     class FilesHandler
     {
         readonly string pathToHistoricalFolder = "..\\..\\import data";
+        readonly string pathToCategories = "categories.data";
+        readonly string pathToPeriods = "periods.data";
         public void ReadHistoricalData()
         {
             var files = Directory.GetFiles(pathToHistoricalFolder);
@@ -22,6 +24,8 @@ namespace BudgetManager
             {
                 ReadHistoricalFile(file);
             }
+            SetAdditionalData();
+
         }
 
         List<string[]> ReadCsvToArray(string path)
@@ -35,6 +39,19 @@ namespace BudgetManager
                 ret.Add(splitted);
             }
             return ret;
+        }
+
+
+        void SetAdditionalData()
+        {
+            for (var i = 0; i < DataSet.billingPeriods.Count - 1; i++)
+            {
+                DataSet.billingPeriods.ElementAt(i).endDate = DataSet.billingPeriods.ElementAt(i + 1).startDate - TimeSpan.FromDays(1);
+            }
+            var typicalEndDay = 18;
+            var endYear = DataSet.billingPeriods.Last().startDate.Year;
+            var endMonth = DataSet.billingPeriods.Last().startDate.AddMonths(1).Month;
+            DataSet.billingPeriods.Last().endDate = new DateTime(endYear, endMonth, typicalEndDay);
         }
 
         void ReadHistoricalFile(string path)
@@ -51,6 +68,8 @@ namespace BudgetManager
 
             var name = Path.GetFileNameWithoutExtension(path);
             var date = Convert.ToDateTime(name);
+
+            // set start date of current period
             period.startDate = date;
             period.expenses = new HashSet<Expense>();
 
@@ -120,27 +139,35 @@ namespace BudgetManager
 
         public void ReadData()
         {
+            DataSet.billingPeriods = new SortedSet<BillingPeriod>();
+            DataSet.expenseCategories = new HashSet<ExpenseCategory>();
+
             ReadHistoricalData();
             //ReadSerialized();
         }
 
         private void ReadSerialized()
         {
+            if (!File.Exists(pathToCategories) || !File.Exists(pathToPeriods))
+            {
+                return;
+            }
+
             var formatter = new BinaryFormatter();
-            var stream = new FileStream("categories.txt", FileMode.Open, FileAccess.Read);
+            var stream = new FileStream(pathToCategories, FileMode.Open, FileAccess.Read);
             var categories = (HashSet<ExpenseCategory>)formatter.Deserialize(stream);
-            DataSet.expenseCategories = categories;
-            stream = new FileStream("periods.txt", FileMode.Open, FileAccess.Read);
+            DataSet.expenseCategories.UnionWith(categories);
+            stream = new FileStream(pathToPeriods, FileMode.Open, FileAccess.Read);
             var periods = (SortedSet<BillingPeriod>)formatter.Deserialize(stream);
-            DataSet.billingPeriods = periods;
+            DataSet.billingPeriods.UnionWith(periods);
         }
 
         public void SaveData()
         {
             var formatter = new BinaryFormatter();
-            var stream = new FileStream("categories.txt", FileMode.Create, FileAccess.Write);
+            var stream = new FileStream(pathToCategories, FileMode.Create, FileAccess.Write);
             formatter.Serialize(stream, DataSet.expenseCategories);
-            stream.Close(); stream = new FileStream("periods.txt", FileMode.Create, FileAccess.Write);
+            stream.Close(); stream = new FileStream(pathToPeriods, FileMode.Create, FileAccess.Write);
             formatter.Serialize(stream, DataSet.billingPeriods);
             stream.Close();
         }

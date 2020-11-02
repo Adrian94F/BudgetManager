@@ -20,21 +20,39 @@ namespace BudgetManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        private BillingPeriod currentPeriod = DataSet.billingPeriods.Last();
+        private BillingPeriod currentPeriod;
 
 
         public MainWindow()
         {
             InitializeComponent();
+            SetupVariables();
             PrintDataAsText();
             PrintBillingPeriodTable();
         }
 
 
+        private void SetupVariables()
+        {
+            if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
+            {
+                currentPeriod = DataSet.billingPeriods.Last();
+            }
+        }
+
+
         private void PrintBillingPeriodTable()
         {
-            log("Wyświetlanie okresu rozliczeniowego w tabeli (początek: " + currentPeriod.startDate.ToString() + ")");
-            dataGrid = currentPeriod.GetGrid();
+            if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
+            {
+                Log("Wyświetlanie okresu rozliczeniowego w tabeli (początek: " + currentPeriod.startDate.ToString() + ")");
+                dataGrid.Children.Clear();
+                currentPeriod.SetGrid(dataGrid);
+            }
+            else
+            {
+                Log("nie znaleziono okresu rozliczeniowego");
+            }
         }
 
         private void PrintDataAsText()
@@ -45,7 +63,7 @@ namespace BudgetManager
             str += "Liczba kategorii: " + Convert.ToString(DataSet.expenseCategories.Count) + "\n";
             foreach (var category in DataSet.expenseCategories)
             {
-                str += category.name + "   ";
+                str += " [" + category.name + "]";
             }
             str += "\n\n";
 
@@ -53,17 +71,19 @@ namespace BudgetManager
             str += "Liczba okresów rozliczeniowych: " + Convert.ToString(DataSet.billingPeriods.Count) + "\n";
             foreach (var period in DataSet.billingPeriods)
             {
-                str += " " + period.startDate + ", dochód: " + period.netIncome.ToString() + "zł (+" + period.additionalIncome.ToString() + "zł)\n";
+                str += " " + period.startDate.ToShortDateString() + "-" + period.endDate.ToShortDateString() + " (" + ((period.endDate - period.startDate).Days + 1) + " dni), dochód: " + period.netIncome.ToString() + "zł (+" + period.additionalIncome.ToString() + "zł)\n  ";
                 foreach (var exp in period.expenses)
                 {
-                    str += "  " + exp.date + " " + exp.value.ToString() + "zł (" + exp.category.name + ")\n";
+                    //str += " [" + exp.date.ToShortDateString() + ", " + exp.value.ToString() + "zł, " + exp.category.name + "]";
+                    str += ".";
                 }
+                str += "\n";
             }
 
-            log(str);
+            Log(str);
         }
 
-        private void log(string txt)
+        public void Log(string txt)
         {
             debugLogTextBlock.Text += txt + "\n";
             logScrollViewer.ScrollToEnd();
