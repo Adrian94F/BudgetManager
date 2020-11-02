@@ -47,7 +47,7 @@ namespace BudgetManager
             {
                 Log("Wyświetlanie okresu rozliczeniowego w tabeli (początek: " + currentPeriod.startDate.ToString() + ")");
                 dataGrid.Children.Clear();
-                currentPeriod.SetGrid(dataGrid);
+                BillingPeriodGridCreator.createGridForBillingPeriod(dataGrid, currentPeriod);
             }
             else
             {
