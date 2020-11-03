@@ -40,14 +40,19 @@ namespace BudgetManager
             }
         }
 
+        private void DataScrolViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            HeaderDaysScrolViewer.ScrollToHorizontalOffset(e.HorizontalOffset);
+            VerticalScrolViewer.ScrollToVerticalOffset(e.VerticalOffset);
+        }
+
 
         private void PrintBillingPeriodTable()
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
                 Log("Wyświetlanie okresu rozliczeniowego w tabeli (początek: " + currentPeriod.startDate.ToString() + ")");
-                dataGrid.Children.Clear();
-                BillingPeriodGridCreator.createGridForBillingPeriod(dataGrid, currentPeriod);
+                BillingPeriodGridCreator.CreateMultigridTable(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, currentPeriod);
             }
             else
             {

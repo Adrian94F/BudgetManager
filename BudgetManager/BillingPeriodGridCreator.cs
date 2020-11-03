@@ -3,94 +3,94 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BudgetManager
 {
     static class BillingPeriodGridCreator
     {
-        public static void createGridForBillingPeriod(Grid grid, BillingPeriod period)
+        public static void CreateMultigridTable(Grid header, Grid categories, Grid expenses, BillingPeriod period)
         {
-            SetGridColors(grid, period);
-            SetGridText(grid, period);
+            CreateHeaderGrid(header, period);
+            CreateVerticalGrid(categories);
+            CreateExpensesDataGrid(expenses, period);
         }
 
-        static private void SetGridColors(Grid grid, BillingPeriod period)
+        private static void AddColumnDefinitionsForDays(Grid grid, int numOfDays)
         {
-
-        }
-
-        static private void SetGridText(Grid grid, BillingPeriod period)
-        {
-            // column definitions
-            var numOfDays = (period.endDate - period.startDate).Days + 1;
-            var numOfCols = numOfDays + 2;  // category, sum, days
-            for (var i = 0; i < numOfCols; i++)
+            for (var i = 0; i < numOfDays; i++)
             {
+                // add column definition
                 var colDef = new ColumnDefinition();
                 colDef.MinWidth = 40;
                 grid.ColumnDefinitions.Add(colDef);
             }
+        }
 
-            // row definitions
+        private static void AddRowDefinitionsForCategories(Grid grid)
+        {
             var numOfCategories = DataSet.expenseCategories.Count;
-            var numOfRows = numOfCategories + 2;  // title row, categories, sum
-            for (var i = 0; i < numOfRows; i++)
+            for (var i = 0; i < numOfCategories; i++)
             {
                 var rowDef = new RowDefinition();
-                rowDef.MinHeight = 16;
+                rowDef.MinHeight = 18;
                 grid.RowDefinitions.Add(rowDef);
             }
+        }
 
-            // title row
-            AddTextToGrid("Kategoria", 0, 0, grid);
-            AddTextToGrid("Suma", 0, 1, grid);
+        private static void CreateHeaderGrid(Grid grid, BillingPeriod period)
+        {
+            // column definitions
+            var numOfDays = (period.endDate - period.startDate).Days + 1;
+            AddColumnDefinitionsForDays(grid, numOfDays);
+
+            // text
             for (var i = 0; i < numOfDays; i++)
             {
-                AddTextToGrid(period.startDate.AddDays(i).Day.ToString(), 0, i + 2, grid);
+                AddTextToGrid(period.startDate.AddDays(i).ToString("d.MM"), 0, i, grid);
             }
+        }
 
-            // categories
+        private static void CreateVerticalGrid(Grid grid)
+        {
+            // row definitions
+            AddRowDefinitionsForCategories(grid);
+
+            // text
+            for (var i = 0; i < DataSet.expenseCategories.Count; i++)
+            {
+                var category = DataSet.expenseCategories.ElementAt(i);
+                AddTextToGrid(category.name, i, 0, grid);
+            }
+        }
+
+        private static void CreateExpensesDataGrid(Grid grid, BillingPeriod period)
+        {
+            // column & row definitions
+            var numOfDays = (period.endDate - period.startDate).Days + 1;
+            AddColumnDefinitionsForDays(grid, numOfDays);
+            AddRowDefinitionsForCategories(grid);
+
+            // text
+            var numOfCategories = DataSet.expenseCategories.Count;
             for (var i = 0; i < numOfCategories; i++)
             {
                 var category = DataSet.expenseCategories.ElementAt(i);
-
-                // name
-                AddTextToGrid(category.name, i + 1, 0, grid);
-
-                // sum
-                var catSum = period.GetSumOfExpensesOfCategory(category);
-                AddTextToGrid(catSum.ToString(), i + 1, 1, grid);
-
-                // expenses
                 for (var j = 0; j < numOfDays; j++)
                 {
                     var sum = period.GetSumOfExpensesOfCategoryAndDate(category, period.startDate.AddDays(j));
-                    AddTextToGrid(sum.ToString(), i + 1, j + 2, grid);
+                    AddTextToGrid(sum.ToString(), i, j, grid);
                 }
             }
-
-            // sum row
-            var sumRow = numOfRows - 1;
-            AddTextToGrid("Suma", sumRow, 0, grid);
-            AddTextToGrid(period.GetSumOfExpenses().ToString(), sumRow, 1, grid);
-            for (var i = 0; i < numOfDays; i++)
-            {
-                var date = period.startDate.AddDays(i);
-                var sum = period.GetSumOfExpensesOfDate(date);
-                AddTextToGrid(sum.ToString(), sumRow, i + 2, grid);
-            }
-
-            // sum column
-
         }
 
-
-        static private void AddTextToGrid(string text, int row, int col, Grid grid)
+        private static void AddTextToGrid(string text, int row, int col, Grid grid)
         {
             var textBlock = new TextBlock
             {
-                Text = text
+                Text = text,
+                FontSize = 12
             };
             Grid.SetRow(textBlock, row);
             Grid.SetColumn(textBlock, col);
