@@ -20,7 +20,7 @@ namespace BudgetManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        private BillingPeriod currentPeriod;
+        private int currentPeriod;
 
 
         public MainWindow()
@@ -29,20 +29,40 @@ namespace BudgetManager
             SetupVariables();
             PrintDataAsText();
             PrintBillingPeriodTable();
+            SetupButtons();
         }
 
+        private void SetupButtons()
+        {
+            if (currentPeriod > 0)
+            {
+                EnableButton(BtnPrev);
+            }
+        }
+
+        private void EnableButton(Button btn)
+        {
+            btn.IsEnabled = true;
+            btn.Opacity = 1;
+        }
+
+        private void DisableButton(Button btn)
+        {
+            btn.IsEnabled = false;
+            btn.Opacity = 0.5;
+        }
 
         private void SetupVariables()
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
-                currentPeriod = DataSet.billingPeriods.Last();
+                currentPeriod = DataSet.billingPeriods.Count - 1;
             }
         }
 
         private void DataScrolViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            HeaderDaysScrolViewer.ScrollToHorizontalOffset(e.HorizontalOffset);
+            HeaderDaysScrollViewer.ScrollToHorizontalOffset(e.HorizontalOffset);
             VerticalScrolViewer.ScrollToVerticalOffset(e.VerticalOffset);
         }
 
@@ -51,8 +71,8 @@ namespace BudgetManager
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
-                Log("Wyświetlanie okresu rozliczeniowego w tabeli (początek: " + currentPeriod.startDate.ToString() + ")");
-                BillingPeriodGridCreator.CreateMultigridTable(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, currentPeriod);
+                Log("Wyświetlanie okresu rozliczeniowego w tabeli (początek: " + DataSet.billingPeriods.ElementAt(currentPeriod).startDate.ToString() + ")");
+                BillingPeriodGridCreator.CreateMultiGridTable(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, DataSet.billingPeriods.ElementAt(currentPeriod));
             }
             else
             {
@@ -92,6 +112,34 @@ namespace BudgetManager
         {
             debugLogTextBlock.Text += txt + "\n";
             logScrollViewer.ScrollToEnd();
+        }
+
+        private void BtnPrev_Click(object sender, RoutedEventArgs e)
+        {
+            currentPeriod--;
+            if (currentPeriod == 0)
+            {
+                DisableButton(BtnPrev);
+            }
+            if (!BtnNext.IsEnabled)
+            {
+                EnableButton(BtnNext);
+            }
+            PrintBillingPeriodTable();
+        }
+
+        private void BtnNext_Click(object sender, RoutedEventArgs e)
+        {
+            currentPeriod++;
+            if (currentPeriod == DataSet.billingPeriods.Count - 1)
+            {
+                DisableButton(BtnNext);
+            }
+            if (!BtnPrev.IsEnabled)
+            {
+                EnableButton(BtnPrev);
+            }
+            PrintBillingPeriodTable();
         }
     }
 }

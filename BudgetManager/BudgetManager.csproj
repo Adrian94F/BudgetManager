@@ -127,5 +127,17 @@
   <ItemGroup>
     <Resource Include="Images\jew.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\015-remove.png" />
+    <Resource Include="Images\Icons\018-edit.png" />
+    <Resource Include="Images\Icons\019-add.png" />
+    <Resource Include="Images\Icons\023-remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\next-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\prev-button.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
