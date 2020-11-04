@@ -5,34 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BudgetManager"
         mc:Ignorable="d"
-        Title="Menedżer Budżetu" Height="450" Width="800" MinWidth="600" MinHeight="250">
+        Title="Menedżer Budżetu"
+        Height="450"
+        Width="642"
+        MinWidth="642"
+        MinHeight="300">
     <Grid Margin="0,0,0,0" >
         <TabControl Margin="10,0,10,10">
-            <TabItem Header="Dziennik do odpuskwiania">
-                <Grid>
-                    <Image Height="255"
-                           Width="255"
-                           Source="jew.png"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Bottom"
-                           Opacity="0.3"
-                           Margin="0,0,20,0"
-                           RenderOptions.BitmapScalingMode="Fant"/>
-                    <ScrollViewer x:Name="logScrollViewer" Margin="0,0,0,0" PanningMode="Both">
-                        <Grid>
-                            <TextBlock x:Name="debugLogTextBlock" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10" Margin="10" />
-                        </Grid>
-                    </ScrollViewer>
-                </Grid>
-            </TabItem>
             <TabItem Header="Tabela">
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="44" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="80" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
                     <Button x:Name="BtnAdd"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            Margin="10,10,0,0"
                             IsEnabled="False"
-                            Opacity="0.5">
+                            Opacity="0.5"
+                            BorderThickness="0"
+                            Background="Transparent"
+                            Margin="7,7,0,0"
+                            Grid.Row="0">
                         <Image Height="30"
                                Width="30"
                                RenderOptions.BitmapScalingMode="Fant"
@@ -41,10 +41,13 @@
                     </Button>
                     <Button x:Name="BtnEdit"
                             HorizontalAlignment="Left"
-                            Margin="49,10,0,0"
+                            Margin="44,7,0,0"
                             VerticalAlignment="Top"
                             IsEnabled="False"
-                            Opacity="0.5">
+                            Opacity="0.5"
+                            BorderThickness="0"
+                            Background="Transparent"
+                            Grid.Row="0">
                         <Image Height="30"
                                Width="30"
                                RenderOptions.BitmapScalingMode="Fant"
@@ -53,10 +56,13 @@
                     </Button>
                     <Button x:Name="BtnDel"
                             HorizontalAlignment="Left"
-                            Margin="88,10,0,0"
+                            Margin="81,7,0,0"
                             VerticalAlignment="Top"
                             IsEnabled="False"
-                            Opacity="0.5">
+                            Opacity="0.5"
+                            BorderThickness="0"
+                            Background="Transparent"
+                            Grid.Row="0">
                         <Image Height="30"
                                Width="30"
                                RenderOptions.BitmapScalingMode="Fant"
@@ -64,11 +70,15 @@
                     </Button>
                     <Button x:Name="BtnPrev"
                             HorizontalAlignment="Right"
-                            Margin="0,10,49,0"
+                            Margin="0,7,44,0"
                             VerticalAlignment="Top"
                             IsEnabled="False"
                             Opacity="0.5"
-                            Click="BtnPrev_Click">
+                            BorderThickness="0"
+                            Background="Transparent"
+                            Click="BtnPrev_Click"
+                            Grid.Row="0"
+                            Grid.Column="1">
                         <Image Height="30"
                                Width="30"
                                RenderOptions.BitmapScalingMode="Fant"
@@ -79,16 +89,20 @@
                             VerticalAlignment="Top"
                             IsEnabled="False"
                             Click="BtnNext_Click"
-                            Margin="0,10,10,0"
-                            Opacity="0.5">
+                            Opacity="0.5"
+                            BorderThickness="0"
+                            Background="Transparent" Margin="0,7,7,0"
+                            Grid.Row="0"
+                            Grid.Column="1">
                         <Image Height="30"
                                Width="30"
                                RenderOptions.BitmapScalingMode="Fant"
                                Source="Images/Icons/next-button.png"/>
                     </Button>
 
-                    <Grid x:Name="scrolledDataGrid"
-                          Margin="0,49,0,0">
+                    <Grid Margin="0,0,0,5"
+                          Grid.Row="1"
+                          Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="16" />
                             <RowDefinition Height="*" />
@@ -155,6 +169,174 @@
                             </Grid>
                         </ScrollViewer>
                     </Grid>
+
+                    <Grid x:Name="SummaryGrid"
+                          VerticalAlignment="Bottom"
+                          Height="80"
+                          Grid.Row="2"
+                          Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="16" />
+                            <RowDefinition Height="16" />
+                            <RowDefinition Height="16" />
+                            <RowDefinition Height="16" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Rectangle Grid.RowSpan="5"
+                                   Fill="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
+                        <Rectangle Grid.Column="1"
+                                   Grid.Row="2"
+                                   Grid.RowSpan="3"
+                                   Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+                        <Rectangle Grid.Column="2"
+                                   Grid.RowSpan="5"
+                                   Fill="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
+                        <Rectangle Grid.Column="3"
+                                   Grid.RowSpan="5"
+                                   Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Margin="3,0,0,0"
+                            Grid.Row="0"
+                            TextWrapping="Wrap"
+                            Text="Dochód netto"
+                            VerticalAlignment="Bottom"/>
+                        <TextBlock x:Name="NetIncomeTextBlock"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,3,0"
+                            TextWrapping="Wrap"
+                            TextAlignment="Right"
+                            Text="...zł"
+                            VerticalAlignment="Top"/>
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Margin="3,0,0,0"
+                            Grid.Row="1"
+                            TextWrapping="Wrap"
+                            Text="Inny dochód"
+                            VerticalAlignment="Bottom"/>
+                        <TextBlock x:Name="AddIncomeTextBlock"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,3,0"
+                            TextWrapping="Wrap"
+                            TextAlignment="Right"
+                            Text="...zł"
+                            VerticalAlignment="Top"/>
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Margin="3,0,0,0"
+                            Grid.Row="2"
+                            TextWrapping="Wrap"
+                            Text="Suma dochodów"
+                            VerticalAlignment="Bottom"/>
+                        <TextBlock x:Name="IncomeSumTextBlock"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,3,0"
+                            TextWrapping="Wrap"
+                            TextAlignment="Right"
+                            Text="...zł"
+                            VerticalAlignment="Top"/>
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Margin="3,0,0,0"
+                            Grid.Row="3"
+                            TextWrapping="Wrap"
+                            Text="Suma wydatków"
+                            VerticalAlignment="Bottom"/>
+                        <TextBlock x:Name="ExpensesSumTextBlock"
+                            Grid.Column="1"
+                            Grid.Row="3"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,3,0"
+                            TextWrapping="Wrap"
+                            TextAlignment="Right"
+                            Text="...zł"
+                            VerticalAlignment="Top"/>
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Margin="3,0,0,0"
+                            Grid.Row="4"
+                            TextWrapping="Wrap"
+                            Text="Bilans"
+                            VerticalAlignment="Bottom"/>
+                        <TextBlock x:Name="BalanceTextBlock"
+                            Grid.Column="1"
+                            Grid.Row="4"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,3,0"
+                            TextWrapping="Wrap"
+                            TextAlignment="Right"
+                            Text="...zł"
+                            VerticalAlignment="Top"/>
+
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Margin="3,0,0,0"
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            TextWrapping="Wrap"
+                            Text="Pozostałe dni"
+                            VerticalAlignment="Bottom"/>
+                        <TextBlock x:Name="DaysLeftTextBlock"
+                            Grid.Column="3"
+                            Grid.Row="0"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,3,0"
+                            TextWrapping="Wrap"
+                            TextAlignment="Right"
+                            Text="...zł"
+                            VerticalAlignment="Top"/>
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Margin="3,0,0,0"
+                            Grid.Column="2"
+                            Grid.Row="1"
+                            TextWrapping="Wrap"
+                            Text="Szacowany dzienny wydatek"
+                            VerticalAlignment="Bottom"/>
+                        <TextBlock x:Name="EstimatedDailyExpenseTextBlock"
+                            Grid.Column="3"
+                            Grid.Row="1"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,3,0"
+                            TextWrapping="Wrap"
+                            TextAlignment="Right"
+                            Text="...zł"
+                            VerticalAlignment="Top"/>
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Dziennik do odpuskwiania">
+                <Grid>
+                    <Image Height="255"
+                           Width="255"
+                           Source="jew.png"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom"
+                           Opacity="0.3"
+                           Margin="0,0,20,0"
+                           RenderOptions.BitmapScalingMode="Fant"/>
+                    <ScrollViewer x:Name="logScrollViewer" Margin="0,0,0,0" PanningMode="Both">
+                        <Grid>
+                            <TextBlock x:Name="debugLogTextBlock" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10" Margin="10" />
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
             </TabItem>
             <TabItem Header="Wypalenie">

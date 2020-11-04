@@ -12,6 +12,51 @@ namespace BudgetManager
 {
     static class BillingPeriodGridCreator
     {
+        public static void CreateSummary(Grid grid, BillingPeriod period)
+        {
+            var net = period.netIncome;
+            var add = period.additionalIncome;
+            var incSum = period.netIncome + period.additionalIncome;
+            var expSum = period.GetSumOfExpenses();
+            var balance = incSum - expSum;
+            var daysLeft = (period.endDate - DateTime.Today).Days;
+            var estimatedExpense = Math.Round(balance / daysLeft, 2);
+
+            foreach (var child in grid.Children)
+            {
+                if (child.GetType() == typeof(TextBlock) && ((TextBlock)child).Name != "")
+                {
+                    var textBlock = ((TextBlock)child);
+                    switch (textBlock.Name)
+                    {
+                        case "NetIncomeTextBlock":
+                            textBlock.Text = net.ToString() + " zł";
+                            break;
+                        case "AddIncomeTextBlock":
+                            textBlock.Text = add.ToString() + " zł";
+                            break;
+                        case "IncomeSumTextBlock":
+                            textBlock.Text = incSum.ToString() + " zł";
+                            break;
+                        case "ExpensesSumTextBlock":
+                            textBlock.Text = expSum.ToString() + " zł";
+                            break;
+                        case "BalanceTextBlock":
+                            textBlock.Text = (balance > 0 ? "+" : "") + balance.ToString() + " zł";
+                            break;
+                        case "DaysLeftTextBlock":
+                            textBlock.Text = daysLeft < 0 ? "" : daysLeft.ToString();
+                            break;
+                        case "EstimatedDailyExpenseTextBlock":
+                            textBlock.Text = daysLeft < 0 ? "" : estimatedExpense.ToString() + " zł";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
         public static void CreateMultiGridTable(Grid header, Grid categories, Grid expenses, BillingPeriod period)
         {
             foreach (var grid in new Grid[] { header, categories, expenses })
@@ -97,8 +142,8 @@ namespace BudgetManager
         {
             var textBlock = new TextBlock
             {
-                Text = text,
-                FontSize = 12
+                Text = text//,
+                //FontSize = 12
             };
             Grid.SetRow(textBlock, row);
             Grid.SetColumn(textBlock, col);

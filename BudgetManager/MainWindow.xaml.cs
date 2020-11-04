@@ -29,6 +29,7 @@ namespace BudgetManager
             SetupVariables();
             PrintDataAsText();
             PrintBillingPeriodTable();
+            PrintBillongPeriodSummaryTable();
             SetupButtons();
         }
 
@@ -73,6 +74,19 @@ namespace BudgetManager
             {
                 Log("Wyświetlanie okresu rozliczeniowego w tabeli (początek: " + DataSet.billingPeriods.ElementAt(currentPeriod).startDate.ToString() + ")");
                 BillingPeriodGridCreator.CreateMultiGridTable(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, DataSet.billingPeriods.ElementAt(currentPeriod));
+            }
+            else
+            {
+                Log("nie znaleziono okresu rozliczeniowego");
+            }
+        }
+
+        private void PrintBillongPeriodSummaryTable()
+        {
+            if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
+            {
+                Log("Wyświetlanie podsumowania dla okresu rozliczeniowego w tabeli (początek: " + DataSet.billingPeriods.ElementAt(currentPeriod).startDate.ToString() + ")");
+                BillingPeriodGridCreator.CreateSummary(SummaryGrid, DataSet.billingPeriods.ElementAt(currentPeriod));
             }
             else
             {
@@ -126,6 +140,7 @@ namespace BudgetManager
                 EnableButton(BtnNext);
             }
             PrintBillingPeriodTable();
+            PrintBillongPeriodSummaryTable();
         }
 
         private void BtnNext_Click(object sender, RoutedEventArgs e)
@@ -140,6 +155,7 @@ namespace BudgetManager
                 EnableButton(BtnPrev);
             }
             PrintBillingPeriodTable();
+            PrintBillongPeriodSummaryTable();
         }
     }
 }
