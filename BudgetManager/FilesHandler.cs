@@ -142,8 +142,8 @@ namespace BudgetManager
             DataSet.billingPeriods = new SortedSet<BillingPeriod>();
             DataSet.expenseCategories = new HashSet<ExpenseCategory>();
 
-            ReadHistoricalData();
-            //ReadSerialized();
+            //ReadHistoricalData();
+            ReadSerialized();
         }
 
         private void ReadSerialized()

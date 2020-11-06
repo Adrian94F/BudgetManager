@@ -29,12 +29,6 @@ namespace BudgetManager
                     var textBlock = ((TextBlock)child);
                     switch (textBlock.Name)
                     {
-                        case "NetIncomeTextBlock":
-                            textBlock.Text = net.ToString() + " zł";
-                            break;
-                        case "AddIncomeTextBlock":
-                            textBlock.Text = add.ToString() + " zł";
-                            break;
                         case "IncomeSumTextBlock":
                             textBlock.Text = incSum.ToString() + " zł";
                             break;
@@ -49,6 +43,21 @@ namespace BudgetManager
                             break;
                         case "EstimatedDailyExpenseTextBlock":
                             textBlock.Text = daysLeft < 0 ? "" : estimatedExpense.ToString() + " zł";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if (child.GetType() == typeof(TextBox) && ((TextBox)child).Name != "")
+                {
+                    var textBox = ((TextBox)child);
+                    switch (textBox.Name)
+                    {
+                        case "NetIncomeTextBox":
+                            textBox.Text = net.ToString();
+                            break;
+                        case "AddIncomeTextBox":
+                            textBox.Text = add.ToString();
                             break;
                         default:
                             break;
@@ -133,7 +142,7 @@ namespace BudgetManager
                 for (var j = 0; j < numOfDays; j++)
                 {
                     var sum = period.GetSumOfExpensesOfCategoryAndDate(category, period.startDate.AddDays(j));
-                    AddTextToGrid(sum.ToString(), i, j, grid);
+                    AddButtonToGrid(sum.ToString(), i, j, grid);
                 }
             }
         }
@@ -142,12 +151,30 @@ namespace BudgetManager
         {
             var textBlock = new TextBlock
             {
-                Text = text//,
-                //FontSize = 12
+                Text = text
             };
-            Grid.SetRow(textBlock, row);
-            Grid.SetColumn(textBlock, col);
-            grid.Children.Add(textBlock);
+            AddUIElementToGrid(textBlock, row, col, grid);
+        }
+
+        private static void AddButtonToGrid(string text, int row, int col, Grid grid)
+        {
+            var btn = new Button
+            {
+                Content = text,
+                BorderThickness = new Thickness(0),
+                Background = Brushes.Transparent,
+                MaxHeight = 16,
+                Padding = new Thickness(0)
+            };
+            AddUIElementToGrid(btn, row, col, grid);
+        }
+
+        private static void AddUIElementToGrid(UIElement obj, int row, int col, Grid grid)
+        {
+
+            Grid.SetRow(obj, row);
+            Grid.SetColumn(obj, col);
+            grid.Children.Add(obj);
         }
 
         private static void AddRectangleAt(int row, int col, int rowSpan, int colSpan, Brush fill, double opacity, Grid grid)

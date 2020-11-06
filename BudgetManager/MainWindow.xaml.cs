@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,8 +30,8 @@ namespace BudgetManager
             InitializeComponent();
             SetupVariables();
             PrintDataAsText();
-            PrintBillingPeriodTable();
-            PrintBillongPeriodSummaryTable();
+            FillExpensesTable();
+            FillSummaryTable();
             SetupButtons();
         }
 
@@ -68,7 +70,7 @@ namespace BudgetManager
         }
 
 
-        private void PrintBillingPeriodTable()
+        private void FillExpensesTable()
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
@@ -81,7 +83,7 @@ namespace BudgetManager
             }
         }
 
-        private void PrintBillongPeriodSummaryTable()
+        private void FillSummaryTable()
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
@@ -139,8 +141,8 @@ namespace BudgetManager
             {
                 EnableButton(BtnNext);
             }
-            PrintBillingPeriodTable();
-            PrintBillongPeriodSummaryTable();
+            FillExpensesTable();
+            FillSummaryTable();
         }
 
         private void BtnNext_Click(object sender, RoutedEventArgs e)
@@ -154,8 +156,28 @@ namespace BudgetManager
             {
                 EnableButton(BtnPrev);
             }
-            PrintBillingPeriodTable();
-            PrintBillongPeriodSummaryTable();
+            FillExpensesTable();
+            FillSummaryTable();
+        }
+
+        private void IncomeTextBox_ChangedOrLostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txtBox = sender as TextBox;
+            var strValue = Regex.Replace(txtBox.Text, "[^0-9,]", "");
+            try
+            {
+                var value = decimal.Parse(strValue, NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
+                if (txtBox.Name == "NetIncomeTextBox")
+                {
+                    DataSet.billingPeriods.ElementAt(currentPeriod).netIncome = value;
+                }
+                else if (txtBox.Name == "AddIncomeTextBox")
+                {
+                    DataSet.billingPeriods.ElementAt(currentPeriod).additionalIncome = value;
+                }
+
+            } catch (Exception) {}
+            FillSummaryTable();
         }
     }
 }
