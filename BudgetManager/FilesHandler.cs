@@ -17,6 +17,7 @@ namespace BudgetManager
         readonly string pathToHistoricalFolder = "..\\..\\import data";
         readonly string pathToCategories = "categories.data";
         readonly string pathToPeriods = "periods.data";
+        readonly string pathToDataSet = "dataset.data";
         public void ReadHistoricalData()
         {
             var files = Directory.GetFiles(pathToHistoricalFolder);
@@ -154,21 +155,19 @@ namespace BudgetManager
             }
 
             var formatter = new BinaryFormatter();
-            var stream = new FileStream(pathToCategories, FileMode.Open, FileAccess.Read);
-            var categories = (HashSet<ExpenseCategory>)formatter.Deserialize(stream);
-            DataSet.expenseCategories.UnionWith(categories);
-            stream = new FileStream(pathToPeriods, FileMode.Open, FileAccess.Read);
-            var periods = (SortedSet<BillingPeriod>)formatter.Deserialize(stream);
-            DataSet.billingPeriods.UnionWith(periods);
+            var stream = new FileStream(pathToDataSet, FileMode.Open, FileAccess.Read);
+            var dataSet = (Tuple<HashSet<ExpenseCategory>, SortedSet<BillingPeriod>>)formatter.Deserialize(stream);
+            DataSet.expenseCategories.UnionWith(dataSet.Item1);
+            DataSet.billingPeriods.UnionWith(dataSet.Item2);
+            stream.Close();
         }
 
         public void SaveData()
         {
             var formatter = new BinaryFormatter();
-            var stream = new FileStream(pathToCategories, FileMode.Create, FileAccess.Write);
-            formatter.Serialize(stream, DataSet.expenseCategories);
-            stream.Close(); stream = new FileStream(pathToPeriods, FileMode.Create, FileAccess.Write);
-            formatter.Serialize(stream, DataSet.billingPeriods);
+            var dataSet = new Tuple<HashSet<ExpenseCategory>, SortedSet<BillingPeriod>>(DataSet.expenseCategories, DataSet.billingPeriods);
+            var stream = new FileStream(pathToDataSet, FileMode.Create, FileAccess.Write);
+            formatter.Serialize(stream, dataSet);
             stream.Close();
         }
     }

@@ -30,19 +30,19 @@ namespace BudgetManager
                     switch (textBlock.Name)
                     {
                         case "IncomeSumTextBlock":
-                            textBlock.Text = incSum.ToString() + " zł";
+                            textBlock.Text = incSum.ToString("F") + " zł";
                             break;
                         case "ExpensesSumTextBlock":
-                            textBlock.Text = expSum.ToString() + " zł";
+                            textBlock.Text = expSum.ToString("F") + " zł";
                             break;
                         case "BalanceTextBlock":
-                            textBlock.Text = (balance > 0 ? "+" : "") + balance.ToString() + " zł";
+                            textBlock.Text = (balance > 0 ? "+" : "") + balance.ToString("F") + " zł";
                             break;
                         case "DaysLeftTextBlock":
                             textBlock.Text = daysLeft < 0 ? "" : daysLeft.ToString();
                             break;
                         case "EstimatedDailyExpenseTextBlock":
-                            textBlock.Text = daysLeft < 0 ? "" : estimatedExpense.ToString() + " zł";
+                            textBlock.Text = daysLeft < 0 ? "" : estimatedExpense.ToString("F") + " zł";
                             break;
                         default:
                             break;
@@ -54,10 +54,10 @@ namespace BudgetManager
                     switch (textBox.Name)
                     {
                         case "NetIncomeTextBox":
-                            textBox.Text = net.ToString();
+                            textBox.Text = net.ToString("F");
                             break;
                         case "AddIncomeTextBox":
-                            textBox.Text = add.ToString();
+                            textBox.Text = add.ToString("F");
                             break;
                         default:
                             break;
@@ -141,8 +141,8 @@ namespace BudgetManager
                 var category = DataSet.expenseCategories.ElementAt(i);
                 for (var j = 0; j < numOfDays; j++)
                 {
-                    var sum = period.GetSumOfExpensesOfCategoryAndDate(category, period.startDate.AddDays(j));
-                    AddButtonToGrid(sum.ToString(), i, j, grid);
+                    var sum = period.GetSumOfExpensesOfCategoryAndDate(category, period.startDate.AddDays(j)).ToString();
+                    AddButtonToGrid(sum, i, j, grid);
                 }
             }
         }

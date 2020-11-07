@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -39,6 +40,28 @@ namespace BudgetManager
                 {
                     ret += expense.value;
                 }
+            }
+            return ret;
+        }
+
+
+
+        public HashSet<Expense> GetExpenseOfDayAndCategory(ExpenseCategory category, DateTime date)
+        {
+            var ret = new HashSet<Expense>();
+            var day = date.Day;
+            var month = date.Month;
+
+            foreach (var expense in expenses)
+            {
+                var expDay = expense.date.Day;
+                var expMonth = expense.date.Month;
+
+                if ((category != null && expense.category != category) || (date.Day == expDay && date.Month == expMonth))
+                {
+                    continue;
+                }
+                ret.Add(expense);
             }
             return ret;
         }
