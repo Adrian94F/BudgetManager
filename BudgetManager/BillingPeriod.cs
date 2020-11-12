@@ -46,7 +46,7 @@ namespace BudgetManager
 
 
 
-        public HashSet<Expense> GetExpenseOfDayAndCategory(ExpenseCategory category, DateTime date)
+        public HashSet<Expense> GetExpensesOfDayAndCategory(ExpenseCategory category, DateTime date)
         {
             var ret = new HashSet<Expense>();
             var day = date.Day;
@@ -57,11 +57,16 @@ namespace BudgetManager
                 var expDay = expense.date.Day;
                 var expMonth = expense.date.Month;
 
-                if ((category != null && expense.category != category) || (date.Day == expDay && date.Month == expMonth))
+                if (day == expDay && month == expMonth)
                 {
-                    continue;
+                    if (category == null)
+                    {
+                        ret.Add(expense);
+                    } else if (expense.category == category)
+                    {
+                        ret.Add(expense);
+                    }
                 }
-                ret.Add(expense);
             }
             return ret;
         }

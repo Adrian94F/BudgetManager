@@ -11,5 +11,10 @@ namespace BudgetManager
     {
         public string name;
         public ExpenseCategory parent;
+
+        override public string ToString()
+        {
+            return name;
+        }
     }
 }

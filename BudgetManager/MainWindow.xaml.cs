@@ -22,22 +22,27 @@ namespace BudgetManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int currentPeriod;
-
-
+        BillingPeriodGridCreator gridCreator;
         public MainWindow()
         {
             InitializeComponent();
             SetupVariables();
+            SetupGridCreator();
             PrintDataAsText();
             FillExpensesTable();
             FillSummaryTable();
             SetupButtons();
         }
 
+        private void SetupGridCreator()
+        {
+            gridCreator = new BillingPeriodGridCreator(this);
+            gridCreator.SetGrids(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, SummaryGrid);
+        }
+
         private void SetupButtons()
         {
-            if (currentPeriod > 0)
+            if (DataSet.currentPeriod > 0)
             {
                 EnableButton(BtnPrev);
             }
@@ -59,7 +64,7 @@ namespace BudgetManager
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
-                currentPeriod = DataSet.billingPeriods.Count - 1;
+                DataSet.currentPeriod = DataSet.billingPeriods.Count - 1;
             }
         }
 
@@ -70,12 +75,12 @@ namespace BudgetManager
         }
 
 
-        private void FillExpensesTable()
+        public void FillExpensesTable()
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
-                Log("Wyświetlanie okresu rozliczeniowego w tabeli (początek: " + DataSet.billingPeriods.ElementAt(currentPeriod).startDate.ToString() + ")");
-                BillingPeriodGridCreator.CreateMultiGridTable(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, DataSet.billingPeriods.ElementAt(currentPeriod));
+                Log("Wyświetlanie okresu rozliczeniowego w tabeli (początek: " + DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).startDate.ToString() + ")");
+                gridCreator.CreateMultiGridTable(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod));
             }
             else
             {
@@ -83,12 +88,12 @@ namespace BudgetManager
             }
         }
 
-        private void FillSummaryTable()
+        public void FillSummaryTable()
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
-                Log("Wyświetlanie podsumowania dla okresu rozliczeniowego w tabeli (początek: " + DataSet.billingPeriods.ElementAt(currentPeriod).startDate.ToString() + ")");
-                BillingPeriodGridCreator.CreateSummary(SummaryGrid, DataSet.billingPeriods.ElementAt(currentPeriod));
+                Log("Wyświetlanie podsumowania dla okresu rozliczeniowego w tabeli (początek: " + DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).startDate.ToString() + ")");
+                gridCreator.CreateSummary(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod));
             }
             else
             {
@@ -132,8 +137,8 @@ namespace BudgetManager
 
         private void BtnPrev_Click(object sender, RoutedEventArgs e)
         {
-            currentPeriod--;
-            if (currentPeriod == 0)
+            DataSet.currentPeriod--;
+            if (DataSet.currentPeriod == 0)
             {
                 DisableButton(BtnPrev);
             }
@@ -147,8 +152,8 @@ namespace BudgetManager
 
         private void BtnNext_Click(object sender, RoutedEventArgs e)
         {
-            currentPeriod++;
-            if (currentPeriod == DataSet.billingPeriods.Count - 1)
+            DataSet.currentPeriod++;
+            if (DataSet.currentPeriod == DataSet.billingPeriods.Count - 1)
             {
                 DisableButton(BtnNext);
             }
@@ -169,15 +174,32 @@ namespace BudgetManager
                 var value = decimal.Parse(strValue, NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
                 if (txtBox.Name == "NetIncomeTextBox")
                 {
-                    DataSet.billingPeriods.ElementAt(currentPeriod).netIncome = value;
+                    DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).netIncome = value;
                 }
                 else if (txtBox.Name == "AddIncomeTextBox")
                 {
-                    DataSet.billingPeriods.ElementAt(currentPeriod).additionalIncome = value;
+                    DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).additionalIncome = value;
                 }
 
             } catch (Exception) {}
             FillSummaryTable();
+        }
+
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            DataSet.selectedCategory = null;
+            DataSet.selectedDate = DateTime.Now;
+            DataSet.selectedExpense = null;
+            this.IsEnabled = false;
+            var expenseWindow = new ExpenseWindow();
+            expenseWindow.Closed += ExpenseWindow_Closed;
+            expenseWindow.Show();
+        }
+
+        private void ExpenseWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            // TODO
         }
     }
 }

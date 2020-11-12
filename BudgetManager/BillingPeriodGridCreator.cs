@@ -10,9 +10,25 @@ using System.Windows.Shapes;
 
 namespace BudgetManager
 {
-    static class BillingPeriodGridCreator
+    class BillingPeriodGridCreator
     {
-        public static void CreateSummary(Grid grid, BillingPeriod period)
+        Window window;
+        Grid header, categories, expenses, summary;
+
+        public BillingPeriodGridCreator(Window w)
+        {
+            window = w;
+        }
+
+        public void SetGrids(Grid h, Grid v, Grid e, Grid s)
+        {
+            header = h;
+            categories = v;
+            expenses = e;
+            summary = s;
+        }
+
+        public void CreateSummary(BillingPeriod period)
         {
             var net = period.netIncome;
             var add = period.additionalIncome;
@@ -22,7 +38,7 @@ namespace BudgetManager
             var daysLeft = (period.endDate - DateTime.Today).Days;
             var estimatedExpense = Math.Round(balance / daysLeft, 2);
 
-            foreach (var child in grid.Children)
+            foreach (var child in summary.Children)
             {
                 if (child.GetType() == typeof(TextBlock) && ((TextBlock)child).Name != "")
                 {
@@ -66,7 +82,7 @@ namespace BudgetManager
             }
         }
 
-        public static void CreateMultiGridTable(Grid header, Grid categories, Grid expenses, BillingPeriod period)
+        public void CreateMultiGridTable(BillingPeriod period)
         {
             foreach (var grid in new Grid[] { header, categories, expenses })
             {
@@ -79,7 +95,7 @@ namespace BudgetManager
             CreateExpensesDataGrid(expenses, period);
         }
 
-        private static void AddColumnDefinitionsForDays(Grid grid, int numOfDays)
+        private void AddColumnDefinitionsForDays(Grid grid, int numOfDays)
         {
             for (var i = 0; i < numOfDays; i++)
             {
@@ -90,7 +106,7 @@ namespace BudgetManager
             }
         }
 
-        private static void AddRowDefinitionsForCategories(Grid grid)
+        private void AddRowDefinitionsForCategories(Grid grid)
         {
             var numOfCategories = DataSet.expenseCategories.Count;
             for (var i = 0; i < numOfCategories; i++)
@@ -101,7 +117,7 @@ namespace BudgetManager
             }
         }
 
-        private static void CreateHeaderGrid(Grid grid, BillingPeriod period)
+        private void CreateHeaderGrid(Grid grid, BillingPeriod period)
         {
             var numOfDays = (period.endDate - period.startDate).Days + 1;
             AddColumnDefinitionsForDays(grid, numOfDays);
@@ -111,11 +127,12 @@ namespace BudgetManager
 
             for (var i = 0; i < numOfDays; i++)
             {
-                AddTextToGrid(period.startDate.AddDays(i).ToString("d.MM"), 0, i, grid);
+                var date = period.startDate.AddDays(i);
+                AddButtonToGrid(date.ToString("d.MM"), 0, i, grid, null, date);
             }
         }
 
-        private static void CreateVerticalGrid(Grid grid)
+        private void CreateVerticalGrid(Grid grid)
         {
             AddRowDefinitionsForCategories(grid);
 
@@ -126,7 +143,7 @@ namespace BudgetManager
             }
         }
 
-        private static void CreateExpensesDataGrid(Grid grid, BillingPeriod period)
+        private void CreateExpensesDataGrid(Grid grid, BillingPeriod period)
         {
             var numOfDays = (period.endDate - period.startDate).Days + 1;
             AddColumnDefinitionsForDays(grid, numOfDays);
@@ -141,13 +158,14 @@ namespace BudgetManager
                 var category = DataSet.expenseCategories.ElementAt(i);
                 for (var j = 0; j < numOfDays; j++)
                 {
-                    var sum = period.GetSumOfExpensesOfCategoryAndDate(category, period.startDate.AddDays(j)).ToString();
-                    AddButtonToGrid(sum, i, j, grid);
+                    var date = period.startDate.AddDays(j);
+                    var sum = period.GetSumOfExpensesOfCategoryAndDate(category, date).ToString();
+                    AddButtonToGrid(sum, i, j, grid, category, date);
                 }
             }
         }
 
-        private static void AddTextToGrid(string text, int row, int col, Grid grid)
+        private void AddTextToGrid(string text, int row, int col, Grid grid)
         {
             var textBlock = new TextBlock
             {
@@ -156,7 +174,7 @@ namespace BudgetManager
             AddUIElementToGrid(textBlock, row, col, grid);
         }
 
-        private static void AddButtonToGrid(string text, int row, int col, Grid grid)
+        private void AddButtonToGrid(string text, int row, int col, Grid grid, ExpenseCategory category, DateTime date)
         {
             var btn = new Button
             {
@@ -166,10 +184,23 @@ namespace BudgetManager
                 MaxHeight = 16,
                 Padding = new Thickness(0)
             };
+            btn.Click += (sender, e) => {
+                DataSet.selectedCategory = category;
+                DataSet.selectedDate = date;
+                window.IsEnabled = false;
+                var expWin = new ExpensesWindow();
+                expWin.Closed += ExpWin_Closed;
+                expWin.Show();
+            };
             AddUIElementToGrid(btn, row, col, grid);
         }
 
-        private static void AddUIElementToGrid(UIElement obj, int row, int col, Grid grid)
+        private void ExpWin_Closed(object sender, EventArgs e)
+        {
+            window.IsEnabled = true;
+        }
+
+        private void AddUIElementToGrid(UIElement obj, int row, int col, Grid grid)
         {
 
             Grid.SetRow(obj, row);
@@ -177,7 +208,7 @@ namespace BudgetManager
             grid.Children.Add(obj);
         }
 
-        private static void AddRectangleAt(int row, int col, int rowSpan, int colSpan, Brush fill, double opacity, Grid grid)
+        private void AddRectangleAt(int row, int col, int rowSpan, int colSpan, Brush fill, double opacity, Grid grid)
         {
             var rect = new Rectangle();
             rect.Fill = fill;
@@ -198,7 +229,7 @@ namespace BudgetManager
             grid.Children.Add(rect);
         }
 
-        private static void AddWeekendsRectangles(Grid grid, BillingPeriod period)
+        private void AddWeekendsRectangles(Grid grid, BillingPeriod period)
         {
             var row = 0;
             var rowSpan = grid.RowDefinitions.Count;
@@ -218,7 +249,7 @@ namespace BudgetManager
             }
         }
 
-        private static void AddTodayRectangle(Grid grid, BillingPeriod period)
+        private void AddTodayRectangle(Grid grid, BillingPeriod period)
         {
             if (DateTime.Today.Date > period.endDate.Date)
             {

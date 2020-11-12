@@ -9,11 +9,21 @@
         Height="450"
         Width="642"
         MinWidth="642"
-        MinHeight="300"
-        Icon="Images/calculator.png">
+        MinHeight="300">
     <Grid Margin="0,0,0,0" >
         <TabControl Margin="10,0,10,10">
             <TabItem Header="Tabela">
+        <!--<TabControl Margin="3,0,3,3"
+                    TabStripPlacement="Left">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="36"
+                               Width="36"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Source="Images/Icons/table.png" />
+                    </StackPanel>
+                </TabItem.Header>-->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="44" />
@@ -26,12 +36,9 @@
                     </Grid.ColumnDefinitions>
 
                     <Button x:Name="BtnAdd"
+                            Click="BtnAdd_Click"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            IsEnabled="False"
-                            Opacity="0.5"
-                            BorderThickness="0"
-                            Background="Transparent"
                             Margin="7,7,0,0"
                             Grid.Row="0">
                         <Image Height="30"
@@ -40,43 +47,12 @@
                                Source="Images/Icons/019-add.png"/>
 
                     </Button>
-                    <Button x:Name="BtnEdit"
-                            HorizontalAlignment="Left"
-                            Margin="44,7,0,0"
-                            VerticalAlignment="Top"
-                            IsEnabled="False"
-                            Opacity="0.5"
-                            BorderThickness="0"
-                            Background="Transparent"
-                            Grid.Row="0">
-                        <Image Height="30"
-                               Width="30"
-                               RenderOptions.BitmapScalingMode="Fant"
-                               Source="Images/Icons/018-edit.png"/>
-
-                    </Button>
-                    <Button x:Name="BtnDel"
-                            HorizontalAlignment="Left"
-                            Margin="81,7,0,0"
-                            VerticalAlignment="Top"
-                            IsEnabled="False"
-                            Opacity="0.5"
-                            BorderThickness="0"
-                            Background="Transparent"
-                            Grid.Row="0">
-                        <Image Height="30"
-                               Width="30"
-                               RenderOptions.BitmapScalingMode="Fant"
-                               Source="Images/Icons/023-remove.png"/>
-                    </Button>
                     <Button x:Name="BtnPrev"
                             HorizontalAlignment="Right"
                             Margin="0,7,44,0"
                             VerticalAlignment="Top"
                             IsEnabled="False"
                             Opacity="0.5"
-                            BorderThickness="0"
-                            Background="Transparent"
                             Click="BtnPrev_Click"
                             Grid.Row="0"
                             Grid.Column="1">
@@ -91,8 +67,7 @@
                             IsEnabled="False"
                             Click="BtnNext_Click"
                             Opacity="0.5"
-                            BorderThickness="0"
-                            Background="Transparent" Margin="0,7,7,0"
+                            Margin="0,7,7,0"
                             Grid.Row="0"
                             Grid.Column="1">
                         <Image Height="30"
@@ -219,7 +194,6 @@
                                  TextAlignment="Right"
                                  VerticalAlignment="Top"
                                  Width="85"
-                                 BorderThickness="0"
                                  LostFocus="IncomeTextBox_ChangedOrLostFocus"
                                  TextChanged="IncomeTextBox_ChangedOrLostFocus"/>
                         <TextBlock Grid.Column="1"
@@ -245,7 +219,6 @@
                                  TextAlignment="Right"
                                  VerticalAlignment="Top"
                                  Width="85"
-                                 BorderThickness="0"
                                  LostFocus="IncomeTextBox_ChangedOrLostFocus"
                                  TextChanged="IncomeTextBox_ChangedOrLostFocus"/>
                         <TextBlock Grid.Column="1"
@@ -339,6 +312,15 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Dziennik do odpuskwiania">
+            <!--<TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="36"
+                               Width="36"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Source="Images/Icons/bug.png"/>
+                    </StackPanel>
+                </TabItem.Header>-->
                 <Grid>
                     <Image Height="255"
                            Width="255"
@@ -356,12 +338,39 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Wypalenie">
+            <!--<TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="36"
+                               Width="36"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Source="Images/Icons/graph.png"/>
+                    </StackPanel>
+                </TabItem.Header>-->
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
             <TabItem Header="Historia">
+            <!--<TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="36"
+                               Width="36"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Source="Images/Icons/archive.png"/>
+                    </StackPanel>
+                </TabItem.Header>-->
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
             <TabItem Header="Ustawienia">
+            <!--<TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="36"
+                               Width="36"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Source="Images/Icons/settings.png"/>
+                    </StackPanel>
+                </TabItem.Header>-->
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>

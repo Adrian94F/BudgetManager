@@ -34,6 +34,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>calculator.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -60,11 +64,18 @@
     <Compile Include="DataSet.cs" />
     <Compile Include="Expense.cs" />
     <Compile Include="ExpenseCategory.cs" />
-    <Compile Include="FilesHandler.cs" />
-    <Compile Include="Subcategory.xaml.cs">
-      <DependentUpon>Subcategory.xaml</DependentUpon>
+    <Compile Include="ExpensesWindow.xaml.cs">
+      <DependentUpon>ExpensesWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="CategoriesWindow.xaml">
+    <Compile Include="ExpenseWindow.xaml.cs">
+      <DependentUpon>ExpenseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FilesHandler.cs" />
+    <Page Include="ExpensesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpenseWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -76,17 +87,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CategoriesWindow.xaml.cs">
-      <DependentUpon>CategoriesWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Subcategory.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -130,6 +134,29 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\calculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\006-verify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\015-remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\archive.png" />
+    <Resource Include="Images\Icons\graph.png" />
+    <Resource Include="Images\Icons\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\bug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\calculator.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="calculator.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
