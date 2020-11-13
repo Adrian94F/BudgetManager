@@ -28,13 +28,15 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Margin="82,7,0,0"
-                Content="Kategorie" Click="BtnCategories_Click"/>
+                Content="Kategorie"
+                Click="BtnCategories_Click"/>
 
         <Button x:Name="BtnPeriods"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Margin="157,7,0,0"
-                Content="Miesiące"/>
+                Content="Miesiące"
+                Click="BtnPeriods_Click"/>
 
         <Button x:Name="BtnPrev"
                 HorizontalAlignment="Right"

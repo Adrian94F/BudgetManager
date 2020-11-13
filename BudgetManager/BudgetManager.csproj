@@ -61,6 +61,9 @@
     </ApplicationDefinition>
     <Compile Include="BillingPeriod.cs" />
     <Compile Include="BillingPeriodGridCreator.cs" />
+    <Compile Include="BillingPeriodsWindow.xaml.cs">
+      <DependentUpon>BillingPeriodsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CategoriesWindow.xaml.cs">
       <DependentUpon>CategoriesWindow.xaml</DependentUpon>
     </Compile>
@@ -77,6 +80,10 @@
       <DependentUpon>ExpenseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FilesHandler.cs" />
+    <Page Include="BillingPeriodsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CategoriesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

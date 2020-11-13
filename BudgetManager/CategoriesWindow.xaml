@@ -23,9 +23,7 @@
                 Content="Ok"
                 Click="BtnOk_Click"/>
 
-        <Border Margin="0,0,0,25"
-                BorderBrush="Gray"
-                BorderThickness="1">
+        <Border Margin="0,0,0,25">
             <ScrollViewer>
                 <Grid x:Name="CategoriesGrid"/>
             </ScrollViewer>

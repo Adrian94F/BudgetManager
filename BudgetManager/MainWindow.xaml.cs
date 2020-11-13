@@ -219,5 +219,20 @@ namespace BudgetManager
             FillExpensesTable();
             FillSummaryTable();
         }
+
+        private void BtnPeriods_Click(object sender, RoutedEventArgs e)
+        {
+            this.IsEnabled = false;
+            var periodsWindow = new BillingPeriodsWindow();
+            periodsWindow.Closed += PeriodsWindow_Closed;
+            periodsWindow.Show();
+        }
+
+        private void PeriodsWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            FillExpensesTable();
+            FillSummaryTable();
+        }
     }
 }
