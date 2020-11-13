@@ -22,11 +22,49 @@ namespace BudgetManager
         public CategoriesWindow()
         {
             InitializeComponent();
+            FillWithCategories();
         }
 
         private void FillWithCategories()
         {
+            CategoriesGrid.Children.Clear();
+            CategoriesGrid.RowDefinitions.Clear();
 
+            var periodNumber = DataSet.currentPeriod;
+            var categories = DataSet.expenseCategories;
+            foreach (var category in categories)
+            {
+                var content = category.name;
+                var categoryBtn = new Button()
+                {
+                    Content = content,
+                    BorderThickness = new Thickness(0),
+                    Background = Brushes.Transparent,
+                    Padding = new Thickness(5, 1, 5, 1),
+                    Margin = new Thickness(0, 0, 0, 0),
+                    HorizontalContentAlignment = HorizontalAlignment.Left
+                };
+                categoryBtn.Click += (sender, e) =>
+                {
+                    DataSet.selectedCategory = category;
+                    BtnAdd_Click(sender, e);
+                };
+
+                CategoriesGrid.RowDefinitions.Add(new RowDefinition());
+                var nOfRows = CategoriesGrid.RowDefinitions.Count;
+                Grid.SetRow(categoryBtn, nOfRows - 1);
+                CategoriesGrid.Children.Add(categoryBtn);
+            }
+            AddStretchRow();
+        }
+
+        private void AddStretchRow()
+        {
+            var rowDef = new RowDefinition
+            {
+                Height = new GridLength(100, GridUnitType.Star)
+            };
+            CategoriesGrid.RowDefinitions.Add(rowDef);
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
