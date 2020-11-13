@@ -52,7 +52,7 @@ namespace BudgetManager
             }
         }
 
-        public void ValueTextBox_ChangedOrLostFocus(object sender, EventArgs e)
+        public void ValueTextBox_LostFocus(object sender, EventArgs e)
         {
             TextBox txtBox = (TextBox)sender;
             var strValue = Regex.Replace(txtBox.Text, "[^0-9,]", "");

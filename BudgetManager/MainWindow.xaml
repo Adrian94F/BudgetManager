@@ -168,8 +168,7 @@
                                  TextWrapping="Wrap"
                                  TextAlignment="Right"
                                  VerticalAlignment="Top"
-                                 LostFocus="IncomeTextBox_ChangedOrLostFocus"
-                                 TextChanged="IncomeTextBox_ChangedOrLostFocus"/>
+                                 LostFocus="IncomeTextBox_LostFocus"/>
                         <TextBlock Grid.Column="1"
                                    Grid.Row="0"
                                    HorizontalAlignment="Right"
@@ -191,8 +190,7 @@
                                  TextWrapping="Wrap"
                                  TextAlignment="Right"
                                  VerticalAlignment="Top"
-                                 LostFocus="IncomeTextBox_ChangedOrLostFocus"
-                                 TextChanged="IncomeTextBox_ChangedOrLostFocus"/>
+                                 LostFocus="IncomeTextBox_LostFocus"/>
                         <TextBlock Grid.Column="1"
                                    Grid.Row="1"
                                    HorizontalAlignment="Right"

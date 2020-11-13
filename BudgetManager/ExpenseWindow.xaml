@@ -19,8 +19,7 @@
                  Margin="0,0,22,0"
                  Grid.Row="0"
                  VerticalAlignment="Top"
-                 TextChanged="ValueTextBox_ChangedOrLostFocus"
-                 LostFocus="ValueTextBox_ChangedOrLostFocus"
+                 LostFocus="ValueTextBox_LostFocus"
                  Height="26"
                  HorizontalAlignment="Right"
                  Width="123"/>

@@ -163,7 +163,7 @@ namespace BudgetManager
             FillSummaryTable();
         }
 
-        private void IncomeTextBox_ChangedOrLostFocus(object sender, RoutedEventArgs e)
+        private void IncomeTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox txtBox = sender as TextBox;
             var strValue = Regex.Replace(txtBox.Text, "[^0-9,]", "");
@@ -179,7 +179,9 @@ namespace BudgetManager
                     DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).additionalIncome = value;
                 }
 
-            } catch (Exception) {}
+            } catch (Exception) {
+                txtBox.Text = "!!!" + txtBox.Text;
+            }
             FillSummaryTable();
         }
 
