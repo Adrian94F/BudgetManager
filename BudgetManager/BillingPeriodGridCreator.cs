@@ -14,6 +14,7 @@ namespace BudgetManager
     {
         Window window;
         Grid header, categories, expenses, summary;
+        BillingPeriod period;
 
         public BillingPeriodGridCreator(Window w)
         {
@@ -28,7 +29,12 @@ namespace BudgetManager
             summary = s;
         }
 
-        public void CreateSummary(BillingPeriod period)
+        public void SetPeriod(BillingPeriod bp)
+        {
+            period = bp;
+        }
+
+        public void CreateSummary()
         {
             var net = period.netIncome;
             var add = period.additionalIncome;
@@ -82,7 +88,7 @@ namespace BudgetManager
             }
         }
 
-        public void CreateMultiGridTable(BillingPeriod period)
+        public void CreateMultiGridTable()
         {
             foreach (var grid in new Grid[] { header, categories, expenses })
             {
@@ -159,7 +165,7 @@ namespace BudgetManager
                 for (var j = 0; j < numOfDays; j++)
                 {
                     var date = period.startDate.AddDays(j);
-                    var sum = period.GetSumOfExpensesOfCategoryAndDate(category, date).ToString();
+                    var sum = Decimal.Round(period.GetSumOfExpensesOfCategoryAndDate(category, date)).ToString();
                     AddButtonToGrid(sum, i, j, grid, category, date);
                 }
             }
@@ -183,6 +189,7 @@ namespace BudgetManager
                 Background = Brushes.Transparent,
                 MaxHeight = 16,
                 MaxWidth = 40,
+                MinWidth = 40,
                 Padding = new Thickness(0)
             };
             btn.Click += (sender, e) => {
@@ -199,6 +206,8 @@ namespace BudgetManager
         private void ExpWin_Closed(object sender, EventArgs e)
         {
             window.IsEnabled = true;
+            CreateSummary();
+            CreateMultiGridTable();
         }
 
         private void AddUIElementToGrid(UIElement obj, int row, int col, Grid grid)
@@ -260,8 +269,8 @@ namespace BudgetManager
             var rowSpan = grid.RowDefinitions.Count;
             var col = (DateTime.Now - period.startDate).Days;
             var colSpan = 1;
-            var fill = new SolidColorBrush(System.Windows.Media.Colors.LightBlue);
-            AddRectangleAt(row, col, rowSpan, colSpan, fill, 0.2, grid);
+            var fill = new SolidColorBrush(System.Windows.Media.Colors.LightGreen);
+            AddRectangleAt(row, col, rowSpan, colSpan, fill, 0.3, grid);
         }
     }
 }

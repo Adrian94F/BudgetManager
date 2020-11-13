@@ -15,7 +15,13 @@
                 Click="BtnAdd_Click"
                 Grid.Row="0"
                 Content="Dodaj"
-                Margin="0,0,0,0"/>
+                Margin="0,0,75,0"/>
+
+        <Button x:Name="BtnOk"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Content="Ok"
+                Click="BtnOk_Click"/>
 
         <Label Name="Label"
                Content="..."

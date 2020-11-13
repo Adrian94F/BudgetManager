@@ -52,19 +52,25 @@ namespace BudgetManager
             }
         }
 
-        public void ValueTextBox_LostFocus(object sender, EventArgs e)
+        private decimal ParseString(string str)
         {
-            TextBox txtBox = (TextBox)sender;
-            var strValue = Regex.Replace(txtBox.Text, "[^0-9,]", "");
+            str = Regex.Replace(str, "[^0-9,]", "");
+            decimal ret;
             try
             {
-                var value = decimal.Parse(strValue, NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
-                txtBox.Text = value.ToString("F");
+                ret = decimal.Parse(str, NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
             }
             catch (Exception)
             {
-                // TODO
+                ret = Decimal.Zero;
             }
+            return ret;
+        }
+
+        public void ValueTextBox_LostFocus(object sender, EventArgs e)
+        {
+            TextBox txtBox = (TextBox)sender;
+            txtBox.Text = ParseString(txtBox.Text).ToString("F");
         }
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
@@ -73,6 +79,7 @@ namespace BudgetManager
             {
                 DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses.Remove(DataSet.selectedExpense);
             }
+            this.Close();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -82,20 +89,34 @@ namespace BudgetManager
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+            var value = ParseString(ValueTextBox.Text);
+            var category = (ExpenseCategory)CategoriesComboBox.SelectedItem;
+            var date = (DateTime)DatePicker.SelectedDate;
+            var comment = CommentTextBox.Text;
+            if (value == 0 || category == null)
+            {
+                return;
+            }
+            Expense exp;
             if (DataSet.selectedExpense == null)
             {
                 // new expense
-                var newExp = new Expense();
-
-                // ...
-
-                DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses.Add(newExp);
+                exp = new Expense()
+                {
+                    value = value,
+                    date = date,
+                    category = category,
+                    comment = comment
+                };
+                DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses.Add(exp);
             }
             else
             {
                 // edited expense
-
-                // ...
+                DataSet.selectedExpense.value = value;
+                DataSet.selectedExpense.date = date;
+                DataSet.selectedExpense.category = category;
+                DataSet.selectedExpense.comment = comment;
             }
             this.Close();
         }

@@ -78,7 +78,8 @@ namespace BudgetManager
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
                 Log("Wyświetlanie okresu rozliczeniowego w tabeli (początek: " + DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).startDate.ToString() + ")");
-                gridCreator.CreateMultiGridTable(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod));
+                gridCreator.SetPeriod(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod));
+                gridCreator.CreateMultiGridTable();
             }
             else
             {
@@ -91,7 +92,8 @@ namespace BudgetManager
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
                 Log("Wyświetlanie podsumowania dla okresu rozliczeniowego w tabeli (początek: " + DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).startDate.ToString() + ")");
-                gridCreator.CreateSummary(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod));
+                gridCreator.SetPeriod(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod));
+                gridCreator.CreateSummary();
             }
             else
             {
@@ -199,7 +201,8 @@ namespace BudgetManager
         private void ExpenseWindow_Closed(object sender, EventArgs e)
         {
             this.IsEnabled = true;
-            // TODO
+            FillExpensesTable();
+            FillSummaryTable();
         }
     }
 }

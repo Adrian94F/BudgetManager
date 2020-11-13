@@ -73,10 +73,8 @@ namespace BudgetManager
                     Content = content,
                     BorderThickness = new Thickness(0),
                     Background = Brushes.Transparent,
-                    MaxHeight = 16,
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    Padding = new Thickness(0),
-                    Margin = new Thickness(10, 0, 0, 0),
+                    Padding = new Thickness(5,1,5,1),
+                    Margin = new Thickness(0,0,0,0),
                     HorizontalContentAlignment = HorizontalAlignment.Left
                 };
                 expenseBtn.Click += (sender, e) =>
@@ -115,6 +113,11 @@ namespace BudgetManager
             DataSet.selectedExpense = null;
             this.IsEnabled = true;
             FillWithExpenses();
+        }
+
+        private void BtnOk_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
