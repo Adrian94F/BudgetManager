@@ -7,13 +7,48 @@
         mc:Ignorable="d"
         Title="Menedżer Budżetu"
         Height="450"
-        Width="642"
-        MinWidth="642"
+        Width="650"
+        MinWidth="650"
         MinHeight="300">
     <Grid Margin="0,0,0,0" >
-        <TabControl Margin="10,0,10,10">
+        <Button x:Name="BtnAdd"
+                Click="BtnAdd_Click"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="7,7,0,0"
+                Content="Dodaj"/>
+
+        <Button x:Name="BtnCategories"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="82,7,0,0"
+                Content="Kategorie"/>
+
+        <Button x:Name="BtnSettings"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="157,7,0,0"
+                Content="Ustawienia"/>
+
+        <Button x:Name="BtnPrev"
+                HorizontalAlignment="Right"
+                Margin="0,7,82,0"
+                VerticalAlignment="Top"
+                IsEnabled="False"
+                Click="BtnPrev_Click"
+                Content="Poprzedni"/>
+
+        <Button x:Name="BtnNext"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                IsEnabled="False"
+                Click="BtnNext_Click"
+                Margin="0,7,7,0"
+                Content="Następny"/>
+
+        <TabControl Margin="7,32,7,7">
             <TabItem Header="Tabela">
-        <!--<TabControl Margin="3,0,3,3"
+                <!--<TabControl Margin="3,0,3,3"
                     TabStripPlacement="Left">
             <TabItem>
                 <TabItem.Header>
@@ -26,65 +61,19 @@
                 </TabItem.Header>-->
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="44" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="80" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
 
-                    <Button x:Name="BtnAdd"
-                            Click="BtnAdd_Click"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Margin="7,7,0,0"
-                            Grid.Row="0">
-                        <Image Height="30"
-                               Width="30"
-                               RenderOptions.BitmapScalingMode="Fant"
-                               Source="Images/Icons/019-add.png"/>
-
-                    </Button>
-                    <Button x:Name="BtnPrev"
-                            HorizontalAlignment="Right"
-                            Margin="0,7,44,0"
-                            VerticalAlignment="Top"
-                            IsEnabled="False"
-                            Opacity="0.5"
-                            Click="BtnPrev_Click"
-                            Grid.Row="0"
-                            Grid.Column="1">
-                        <Image Height="30"
-                               Width="30"
-                               RenderOptions.BitmapScalingMode="Fant"
-                               Source="Images/Icons/prev-button.png"/>
-                    </Button>
-                    <Button x:Name="BtnNext"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            IsEnabled="False"
-                            Click="BtnNext_Click"
-                            Opacity="0.5"
-                            Margin="0,7,7,0"
-                            Grid.Row="0"
-                            Grid.Column="1">
-                        <Image Height="30"
-                               Width="30"
-                               RenderOptions.BitmapScalingMode="Fant"
-                               Source="Images/Icons/next-button.png"/>
-                    </Button>
-
-                    <Grid Margin="0,0,0,5"
-                          Grid.Row="1"
-                          Grid.ColumnSpan="2">
+                    <Grid Margin="0,0,0,7"
+                          Grid.Row="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="16" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="auto"
+                                              MaxWidth="300"/>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
@@ -148,36 +137,23 @@
 
                     <Grid x:Name="SummaryGrid"
                           VerticalAlignment="Bottom"
-                          Height="80"
-                          Grid.Row="2"
-                          Grid.ColumnSpan="2">
+                          Grid.Row="1"
+                          Margin="0,0,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="16"/>
                             <RowDefinition Height="16" />
                             <RowDefinition Height="16" />
-                            <RowDefinition Height="16" />
-                            <RowDefinition Height="16" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
-
-                        <Rectangle Grid.RowSpan="5"
-                                   Fill="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
-                        <Rectangle Grid.Column="1"
-                                   Grid.Row="2"
-                                   Grid.RowSpan="3"
-                                   Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
-                        <Rectangle Grid.Column="2"
-                                   Grid.RowSpan="5"
-                                   Fill="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
-                        <Rectangle Grid.Column="3"
-                                   Grid.RowSpan="5"
-                                   Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
 
                         <TextBlock HorizontalAlignment="Left"
                                    Margin="3,0,0,0"
@@ -188,12 +164,10 @@
                         <TextBox x:Name="NetIncomeTextBox"
                                  Grid.Column="1"
                                  Grid.Row="0"
-                                 HorizontalAlignment="Right"
                                  Margin="0,0,15,0"
                                  TextWrapping="Wrap"
                                  TextAlignment="Right"
                                  VerticalAlignment="Top"
-                                 Width="85"
                                  LostFocus="IncomeTextBox_ChangedOrLostFocus"
                                  TextChanged="IncomeTextBox_ChangedOrLostFocus"/>
                         <TextBlock Grid.Column="1"
@@ -213,12 +187,10 @@
                         <TextBox x:Name="AddIncomeTextBox"
                                  Grid.Column="1"
                                  Grid.Row="1"
-                                 HorizontalAlignment="Right"
                                  Margin="0,0,15,0"
                                  TextWrapping="Wrap"
                                  TextAlignment="Right"
                                  VerticalAlignment="Top"
-                                 Width="85"
                                  LostFocus="IncomeTextBox_ChangedOrLostFocus"
                                  TextChanged="IncomeTextBox_ChangedOrLostFocus"/>
                         <TextBlock Grid.Column="1"
@@ -246,13 +218,14 @@
                                    VerticalAlignment="Top"/>
                         <TextBlock HorizontalAlignment="Left"
                                    Margin="3,0,0,0"
-                                   Grid.Row="3"
+                                   Grid.Row="0"
+                                   Grid.Column="3"
                                    TextWrapping="Wrap"
                                    Text="Suma wydatków"
                                    VerticalAlignment="Bottom"/>
                         <TextBlock x:Name="ExpensesSumTextBlock"
-                                   Grid.Column="1"
-                                   Grid.Row="3"
+                                   Grid.Column="4"
+                                   Grid.Row="0"
                                    HorizontalAlignment="Right"
                                    Margin="0,0,3,0"
                                    TextWrapping="Wrap"
@@ -261,13 +234,14 @@
                                    VerticalAlignment="Top"/>
                         <TextBlock HorizontalAlignment="Left"
                                    Margin="3,0,0,0"
-                                   Grid.Row="4"
+                                   Grid.Row="1"
+                                   Grid.Column="3"
                                    TextWrapping="Wrap"
                                    Text="Bilans"
                                    VerticalAlignment="Bottom"/>
                         <TextBlock x:Name="BalanceTextBlock"
-                                   Grid.Column="1"
-                                   Grid.Row="4"
+                                   Grid.Column="4"
+                                   Grid.Row="1"
                                    HorizontalAlignment="Right"
                                    Margin="0,0,3,0"
                                    TextWrapping="Wrap"
@@ -278,28 +252,28 @@
                         <TextBlock HorizontalAlignment="Left"
                                    Margin="3,0,0,0"
                                    Grid.Row="0"
-                                   Grid.Column="2"
+                                   Grid.Column="6"
                                    TextWrapping="Wrap"
                                    Text="Pozostałe dni"
                                    VerticalAlignment="Bottom"/>
                         <TextBlock x:Name="DaysLeftTextBlock"
-                                   Grid.Column="3"
+                                   Grid.Column="7"
                                    Grid.Row="0"
                                    HorizontalAlignment="Right"
                                    Margin="0,0,3,0"
                                    TextWrapping="Wrap"
                                    TextAlignment="Right"
-                                   Text="...zł"
+                                   Text="..."
                                    VerticalAlignment="Top"/>
                         <TextBlock HorizontalAlignment="Left"
                                    Margin="3,0,0,0"
-                                   Grid.Column="2"
+                                   Grid.Column="6"
                                    Grid.Row="1"
                                    TextWrapping="Wrap"
-                                   Text="Szacowany dzienny wydatek"
+                                   Text="Dzienny wydatek"
                                    VerticalAlignment="Bottom"/>
                         <TextBlock x:Name="EstimatedDailyExpenseTextBlock"
-                                   Grid.Column="3"
+                                   Grid.Column="7"
                                    Grid.Row="1"
                                    HorizontalAlignment="Right"
                                    Margin="0,0,3,0"
@@ -312,7 +286,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Dziennik do odpuskwiania">
-            <!--<TabItem>
+                <!--<TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="36"
@@ -338,7 +312,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Wypalenie">
-            <!--<TabItem>
+                <!--<TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="36"
@@ -350,25 +324,13 @@
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
             <TabItem Header="Historia">
-            <!--<TabItem>
+                <!--<TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="36"
                                Width="36"
                                RenderOptions.BitmapScalingMode="Fant"
                                Source="Images/Icons/archive.png"/>
-                    </StackPanel>
-                </TabItem.Header>-->
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="Ustawienia">
-            <!--<TabItem>
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Height="36"
-                               Width="36"
-                               RenderOptions.BitmapScalingMode="Fant"
-                               Source="Images/Icons/settings.png"/>
                     </StackPanel>
                 </TabItem.Header>-->
                 <Grid Background="#FFE5E5E5"/>

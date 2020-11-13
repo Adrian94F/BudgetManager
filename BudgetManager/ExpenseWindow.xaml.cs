@@ -34,12 +34,22 @@ namespace BudgetManager
             var categories = DataSet.expenseCategories;
             CategoriesComboBox.ItemsSource = categories;
 
-            if (DataSet.selectedCategory != null)
+            if (DataSet.selectedExpense != null)
+            {
+                ValueTextBox.Text = DataSet.selectedExpense.value.ToString("F");
+                DatePicker.SelectedDate = DataSet.selectedExpense.date;
+                CategoriesComboBox.SelectedItem = DataSet.selectedExpense.category;
+                CommentTextBox.Text = DataSet.selectedExpense.comment;
+            }
+            else if (DataSet.selectedCategory != null)
             {
                 CategoriesComboBox.SelectedItem = DataSet.selectedCategory;
             }
 
-            //DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses.Remove();
+            if (DataSet.selectedExpense == null)
+            {
+                BtnRemove.IsEnabled = false;
+            }
         }
 
         public void ValueTextBox_ChangedOrLostFocus(object sender, EventArgs e)
@@ -57,12 +67,37 @@ namespace BudgetManager
             }
         }
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
-            var expense = new Expense();
-            
+            if (DataSet.selectedExpense != null)
+            {
+                DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses.Remove(DataSet.selectedExpense);
+            }
+        }
 
-            DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses.Add(expense);
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataSet.selectedExpense == null)
+            {
+                // new expense
+                var newExp = new Expense();
+
+                // ...
+
+                DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses.Add(newExp);
+            }
+            else
+            {
+                // edited expense
+
+                // ...
+            }
+            this.Close();
         }
     }
 }

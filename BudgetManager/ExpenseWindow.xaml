@@ -6,99 +6,79 @@
         xmlns:local="clr-namespace:BudgetManager"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Wydatek" Height="220" Width="200">
+        Title="Wydatek" Height="220" Width="260">
     <Grid Margin="10,10,10,10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
         <Label Content="Wartość"
-               Grid.Column="0"
-               Grid.Row="0"/>
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               Height="26"
+               Width="70"/>
         <TextBox x:Name="ValueTextBox"
-                 Margin="0,0,25,0"
-                 Grid.Column="1"
+                 Margin="0,0,22,0"
                  Grid.Row="0"
-                 VerticalAlignment="Center"
-                 BorderThickness="0"
+                 VerticalAlignment="Top"
                  TextChanged="ValueTextBox_ChangedOrLostFocus"
-                 LostFocus="ValueTextBox_ChangedOrLostFocus"/>
-        <Label Grid.Column="1"
-               Grid.Row="0"
+                 LostFocus="ValueTextBox_ChangedOrLostFocus"
+                 Height="26"
+                 HorizontalAlignment="Right"
+                 Width="123"/>
+        <Label Grid.Row="0"
+               VerticalAlignment="Top"
                HorizontalAlignment="Right"
-               Margin="0,0,3,0"
-               Content=" zł"/>
+               Content=" zł" Width="22"/>
 
         <Label Content="Data"
-               Grid.Column="0"
-               Grid.Row="1"/>
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               Margin="0,31,0,0"/>
         <DatePicker Name="DatePicker"
-                    Margin="0,0,0,0"
-                    Grid.Column="1"
-                    Grid.Row="1"
-                    VerticalAlignment="Center"
-                    BorderThickness="0"/>
+                    Margin="0,31,0,0"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Width="145" Height="26"/>
 
         <Label Content="Kategoria"
-               Grid.Column="0"
-               Grid.Row="2"/>
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               Margin="0,62,0,0"/>
         <ComboBox Name="CategoriesComboBox"
-                  Margin="0,0,0,0"
-                  Grid.Column="1"
-                  Grid.Row="2"
-                  VerticalAlignment="Center"
-                  BorderThickness="0"/>
+                  Margin="0,62,0,0"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Right"
+                  Width="145"
+                  Height="26"/>
 
         <Label Content="Komentarz"
-               Grid.Column="0"
-               Grid.Row="3"/>
-        <TextBox Margin="0,0,0,0"
-                 Grid.Column="1"
-                 Grid.Row="3"
-                 VerticalAlignment="Center"
-                 BorderThickness="0"/>
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               Margin="0,93,0,0"/>
+        <TextBox Name="CommentTextBox"
+                 Margin="0,93,0,25"
+                 HorizontalAlignment="Right"
+                 Width="145"/>
 
-        <Button x:Name="BtnAdd"
+        <Button x:Name="BtnSave"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                BorderThickness="0"
-                Background="Transparent"
-                Margin="0,0,0,0"
-                Grid.Row="4"
-                Grid.Column="1">
-            <Image Height="30"
-                   Width="30"
-                   RenderOptions.BitmapScalingMode="Fant"
-                   Source="Images/Icons/019-add.png"/>
+                Grid.Column="0"
+                Content="Zapisz"
+                Margin="0,0,150,0"
+                Click="BtnSave_Click"/>
 
-        </Button>
-        
         <Button x:Name="BtnRemove"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                BorderThickness="0"
-                Background="Transparent"
-                Margin="0,0,38,0"
-                Grid.Row="4"
-                Grid.Column="1">
-            <Image Height="30"
-                   Width="30"
-                   RenderOptions.BitmapScalingMode="Fant"
-                   Source="Images/Icons/015-remove.png"/>
+                Margin="0,0,75,0"
+                Content="Usuń"
+                Click="BtnRemove_Click"/>
 
-        </Button>
-
-
-
+        <Button x:Name="BtnCancel"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Content="Anuluj"
+                Click="BtnCancel_Click"/>
 
     </Grid>
 </Window>

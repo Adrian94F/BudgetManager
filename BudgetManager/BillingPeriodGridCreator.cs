@@ -182,6 +182,7 @@ namespace BudgetManager
                 BorderThickness = new Thickness(0),
                 Background = Brushes.Transparent,
                 MaxHeight = 16,
+                MaxWidth = 40,
                 Padding = new Thickness(0)
             };
             btn.Click += (sender, e) => {

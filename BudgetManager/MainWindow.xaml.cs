@@ -51,13 +51,11 @@ namespace BudgetManager
         private void EnableButton(Button btn)
         {
             btn.IsEnabled = true;
-            btn.Opacity = 1;
         }
 
         private void DisableButton(Button btn)
         {
             btn.IsEnabled = false;
-            btn.Opacity = 0.5;
         }
 
         private void SetupVariables()

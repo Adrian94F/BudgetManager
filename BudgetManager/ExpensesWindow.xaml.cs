@@ -74,9 +74,15 @@ namespace BudgetManager
                     BorderThickness = new Thickness(0),
                     Background = Brushes.Transparent,
                     MaxHeight = 16,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
                     Padding = new Thickness(0),
                     Margin = new Thickness(10, 0, 0, 0),
                     HorizontalContentAlignment = HorizontalAlignment.Left
+                };
+                expenseBtn.Click += (sender, e) =>
+                {
+                    DataSet.selectedExpense = expense;
+                    BtnAdd_Click(sender, e);
                 };
 
                 ExpensesGrid.RowDefinitions.Add(new RowDefinition());
@@ -106,6 +112,7 @@ namespace BudgetManager
 
         private void ExpenseWindow_Closed(object sender, EventArgs e)
         {
+            DataSet.selectedExpense = null;
             this.IsEnabled = true;
             FillWithExpenses();
         }
