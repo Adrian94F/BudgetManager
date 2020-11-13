@@ -78,6 +78,7 @@ namespace BudgetManager
         private void CategoryWindow_Closed(object sender, EventArgs e)
         {
             this.IsEnabled = true;
+            DataSet.selectedCategory = null;
             FillWithCategories();
         }
 

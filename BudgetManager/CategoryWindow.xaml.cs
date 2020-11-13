@@ -22,16 +22,64 @@ namespace BudgetManager
         public CategoryWindow()
         {
             InitializeComponent();
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            if (DataSet.selectedCategory != null)
+            {
+                NameTextBox.Text = DataSet.selectedCategory.name;
+            }
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+            var name = NameTextBox.Text;
+            if (DataSet.selectedCategory == null)
+            {
+                var category = new ExpenseCategory()
+                {
+                    name = name
+                };
+                DataSet.expenseCategories.Add(category);
+            }
+            else
+            {
+                DataSet.selectedCategory.name = name;
+            }
             this.Close();
         }
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
+            if (DataSet.selectedCategory != null)
+            {
+                if (CategoryNotUsed(DataSet.selectedCategory))
+                {
+                    DataSet.expenseCategories.Remove(DataSet.selectedCategory);
+                }
+                else
+                {
+                    MessageBox.Show("Nie można usunąć kategorii, gdyż jest używana. Usuń wydatki lub zmień ich kategorię, a nastepnie spróbuj ponownie.", "Uwaga", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
             this.Close();
+        }
+
+        private bool CategoryNotUsed(ExpenseCategory category)
+        {
+            foreach (var period in DataSet.billingPeriods)
+            {
+                foreach (var expense in period.expenses)
+                {
+                    if (expense.category == category)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
