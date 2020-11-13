@@ -136,6 +136,8 @@ namespace BudgetManager
                 var date = period.startDate.AddDays(i);
                 AddButtonToGrid(date.ToString("d.MM"), 0, i, grid, null, date);
             }
+
+            AddStretchColumn(grid);
         }
 
         private void CreateVerticalGrid(Grid grid)
@@ -147,6 +149,8 @@ namespace BudgetManager
                 var category = DataSet.expenseCategories.ElementAt(i);
                 AddTextToGrid(category.name, i, 0, grid);
             }
+
+            AddStretchRow(grid);
         }
 
         private void CreateExpensesDataGrid(Grid grid, BillingPeriod period)
@@ -169,6 +173,27 @@ namespace BudgetManager
                     AddButtonToGrid(sum, i, j, grid, category, date);
                 }
             }
+
+            AddStretchColumn(grid);
+            AddStretchRow(grid);
+        }
+
+        private void AddStretchRow(Grid grid)
+        {
+            var rowDef = new RowDefinition
+            {
+                Height = new GridLength(100, GridUnitType.Star)
+            };
+            grid.RowDefinitions.Add(rowDef);
+        }
+
+        private void AddStretchColumn(Grid grid)
+        {
+            var colDef = new ColumnDefinition
+            {
+                Width = new GridLength(100, GridUnitType.Star)
+            };
+            grid.ColumnDefinitions.Add(colDef);
         }
 
         private void AddTextToGrid(string text, int row, int col, Grid grid)
