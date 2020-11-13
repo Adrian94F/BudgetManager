@@ -131,8 +131,8 @@ namespace BudgetManager
 
         public void Log(string txt)
         {
-            debugLogTextBlock.Text += txt + "\n";
-            logScrollViewer.ScrollToEnd();
+            //debugLogTextBlock.Text += txt + "\n";
+            //logScrollViewer.ScrollToEnd();
         }
 
         private void BtnPrev_Click(object sender, RoutedEventArgs e)
