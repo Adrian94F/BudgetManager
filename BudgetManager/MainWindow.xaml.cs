@@ -204,5 +204,20 @@ namespace BudgetManager
             FillExpensesTable();
             FillSummaryTable();
         }
+
+        private void BtnCategories_Click(object sender, RoutedEventArgs e)
+        {
+            this.IsEnabled = false;
+            var categoriesWindow = new CategoriesWindow();
+            categoriesWindow.Closed += CategoriesWindow_Closed;
+            categoriesWindow.Show();
+        }
+
+        private void CategoriesWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            FillExpensesTable();
+            FillSummaryTable();
+        }
     }
 }

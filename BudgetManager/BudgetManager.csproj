@@ -61,6 +61,12 @@
     </ApplicationDefinition>
     <Compile Include="BillingPeriod.cs" />
     <Compile Include="BillingPeriodGridCreator.cs" />
+    <Compile Include="CategoriesWindow.xaml.cs">
+      <DependentUpon>CategoriesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CategoryWindow.xaml.cs">
+      <DependentUpon>CategoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataSet.cs" />
     <Compile Include="Expense.cs" />
     <Compile Include="ExpenseCategory.cs" />
@@ -71,6 +77,14 @@
       <DependentUpon>ExpenseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FilesHandler.cs" />
+    <Page Include="CategoriesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CategoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ExpensesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -22,7 +22,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Margin="82,7,0,0"
-                Content="Kategorie"/>
+                Content="Kategorie" Click="BtnCategories_Click"/>
 
         <Button x:Name="BtnSettings"
                 HorizontalAlignment="Left"
