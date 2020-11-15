@@ -73,7 +73,18 @@ namespace BudgetManager
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
+            this.IsEnabled = false;
+            var bpw = new BillingPeriodWindow();
+            bpw.Closed += BillingPeriodWindow_Closed;
+            bpw.Show();
+            
+        }
 
+        private void BillingPeriodWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            DataSet.selectedPeriod = null;
+            FillWithPeriods();
         }
     }
 }

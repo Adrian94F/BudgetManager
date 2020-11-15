@@ -13,14 +13,13 @@
         <Label Content="Nazwa"
                VerticalAlignment="Top"
                HorizontalAlignment="Left"
-               Height="26"
                Width="70"/>
         <TextBox x:Name="NameTextBox"
                  Grid.Row="0"
                  VerticalAlignment="Top"
-                 Height="26"
                  HorizontalAlignment="Right"
-                 Width="145"/>
+                 Width="145"
+                 Margin="0,4,0,0"/>
 
         <Button x:Name="BtnSave"
                 HorizontalAlignment="Right"

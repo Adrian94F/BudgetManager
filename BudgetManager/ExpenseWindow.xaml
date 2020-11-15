@@ -13,48 +13,45 @@
         <Label Content="Wartość"
                VerticalAlignment="Top"
                HorizontalAlignment="Left"
-               Height="26"
                Width="70"/>
         <TextBox x:Name="ValueTextBox"
-                 Margin="0,0,22,0"
+                 Margin="0,3,19,0"
                  Grid.Row="0"
                  VerticalAlignment="Top"
                  LostFocus="ValueTextBox_LostFocus"
-                 Height="26"
                  HorizontalAlignment="Right"
-                 Width="123"/>
+                 Width="126"/>
         <Label Grid.Row="0"
                VerticalAlignment="Top"
                HorizontalAlignment="Right"
-               Content=" zł" Width="22"/>
+               Content="zł"/>
 
         <Label Content="Data"
                VerticalAlignment="Top"
                HorizontalAlignment="Left"
-               Margin="0,31,0,0"/>
+               Margin="0,25,0,0"/>
         <DatePicker Name="DatePicker"
-                    Margin="0,31,0,0"
+                    Margin="0,26,0,0"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Right"
-                    Width="145" Height="26"/>
+                    Width="145" Height="25"/>
 
         <Label Content="Kategoria"
                VerticalAlignment="Top"
                HorizontalAlignment="Left"
-               Margin="0,62,0,0"/>
+               Margin="0,52,0,0"/>
         <ComboBox Name="CategoriesComboBox"
-                  Margin="0,62,0,0"
+                  Margin="0,56,0,0"
                   VerticalAlignment="Top"
                   HorizontalAlignment="Right"
-                  Width="145"
-                  Height="26"/>
+                  Width="145"/>
 
         <Label Content="Komentarz"
                VerticalAlignment="Top"
                HorizontalAlignment="Left"
-               Margin="0,93,0,0"/>
+               Margin="0,78,0,0"/>
         <TextBox Name="CommentTextBox"
-                 Margin="0,93,0,25"
+                 Margin="0,83,0,27"
                  HorizontalAlignment="Right"
                  Width="145"/>
 

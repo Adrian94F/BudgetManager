@@ -1,0 +1,79 @@
+﻿<Window x:Class="BudgetManager.BillingPeriodWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BudgetManager"
+        mc:Ignorable="d"
+        Title="BillingPeriodWindow"
+        Height="190"
+        Width="300"
+        ResizeMode="NoResize">
+    <Grid Margin="10,10,10,10">
+        <Label Content="Początek"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"/>
+        <DatePicker Name="StartDatePicker"
+                    Margin="0,1,0,0"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"/>
+
+        <Label Content="Koniec"
+               HorizontalAlignment="Left"
+               Margin="0,29,0,0"
+               VerticalAlignment="Top"/>
+        <DatePicker Name="EndDatePicker"
+                    Margin="0,30,0,0"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"/>
+
+        <Label Content="Dochód netto"
+               HorizontalAlignment="Left"
+               Margin="0,56,0,0"
+               VerticalAlignment="Top"/>
+        <TextBox x:Name="NetIncomeTextBox"
+                 Margin="0,59,19,0"
+                 Grid.Row="0"
+                 VerticalAlignment="Top"
+                 HorizontalAlignment="Right"
+                 Width="133"/>
+        <Label Grid.Row="0"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Right"
+               Content="zł" Margin="0,56,0,0"/>
+
+        <Label Content="Dochód dodatkowy"
+               HorizontalAlignment="Left"
+               Margin="0,82,0,0"
+               VerticalAlignment="Top"/>
+        <TextBox x:Name="AddIncomeTextBox"
+                 Margin="0,85,19,0"
+                 Grid.Row="0"
+                 VerticalAlignment="Top"
+                 HorizontalAlignment="Right"
+                 Width="133"/>
+        <Label Grid.Row="0"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Right"
+               Content="zł" Margin="0,82,0,0"/>
+        
+        <Button x:Name="BtnSave"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Grid.Column="0"
+                Content="Zapisz"
+                Margin="0,0,150,0"/>
+
+        <Button x:Name="BtnRemove"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,75,0"
+                Content="Usuń"/>
+
+        <Button x:Name="BtnCancel"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Content="Anuluj"/>
+
+    </Grid>
+</Window>

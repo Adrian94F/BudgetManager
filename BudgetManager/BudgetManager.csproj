@@ -64,6 +64,9 @@
     <Compile Include="BillingPeriodsWindow.xaml.cs">
       <DependentUpon>BillingPeriodsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BillingPeriodWindow.xaml.cs">
+      <DependentUpon>BillingPeriodWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CategoriesWindow.xaml.cs">
       <DependentUpon>CategoriesWindow.xaml</DependentUpon>
     </Compile>
@@ -81,6 +84,10 @@
     </Compile>
     <Compile Include="FilesHandler.cs" />
     <Page Include="BillingPeriodsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BillingPeriodWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

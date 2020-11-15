@@ -13,5 +13,9 @@
             <Setter Property="BorderBrush" Value="Silver"/>
             <Setter Property="BorderThickness" Value="1"/>
         </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="BorderBrush" Value="Silver"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
     </Application.Resources>
 </Application>
