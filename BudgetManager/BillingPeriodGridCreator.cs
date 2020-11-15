@@ -51,6 +51,12 @@ namespace BudgetManager
                     var textBlock = ((TextBlock)child);
                     switch (textBlock.Name)
                     {
+                        case "NetIncomeTextBlock":
+                            textBlock.Text = net.ToString("F") + " zł";
+                            break;
+                        case "AddIncomeTextBlock":
+                            textBlock.Text = add.ToString("F") + " zł";
+                            break;
                         case "IncomeSumTextBlock":
                             textBlock.Text = incSum.ToString("F") + " zł";
                             break;
@@ -65,21 +71,6 @@ namespace BudgetManager
                             break;
                         case "EstimatedDailyExpenseTextBlock":
                             textBlock.Text = daysLeft < 0 ? "" : estimatedExpense.ToString("F") + " zł";
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                if (child.GetType() == typeof(TextBox) && ((TextBox)child).Name != "")
-                {
-                    var textBox = ((TextBox)child);
-                    switch (textBox.Name)
-                    {
-                        case "NetIncomeTextBox":
-                            textBox.Text = net.ToString("F");
-                            break;
-                        case "AddIncomeTextBox":
-                            textBox.Text = add.ToString("F");
                             break;
                         default:
                             break;
