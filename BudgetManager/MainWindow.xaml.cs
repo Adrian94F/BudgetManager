@@ -30,10 +30,23 @@ namespace BudgetManager
             SetupVariables();
             SetupGridCreator();
             PrintDataAsText();
-            FillExpensesTable();
-            FillSummaryTable();
+            FillSummaryTab();
             SetupButtons();
             this.Closing += MainWindow_Closing;
+        }
+
+        private void FillSummaryTab()
+        {
+            FillExpensesTable();
+            FillSummaryTable();
+            PrintBillingPeriodDates();
+        }
+
+        private void PrintBillingPeriodDates()
+        {
+            var start = DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).startDate.ToString("dd.MM.yyyy");
+            var end = DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).endDate.ToString("dd.MM.yyyy");
+            PeriodDatesTextBlock.Text = start + "-" + end;
         }
 
         private void SetupGridCreator()
@@ -163,8 +176,7 @@ namespace BudgetManager
             {
                 EnableButton(BtnNext);
             }
-            FillExpensesTable();
-            FillSummaryTable();
+            FillSummaryTab();
         }
 
         private void BtnNext_Click(object sender, RoutedEventArgs e)
@@ -178,8 +190,7 @@ namespace BudgetManager
             {
                 EnableButton(BtnPrev);
             }
-            FillExpensesTable();
-            FillSummaryTable();
+            FillSummaryTab();
         }
 
         private void IncomeTextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -218,8 +229,7 @@ namespace BudgetManager
         private void ExpenseWindow_Closed(object sender, EventArgs e)
         {
             this.IsEnabled = true;
-            FillExpensesTable();
-            FillSummaryTable();
+            FillSummaryTab();
         }
 
         private void BtnCategories_Click(object sender, RoutedEventArgs e)
@@ -233,8 +243,7 @@ namespace BudgetManager
         private void CategoriesWindow_Closed(object sender, EventArgs e)
         {
             this.IsEnabled = true;
-            FillExpensesTable();
-            FillSummaryTable();
+            FillSummaryTab();
         }
 
         private void BtnPeriods_Click(object sender, RoutedEventArgs e)
@@ -248,8 +257,7 @@ namespace BudgetManager
         private void PeriodsWindow_Closed(object sender, EventArgs e)
         {
             this.IsEnabled = true;
-            FillExpensesTable();
-            FillSummaryTable();
+            FillSummaryTab();
             SetupButtons();
         }
 
@@ -266,6 +274,19 @@ namespace BudgetManager
                     e.Cancel = true;
                     break;
             }
+        }
+
+        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            this.IsEnabled = false;
+            var settingsWindow = new SettingsWindow();
+            settingsWindow.Closed += SettingsWindow_Closed;
+            settingsWindow.Show();
+        }
+
+        private void SettingsWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
         }
     }
 }

@@ -38,6 +38,13 @@
                 Content="Miesiące"
                 Click="BtnPeriods_Click"/>
 
+        <Button x:Name="BtnSettings"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="232,7,0,0"
+                Content="Ustawienia"
+                Click="BtnSettings_Click"/>
+
         <Button x:Name="BtnPrev"
                 HorizontalAlignment="Right"
                 Margin="0,7,82,0"
@@ -53,6 +60,13 @@
                 Click="BtnNext_Click"
                 Margin="0,7,7,0"
                 Content="Następny"/>
+
+        <TextBlock x:Name="PeriodDatesTextBlock"
+                   Text="Period dates..."
+                   Grid.Row="1"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top"
+                   Margin="10,7"/>
 
         <TabControl Margin="7,7,7,7"
                     Grid.Row="1">
