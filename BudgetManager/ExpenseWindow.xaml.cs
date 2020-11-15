@@ -52,7 +52,7 @@ namespace BudgetManager
             }
         }
 
-        private decimal ParseString(string str)
+        private decimal ParseDecimalString(string str)
         {
             str = Regex.Replace(str, "[^0-9,]", "");
             decimal ret;
@@ -70,7 +70,7 @@ namespace BudgetManager
         public void ValueTextBox_LostFocus(object sender, EventArgs e)
         {
             TextBox txtBox = (TextBox)sender;
-            txtBox.Text = ParseString(txtBox.Text).ToString("F");
+            txtBox.Text = ParseDecimalString(txtBox.Text).ToString("F");
         }
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
@@ -89,7 +89,7 @@ namespace BudgetManager
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            var value = ParseString(ValueTextBox.Text);
+            var value = ParseDecimalString(ValueTextBox.Text);
             var category = (ExpenseCategory)CategoriesComboBox.SelectedItem;
             var date = (DateTime)DatePicker.SelectedDate;
             var comment = CommentTextBox.Text;

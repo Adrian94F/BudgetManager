@@ -18,25 +18,12 @@ namespace BudgetManager
         {
             filesHandler = new FilesHandler();
             filesHandler.ReadData();
-
-        }
-        protected void SaveData()
-        {
-            filesHandler.SaveData();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
             this.LoadData();
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            base.OnExit(e);
-
-            this.SaveData();
         }
     }
 }

@@ -245,6 +245,10 @@ namespace BudgetManager
 
         private void AddRectangleAt(int row, int col, int rowSpan, int colSpan, Brush fill, double opacity, Grid grid)
         {
+            if (row < 0 || col < 0)
+            {
+                return;
+            }
             var rect = new Rectangle();
             rect.Fill = fill;
             if (rowSpan < 1)

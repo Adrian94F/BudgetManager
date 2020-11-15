@@ -36,11 +36,13 @@
                  Grid.Row="0"
                  VerticalAlignment="Top"
                  HorizontalAlignment="Right"
-                 Width="133"/>
+                 Width="133"
+                 LostFocus="IncomeTextBox_LostFocus"/>
         <Label Grid.Row="0"
                VerticalAlignment="Top"
                HorizontalAlignment="Right"
-               Content="zł" Margin="0,56,0,0"/>
+               Content="zł"
+               Margin="0,56,0,0"/>
 
         <Label Content="Dochód dodatkowy"
                HorizontalAlignment="Left"
@@ -51,29 +53,34 @@
                  Grid.Row="0"
                  VerticalAlignment="Top"
                  HorizontalAlignment="Right"
-                 Width="133"/>
+                 Width="133"
+                 LostFocus="IncomeTextBox_LostFocus"/>
         <Label Grid.Row="0"
                VerticalAlignment="Top"
                HorizontalAlignment="Right"
-               Content="zł" Margin="0,82,0,0"/>
+               Content="zł"
+               Margin="0,82,0,0"/>
         
         <Button x:Name="BtnSave"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Grid.Column="0"
                 Content="Zapisz"
-                Margin="0,0,150,0"/>
+                Margin="0,0,150,0"
+                Click="BtnSave_Click"/>
 
         <Button x:Name="BtnRemove"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="0,0,75,0"
-                Content="Usuń"/>
+                Content="Usuń"
+                Click="BtnRemove_Click"/>
 
         <Button x:Name="BtnCancel"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Content="Anuluj"/>
+                Content="Anuluj"
+                Click="BtnCancel_Click"/>
 
     </Grid>
 </Window>

@@ -24,7 +24,10 @@ namespace BudgetManager
             return startDate.CompareTo(((BillingPeriod)obj).startDate);
         }
 
-
+        public BillingPeriod()
+        {
+            expenses = new HashSet<Expense>();
+        }
 
         public decimal GetSumOfExpensesOfCategoryAndDate(ExpenseCategory category, DateTime date)
         {
@@ -32,88 +35,94 @@ namespace BudgetManager
             var day = date.Day;
             var month = date.Month;
 
-            foreach (var expense in expenses)
+            if (expenses != null)
             {
-                var expDay = expense.date.Day;
-                var expMonth = expense.date.Month;
-                if (expense.category == category && day == expDay && month == expMonth)
+                foreach (var expense in expenses)
                 {
-                    ret += expense.value;
-                }
-            }
-            return ret;
-        }
-
-
-
-        public HashSet<Expense> GetExpensesOfDayAndCategory(ExpenseCategory category, DateTime date)
-        {
-            var ret = new HashSet<Expense>();
-            var day = date.Day;
-            var month = date.Month;
-
-            foreach (var expense in expenses)
-            {
-                var expDay = expense.date.Day;
-                var expMonth = expense.date.Month;
-
-                if (day == expDay && month == expMonth)
-                {
-                    if (category == null)
+                    var expDay = expense.date.Day;
+                    var expMonth = expense.date.Month;
+                    if (expense.category == category && day == expDay && month == expMonth)
                     {
-                        ret.Add(expense);
-                    } else if (expense.category == category)
-                    {
-                        ret.Add(expense);
+                        ret += expense.value;
                     }
                 }
             }
             return ret;
         }
 
+        public HashSet<Expense> GetExpensesOfDayAndCategory(ExpenseCategory category, DateTime date)
+        {
+            var ret = new HashSet<Expense>();
+            var day = date.Day;
+            var month = date.Month;
+            if (expenses != null)
+            {
+                foreach (var expense in expenses)
+                {
+                    var expDay = expense.date.Day;
+                    var expMonth = expense.date.Month;
 
+                    if (day == expDay && month == expMonth)
+                    {
+                        if (category == null)
+                        {
+                            ret.Add(expense);
+                        }
+                        else if (expense.category == category)
+                        {
+                            ret.Add(expense);
+                        }
+                    }
+                }
+            }
+            return ret;
+        }
 
         public decimal GetSumOfExpensesOfDate(DateTime date)
         {
             var ret = Decimal.Zero;
             var day = date.Day;
             var month = date.Month;
-
-            foreach (var expense in expenses)
+            if (expenses != null)
             {
-                var expDay = expense.date.Day;
-                var expMonth = expense.date.Month;
-                if (day == expDay && month == expMonth)
+                foreach (var expense in expenses)
                 {
-                    ret += expense.value;
+                    var expDay = expense.date.Day;
+                    var expMonth = expense.date.Month;
+                    if (day == expDay && month == expMonth)
+                    {
+                        ret += expense.value;
+                    }
                 }
             }
             return ret;
         }
-
 
         public decimal GetSumOfExpensesOfCategory(ExpenseCategory category)
         {
             var ret = Decimal.Zero;
-
-            foreach (var expense in expenses)
+            if (expenses != null)
             {
-                if (expense.category == category)
+                foreach (var expense in expenses)
                 {
-                    ret += expense.value;
+                    if (expense.category == category)
+                    {
+                        ret += expense.value;
+                    }
                 }
             }
             return ret;
         }
 
-
         public decimal GetSumOfExpenses()
         {
             var ret = Decimal.Zero;
-
-            foreach (var expense in expenses)
+            if (expenses != null)
             {
-                ret += expense.value;
+                foreach (var expense in expenses)
+                {
+                    ret += expense.value;
+                }
             }
             return ret;
         }

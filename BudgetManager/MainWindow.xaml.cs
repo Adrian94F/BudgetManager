@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,7 @@ namespace BudgetManager
             FillExpensesTable();
             FillSummaryTable();
             SetupButtons();
+            this.Closing += MainWindow_Closing;
         }
 
         private void SetupGridCreator()
@@ -45,6 +47,18 @@ namespace BudgetManager
             if (DataSet.currentPeriod > 0)
             {
                 EnableButton(BtnPrev);
+            }
+            else
+            {
+                DisableButton(BtnPrev);
+            }
+            if (DataSet.currentPeriod < DataSet.billingPeriods.Count - 1)
+            {
+                EnableButton(BtnNext);
+            }
+            else
+            {
+                DisableButton(BtnNext);
             }
         }
 
@@ -118,12 +132,15 @@ namespace BudgetManager
             foreach (var period in DataSet.billingPeriods)
             {
                 str += " " + period.startDate.ToShortDateString() + "-" + period.endDate.ToShortDateString() + " (" + ((period.endDate - period.startDate).Days + 1) + " dni), dochód: " + period.netIncome.ToString() + "zł (+" + period.additionalIncome.ToString() + "zł)\n  ";
-                foreach (var exp in period.expenses)
+                if (period.expenses != null)
                 {
-                    //str += " [" + exp.date.ToShortDateString() + ", " + exp.value.ToString() + "zł, " + exp.category.name + "]";
-                    str += ".";
+                    foreach (var exp in period.expenses)
+                    {
+                        //str += " [" + exp.date.ToShortDateString() + ", " + exp.value.ToString() + "zł, " + exp.category.name + "]";
+                        str += ".";
+                    }
+                    str += "\n";
                 }
-                str += "\n";
             }
 
             Log(str);
@@ -233,6 +250,22 @@ namespace BudgetManager
             this.IsEnabled = true;
             FillExpensesTable();
             FillSummaryTable();
+            SetupButtons();
+        }
+
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            var result = MessageBox.Show("Czy chcesz zapisać wprowadzone zmiany?", "Wyjście", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    var fh = new FilesHandler();
+                    fh.SaveData();
+                    break;
+                case MessageBoxResult.Cancel:
+                    e.Cancel = true;
+                    break;
+            }
         }
     }
 }
