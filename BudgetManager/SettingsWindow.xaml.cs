@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,52 @@ namespace BudgetManager
         public SettingsWindow()
         {
             InitializeComponent();
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            TypicalStartDayTextBox.Text = DataSet.settings.TypicalBeginningOfPeriod.ToString();
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            var typicalStartDay = ParseIntegerString(TypicalStartDayTextBox.Text);
+            TypicalStartDayTextBox.Text = typicalStartDay.ToString();
+            if (typicalStartDay < 1 || typicalStartDay > 31)
+            {
+                MessageBox.Show("Wpisano zły domyślny dzień rozpoczęcia okresu rozliczeniowego. Podaj wartość z przedziału 1-31.", "Uwaga", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            DataSet.settings.TypicalBeginningOfPeriod = typicalStartDay;
+
+            var fh = new FilesHandler();
+            fh.SaveSettings();
+            this.Close();
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private int ParseIntegerString(string str)
+        {
+            str = Regex.Replace(str, "[^0-9]", "");
+            int ret = 0;
+            try
+            {
+                ret = Convert.ToInt32(str);
+            }
+            catch (Exception) {}
+            return ret;
+        }
+
+        private void NumberTextBox_LostFocus(object sender, EventArgs e)
+        {
+            TextBox txtBox = (TextBox)sender;
+            txtBox.Text = ParseIntegerString(txtBox.Text).ToString();
         }
     }
 }

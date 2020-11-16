@@ -6,9 +6,32 @@
         xmlns:local="clr-namespace:BudgetManager"
         mc:Ignorable="d"
         Title="Ustawienia"
-        Height="450"
-        Width="400">
-    <Grid>
-        
+        Height="120"
+        Width="350">
+    <Grid Margin="10,10,10,10">
+        <Label Content="Domyślny początek okresu rozliczeniowego"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"/>
+        <TextBox x:Name="TypicalStartDayTextBox"
+                 HorizontalAlignment="Right"
+                 Height="23" Margin="0,4,0,0"
+                 VerticalAlignment="Top"
+                 Width="40"
+                 LostFocus="NumberTextBox_LostFocus"/>
+
+        <Button x:Name="BtnSave"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Grid.Column="0"
+                Content="Zapisz"
+                Margin="0,0,75,0"
+                Click="BtnSave_Click"/>
+
+        <Button x:Name="BtnCancel"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Content="Anuluj"
+                Click="BtnCancel_Click"/>
+
     </Grid>
 </Window>

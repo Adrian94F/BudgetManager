@@ -41,7 +41,12 @@ namespace BudgetManager
                 var startDate = DataSet.billingPeriods.Last().endDate.AddDays(1);
                 StartDatePicker.SelectedDate = startDate;
                 var endDate = startDate.AddMonths(1);
-                var typicalEndDay = 18;
+                var typicalEndDay = (DataSet.settings.TypicalBeginningOfPeriod - 1) % 31 + 1;
+                var daysInMonth = DateTime.DaysInMonth(endDate.Year, endDate.Month);
+                if (typicalEndDay > daysInMonth)
+                {
+                    typicalEndDay = daysInMonth;
+                }
                 endDate = new DateTime(endDate.Year, endDate.Month, typicalEndDay);
                 EndDatePicker.SelectedDate = endDate;
             }

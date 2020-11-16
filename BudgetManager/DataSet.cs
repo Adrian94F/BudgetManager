@@ -20,5 +20,8 @@ namespace BudgetManager
         public static ExpenseCategory selectedCategory;
         public static DateTime selectedDate;
         public static Expense selectedExpense;
+
+        // settings
+        public static Settings settings = new Settings();
     }
 }

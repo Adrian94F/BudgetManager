@@ -83,6 +83,7 @@
       <DependentUpon>ExpenseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FilesHandler.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
