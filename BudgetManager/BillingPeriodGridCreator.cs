@@ -42,7 +42,7 @@ namespace BudgetManager
             var expSum = period.GetSumOfExpenses();
             var balance = incSum - expSum;
             var daysLeft = (period.endDate - DateTime.Today).Days;
-            var estimatedExpense = Math.Round(balance / daysLeft, 2);
+            var estimatedExpense = daysLeft > 0 ? Math.Round(balance / daysLeft, 2) : Math.Round(balance, 2);
 
             foreach (var child in summary.Children)
             {

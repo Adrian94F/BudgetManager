@@ -69,8 +69,10 @@
                    Margin="10,7"/>
 
         <TabControl Margin="7,7,7,7"
-                    Grid.Row="1">
-            <TabItem Header="Podsumowanie">
+                    Grid.Row="1"
+                    SelectionChanged="TabControl_SelectionChanged">
+            <TabItem x:Name="SummaryTabItem"
+                     Header="Podsumowanie">
                 <Grid Margin="0,0,0,0"
                         Grid.Row="0">
                     <Grid.RowDefinitions>
@@ -139,41 +141,18 @@
                     </ScrollViewer>
                 </Grid>
             </TabItem>
-            <!--<TabItem Header="Dziennik do odpuskwiania">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="33*"/>
-                        <ColumnDefinition Width="278*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Height="255"
-                           Width="255"
-                           Source="Images/jew.png"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Bottom"
-                           Opacity="0.3"
-                           Margin="0,0,20,0"
-                           RenderOptions.BitmapScalingMode="Fant" Grid.Column="1"/>
-                    <ScrollViewer x:Name="logScrollViewer"
-                                  Margin="0,0,0,0"
-                                  PanningMode="Both"
-                                  Grid.ColumnSpan="2">
-                        <Grid>
-                            <TextBlock x:Name="debugLogTextBlock"
-                                       TextWrapping="Wrap"
-                                       FontFamily="Consolas"
-                                       FontSize="10"
-                                       Margin="10" />
-                        </Grid>
-                    </ScrollViewer>
-                </Grid>
-            </TabItem>-->
-            <TabItem Header="Lista wydatków" IsEnabled="False">
+            <TabItem x:Name="ListTabitem"
+                     Header="Lista wydatków"
+                     IsEnabled="False">
                 <Grid/>
             </TabItem>
-            <TabItem Header="Wypalenie" IsEnabled="False">
-                <Grid/>
+            <TabItem x:Name="BurndownTabItem"
+                     Header="Wypalenie">
+                <Grid x:Name="BurndownChartGrid"/>
             </TabItem>
-            <TabItem Header="Historia" IsEnabled="False">
+            <TabItem x:Name="HistoryTabItem"
+                     Header="Historia"
+                     IsEnabled="False">
                 <Grid/>
             </TabItem>
         </TabControl>

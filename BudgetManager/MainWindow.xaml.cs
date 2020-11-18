@@ -24,15 +24,28 @@ namespace BudgetManager
     public partial class MainWindow : Window
     {
         BillingPeriodGridCreator gridCreator;
+        BillingPeriodChartCreator chartCreator;
         public MainWindow()
         {
             InitializeComponent();
             SetupVariables();
             SetupGridCreator();
             PrintDataAsText();
-            FillSummaryTab();
+            RefreshTabs();
             SetupButtons();
             this.Closing += MainWindow_Closing;
+        }
+
+        private void FillBurndownTab()
+        {
+            chartCreator = new BillingPeriodChartCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), BurndownChartGrid);
+            chartCreator.Plot();
+        }
+
+        public void RefreshTabs()
+        {
+            FillSummaryTab();
+            FillBurndownTab();
         }
 
         private void FillSummaryTab()
@@ -99,18 +112,12 @@ namespace BudgetManager
             VerticalScrolViewer.ScrollToVerticalOffset(e.VerticalOffset);
         }
 
-
         public void FillExpensesTable()
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
-                Log("Wyświetlanie okresu rozliczeniowego w tabeli (początek: " + DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).startDate.ToString() + ")");
                 gridCreator.SetPeriod(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod));
                 gridCreator.CreateMultiGridTable();
-            }
-            else
-            {
-                Log("nie znaleziono okresu rozliczeniowego");
             }
         }
 
@@ -118,13 +125,8 @@ namespace BudgetManager
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
-                Log("Wyświetlanie podsumowania dla okresu rozliczeniowego w tabeli (początek: " + DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).startDate.ToString() + ")");
                 gridCreator.SetPeriod(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod));
                 gridCreator.CreateSummary();
-            }
-            else
-            {
-                Log("nie znaleziono okresu rozliczeniowego");
             }
         }
 
@@ -155,14 +157,6 @@ namespace BudgetManager
                     str += "\n";
                 }
             }
-
-            Log(str);
-        }
-
-        public void Log(string txt)
-        {
-            //debugLogTextBlock.Text += txt + "\n";
-            //logScrollViewer.ScrollToEnd();
         }
 
         private void BtnPrev_Click(object sender, RoutedEventArgs e)
@@ -176,7 +170,7 @@ namespace BudgetManager
             {
                 EnableButton(BtnNext);
             }
-            FillSummaryTab();
+            RefreshTabs();
         }
 
         private void BtnNext_Click(object sender, RoutedEventArgs e)
@@ -190,7 +184,7 @@ namespace BudgetManager
             {
                 EnableButton(BtnPrev);
             }
-            FillSummaryTab();
+            RefreshTabs();
         }
 
         private void IncomeTextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -212,7 +206,7 @@ namespace BudgetManager
             } catch (Exception) {
                 txtBox.Text = "!!!" + txtBox.Text;
             }
-            FillSummaryTable();
+            RefreshTabs();
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
@@ -229,7 +223,7 @@ namespace BudgetManager
         private void ExpenseWindow_Closed(object sender, EventArgs e)
         {
             this.IsEnabled = true;
-            FillSummaryTab();
+            RefreshTabs();
         }
 
         private void BtnCategories_Click(object sender, RoutedEventArgs e)
@@ -243,7 +237,7 @@ namespace BudgetManager
         private void CategoriesWindow_Closed(object sender, EventArgs e)
         {
             this.IsEnabled = true;
-            FillSummaryTab();
+            RefreshTabs();
         }
 
         private void BtnPeriods_Click(object sender, RoutedEventArgs e)
@@ -257,7 +251,7 @@ namespace BudgetManager
         private void PeriodsWindow_Closed(object sender, EventArgs e)
         {
             this.IsEnabled = true;
-            FillSummaryTab();
+            RefreshTabs();
             SetupButtons();
         }
 
@@ -287,6 +281,15 @@ namespace BudgetManager
         private void SettingsWindow_Closed(object sender, EventArgs e)
         {
             this.IsEnabled = true;
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var tabControl = (TabControl)sender;
+            if (BurndownTabItem.IsSelected)
+            {
+                FillBurndownTab();
+            }
         }
     }
 }
