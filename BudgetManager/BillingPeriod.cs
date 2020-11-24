@@ -14,19 +14,15 @@ namespace BudgetManager
     {
         public DateTime startDate;
         public DateTime endDate;
-        public decimal netIncome;
-        public decimal additionalIncome;
+        public decimal netIncome = decimal.Zero;
+        public decimal additionalIncome = decimal.Zero;
+        public decimal plannedSavings = decimal.Zero;
 
-        public HashSet<Expense> expenses;
+        public HashSet<Expense> expenses = new HashSet<Expense>();
 
         public int CompareTo(object obj)
         {
             return startDate.CompareTo(((BillingPeriod)obj).startDate);
-        }
-
-        public BillingPeriod()
-        {
-            expenses = new HashSet<Expense>();
         }
 
         public decimal GetSumOfExpensesOfCategoryAndDate(ExpenseCategory category, DateTime date)

@@ -40,7 +40,8 @@ namespace BudgetManager
             var add = period.additionalIncome;
             var incSum = period.netIncome + period.additionalIncome;
             var expSum = period.GetSumOfExpenses();
-            var balance = incSum - expSum;
+            var savings = period.plannedSavings;
+            var balance = incSum - expSum - savings;
             var daysLeft = (period.endDate - DateTime.Today).Days;
             var estimatedExpense = daysLeft > 0 ? Math.Round(balance / daysLeft, 2) : Math.Round(balance, 2);
 
@@ -62,6 +63,9 @@ namespace BudgetManager
                             break;
                         case "ExpensesSumTextBlock":
                             textBlock.Text = expSum.ToString("F") + " zł";
+                            break;
+                        case "PlannedSavingsTextBlock":
+                            textBlock.Text = savings.ToString("F") + " zł";
                             break;
                         case "BalanceTextBlock":
                             textBlock.Text = (balance > 0 ? "+" : "") + balance.ToString("F") + " zł";

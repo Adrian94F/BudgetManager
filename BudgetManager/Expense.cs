@@ -13,5 +13,6 @@ namespace BudgetManager
         public decimal value;
         public string comment;
         public ExpenseCategory category;
+        public bool monthlyExpense = false;
     }
 }

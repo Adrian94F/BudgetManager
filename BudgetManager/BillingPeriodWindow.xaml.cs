@@ -35,6 +35,7 @@ namespace BudgetManager
                 EndDatePicker.SelectedDate = DataSet.selectedPeriod.endDate;
                 NetIncomeTextBox.Text = DataSet.selectedPeriod.netIncome.ToString("F");
                 AddIncomeTextBox.Text = DataSet.selectedPeriod.additionalIncome.ToString("F");
+                PlannedSavingsTextBox.Text = DataSet.selectedPeriod.plannedSavings.ToString("F");
             }
             else  // new billing period
             {
@@ -67,7 +68,7 @@ namespace BudgetManager
             return ret;
         }
 
-        public void IncomeTextBox_LostFocus(object sender, EventArgs e)
+        public void ValueTextBox_LostFocus(object sender, EventArgs e)
         {
             TextBox txtBox = (TextBox)sender;
             txtBox.Text = ParseDecimalString(txtBox.Text).ToString("F");
@@ -79,6 +80,7 @@ namespace BudgetManager
             var endDate = (DateTime)EndDatePicker.SelectedDate;
             var netIncome = ParseDecimalString(NetIncomeTextBox.Text);
             var addIncome = ParseDecimalString(AddIncomeTextBox.Text);
+            var plannedSavings = ParseDecimalString(PlannedSavingsTextBox.Text);
             
             if (DataSet.selectedPeriod == null)  // new period
             {
@@ -87,7 +89,8 @@ namespace BudgetManager
                     startDate = startDate,
                     endDate = endDate,
                     netIncome = netIncome,
-                    additionalIncome = addIncome
+                    additionalIncome = addIncome,
+                    plannedSavings = plannedSavings
                 };
                 DataSet.billingPeriods.Add(period);
             }
@@ -97,6 +100,7 @@ namespace BudgetManager
                 DataSet.selectedPeriod.endDate = endDate;
                 DataSet.selectedPeriod.netIncome = netIncome;
                 DataSet.selectedPeriod.additionalIncome = addIncome;
+                DataSet.selectedPeriod.plannedSavings = plannedSavings;
             }
             this.Close();
         }

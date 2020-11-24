@@ -211,7 +211,7 @@
                            Grid.Row="2"
                            TextWrapping="Wrap"
                            Text="Suma dochodów"
-                           VerticalAlignment="Bottom" Width="92"/>
+                           VerticalAlignment="Bottom"/>
                 <TextBlock x:Name="IncomeSumTextBlock"
                            Grid.Column="1"
                            Grid.Row="2"
@@ -227,7 +227,7 @@
                            Grid.Column="3"
                            TextWrapping="Wrap"
                            Text="Suma wydatków"
-                           VerticalAlignment="Bottom" Width="89"/>
+                           VerticalAlignment="Bottom"/>
                 <TextBlock x:Name="ExpensesSumTextBlock"
                            Grid.Column="4"
                            Grid.Row="0"
@@ -241,11 +241,26 @@
                            Grid.Row="1"
                            Grid.Column="3"
                            TextWrapping="Wrap"
-                           Text="Bilans"
-                           VerticalAlignment="Bottom" Width="34"/>
-                <TextBlock x:Name="BalanceTextBlock"
+                           Text="Planowane oszczędności"
+                           VerticalAlignment="Bottom"/>
+                <TextBlock x:Name="PlannedSavingsTextBlock"
                            Grid.Column="4"
                            Grid.Row="1"
+                           HorizontalAlignment="Right"
+                           TextWrapping="Wrap"
+                           TextAlignment="Right"
+                           Text="...zł"
+                           VerticalAlignment="Top"
+                           Margin="10,0,0,0"/>
+                <TextBlock HorizontalAlignment="Left"
+                           Grid.Row="2"
+                           Grid.Column="3"
+                           TextWrapping="Wrap"
+                           Text="Bilans"
+                           VerticalAlignment="Bottom"/>
+                <TextBlock x:Name="BalanceTextBlock"
+                           Grid.Column="4"
+                           Grid.Row="2"
                            HorizontalAlignment="Right"
                            TextWrapping="Wrap"
                            TextAlignment="Right"
@@ -258,7 +273,7 @@
                            Grid.Column="6"
                            TextWrapping="Wrap"
                            Text="Pozostałe dni"
-                           VerticalAlignment="Bottom" Width="74"/>
+                           VerticalAlignment="Bottom"/>
                 <TextBlock x:Name="DaysLeftTextBlock"
                            Grid.Column="7"
                            Grid.Row="0"
@@ -273,7 +288,7 @@
                            Grid.Row="1"
                            TextWrapping="Wrap"
                            Text="Dzienny wydatek"
-                           VerticalAlignment="Bottom" Width="93"/>
+                           VerticalAlignment="Bottom"/>
                 <TextBlock x:Name="EstimatedDailyExpenseTextBlock"
                            Grid.Column="7"
                            Grid.Row="1"
