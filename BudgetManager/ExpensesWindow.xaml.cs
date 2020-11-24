@@ -48,25 +48,14 @@ namespace BudgetManager
             foreach (var expense in expenses)
             {
                 var content = expense.value.ToString("F");
-                if (DataSet.selectedCategory == null || expense.comment != "")
+                var categoryName = DataSet.selectedCategory == null ? expense.category.name : "";
+                var comment = expense.comment;
+                var monthlyExpense = expense.monthlyExpense ? "wydatek stały" : "";
+                string[] a = { categoryName, comment, monthlyExpense };
+                var appendix = String.Join(", ", a.Where(s => !string.IsNullOrEmpty(s) && !string.IsNullOrWhiteSpace(s)));
+                if (!string.IsNullOrEmpty(appendix) && !string.IsNullOrWhiteSpace(appendix))
                 {
-                    content += " (";
-                }
-                if (DataSet.selectedCategory == null)
-                {
-                    content += expense.category.name;
-                }
-                if (DataSet.selectedCategory == null && expense.comment != "")
-                {
-                    content += ", ";
-                }
-                if (expense.comment != "")
-                {
-                    content += expense.comment;
-                }
-                if (DataSet.selectedCategory == null || expense.comment != "")
-                {
-                    content += ")";
+                    content += " (" + appendix + ")";
                 }
                 var expenseBtn = new Button()
                 {

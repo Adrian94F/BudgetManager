@@ -40,6 +40,7 @@ namespace BudgetManager
                 DatePicker.SelectedDate = DataSet.selectedExpense.date;
                 CategoriesComboBox.SelectedItem = DataSet.selectedExpense.category;
                 CommentTextBox.Text = DataSet.selectedExpense.comment;
+                MonthlyExpenseCheckBox.IsChecked = DataSet.selectedExpense.monthlyExpense;
             }
             else if (DataSet.selectedCategory != null)
             {
@@ -93,6 +94,7 @@ namespace BudgetManager
             var category = (ExpenseCategory)CategoriesComboBox.SelectedItem;
             var date = (DateTime)DatePicker.SelectedDate;
             var comment = CommentTextBox.Text;
+            var isMonthlyExpense = (bool)MonthlyExpenseCheckBox.IsChecked;
             if (value == 0 || category == null)
             {
                 return;
@@ -106,7 +108,8 @@ namespace BudgetManager
                     value = value,
                     date = date,
                     category = category,
-                    comment = comment
+                    comment = comment,
+                    monthlyExpense = isMonthlyExpense
                 };
                 DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses.Add(exp);
             }
@@ -117,6 +120,7 @@ namespace BudgetManager
                 DataSet.selectedExpense.date = date;
                 DataSet.selectedExpense.category = category;
                 DataSet.selectedExpense.comment = comment;
+                DataSet.selectedExpense.monthlyExpense = isMonthlyExpense;
             }
             this.Close();
         }
