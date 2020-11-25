@@ -46,7 +46,7 @@ namespace BudgetManager
             return ret;
         }
 
-        public HashSet<Expense> GetExpensesOfDayAndCategory(ExpenseCategory category, DateTime date)
+        public HashSet<Expense> GetExpensesOfCategoryAndDate(ExpenseCategory category, DateTime date)
         {
             var ret = new HashSet<Expense>();
             var day = date.Day;
@@ -74,7 +74,7 @@ namespace BudgetManager
             return ret;
         }
 
-        public decimal GetSumOfExpensesOfDate(DateTime date)
+        private decimal GetSumOfExpensesOfDate(DateTime date, bool includeMonthly)
         {
             var ret = Decimal.Zero;
             var day = date.Day;
@@ -86,6 +86,40 @@ namespace BudgetManager
                     var expDay = expense.date.Day;
                     var expMonth = expense.date.Month;
                     if (day == expDay && month == expMonth)
+                    {
+                        if (includeMonthly || !expense.monthlyExpense)
+                        {
+                            ret += expense.value;
+                        }
+                    }
+                }
+            }
+            return ret;
+        }
+
+        public decimal GetSumOfAllExpensesOfDate(DateTime date)
+        {
+            return GetSumOfExpensesOfDate(date, true);
+        }
+
+        public decimal GetSumOfDailyExpensesOfDate(DateTime date)
+        {
+            return GetSumOfExpensesOfDate(date, false);
+        }
+
+        public decimal GetSumOfMonthlyExpensesOfDate(DateTime date)
+        {
+            return GetSumOfAllExpensesOfDate(date) - GetSumOfDailyExpensesOfDate(date);
+        }
+
+        public decimal GetSumOfMonthlyExpenses()
+        {
+            var ret = Decimal.Zero;
+            if (expenses != null)
+            {
+                foreach (var expense in expenses)
+                {
+                    if (expense.monthlyExpense)
                     {
                         ret += expense.value;
                     }

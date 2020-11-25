@@ -44,7 +44,7 @@ namespace BudgetManager
             var periodNumber = DataSet.currentPeriod;
             var category = DataSet.selectedCategory;
             var date = DataSet.selectedDate;
-            var expenses = DataSet.billingPeriods.ElementAt(periodNumber).GetExpensesOfDayAndCategory(category, date);
+            var expenses = DataSet.billingPeriods.ElementAt(periodNumber).GetExpensesOfCategoryAndDate(category, date);
             foreach (var expense in expenses)
             {
                 var content = expense.value.ToString("F");

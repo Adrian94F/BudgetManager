@@ -28,20 +28,36 @@ namespace BudgetManager
 
             // prepare data
             var nOfDays = (period.endDate - period.startDate).Days + 2;
-            var values = new double[nOfDays];
-            var incomeSum = (double)(period.netIncome + period.additionalIncome);
-            var yesterdaySum = values[0] = incomeSum;
             var minValue = 0.0;
+
+            // burndown
+            var burnValues = new double[nOfDays];
+            var incomeSum = (double)(period.netIncome + period.additionalIncome);
+            var yesterdaySum = burnValues[0] = incomeSum;
             for (var i = 1; i < nOfDays; i++)
             {
-                values[i] = yesterdaySum - (double)period.GetSumOfExpensesOfDate(period.startDate.AddDays(i - 1));
-                yesterdaySum = values[i];
-                minValue = values[i] < minValue ? values[i] : minValue;
+                burnValues[i] = yesterdaySum - (double)period.GetSumOfAllExpensesOfDate(period.startDate.AddDays(i - 1));
+                yesterdaySum = burnValues[i];
+                minValue = burnValues[i] < minValue ? burnValues[i] : minValue;
             }
+
+            // minimal value on chart
             if (minValue < 0)
             {
                 minValue = Math.Floor(minValue / 1000) * 1000;
             }
+
+            // burndown without monhly expenses
+            var burnValuesWoMonthlyExp = new double[nOfDays];
+            var incomeSumWoMonthlyExp = (double)(period.netIncome + period.additionalIncome - period.GetSumOfMonthlyExpenses());
+            yesterdaySum = burnValuesWoMonthlyExp[0] = incomeSumWoMonthlyExp;
+            for (var i = 1; i < nOfDays; i++)
+            {
+                burnValuesWoMonthlyExp[i] = yesterdaySum - (double)period.GetSumOfDailyExpensesOfDate(period.startDate.AddDays(i - 1));
+                yesterdaySum = burnValuesWoMonthlyExp[i];
+            }
+
+            // average burndown
             var avgBurnValues = new double[nOfDays];
             var plannedSavings = (double)period.plannedSavings;
             for (var i = 0; i < nOfDays; i++)
@@ -52,12 +68,23 @@ namespace BudgetManager
                 //avgBurnValues[i] = avgBurnValues[i - 1] - (incomeSum / (nOfDays - 1));
             }
 
+            //average burndown without monthly expenses
+            var avgBurnValuesWoMonthlyExp = new double[nOfDays];
+            for (var i = 0; i < nOfDays; i++)
+            {
+                var a = -(incomeSumWoMonthlyExp - plannedSavings) / (nOfDays - 1);
+                var b = incomeSumWoMonthlyExp;
+                avgBurnValuesWoMonthlyExp[i] = a * i + b;
+                //avgBurnValues[i] = avgBurnValues[i - 1] - (incomeSum / (nOfDays - 1));
+            }
+
             // labels
             var labels = new string[nOfDays];
             labels[0] = "start";
             for (var i = 1; i < nOfDays; i++)
             {
-                labels[i] = period.startDate.AddDays(i-1).ToString("dd.MM");
+                //labels[i] = period.startDate.AddDays(i - 1).ToString("dd.MM");
+                labels[i] = period.startDate.AddDays(i - 1).ToString("dd");
             }
 
             // axis section
@@ -77,26 +104,51 @@ namespace BudgetManager
                     Step = 1,
                     IsEnabled = false //disable it to make it invisible.
                 },
-                LabelsRotation = 60,
+                //LabelsRotation = 60,
                 Sections = { todayAxisSection }
             });
 
             // series
+            var lineSmoothness = 0.5;
             chart.Series = new SeriesCollection
             {
                 new LineSeries
                 {
                     Title = "Pozostała suma",
-                    Values = new ChartValues<double>(values),
+                    Values = new ChartValues<double>(burnValues),
                     PointGeometry = DefaultGeometries.Circle,
-                    Fill = System.Windows.Media.Brushes.Transparent
+                    LineSmoothness = lineSmoothness,
+                    Stroke = Brushes.DodgerBlue,
+                    Fill = Brushes.Transparent
                 },
                 new LineSeries
                 {
-                    Title = "Średnia (planowana) pozostała suma",
+                    Title = "Planowana pozostała suma",
                     Values = new ChartValues<double>(avgBurnValues),
                     PointGeometry = DefaultGeometries.Circle,
-                    Fill = System.Windows.Media.Brushes.Transparent
+                    LineSmoothness = lineSmoothness,
+                    Stroke = Brushes.DodgerBlue,
+                    Fill = Brushes.Transparent,
+                    StrokeDashArray = new DoubleCollection {2}
+                },
+                new LineSeries
+                {
+                    Title = "Pozostała suma bez wydatków stałych",
+                    Values = new ChartValues<double>(burnValuesWoMonthlyExp),
+                    PointGeometry = DefaultGeometries.Circle,
+                    LineSmoothness = lineSmoothness,
+                    Stroke = Brushes.YellowGreen,
+                    Fill = Brushes.Transparent
+                },
+                new LineSeries
+                {
+                    Title = "Planowana pozostała suma bez wydatków stałych",
+                    Values = new ChartValues<double>(avgBurnValuesWoMonthlyExp),
+                    PointGeometry = DefaultGeometries.Circle,
+                    LineSmoothness = lineSmoothness,
+                    Stroke = Brushes.YellowGreen,
+                    Fill = Brushes.Transparent,
+                    StrokeDashArray = new DoubleCollection {2}
                 }
             };
 

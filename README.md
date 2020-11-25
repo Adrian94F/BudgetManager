@@ -5,7 +5,7 @@ Aplikacja umożliwiająca zapisywanie codziennych wydatków i wyświetlanie stat
 ## TODO
 
 - Wydatki
-  - wydatek stały (niewidoczny na wykresie wypalenia, naliczany na cały miesiąc)
+  - wydatek stały (naliczany na cały miesiąc)
     - automatycznie przenoszony na nowy miesiąc
 - Widoki
   - Wykres podsumowania
