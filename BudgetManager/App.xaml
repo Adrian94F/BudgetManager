@@ -9,9 +9,12 @@
             <Setter Property="Padding" Value="7,2"/>
             <Setter Property="BorderBrush" Value="Silver"/>
         </Style>
-        <Style TargetType="{x:Type Border}">
+        <!--<Style TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="Silver"/>
             <Setter Property="BorderThickness" Value="1"/>
+        </Style>-->
+        <Style TargetType="{x:Type Menu}">
+            <Setter Property="Background" Value="White"/>
         </Style>
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="BorderBrush" Value="Silver"/>

@@ -72,30 +72,30 @@ namespace BudgetManager
         {
             if (DataSet.currentPeriod > 0)
             {
-                EnableButton(BtnPrev);
+                EnableMenuItem(BtnPrev);
             }
             else
             {
-                DisableButton(BtnPrev);
+                DisableMenuItem(BtnPrev);
             }
             if (DataSet.currentPeriod < DataSet.billingPeriods.Count - 1)
             {
-                EnableButton(BtnNext);
+                EnableMenuItem(BtnNext);
             }
             else
             {
-                DisableButton(BtnNext);
+                DisableMenuItem(BtnNext);
             }
         }
 
-        private void EnableButton(Button btn)
+        private void EnableMenuItem(MenuItem m)
         {
-            btn.IsEnabled = true;
+            m.IsEnabled = true;
         }
 
-        private void DisableButton(Button btn)
+        private void DisableMenuItem(MenuItem m)
         {
-            btn.IsEnabled = false;
+            m.IsEnabled = false;
         }
 
         private void SetupVariables()
@@ -164,11 +164,11 @@ namespace BudgetManager
             DataSet.currentPeriod--;
             if (DataSet.currentPeriod == 0)
             {
-                DisableButton(BtnPrev);
+                DisableMenuItem(BtnPrev);
             }
             if (!BtnNext.IsEnabled)
             {
-                EnableButton(BtnNext);
+                EnableMenuItem(BtnNext);
             }
             RefreshTabs();
         }
@@ -178,11 +178,11 @@ namespace BudgetManager
             DataSet.currentPeriod++;
             if (DataSet.currentPeriod == DataSet.billingPeriods.Count - 1)
             {
-                DisableButton(BtnNext);
+                DisableMenuItem(BtnNext);
             }
             if (!BtnPrev.IsEnabled)
             {
-                EnableButton(BtnPrev);
+                EnableMenuItem(BtnPrev);
             }
             RefreshTabs();
         }

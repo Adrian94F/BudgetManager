@@ -13,33 +13,51 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Plik">
-                <MenuItem Header="Dodaj wydatek" />
+                <MenuItem Header="Dodaj wydatek"
+                          Click="BtnAdd_Click"/>
                 <Separator />
-                <MenuItem Header="Zapisz zmiany" />
+                <MenuItem Header="Zapisz zmiany"
+                          IsEnabled="False"/>
                 <Separator />
-                <MenuItem Header="Zamknij" />
+                <MenuItem Header="Zamknij"
+                          IsEnabled="False"/>
             </MenuItem>
             <MenuItem Header="Edycja">
-                <MenuItem Header="Kategorie"/>
-                <MenuItem Header="Miesiące"/>
+                <MenuItem Header="Kategorie"
+                          Click="BtnCategories_Click"/>
+                <MenuItem Header="Miesiące"
+                          Click="BtnPeriods_Click"/>
                 <Separator />
-                <MenuItem Header="Ustawienia"/>
+                <MenuItem Header="Ustawienia"
+                          Click="BtnSettings_Click"/>
             </MenuItem>
             <MenuItem Header="Miesiąc">
-                <MenuItem Header="Poprzedni"/>
-                <MenuItem Header="Następny"/>
+                <MenuItem x:Name="BtnPrev"
+                          Header="Poprzedni"
+                          Click="BtnPrev_Click"
+                          IsEnabled="False"/>
+                <MenuItem x:Name="BtnNext"
+                          Header="Następny"
+                          Click="BtnNext_Click"
+                          IsEnabled="False"/>
             </MenuItem>
             <MenuItem Header="Widok">
-                <MenuItem Header="Podsumowanie miesiąca"/>
-                <MenuItem Header="Wszystkie wydatki w miesiącu"/>
-                <MenuItem Header="Wypalenie"/>
+                <MenuItem Header="Podsumowanie miesiąca"
+                          IsEnabled="False"/>
+                <MenuItem Header="Wszystkie wydatki w miesiącu"
+                          IsEnabled="False"/>
+                <MenuItem Header="Wypalenie"
+                          IsEnabled="False"/>
                 <Separator />
-                <MenuItem Header="Podsumowanie ostatnich miesięcy"/>
+                <MenuItem Header="Podsumowanie ostatnich miesięcy"
+                          IsEnabled="False"/>
             </MenuItem>
             <MenuItem Header="Informacje">
-                <MenuItem Header="O programie"/>
+                <MenuItem Header="O programie"
+                          IsEnabled="False"/>
                 <Separator />
-                <MenuItem Header="Pomoc"/>
+                <MenuItem Header="Pomoc"
+                          IsEnabled="False"/>
             </MenuItem>
         </Menu>
         <Grid Margin="0,0,0,0" >
@@ -48,50 +66,6 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-
-            <Button x:Name="BtnAdd"
-                    Click="BtnAdd_Click"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Margin="7,7,0,0"
-                    Content="Dodaj"/>
-
-            <Button x:Name="BtnCategories"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Margin="82,7,0,0"
-                    Content="Kategorie"
-                    Click="BtnCategories_Click"/>
-
-            <Button x:Name="BtnPeriods"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Margin="157,7,0,0"
-                    Content="Miesiące"
-                    Click="BtnPeriods_Click"/>
-
-            <Button x:Name="BtnSettings"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Margin="232,7,0,0"
-                    Content="Ustawienia"
-                    Click="BtnSettings_Click"/>
-
-            <Button x:Name="BtnPrev"
-                    HorizontalAlignment="Right"
-                    Margin="0,7,82,0"
-                    VerticalAlignment="Top"
-                    IsEnabled="False"
-                    Click="BtnPrev_Click"
-                    Content="Poprzedni"/>
-
-            <Button x:Name="BtnNext"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    IsEnabled="False"
-                    Click="BtnNext_Click"
-                    Margin="0,7,7,0"
-                    Content="Następny"/>
 
             <TextBlock x:Name="PeriodDatesTextBlock"
                        Text="Period dates..."

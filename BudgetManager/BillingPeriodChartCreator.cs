@@ -116,7 +116,7 @@ namespace BudgetManager
                 {
                     Title = "Pozostała suma",
                     Values = new ChartValues<double>(burnValues),
-                    PointGeometry = DefaultGeometries.Circle,
+                    PointGeometry = DefaultGeometries.None,
                     LineSmoothness = lineSmoothness,
                     Stroke = Brushes.DodgerBlue,
                     Fill = Brushes.Transparent
@@ -125,7 +125,7 @@ namespace BudgetManager
                 {
                     Title = "Planowana pozostała suma",
                     Values = new ChartValues<double>(avgBurnValues),
-                    PointGeometry = DefaultGeometries.Circle,
+                    PointGeometry = DefaultGeometries.None,
                     LineSmoothness = lineSmoothness,
                     Stroke = Brushes.DodgerBlue,
                     Fill = Brushes.Transparent,
@@ -135,7 +135,7 @@ namespace BudgetManager
                 {
                     Title = "Pozostała suma bez wydatków stałych",
                     Values = new ChartValues<double>(burnValuesWoMonthlyExp),
-                    PointGeometry = DefaultGeometries.Circle,
+                    PointGeometry = DefaultGeometries.None,
                     LineSmoothness = lineSmoothness,
                     Stroke = Brushes.YellowGreen,
                     Fill = Brushes.Transparent
@@ -144,7 +144,7 @@ namespace BudgetManager
                 {
                     Title = "Planowana pozostała suma bez wydatków stałych",
                     Values = new ChartValues<double>(avgBurnValuesWoMonthlyExp),
-                    PointGeometry = DefaultGeometries.Circle,
+                    PointGeometry = DefaultGeometries.None,
                     LineSmoothness = lineSmoothness,
                     Stroke = Brushes.YellowGreen,
                     Fill = Brushes.Transparent,
