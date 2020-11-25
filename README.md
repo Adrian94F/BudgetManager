@@ -20,12 +20,7 @@ Aplikacja umożliwiająca zapisywanie codziennych wydatków i wyświetlanie stat
       PgUp/PgDown - poprzedni/następny miesiąc
   - Skróty klawiszowe
     - Szybkie dodawanie do predefiniowanych kategorii (Ctrl + 1-9)
-  - Pasek menu:
-    Plik (Dodaj wydatek, Zapisz),
-    Edycja (Kategorie, Miesiące | Ustawienia),
-    Miesiąc (Poprzedni, Następny),
-    Widok (Podsumowanie miesiąca, Wszystkie wydatki w miesiącu, Wykres wypalenia | Podsumowanie ostatnich miesięcy),
-    Informacje (O programie, Pomoc)
+  - Pasek menu (przypisanie funkcji)
   - Zapytanie o utworzenie nowego miesiąca po uruchomieniu po końcu ostatniego miesiąca
 - Ustawienia
   - Zmiana rozmiaru czcionki w ustawianiach
