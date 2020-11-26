@@ -64,7 +64,7 @@ namespace BudgetManager
         private void SetupGridCreator()
         {
             gridCreator = new BillingPeriodGridCreator(this);
-            gridCreator.SetGrids(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, SummaryGrid);
+            gridCreator.SetGrids(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, SummaryGrid, ExpensesListGrid);
         }
 
         private void SetupButtons()
@@ -225,19 +225,34 @@ namespace BudgetManager
             SetupButtons();
         }
 
+        private void SaveData()
+        {
+            var fh = new FilesHandler();
+            fh.SaveData();
+        }
+
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             var result = MessageBox.Show("Czy chcesz zapisać wprowadzone zmiany?", "Wyjście", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    var fh = new FilesHandler();
-                    fh.SaveData();
+                    SaveData();
                     break;
                 case MessageBoxResult.Cancel:
                     e.Cancel = true;
                     break;
             }
+        }
+
+        private void CloseMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            SaveData();
         }
 
         private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)

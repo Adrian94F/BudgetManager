@@ -13,7 +13,7 @@ namespace BudgetManager
     class BillingPeriodGridCreator
     {
         Window window;
-        Grid header, categories, expenses, summary;
+        Grid header, categories, expenses, summary, list;
         BillingPeriod period;
 
         public BillingPeriodGridCreator(Window w)
@@ -21,12 +21,13 @@ namespace BudgetManager
             window = w;
         }
 
-        public void SetGrids(Grid h, Grid v, Grid e, Grid s)
+        public void SetGrids(Grid h, Grid v, Grid e, Grid s, Grid l)
         {
             header = h;
             categories = v;
             expenses = e;
             summary = s;
+            list = l;
         }
 
         public void SetPeriod(BillingPeriod bp)
@@ -109,6 +110,7 @@ namespace BudgetManager
             CreateHeaderGrid(header, period);
             CreateVerticalGrid(categories);
             CreateExpensesDataGrid(expenses, period);
+            CreateExpensesListGrid(list, period);
         }
 
         private void AddColumnDefinitionsForDays(Grid grid, int numOfDays)
@@ -187,6 +189,74 @@ namespace BudgetManager
 
             AddStretchColumn(grid);
             AddStretchRow(grid);
+        }
+
+        private void CreateExpensesListGrid(Grid grid, BillingPeriod period)
+        {
+            GridLength[] colWidths = {
+                new GridLength(40, GridUnitType.Pixel),
+                new GridLength(80, GridUnitType.Pixel),
+                new GridLength(300, GridUnitType.Pixel),
+                new GridLength(1, GridUnitType.Star)
+            };
+            HorizontalAlignment[] horizontalAlignments =
+            {
+                HorizontalAlignment.Left,
+                HorizontalAlignment.Right,
+                HorizontalAlignment.Left,
+                HorizontalAlignment.Left
+            };
+            foreach (var expense in period.expenses)
+            {
+                grid.RowDefinitions.Add(new RowDefinition()
+                {
+                    Height = new GridLength(1, GridUnitType.Auto)
+                });
+                var buttonGrid = new Grid();
+                for (var i = 0; i < colWidths.Length; i++)
+                {
+                    var cd = new ColumnDefinition
+                    {
+                        Width = colWidths[i]
+                    };
+                    buttonGrid.ColumnDefinitions.Add(cd);
+                }
+                var comment = expense.comment;
+                var monthlyExpense = expense.monthlyExpense ? "wydatek stały" : "";
+                string[] a = { comment, monthlyExpense };
+                var appendix = String.Join(", ", a.Where(s => !string.IsNullOrEmpty(s) && !string.IsNullOrWhiteSpace(s)));
+                appendix = !string.IsNullOrEmpty(appendix) && !string.IsNullOrWhiteSpace(appendix) ? " (" + appendix + ")" : " ";
+                string[] textBlocksValues =
+                {
+                    expense.date.ToString("dd.MM"),
+                    expense.value.ToString("F") + " zł",
+                    expense.category.name,
+                    appendix
+                };
+                for (var i = 0; i < textBlocksValues.Length; i++)
+                {
+                    var textBlock = new TextBlock
+                    {
+                        Text = textBlocksValues[i],
+                        Margin = new Thickness(3, 0, 10, 0),
+                        HorizontalAlignment = horizontalAlignments[i]
+                    };
+                    Grid.SetColumn(textBlock, i);
+                    buttonGrid.Children.Add(textBlock);
+                }
+                var button = new Button
+                {
+                    Content = buttonGrid,
+                    HorizontalContentAlignment = HorizontalAlignment.Left,
+                    BorderThickness = new Thickness(0),
+                    Background = Brushes.Transparent,
+                    MaxHeight = 16,
+                    Padding = new Thickness(0)
+                };
+                Grid.SetColumnSpan(button, colWidths.Length);
+                Grid.SetRow(button, grid.RowDefinitions.Count - 1);
+                grid.Children.Add(button);
+            }
         }
 
         private void AddStretchRow(Grid grid)

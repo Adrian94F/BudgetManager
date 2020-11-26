@@ -14,12 +14,12 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Plik">
                 <MenuItem Header="Zapisz zmiany"
-                          IsEnabled="False"/>
+                          Click="SaveMenuItem_Click"/>
                 <MenuItem Header="Ustawienia programu"
                           Click="SettingsMenuItem_Click"/>
                 <Separator />
                 <MenuItem Header="Zamknij"
-                          IsEnabled="False"/>
+                          Click="CloseMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Wydatki">
                 <MenuItem Header="Dodaj wydatek"
@@ -77,8 +77,7 @@
                         SelectionChanged="TabControl_SelectionChanged">
                 <TabItem x:Name="SummaryTabItem"
                          Header="Podsumowanie">
-                    <Grid Margin="0,0,0,0"
-                            Grid.Row="0">
+                    <Grid Margin="0,0,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="16" />
                             <RowDefinition Height="*" />
@@ -145,10 +144,44 @@
                         </ScrollViewer>
                     </Grid>
                 </TabItem>
-                <TabItem x:Name="ListTabitem"
-                         Header="Lista wydatków"
-                         IsEnabled="False">
-                    <Grid/>
+                <TabItem x:Name="ListTabItem"
+                         Header="Lista wydatków">
+                    <Grid Margin="0,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="16" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Rectangle Grid.Row="0"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="4"
+                                   Fill="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
+                            <TextBlock Grid.Column="0"
+                                       Text="Data"
+                                       Margin="3,0,0,0"/>
+                            <TextBlock Grid.Column="1"
+                                       Text="Wartość"
+                                       Margin="3,0,0,0"/>
+                            <TextBlock Grid.Column="2"
+                                       Text="Kategoria"
+                                       Margin="3,0,0,0"/>
+                            <TextBlock Grid.Column="3"
+                                       Text="Dodatkowe informacje"
+                                       Margin="3,0,0,0"/>
+
+                        </Grid>
+                        <ScrollViewer Grid.Row="1">
+                            <Grid x:Name="ExpensesListGrid"/>
+                        </ScrollViewer>
+                    </Grid>
                 </TabItem>
                 <TabItem x:Name="BurndownTabItem"
                          Header="Wypalenie">
