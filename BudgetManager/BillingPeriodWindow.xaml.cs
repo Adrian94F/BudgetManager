@@ -50,6 +50,11 @@ namespace BudgetManager
                 }
                 endDate = new DateTime(endDate.Year, endDate.Month, typicalEndDay);
                 EndDatePicker.SelectedDate = endDate;
+                if (DataSet.billingPeriods.Count > 0)
+                {
+                    NetIncomeTextBox.Text = DataSet.billingPeriods.Last().netIncome.ToString("F");
+                    PlannedSavingsTextBox.Text = DataSet.billingPeriods.Last().plannedSavings.ToString("F");
+                }
             }
         }
 
@@ -92,6 +97,10 @@ namespace BudgetManager
                     additionalIncome = addIncome,
                     plannedSavings = plannedSavings
                 };
+                if (DataSet.billingPeriods.Count > 0)
+                {
+                    period.expenses = DataSet.billingPeriods.Last().GetCopyOfMonthlyExpensesForNextPeriod();
+                }
                 DataSet.billingPeriods.Add(period);
             }
             else  // existing period

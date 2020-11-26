@@ -30,7 +30,6 @@ namespace BudgetManager
             InitializeComponent();
             SetupVariables();
             SetupGridCreator();
-            PrintDataAsText();
             RefreshTabs();
             SetupButtons();
             this.Closing += MainWindow_Closing;
@@ -72,30 +71,30 @@ namespace BudgetManager
         {
             if (DataSet.currentPeriod > 0)
             {
-                EnableMenuItem(BtnPrev);
+                EnablMenuItem(MenuItemPrev);
             }
             else
             {
-                DisableMenuItem(BtnPrev);
+                DisableMenuItem(MenuItemPrev);
             }
             if (DataSet.currentPeriod < DataSet.billingPeriods.Count - 1)
             {
-                EnableMenuItem(BtnNext);
+                EnablMenuItem(MenuItemNext);
             }
             else
             {
-                DisableMenuItem(BtnNext);
+                DisableMenuItem(MenuItemNext);
             }
         }
 
-        private void EnableMenuItem(MenuItem m)
+        private void EnablMenuItem(MenuItem btn)
         {
-            m.IsEnabled = true;
+            btn.IsEnabled = true;
         }
 
-        private void DisableMenuItem(MenuItem m)
+        private void DisableMenuItem(MenuItem btn)
         {
-            m.IsEnabled = false;
+            btn.IsEnabled = false;
         }
 
         private void SetupVariables()
@@ -130,59 +129,30 @@ namespace BudgetManager
             }
         }
 
-        private void PrintDataAsText()
-        {
-            var str = "";
-
-            // print categories
-            str += "Liczba kategorii: " + Convert.ToString(DataSet.expenseCategories.Count) + "\n";
-            foreach (var category in DataSet.expenseCategories)
-            {
-                str += " [" + category.name + "]";
-            }
-            str += "\n\n";
-
-            // print periods
-            str += "Liczba okresów rozliczeniowych: " + Convert.ToString(DataSet.billingPeriods.Count) + "\n";
-            foreach (var period in DataSet.billingPeriods)
-            {
-                str += " " + period.startDate.ToShortDateString() + "-" + period.endDate.ToShortDateString() + " (" + ((period.endDate - period.startDate).Days + 1) + " dni), dochód: " + period.netIncome.ToString() + "zł (+" + period.additionalIncome.ToString() + "zł)\n  ";
-                if (period.expenses != null)
-                {
-                    foreach (var exp in period.expenses)
-                    {
-                        //str += " [" + exp.date.ToShortDateString() + ", " + exp.value.ToString() + "zł, " + exp.category.name + "]";
-                        str += ".";
-                    }
-                    str += "\n";
-                }
-            }
-        }
-
-        private void BtnPrev_Click(object sender, RoutedEventArgs e)
+        private void PrevMenuItem_Click(object sender, RoutedEventArgs e)
         {
             DataSet.currentPeriod--;
             if (DataSet.currentPeriod == 0)
             {
-                DisableMenuItem(BtnPrev);
+                DisableMenuItem(MenuItemPrev);
             }
-            if (!BtnNext.IsEnabled)
+            if (!MenuItemNext.IsEnabled)
             {
-                EnableMenuItem(BtnNext);
+                EnablMenuItem(MenuItemNext);
             }
             RefreshTabs();
         }
 
-        private void BtnNext_Click(object sender, RoutedEventArgs e)
+        private void NextPeriodMenuItem_Click(object sender, RoutedEventArgs e)
         {
             DataSet.currentPeriod++;
             if (DataSet.currentPeriod == DataSet.billingPeriods.Count - 1)
             {
-                DisableMenuItem(BtnNext);
+                DisableMenuItem(MenuItemNext);
             }
-            if (!BtnPrev.IsEnabled)
+            if (!MenuItemPrev.IsEnabled)
             {
-                EnableMenuItem(BtnPrev);
+                EnablMenuItem(MenuItemPrev);
             }
             RefreshTabs();
         }
@@ -209,7 +179,7 @@ namespace BudgetManager
             RefreshTabs();
         }
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        private void AddExpenseMenuItem_Click(object sender, RoutedEventArgs e)
         {
             DataSet.selectedCategory = null;
             DataSet.selectedDate = DateTime.Now;
@@ -226,7 +196,7 @@ namespace BudgetManager
             RefreshTabs();
         }
 
-        private void BtnCategories_Click(object sender, RoutedEventArgs e)
+        private void CategoriesMenuItem_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
             var categoriesWindow = new CategoriesWindow();
@@ -240,7 +210,7 @@ namespace BudgetManager
             RefreshTabs();
         }
 
-        private void BtnPeriods_Click(object sender, RoutedEventArgs e)
+        private void PeriodsMenuItem_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
             var periodsWindow = new BillingPeriodsWindow();
@@ -270,7 +240,7 @@ namespace BudgetManager
             }
         }
 
-        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
             var settingsWindow = new SettingsWindow();

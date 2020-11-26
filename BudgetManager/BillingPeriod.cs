@@ -20,6 +20,27 @@ namespace BudgetManager
 
         public HashSet<Expense> expenses = new HashSet<Expense>();
 
+        public HashSet<Expense> GetCopyOfMonthlyExpensesForNextPeriod()
+        {
+            var ret = new HashSet<Expense>();
+            foreach (var exp in expenses)
+            {
+                if (exp.monthlyExpense)
+                {
+                    var newExp = new Expense()
+                    {
+                        value = exp.value,
+                        date = exp.date.AddMonths(1),
+                        comment = exp.comment,
+                        category = exp.category,
+                        monthlyExpense = true
+                    };
+                    ret.Add(newExp);
+                }
+            }
+            return ret;
+        }
+
         public int CompareTo(object obj)
         {
             return startDate.CompareTo(((BillingPeriod)obj).startDate);

@@ -40,10 +40,13 @@ namespace BudgetManager
             var add = period.additionalIncome;
             var incSum = period.netIncome + period.additionalIncome;
             var expSum = period.GetSumOfExpenses();
+            var monthlyExpSum = period.GetSumOfMonthlyExpenses();
+            var dailyExpSum = expSum - monthlyExpSum;
             var savings = period.plannedSavings;
             var balance = incSum - expSum - savings;
+            var isActualBillingPeriod = (DateTime.Today - period.startDate).Days >= 0 && (period.endDate - DateTime.Today).Days >= 0;
             var daysLeft = (period.endDate - DateTime.Today).Days;
-            var estimatedExpense = daysLeft > 0 ? Math.Round(balance / daysLeft, 2) : Math.Round(balance, 2);
+            var estimatedExpense = isActualBillingPeriod ? Math.Round(balance / daysLeft, 2) : Math.Round(balance, 2);
 
             foreach (var child in summary.Children)
             {
@@ -61,7 +64,19 @@ namespace BudgetManager
                         case "IncomeSumTextBlock":
                             textBlock.Text = incSum.ToString("F") + " zł";
                             break;
+                        case "IncomeSumTextBlock2":
+                            textBlock.Text = incSum.ToString("F") + " zł";
+                            break;
+                        case "DailyExpensesSumTextBlock":
+                            textBlock.Text = dailyExpSum.ToString("F") + " zł";
+                            break;
+                        case "MonthlyExpensesSumTextBlock":
+                            textBlock.Text = monthlyExpSum.ToString("F") + " zł";
+                            break;
                         case "ExpensesSumTextBlock":
+                            textBlock.Text = expSum.ToString("F") + " zł";
+                            break;
+                        case "ExpensesSumTextBlock2":
                             textBlock.Text = expSum.ToString("F") + " zł";
                             break;
                         case "PlannedSavingsTextBlock":
@@ -71,10 +86,10 @@ namespace BudgetManager
                             textBlock.Text = (balance > 0 ? "+" : "") + balance.ToString("F") + " zł";
                             break;
                         case "DaysLeftTextBlock":
-                            textBlock.Text = daysLeft < 0 ? "" : daysLeft.ToString();
+                            textBlock.Text = isActualBillingPeriod ? daysLeft.ToString() : "-";
                             break;
                         case "EstimatedDailyExpenseTextBlock":
-                            textBlock.Text = daysLeft < 0 ? "" : estimatedExpense.ToString("F") + " zł";
+                            textBlock.Text = isActualBillingPeriod ? estimatedExpense.ToString("F") + " zł" : "-";
                             break;
                         default:
                             break;
@@ -164,8 +179,9 @@ namespace BudgetManager
                 for (var j = 0; j < numOfDays; j++)
                 {
                     var date = period.startDate.AddDays(j);
-                    var sum = Decimal.Round(period.GetSumOfExpensesOfCategoryAndDate(category, date)).ToString();
-                    AddButtonToGrid(sum, i, j, grid, category, date);
+                    var sum = period.GetSumOfExpensesOfCategoryAndDate(category, date);
+                    var sumStr = sum > 0 ? Decimal.Round(sum).ToString() : "";
+                    AddButtonToGrid(sumStr, i, j, grid, category, date);
                 }
             }
 

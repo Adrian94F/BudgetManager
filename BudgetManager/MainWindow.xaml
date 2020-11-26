@@ -7,39 +7,37 @@
         mc:Ignorable="d"
         Title="Menedżer Budżetu"
         Height="450"
-        Width="600"
-        MinWidth="600"
-        MinHeight="300">
+        Width="800"
+        MinWidth="700"
+        MinHeight="220">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Plik">
-                <MenuItem Header="Dodaj wydatek"
-                          Click="BtnAdd_Click"/>
-                <Separator />
                 <MenuItem Header="Zapisz zmiany"
                           IsEnabled="False"/>
+                <MenuItem Header="Ustawienia programu"
+                          Click="SettingsMenuItem_Click"/>
                 <Separator />
                 <MenuItem Header="Zamknij"
                           IsEnabled="False"/>
             </MenuItem>
-            <MenuItem Header="Edycja">
-                <MenuItem Header="Kategorie"
-                          Click="BtnCategories_Click"/>
-                <MenuItem Header="Miesiące"
-                          Click="BtnPeriods_Click"/>
+            <MenuItem Header="Wydatki">
+                <MenuItem Header="Dodaj wydatek"
+                          Click="AddExpenseMenuItem_Click"/>
                 <Separator />
-                <MenuItem Header="Ustawienia"
-                          Click="BtnSettings_Click"/>
-            </MenuItem>
-            <MenuItem Header="Miesiąc">
-                <MenuItem x:Name="BtnPrev"
-                          Header="Poprzedni"
-                          Click="BtnPrev_Click"
+                <MenuItem x:Name="MenuItemPrev"
+                          Header="Poprzedni miesiąc"
+                          Click="PrevMenuItem_Click"
                           IsEnabled="False"/>
-                <MenuItem x:Name="BtnNext"
-                          Header="Następny"
-                          Click="BtnNext_Click"
+                <MenuItem x:Name="MenuItemNext"
+                          Header="Następny miesiąc"
+                          Click="NextPeriodMenuItem_Click"
                           IsEnabled="False"/>
+                <Separator />
+                <MenuItem Header="Miesiące"
+                          Click="PeriodsMenuItem_Click"/>
+                <MenuItem Header="Kategorie"
+                          Click="CategoriesMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Widok">
                 <MenuItem Header="Podsumowanie miesiąca"
@@ -163,7 +161,8 @@
                 </TabItem>
             </TabControl>
 
-            <Border VerticalAlignment="Bottom"
+            <Border Style="{StaticResource MyBorder}"
+                    VerticalAlignment="Bottom"
                     Grid.Row="2"
                     Margin="7,0,7,7"
                     Padding="3">
@@ -171,6 +170,7 @@
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
@@ -183,15 +183,67 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
 
+                    <!-- column 0-1 -->
                     <TextBlock HorizontalAlignment="Left"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               TextWrapping="Wrap"
+                               Text="Wydatki codzienne"
+                               VerticalAlignment="Bottom"/>
+                    <TextBlock x:Name="DailyExpensesSumTextBlock"
+                               Grid.Column="1"
+                               Grid.Row="0"
+                               HorizontalAlignment="Right"
+                               TextWrapping="Wrap"
+                               TextAlignment="Right"
+                               Text="...zł"
+                               VerticalAlignment="Top"
+                               Margin="10,0,0,0"/>
+                    <TextBlock HorizontalAlignment="Left"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               TextWrapping="Wrap"
+                               Text="Wydatki miesięczne"
+                               VerticalAlignment="Bottom"/>
+                    <TextBlock x:Name="MonthlyExpensesSumTextBlock"
+                               Grid.Column="1"
+                               Grid.Row="1"
+                               HorizontalAlignment="Right"
+                               TextWrapping="Wrap"
+                               TextAlignment="Right"
+                               Text="...zł"
+                               VerticalAlignment="Top"
+                               Margin="10,0,0,0"/>
+                    <TextBlock HorizontalAlignment="Left"
+                               Grid.Row="2"
+                               Grid.Column="0"
+                               TextWrapping="Wrap"
+                               Text="Suma wydatków"
+                               VerticalAlignment="Bottom"/>
+                    <TextBlock x:Name="ExpensesSumTextBlock"
+                               Grid.Column="1"
+                               Grid.Row="2"
+                               HorizontalAlignment="Right"
+                               TextWrapping="Wrap"
+                               TextAlignment="Right"
+                               Text="...zł"
+                               VerticalAlignment="Top"
+                               Margin="10,0,0,0"/>
+                    
+                    <!-- column 3-4 -->
+                    <TextBlock HorizontalAlignment="Left"
+                               Grid.Column="3"
                                Grid.Row="0"
                                TextWrapping="Wrap"
                                Text="Dochód netto"
                                VerticalAlignment="Bottom"/>
                     <TextBlock x:Name="NetIncomeTextBlock"
-                               Grid.Column="1"
+                               Grid.Column="4"
                                Grid.Row="0"
                                HorizontalAlignment="Right"
                                TextWrapping="Wrap"
@@ -200,12 +252,13 @@
                                VerticalAlignment="Top"
                                Margin="10,0,0,0"/>
                     <TextBlock HorizontalAlignment="Left"
+                               Grid.Column="3"
                                Grid.Row="1"
                                TextWrapping="Wrap"
                                Text="Inny dochód"
                                VerticalAlignment="Bottom" Width="69"/>
                     <TextBlock x:Name="AddIncomeTextBlock"
-                               Grid.Column="1"
+                               Grid.Column="4"
                                Grid.Row="1"
                                HorizontalAlignment="Right"
                                TextWrapping="Wrap"
@@ -214,12 +267,13 @@
                                VerticalAlignment="Top"
                                Margin="10,0,0,0"/>
                     <TextBlock HorizontalAlignment="Left"
+                               Grid.Column="3"
                                Grid.Row="2"
                                TextWrapping="Wrap"
                                Text="Suma dochodów"
                                VerticalAlignment="Bottom"/>
                     <TextBlock x:Name="IncomeSumTextBlock"
-                               Grid.Column="1"
+                               Grid.Column="4"
                                Grid.Row="2"
                                HorizontalAlignment="Right"
                                TextWrapping="Wrap"
@@ -228,14 +282,15 @@
                                VerticalAlignment="Top"
                                Margin="10,0,0,0"/>
 
+                    <!-- column 6-7 -->
                     <TextBlock HorizontalAlignment="Left"
+                               Grid.Column="6"
                                Grid.Row="0"
-                               Grid.Column="3"
                                TextWrapping="Wrap"
-                               Text="Suma wydatków"
+                               Text="Suma dochodów"
                                VerticalAlignment="Bottom"/>
-                    <TextBlock x:Name="ExpensesSumTextBlock"
-                               Grid.Column="4"
+                    <TextBlock x:Name="IncomeSumTextBlock2"
+                               Grid.Column="7"
                                Grid.Row="0"
                                HorizontalAlignment="Right"
                                TextWrapping="Wrap"
@@ -245,13 +300,28 @@
                                Margin="10,0,0,0"/>
                     <TextBlock HorizontalAlignment="Left"
                                Grid.Row="1"
-                               Grid.Column="3"
+                               Grid.Column="6"
+                               TextWrapping="Wrap"
+                               Text="Suma wydatków"
+                               VerticalAlignment="Bottom"/>
+                    <TextBlock x:Name="ExpensesSumTextBlock2"
+                               Grid.Column="7"
+                               Grid.Row="1"
+                               HorizontalAlignment="Right"
+                               TextWrapping="Wrap"
+                               TextAlignment="Right"
+                               Text="...zł"
+                               VerticalAlignment="Top"
+                               Margin="10,0,0,0"/>
+                    <TextBlock HorizontalAlignment="Left"
+                               Grid.Row="2"
+                               Grid.Column="6"
                                TextWrapping="Wrap"
                                Text="Planowane oszczędności"
                                VerticalAlignment="Bottom"/>
                     <TextBlock x:Name="PlannedSavingsTextBlock"
-                               Grid.Column="4"
-                               Grid.Row="1"
+                               Grid.Column="7"
+                               Grid.Row="2"
                                HorizontalAlignment="Right"
                                TextWrapping="Wrap"
                                TextAlignment="Right"
@@ -259,14 +329,14 @@
                                VerticalAlignment="Top"
                                Margin="10,0,0,0"/>
                     <TextBlock HorizontalAlignment="Left"
-                               Grid.Row="2"
-                               Grid.Column="3"
+                               Grid.Row="3"
+                               Grid.Column="6"
                                TextWrapping="Wrap"
                                Text="Bilans"
                                VerticalAlignment="Bottom"/>
                     <TextBlock x:Name="BalanceTextBlock"
-                               Grid.Column="4"
-                               Grid.Row="2"
+                               Grid.Column="7"
+                               Grid.Row="3"
                                HorizontalAlignment="Right"
                                TextWrapping="Wrap"
                                TextAlignment="Right"
@@ -274,14 +344,15 @@
                                VerticalAlignment="Top"
                                Margin="10,0,0,0"/>
 
+                    <!-- column 9-10 -->
                     <TextBlock HorizontalAlignment="Left"
                                Grid.Row="0"
-                               Grid.Column="6"
+                               Grid.Column="9"
                                TextWrapping="Wrap"
                                Text="Pozostałe dni"
                                VerticalAlignment="Bottom"/>
                     <TextBlock x:Name="DaysLeftTextBlock"
-                               Grid.Column="7"
+                               Grid.Column="10"
                                Grid.Row="0"
                                HorizontalAlignment="Right"
                                TextWrapping="Wrap"
@@ -290,13 +361,13 @@
                                VerticalAlignment="Top"
                                Margin="10,0,0,0"/>
                     <TextBlock HorizontalAlignment="Left"
-                               Grid.Column="6"
+                               Grid.Column="9"
                                Grid.Row="1"
                                TextWrapping="Wrap"
                                Text="Dzienny wydatek"
                                VerticalAlignment="Bottom"/>
                     <TextBlock x:Name="EstimatedDailyExpenseTextBlock"
-                               Grid.Column="7"
+                               Grid.Column="10"
                                Grid.Row="1"
                                HorizontalAlignment="Right"
                                TextWrapping="Wrap"
