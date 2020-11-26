@@ -5,8 +5,7 @@ Aplikacja umożliwiająca zapisywanie codziennych wydatków i wyświetlanie stat
 ## TODO
 
 - Wydatki
-  - wydatek stały (naliczany na cały miesiąc)
-    - automatycznie przenoszony na nowy miesiąc
+  - ostrzeżenie w przypadku daty spoza okresu rozliczeniowego
 - Widoki
   - Wykres podsumowania
   - Widok wszystkich wydatków
@@ -25,9 +24,12 @@ Aplikacja umożliwiająca zapisywanie codziennych wydatków i wyświetlanie stat
     - Szybkie dodawanie do predefiniowanych kategorii (Ctrl + 1-9)
     - Dodawanie wydatku dla dowolnej kategorii (może Ctrl + ~)
   - Zapytanie o utworzenie nowego miesiąca po uruchomieniu po końcu ostatniego miesiąca
-  - Menu (przypisanie funkcji)
+  - Menu (przypisanie pozostałych funkcji)
 - Ustawienia
   - Zmiana rozmiaru czcionki w ustawianiach
   - Tryb jasny/ciemny
+  - Wykres:
+    - Kolory linii
+    - Zaokrąglenie
 - Informacje o programie
 - Pomoc
