@@ -24,11 +24,14 @@ namespace BudgetManager
             InitializeComponent();
             SetLabel();
             FillWithExpenses();
+            BtnOk.IsDefault = true;
         }
 
         private void SetLabel()
         {
-            var str = DataSet.selectedDate.ToString("d.MM.yyyy");
+            var str = DataSet.selectedDate != new DateTime() ? DataSet.selectedDate.ToString("d.MM.yyyy") : DataSet.billingPeriods.ElementAt(DataSet
+                .currentPeriod).startDate.ToString("d.MM") + "-" + DataSet.billingPeriods.ElementAt(DataSet
+                .currentPeriod).endDate.ToString("d.MM");
             if (DataSet.selectedCategory != null)
             {
                 str += ", " + DataSet.selectedCategory.name;
@@ -44,57 +47,15 @@ namespace BudgetManager
             var periodNumber = DataSet.currentPeriod;
             var category = DataSet.selectedCategory;
             var date = DataSet.selectedDate;
-            var expenses = DataSet.billingPeriods.ElementAt(periodNumber).GetExpensesOfCategoryAndDate(category, date);
-            foreach (var expense in expenses)
-            {
-                var content = expense.value.ToString("F");
-                var categoryName = DataSet.selectedCategory == null ? expense.category.name : "";
-                var comment = expense.comment;
-                var monthlyExpense = expense.monthlyExpense ? "wydatek stały" : "";
-                string[] a = { categoryName, comment, monthlyExpense };
-                var appendix = String.Join(", ", a.Where(s => !string.IsNullOrEmpty(s) && !string.IsNullOrWhiteSpace(s)));
-                if (!string.IsNullOrEmpty(appendix) && !string.IsNullOrWhiteSpace(appendix))
-                {
-                    content += " (" + appendix + ")";
-                }
-                var expenseBtn = new Button()
-                {
-                    Content = content,
-                    BorderThickness = new Thickness(0),
-                    Background = Brushes.Transparent,
-                    Padding = new Thickness(5,1,5,1),
-                    Margin = new Thickness(0,0,0,0),
-                    HorizontalContentAlignment = HorizontalAlignment.Left
-                };
-                expenseBtn.Click += (sender, e) =>
-                {
-                    DataSet.selectedExpense = expense;
-                    BtnAdd_Click(sender, e);
-                };
-
-                ExpensesGrid.RowDefinitions.Add(new RowDefinition());
-                var nOfRows = ExpensesGrid.RowDefinitions.Count;
-                Grid.SetRow(expenseBtn, nOfRows - 1);
-                ExpensesGrid.Children.Add(expenseBtn);
-            }
-            AddStretchRow();
-        }
-
-        private void AddStretchRow()
-        {
-            var rowDef = new RowDefinition
-            {
-                Height = new GridLength(100, GridUnitType.Star)
-            };
-            ExpensesGrid.RowDefinitions.Add(rowDef);
+            var expenses = DataSet.selectedDate != new DateTime() ? DataSet.billingPeriods.ElementAt(periodNumber).GetExpensesOfCategoryAndDate(category, date) : DataSet.billingPeriods.ElementAt(periodNumber).GetExpensesOfCategory(category);
+            var gridCreator = new BillingPeriodGridCreator(this);
+            var expList = new List<Expense>(expenses);
+            gridCreator.CreateExpensesListGrid(ExpensesGrid, expList);
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            this.IsEnabled = false;
-            var expenseWindow = new ExpenseWindow();
-            expenseWindow.Closed += ExpenseWindow_Closed;
-            expenseWindow.Show();
+            Add();
         }
 
         private void ExpenseWindow_Closed(object sender, EventArgs e)
@@ -104,9 +65,35 @@ namespace BudgetManager
             FillWithExpenses();
         }
 
+        private void Add()
+        {
+            this.IsEnabled = false;
+            var expenseWindow = new ExpenseWindow();
+            expenseWindow.Closed += ExpenseWindow_Closed;
+            expenseWindow.Show();
+        }
+
         private void BtnOk_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    this.Close();
+                    break;
+                case Key.N:
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        Add();
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

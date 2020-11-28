@@ -25,6 +25,13 @@ namespace BudgetManager
         {
             InitializeComponent();
             LoadData();
+            Loaded += ExpenseWindow_Loaded;
+            BtnSave.IsDefault = true;
+        }
+
+        private void ExpenseWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            ValueTextBox.Focus();
         }
 
         private void LoadData()
@@ -76,11 +83,7 @@ namespace BudgetManager
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
-            if (DataSet.selectedExpense != null)
-            {
-                DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses.Remove(DataSet.selectedExpense);
-            }
-            this.Close();
+            Remove();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -89,6 +92,11 @@ namespace BudgetManager
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            Save();
+        }
+
+        private void Save()
         {
             var value = ParseDecimalString(ValueTextBox.Text);
             var category = (ExpenseCategory)CategoriesComboBox.SelectedItem;
@@ -123,6 +131,30 @@ namespace BudgetManager
                 DataSet.selectedExpense.monthlyExpense = isMonthlyExpense;
             }
             this.Close();
+        }
+
+        private void Remove()
+        {
+            if (DataSet.selectedExpense != null)
+            {
+                DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses.Remove(DataSet.selectedExpense);
+            }
+            this.Close();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    Save();
+                    break;
+                case Key.Escape:
+                    this.Close();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

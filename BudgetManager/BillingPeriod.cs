@@ -95,6 +95,26 @@ namespace BudgetManager
             return ret;
         }
 
+        public HashSet<Expense> GetExpensesOfCategory(ExpenseCategory category)
+        {
+            var ret = new HashSet<Expense>();
+            if (expenses != null)
+            {
+                foreach (var expense in expenses)
+                {
+                    if (category == null)
+                    {
+                        ret.Add(expense);
+                    }
+                    else if (expense.category == category)
+                    {
+                        ret.Add(expense);
+                    }
+                }
+            }
+            return ret;
+        }
+
         private decimal GetSumOfExpensesOfDate(DateTime date, bool includeMonthly)
         {
             var ret = Decimal.Zero;

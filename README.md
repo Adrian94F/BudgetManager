@@ -10,6 +10,8 @@ Aplikacja umożliwiająca zapisywanie codziennych wydatków i wyświetlanie stat
   - Wykres podsumowania
   - Widok wszystkich wydatków
 - Okna
+  - Edycja wydatku
+    - Wyłączony przycisk Zapisz póki nie ma wartości i kategorii, a data jest spoza zakresu (wyświetlaj ostrzeżenie)
   - O programie
   - Pomoc
 - UX

@@ -111,6 +111,12 @@ namespace BudgetManager
             VerticalScrolViewer.ScrollToVerticalOffset(e.VerticalOffset);
         }
 
+        private void VerticalScrolViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            VerticalScrolViewer.ScrollToVerticalOffset(e.VerticalOffset);
+            DataScrolViewer.ScrollToVerticalOffset(e.VerticalOffset);
+        }
+
         public void FillExpensesTable()
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
@@ -181,13 +187,7 @@ namespace BudgetManager
 
         private void AddExpenseMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            DataSet.selectedCategory = null;
-            DataSet.selectedDate = DateTime.Now;
-            DataSet.selectedExpense = null;
-            this.IsEnabled = false;
-            var expenseWindow = new ExpenseWindow();
-            expenseWindow.Closed += ExpenseWindow_Closed;
-            expenseWindow.Show();
+            Add();
         }
 
         private void ExpenseWindow_Closed(object sender, EventArgs e)
@@ -274,6 +274,35 @@ namespace BudgetManager
             if (BurndownTabItem.IsSelected)
             {
                 FillBurndownTab();
+            }
+        }
+
+        private void Add()
+        {
+            DataSet.selectedCategory = null;
+            DataSet.selectedDate = DateTime.Now;
+            DataSet.selectedExpense = null;
+            this.IsEnabled = false;
+            var expenseWindow = new ExpenseWindow();
+            expenseWindow.Closed += ExpenseWindow_Closed;
+            expenseWindow.Show();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    this.Close();
+                    break;
+                case Key.N:
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        Add();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }

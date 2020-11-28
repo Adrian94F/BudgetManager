@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:BudgetManager"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Wydatek" Height="240" Width="280">
+        Title="Wydatek"
+        Height="240"
+        Width="280"
+        KeyDown="Window_KeyDown">
     <Grid Margin="10,10,10,10">
 
 

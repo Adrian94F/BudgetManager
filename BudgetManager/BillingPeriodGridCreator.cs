@@ -101,7 +101,7 @@ namespace BudgetManager
 
         public void CreateMultiGridTable()
         {
-            foreach (var grid in new Grid[] { header, categories, expenses })
+            foreach (var grid in new Grid[] { header, categories, expenses, list })
             {
                 grid.Children.Clear();
                 grid.RowDefinitions.Clear();
@@ -110,7 +110,7 @@ namespace BudgetManager
             CreateHeaderGrid(header, period);
             CreateVerticalGrid(categories);
             CreateExpensesDataGrid(expenses, period);
-            CreateExpensesListGrid(list, period);
+            CreateExpensesListGridForPeriod(list, period);
         }
 
         private void AddColumnDefinitionsForDays(Grid grid, int numOfDays)
@@ -146,7 +146,25 @@ namespace BudgetManager
             for (var i = 0; i < numOfDays; i++)
             {
                 var date = period.startDate.AddDays(i);
-                AddButtonToGrid(date.ToString("d.MM"), 0, i, grid, null, date);
+                var btn = new Button
+                {
+                    Content = date.ToString("d.MM"),
+                    BorderThickness = new Thickness(0),
+                    Background = Brushes.Transparent,
+                    MaxHeight = 16,
+                    MaxWidth = 40,
+                    MinWidth = 40,
+                    Padding = new Thickness(0)
+                };
+                btn.Click += (sender, e) => {
+                    DataSet.selectedCategory = null;
+                    DataSet.selectedDate = date;
+                    window.IsEnabled = false;
+                    var expWin = new ExpensesWindow();
+                    expWin.Closed += ExpWin_Closed;
+                    expWin.Show();
+                };
+                AddUIElementToGrid(btn, 0, i, grid);
             }
 
             AddStretchColumn(grid);
@@ -159,7 +177,27 @@ namespace BudgetManager
             for (var i = 0; i < DataSet.expenseCategories.Count; i++)
             {
                 var category = DataSet.expenseCategories.ElementAt(i);
-                AddTextToGrid(category.name, i, 0, grid);
+                var btn = new Button
+                {
+                    Content = category.name,
+                    BorderThickness = new Thickness(0),
+                    Background = Brushes.Transparent,
+                    MaxHeight = 16,
+                    MaxWidth = 300,
+                    MinWidth = 100,
+                    Padding = new Thickness(3, 0, 0, 0),
+                    HorizontalContentAlignment = HorizontalAlignment.Left
+                };
+                btn.Click += (sender, e) => {
+                    DataSet.selectedCategory = category;
+                    DataSet.selectedDate = new DateTime();
+                    window.IsEnabled = false;
+                    var expWin = new ExpensesWindow();
+                    expWin.Closed += ExpWin_Closed;
+                    expWin.Show();
+                };
+                AddUIElementToGrid(btn, i, 0, grid);
+
             }
 
             AddStretchRow(grid);
@@ -183,7 +221,25 @@ namespace BudgetManager
                     var date = period.startDate.AddDays(j);
                     var sum = period.GetSumOfExpensesOfCategoryAndDate(category, date);
                     var sumStr = sum > 0 ? Decimal.Round(sum).ToString() : "";
-                    AddButtonToGrid(sumStr, i, j, grid, category, date);
+                    var btn = new Button
+                    {
+                        Content = sumStr,
+                        BorderThickness = new Thickness(0),
+                        Background = Brushes.Transparent,
+                        MaxHeight = 16,
+                        MaxWidth = 40,
+                        MinWidth = 40,
+                        Padding = new Thickness(0)
+                    };
+                    btn.Click += (sender, e) => {
+                        DataSet.selectedCategory = category;
+                        DataSet.selectedDate = date;
+                        window.IsEnabled = false;
+                        var expWin = new ExpensesWindow();
+                        expWin.Closed += ExpWin_Closed;
+                        expWin.Show();
+                    };
+                    AddUIElementToGrid(btn, i, j, grid);
                 }
             }
 
@@ -191,12 +247,17 @@ namespace BudgetManager
             AddStretchRow(grid);
         }
 
-        private void CreateExpensesListGrid(Grid grid, BillingPeriod period)
+        public void CreateExpensesListGrid(Grid grid, List<Expense> expenses)
         {
+            expenses.Sort(delegate (Expense x, Expense y)
+            {
+                return -DateTime.Compare(x.date, y.date);
+            });
+
             GridLength[] colWidths = {
-                new GridLength(40, GridUnitType.Pixel),
-                new GridLength(80, GridUnitType.Pixel),
-                new GridLength(300, GridUnitType.Pixel),
+                new GridLength(50, GridUnitType.Pixel),
+                new GridLength(70, GridUnitType.Pixel),
+                new GridLength(200, GridUnitType.Pixel),
                 new GridLength(1, GridUnitType.Star)
             };
             HorizontalAlignment[] horizontalAlignments =
@@ -206,7 +267,7 @@ namespace BudgetManager
                 HorizontalAlignment.Left,
                 HorizontalAlignment.Left
             };
-            foreach (var expense in period.expenses)
+            foreach (var expense in expenses)
             {
                 grid.RowDefinitions.Add(new RowDefinition()
                 {
@@ -225,7 +286,7 @@ namespace BudgetManager
                 var monthlyExpense = expense.monthlyExpense ? "wydatek stały" : "";
                 string[] a = { comment, monthlyExpense };
                 var appendix = String.Join(", ", a.Where(s => !string.IsNullOrEmpty(s) && !string.IsNullOrWhiteSpace(s)));
-                appendix = !string.IsNullOrEmpty(appendix) && !string.IsNullOrWhiteSpace(appendix) ? " (" + appendix + ")" : " ";
+                appendix = !string.IsNullOrEmpty(appendix) && !string.IsNullOrWhiteSpace(appendix) ? appendix : " ";
                 string[] textBlocksValues =
                 {
                     expense.date.ToString("dd.MM"),
@@ -238,7 +299,7 @@ namespace BudgetManager
                     var textBlock = new TextBlock
                     {
                         Text = textBlocksValues[i],
-                        Margin = new Thickness(3, 0, 10, 0),
+                        Padding = new Thickness(3, 0, 10, 0),
                         HorizontalAlignment = horizontalAlignments[i]
                     };
                     Grid.SetColumn(textBlock, i);
@@ -251,12 +312,26 @@ namespace BudgetManager
                     BorderThickness = new Thickness(0),
                     Background = Brushes.Transparent,
                     MaxHeight = 16,
+                    Margin = new Thickness(0),
                     Padding = new Thickness(0)
+                };
+                button.Click += (sender, e) => {
+                    DataSet.selectedExpense = expense;
+                    window.IsEnabled = false;
+                    var expWin = new ExpenseWindow();
+                    expWin.Closed += ExpWin_Closed;
+                    expWin.Show();
                 };
                 Grid.SetColumnSpan(button, colWidths.Length);
                 Grid.SetRow(button, grid.RowDefinitions.Count - 1);
                 grid.Children.Add(button);
             }
+        }
+
+        private void CreateExpensesListGridForPeriod(Grid grid, BillingPeriod period)
+        {
+            var expenses = new List<Expense>(period.expenses);
+            CreateExpensesListGrid(grid, expenses);
         }
 
         private void AddStretchRow(Grid grid)
@@ -275,15 +350,6 @@ namespace BudgetManager
                 Width = new GridLength(100, GridUnitType.Star)
             };
             grid.ColumnDefinitions.Add(colDef);
-        }
-
-        private void AddTextToGrid(string text, int row, int col, Grid grid)
-        {
-            var textBlock = new TextBlock
-            {
-                Text = text
-            };
-            AddUIElementToGrid(textBlock, row, col, grid);
         }
 
         private void AddButtonToGrid(string text, int row, int col, Grid grid, ExpenseCategory category, DateTime date)

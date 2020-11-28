@@ -23,6 +23,12 @@ namespace BudgetManager
         {
             InitializeComponent();
             LoadData();
+            Loaded += CategoryWindow_Loaded;
+        }
+
+        private void CategoryWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            NameTextBox.Focus();
         }
 
         private void LoadData()
