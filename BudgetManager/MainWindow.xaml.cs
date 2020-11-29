@@ -137,30 +137,12 @@ namespace BudgetManager
 
         private void PrevMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            DataSet.currentPeriod--;
-            if (DataSet.currentPeriod == 0)
-            {
-                DisableMenuItem(MenuItemPrev);
-            }
-            if (!MenuItemNext.IsEnabled)
-            {
-                EnablMenuItem(MenuItemNext);
-            }
-            RefreshTabs();
+            PreviousBillingPeriod();
         }
 
         private void NextPeriodMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            DataSet.currentPeriod++;
-            if (DataSet.currentPeriod == DataSet.billingPeriods.Count - 1)
-            {
-                DisableMenuItem(MenuItemNext);
-            }
-            if (!MenuItemPrev.IsEnabled)
-            {
-                EnablMenuItem(MenuItemPrev);
-            }
-            RefreshTabs();
+            NextBillingPeriod();
         }
 
         private void IncomeTextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -198,10 +180,7 @@ namespace BudgetManager
 
         private void CategoriesMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            this.IsEnabled = false;
-            var categoriesWindow = new CategoriesWindow();
-            categoriesWindow.Closed += CategoriesWindow_Closed;
-            categoriesWindow.Show();
+            Categories();
         }
 
         private void CategoriesWindow_Closed(object sender, EventArgs e)
@@ -212,10 +191,7 @@ namespace BudgetManager
 
         private void PeriodsMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            this.IsEnabled = false;
-            var periodsWindow = new BillingPeriodsWindow();
-            periodsWindow.Closed += PeriodsWindow_Closed;
-            periodsWindow.Show();
+            BillingPeriods();
         }
 
         private void PeriodsWindow_Closed(object sender, EventArgs e)
@@ -288,6 +264,50 @@ namespace BudgetManager
             expenseWindow.Show();
         }
 
+        private void Categories()
+        {
+            this.IsEnabled = false;
+            var categoriesWindow = new CategoriesWindow();
+            categoriesWindow.Closed += CategoriesWindow_Closed;
+            categoriesWindow.Show();
+        }
+
+        private void BillingPeriods()
+        {
+            this.IsEnabled = false;
+            var periodsWindow = new BillingPeriodsWindow();
+            periodsWindow.Closed += PeriodsWindow_Closed;
+            periodsWindow.Show();
+        }
+
+        private void NextBillingPeriod()
+        {
+            DataSet.currentPeriod++;
+            if (DataSet.currentPeriod == DataSet.billingPeriods.Count - 1)
+            {
+                DisableMenuItem(MenuItemNext);
+            }
+            if (!MenuItemPrev.IsEnabled)
+            {
+                EnablMenuItem(MenuItemPrev);
+            }
+            RefreshTabs();
+        }
+
+        private void PreviousBillingPeriod()
+        {
+            DataSet.currentPeriod--;
+            if (DataSet.currentPeriod == 0)
+            {
+                DisableMenuItem(MenuItemPrev);
+            }
+            if (!MenuItemNext.IsEnabled)
+            {
+                EnablMenuItem(MenuItemNext);
+            }
+            RefreshTabs();
+        }
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
@@ -301,9 +321,43 @@ namespace BudgetManager
                         Add();
                     }
                     break;
+                case Key.K:
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        Categories();
+                    }
+                    break;
+                case Key.M:
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        BillingPeriods();
+                    }
+                    break;
+                case Key.PageDown:
+                    NextBillingPeriod();
+                    break;
+                case Key.PageUp:
+                    PreviousBillingPeriod();
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void HelpMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.IsEnabled = false;
+            var helpWindow = new HelpWindow();
+            helpWindow.Closed += PeriodsWindow_Closed;
+            helpWindow.Show();
+        }
+
+        private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.IsEnabled = false;
+            var aboutWindow = new AboutWindow();
+            aboutWindow.Closed += PeriodsWindow_Closed;
+            aboutWindow.Show();
         }
     }
 }

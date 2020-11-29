@@ -1,0 +1,38 @@
+﻿<Window x:Class="BudgetManager.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BudgetManager"
+        xmlns:XamlHost="clr-namespace:Microsoft.Toolkit.Wpf.UI.XamlHost;assembly=Microsoft.Toolkit.Wpf.UI.XamlHost"
+        mc:Ignorable="d"
+        Title="O programie"
+        ResizeMode="NoResize"
+        Height="220"
+        Width="350">
+    <Grid>
+        <RichTextBox Margin="10,10,10,37"
+                     IsReadOnly="True"
+                     BorderThickness="0">
+            <FlowDocument>
+                <Paragraph>
+                    Program stworzony do kontroli domowego budżetu przez Adrian Frydmańskiego na licencji GPL.
+                </Paragraph>
+                <Paragraph>
+                    Repozytorium:
+                    <LineBreak/>
+                    <Hyperlink NavigateUri="https://github.com/Adrian94F">github.com/Adrian94F/BudgetManager</Hyperlink>
+                </Paragraph>
+                <Paragraph>
+                    Wszelkie i niewszelkie prawa zastrzeżone.
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button Content="Ok"
+                HorizontalAlignment="Center"
+                Margin="0,0,0,10"
+                VerticalAlignment="Bottom"
+                Width="75"/>
+
+    </Grid>
+</Window>
