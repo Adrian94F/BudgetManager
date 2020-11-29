@@ -40,7 +40,7 @@
                 <MenuItem Header="Kategorie"
                           Click="CategoriesMenuItem_Click"/>
             </MenuItem>
-            <MenuItem Header="Widok">
+            <!--<MenuItem Header="Widok">
                 <MenuItem Header="Podsumowanie miesiąca"
                           IsEnabled="False"/>
                 <MenuItem Header="Wszystkie wydatki w miesiącu"
@@ -50,7 +50,7 @@
                 <Separator />
                 <MenuItem Header="Podsumowanie ostatnich miesięcy"
                           IsEnabled="False"/>
-            </MenuItem>
+            </MenuItem>-->
             <MenuItem Header="Informacje">
                 <MenuItem Header="O programie"
                           IsEnabled="False"/>
@@ -116,7 +116,8 @@
                                       Grid.Row="0"
                                       Grid.Column="1"
                                       HorizontalScrollBarVisibility="Hidden"
-                                      VerticalScrollBarVisibility="Hidden" >
+                                      VerticalScrollBarVisibility="Hidden"
+                                      PanningMode="HorizontalOnly">
                             <Grid x:Name="HeaderDaysGrid"
                                   Margin="0,0,20,0"/>
                         </ScrollViewer>
@@ -127,7 +128,8 @@
                                       Grid.Row="1"
                                       Grid.Column="0"
                                       HorizontalScrollBarVisibility="Hidden"
-                                      VerticalScrollBarVisibility="Hidden" >
+                                      VerticalScrollBarVisibility="Hidden"
+                                      PanningMode="VerticalOnly">
                             <Grid x:Name="VerticalDataGrid"
                                   Margin="0,0,0,17" />
                         </ScrollViewer>
@@ -139,7 +141,9 @@
                                       ScrollChanged="DataScrolViewer_ScrollChanged"
                                       Grid.Row="1"
                                       Grid.Column="1"
-                                      Margin="0,0,0,0">
+                                      Margin="0,0,0,0"
+                                      PanningMode="Both"
+                                      PanningRatio="1.2">
                             <Grid>
                                 <Grid x:Name="ExpensesGrid"
                                       ScrollViewer.CanContentScroll="True"/>
@@ -181,7 +185,9 @@
                                        Margin="3,0,0,0"/>
 
                         </Grid>
-                        <ScrollViewer Grid.Row="1">
+                        <ScrollViewer Grid.Row="1"
+                                      PanningMode="VerticalOnly"
+                                      PanningRatio="1.2">
                             <Grid x:Name="ExpensesListGrid"/>
                         </ScrollViewer>
                     </Grid>

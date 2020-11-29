@@ -25,7 +25,8 @@
 
         <Border Style="{StaticResource MyBorder}"
                 Margin="0,0,0,27">
-            <ScrollViewer>
+            <ScrollViewer PanningMode="VerticalOnly"
+                          PanningRatio="1.2">
                 <Grid x:Name="PeriodsGrid"/>
             </ScrollViewer>
         </Border>
