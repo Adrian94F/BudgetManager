@@ -27,15 +27,17 @@ namespace BudgetManager
             LoadData();
         }
 
+        BillingPeriod selectedPeriod = DataSet.selectedPeriod;
+
         private void LoadData()
         {
             if (DataSet.selectedPeriod != null)  // existing billing period
             {
-                StartDatePicker.SelectedDate = DataSet.selectedPeriod.startDate;
-                EndDatePicker.SelectedDate = DataSet.selectedPeriod.endDate;
-                NetIncomeTextBox.Text = DataSet.selectedPeriod.netIncome.ToString("F");
-                AddIncomeTextBox.Text = DataSet.selectedPeriod.additionalIncome.ToString("F");
-                PlannedSavingsTextBox.Text = DataSet.selectedPeriod.plannedSavings.ToString("F");
+                StartDatePicker.SelectedDate = selectedPeriod.startDate;
+                EndDatePicker.SelectedDate = selectedPeriod.endDate;
+                NetIncomeTextBox.Text = selectedPeriod.netIncome.ToString("F");
+                AddIncomeTextBox.Text = selectedPeriod.additionalIncome.ToString("F");
+                PlannedSavingsTextBox.Text = selectedPeriod.plannedSavings.ToString("F");
             }
             else  // new billing period
             {
@@ -116,7 +118,7 @@ namespace BudgetManager
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
-            if (DataSet.selectedPeriod != null)
+            if (selectedPeriod != null)
             {
                 var result = MessageBox.Show("Czy na pewno chcesz usunąć ten okres rozliczeniowy? Nie będzie można cofnąć tej operacji.", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
@@ -124,7 +126,7 @@ namespace BudgetManager
                     result = MessageBox.Show("Czy jesteś pewien? Nie będzie można cofnąć tej operacji.", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                     if (result == MessageBoxResult.Yes)
                     {
-                        DataSet.billingPeriods.Remove(DataSet.selectedPeriod);
+                        DataSet.billingPeriods.Remove(selectedPeriod);
                         DataSet.currentPeriod = DataSet.billingPeriods.Count - 1;
                     }
                 }

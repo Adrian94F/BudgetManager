@@ -19,6 +19,8 @@ namespace BudgetManager
     /// </summary>
     public partial class CategoryWindow : Window
     {
+        ExpenseCategory selectedCategory = DataSet.selectedCategory;
+        
         public CategoryWindow()
         {
             InitializeComponent();
@@ -33,16 +35,16 @@ namespace BudgetManager
 
         private void LoadData()
         {
-            if (DataSet.selectedCategory != null)
+            if (selectedCategory != null)
             {
-                NameTextBox.Text = DataSet.selectedCategory.name;
+                NameTextBox.Text = selectedCategory.name;
             }
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             var name = NameTextBox.Text;
-            if (DataSet.selectedCategory == null)
+            if (selectedCategory == null)
             {
                 var category = new ExpenseCategory()
                 {
@@ -59,9 +61,9 @@ namespace BudgetManager
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
-            if (DataSet.selectedCategory != null)
+            if (selectedCategory != null)
             {
-                if (CategoryNotUsed(DataSet.selectedCategory))
+                if (CategoryNotUsed(selectedCategory))
                 {
                     DataSet.expenseCategories.Remove(DataSet.selectedCategory);
                 }

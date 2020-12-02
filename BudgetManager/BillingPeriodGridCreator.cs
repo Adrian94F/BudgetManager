@@ -159,10 +159,12 @@ namespace BudgetManager
                 btn.Click += (sender, e) => {
                     DataSet.selectedCategory = null;
                     DataSet.selectedDate = date;
-                    window.IsEnabled = false;
-                    var expWin = new ExpensesWindow();
-                    expWin.Closed += ExpWin_Closed;
-                    expWin.Show();
+                    //window.IsEnabled = false;
+                    var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
+                    if (expWinTuple.Item2)
+                    {
+                        expWinTuple.Item1.Closed += ExpWin_Closed;
+                    }
                 };
                 AddUIElementToGrid(btn, 0, i, grid);
             }
@@ -191,10 +193,12 @@ namespace BudgetManager
                 btn.Click += (sender, e) => {
                     DataSet.selectedCategory = category;
                     DataSet.selectedDate = new DateTime();
-                    window.IsEnabled = false;
-                    var expWin = new ExpensesWindow();
-                    expWin.Closed += ExpWin_Closed;
-                    expWin.Show();
+                    //window.IsEnabled = false;
+                    var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
+                    if (expWinTuple.Item2)
+                    {
+                        expWinTuple.Item1.Closed += ExpWin_Closed;
+                    }
                 };
                 AddUIElementToGrid(btn, i, 0, grid);
 
@@ -234,10 +238,12 @@ namespace BudgetManager
                     btn.Click += (sender, e) => {
                         DataSet.selectedCategory = category;
                         DataSet.selectedDate = date;
-                        window.IsEnabled = false;
-                        var expWin = new ExpensesWindow();
-                        expWin.Closed += ExpWin_Closed;
-                        expWin.Show();
+                        //window.IsEnabled = false;
+                        var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
+                        if (expWinTuple.Item2)
+                        {
+                            expWinTuple.Item1.Closed += ExpWin_Closed;
+                        }
                     };
                     AddUIElementToGrid(btn, i, j, grid);
                 }
@@ -317,10 +323,12 @@ namespace BudgetManager
                 };
                 button.Click += (sender, e) => {
                     DataSet.selectedExpense = expense;
-                    window.IsEnabled = false;
-                    var expWin = new ExpenseWindow();
-                    expWin.Closed += ExpWin_Closed;
-                    expWin.Show();
+                    //window.IsEnabled = false;
+                    var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpenseWindow>();
+                    if (expWinTuple.Item2)
+                    {
+                        expWinTuple.Item1.Closed += ExpWin_Closed;
+                    }
                 };
                 Grid.SetColumnSpan(button, colWidths.Length);
                 Grid.SetRow(button, grid.RowDefinitions.Count - 1);
@@ -367,17 +375,19 @@ namespace BudgetManager
             btn.Click += (sender, e) => {
                 DataSet.selectedCategory = category;
                 DataSet.selectedDate = date;
-                window.IsEnabled = false;
-                var expWin = new ExpensesWindow();
-                expWin.Closed += ExpWin_Closed;
-                expWin.Show();
+                //window.IsEnabled = false;
+                var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
+                if (expWinTuple.Item2)
+                {
+                    expWinTuple.Item1.Closed += ExpWin_Closed;
+                }
             };
             AddUIElementToGrid(btn, row, col, grid);
         }
 
         private void ExpWin_Closed(object sender, EventArgs e)
         {
-            window.IsEnabled = true;
+            //window.IsEnabled = true;
             CreateSummary();
             CreateMultiGridTable();
         }

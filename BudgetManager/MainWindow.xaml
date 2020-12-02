@@ -10,7 +10,7 @@
         Width="800"
         MinWidth="700"
         MinHeight="220"
-        KeyDown="Window_KeyDown">
+        KeyUp="Window_KeyDown">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Plik">

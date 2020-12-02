@@ -23,13 +23,10 @@ namespace BudgetManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        BillingPeriodGridCreator gridCreator;
-        BillingPeriodChartCreator chartCreator;
         public MainWindow()
         {
             InitializeComponent();
             SetupVariables();
-            SetupGridCreator();
             RefreshTabs();
             SetupButtons();
             this.Closing += MainWindow_Closing;
@@ -37,7 +34,7 @@ namespace BudgetManager
 
         private void FillBurndownTab()
         {
-            chartCreator = new BillingPeriodChartCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), BurndownChartGrid);
+            var chartCreator = new BillingPeriodChartCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), BurndownChartGrid);
             chartCreator.Plot();
         }
 
@@ -59,12 +56,6 @@ namespace BudgetManager
             var start = DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).startDate.ToString("dd.MM.yyyy");
             var end = DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).endDate.ToString("dd.MM.yyyy");
             PeriodDatesTextBlock.Text = start + "-" + end;
-        }
-
-        private void SetupGridCreator()
-        {
-            gridCreator = new BillingPeriodGridCreator(this);
-            gridCreator.SetGrids(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, SummaryGrid, ExpensesListGrid);
         }
 
         private void SetupButtons()
@@ -121,7 +112,9 @@ namespace BudgetManager
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
+                var gridCreator = new BillingPeriodGridCreator(this);
                 gridCreator.SetPeriod(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod));
+                gridCreator.SetGrids(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, SummaryGrid, ExpensesListGrid);
                 gridCreator.CreateMultiGridTable();
             }
         }
@@ -130,7 +123,9 @@ namespace BudgetManager
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
+                var gridCreator = new BillingPeriodGridCreator(this);
                 gridCreator.SetPeriod(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod));
+                gridCreator.SetGrids(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, SummaryGrid, ExpensesListGrid);
                 gridCreator.CreateSummary();
             }
         }
@@ -174,7 +169,6 @@ namespace BudgetManager
 
         private void ExpenseWindow_Closed(object sender, EventArgs e)
         {
-            this.IsEnabled = true;
             RefreshTabs();
         }
 
@@ -185,7 +179,6 @@ namespace BudgetManager
 
         private void CategoriesWindow_Closed(object sender, EventArgs e)
         {
-            this.IsEnabled = true;
             RefreshTabs();
         }
 
@@ -196,7 +189,6 @@ namespace BudgetManager
 
         private void PeriodsWindow_Closed(object sender, EventArgs e)
         {
-            this.IsEnabled = true;
             RefreshTabs();
             SetupButtons();
         }
@@ -233,15 +225,7 @@ namespace BudgetManager
 
         private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            this.IsEnabled = false;
-            var settingsWindow = new SettingsWindow();
-            settingsWindow.Closed += SettingsWindow_Closed;
-            settingsWindow.Show();
-        }
-
-        private void SettingsWindow_Closed(object sender, EventArgs e)
-        {
-            this.IsEnabled = true;
+            var settingsWindow = Utilities.OpenNewOrRestoreWindow<SettingsWindow>();
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -258,26 +242,29 @@ namespace BudgetManager
             DataSet.selectedCategory = null;
             DataSet.selectedDate = DateTime.Now;
             DataSet.selectedExpense = null;
-            this.IsEnabled = false;
-            var expenseWindow = new ExpenseWindow();
-            expenseWindow.Closed += ExpenseWindow_Closed;
-            expenseWindow.Show();
+            var expenseWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpenseWindow>();
+            if (expenseWindowTuple.Item2)
+            {
+                expenseWindowTuple.Item1.Closed += ExpenseWindow_Closed;
+            }
         }
 
         private void Categories()
         {
-            this.IsEnabled = false;
-            var categoriesWindow = new CategoriesWindow();
-            categoriesWindow.Closed += CategoriesWindow_Closed;
-            categoriesWindow.Show();
+            var categoriesWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<CategoriesWindow>();
+            if (categoriesWindowTuple.Item2)
+            {
+                categoriesWindowTuple.Item1.Closed += CategoriesWindow_Closed;
+            }
         }
 
         private void BillingPeriods()
         {
-            this.IsEnabled = false;
-            var periodsWindow = new BillingPeriodsWindow();
-            periodsWindow.Closed += PeriodsWindow_Closed;
-            periodsWindow.Show();
+            var periodsWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<BillingPeriodsWindow>();
+            if (periodsWindowTuple.Item2)
+            {
+                periodsWindowTuple.Item1.Closed += PeriodsWindow_Closed;
+            }
         }
 
         private void NextBillingPeriod()
@@ -333,6 +320,12 @@ namespace BudgetManager
                         BillingPeriods();
                     }
                     break;
+                case Key.S:
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        SaveData();
+                    }
+                    break;
                 case Key.PageDown:
                     NextBillingPeriod();
                     break;
@@ -346,18 +339,20 @@ namespace BudgetManager
 
         private void HelpMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            this.IsEnabled = false;
-            var helpWindow = new HelpWindow();
-            helpWindow.Closed += PeriodsWindow_Closed;
-            helpWindow.Show();
+            var helpWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<HelpWindow>();
+            if (helpWindowTuple.Item2)
+            {
+                helpWindowTuple.Item1.Closed += PeriodsWindow_Closed;
+            }
         }
 
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            this.IsEnabled = false;
-            var aboutWindow = new AboutWindow();
-            aboutWindow.Closed += PeriodsWindow_Closed;
-            aboutWindow.Show();
+            var aboutWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<AboutWindow>();
+            if (aboutWindowTuple.Item2)
+            {
+                aboutWindowTuple.Item1.Closed += PeriodsWindow_Closed;
+            }
         }
     }
 }

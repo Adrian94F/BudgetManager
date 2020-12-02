@@ -21,6 +21,10 @@ namespace BudgetManager
     /// </summary>
     public partial class ExpenseWindow : Window
     {
+        Expense selectedExpense = DataSet.selectedExpense;
+        ExpenseCategory selectedCategory = DataSet.selectedCategory;
+        int currentPeriod = DataSet.currentPeriod;
+
         public ExpenseWindow()
         {
             InitializeComponent();
@@ -41,20 +45,20 @@ namespace BudgetManager
             var categories = DataSet.expenseCategories;
             CategoriesComboBox.ItemsSource = categories;
 
-            if (DataSet.selectedExpense != null)
+            if (selectedExpense != null)
             {
-                ValueTextBox.Text = DataSet.selectedExpense.value.ToString("F");
-                DatePicker.SelectedDate = DataSet.selectedExpense.date;
-                CategoriesComboBox.SelectedItem = DataSet.selectedExpense.category;
-                CommentTextBox.Text = DataSet.selectedExpense.comment;
-                MonthlyExpenseCheckBox.IsChecked = DataSet.selectedExpense.monthlyExpense;
+                ValueTextBox.Text = selectedExpense.value.ToString("F");
+                DatePicker.SelectedDate = selectedExpense.date;
+                CategoriesComboBox.SelectedItem = selectedExpense.category;
+                CommentTextBox.Text = selectedExpense.comment;
+                MonthlyExpenseCheckBox.IsChecked = selectedExpense.monthlyExpense;
             }
-            else if (DataSet.selectedCategory != null)
+            else if (selectedCategory != null)
             {
-                CategoriesComboBox.SelectedItem = DataSet.selectedCategory;
+                CategoriesComboBox.SelectedItem = selectedCategory;
             }
 
-            if (DataSet.selectedExpense == null)
+            if (selectedExpense == null)
             {
                 BtnRemove.IsEnabled = false;
             }
@@ -108,7 +112,7 @@ namespace BudgetManager
                 return;
             }
             Expense exp;
-            if (DataSet.selectedExpense == null)
+            if (selectedExpense == null)
             {
                 // new expense
                 exp = new Expense()
@@ -124,20 +128,20 @@ namespace BudgetManager
             else
             {
                 // edited expense
-                DataSet.selectedExpense.value = value;
-                DataSet.selectedExpense.date = date;
-                DataSet.selectedExpense.category = category;
-                DataSet.selectedExpense.comment = comment;
-                DataSet.selectedExpense.monthlyExpense = isMonthlyExpense;
+                selectedExpense.value = value;
+                selectedExpense.date = date;
+                selectedExpense.category = category;
+                selectedExpense.comment = comment;
+                selectedExpense.monthlyExpense = isMonthlyExpense;
             }
             this.Close();
         }
 
         private void Remove()
         {
-            if (DataSet.selectedExpense != null)
+            if (selectedExpense != null)
             {
-                DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses.Remove(DataSet.selectedExpense);
+                DataSet.billingPeriods.ElementAt(currentPeriod).expenses.Remove(selectedExpense);
             }
             this.Close();
         }

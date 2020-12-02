@@ -19,6 +19,10 @@ namespace BudgetManager
     /// </summary>
     public partial class ExpensesWindow : Window
     {
+        int currentPeriod = DataSet.currentPeriod;
+        ExpenseCategory selectedCategory = DataSet.selectedCategory;
+        DateTime selectedDate = DataSet.selectedDate;
+
         public ExpensesWindow()
         {
             InitializeComponent();
@@ -29,12 +33,10 @@ namespace BudgetManager
 
         private void SetLabel()
         {
-            var str = DataSet.selectedDate != new DateTime() ? DataSet.selectedDate.ToString("d.MM.yyyy") : DataSet.billingPeriods.ElementAt(DataSet
-                .currentPeriod).startDate.ToString("d.MM") + "-" + DataSet.billingPeriods.ElementAt(DataSet
-                .currentPeriod).endDate.ToString("d.MM");
-            if (DataSet.selectedCategory != null)
+            var str = selectedDate != new DateTime() ? selectedDate.ToString("d.MM.yyyy") : DataSet.billingPeriods.ElementAt(currentPeriod).startDate.ToString("d.MM") + "-" + DataSet.billingPeriods.ElementAt(currentPeriod).endDate.ToString("d.MM");
+            if (selectedCategory != null)
             {
-                str += ", " + DataSet.selectedCategory.name;
+                str += ", " + selectedCategory.name;
             }
             Label.Content = str;
         }
@@ -44,10 +46,7 @@ namespace BudgetManager
             ExpensesGrid.Children.Clear();
             ExpensesGrid.RowDefinitions.Clear();
 
-            var periodNumber = DataSet.currentPeriod;
-            var category = DataSet.selectedCategory;
-            var date = DataSet.selectedDate;
-            var expenses = DataSet.selectedDate != new DateTime() ? DataSet.billingPeriods.ElementAt(periodNumber).GetExpensesOfCategoryAndDate(category, date) : DataSet.billingPeriods.ElementAt(periodNumber).GetExpensesOfCategory(category);
+            var expenses = selectedDate != new DateTime() ? DataSet.billingPeriods.ElementAt(currentPeriod).GetExpensesOfCategoryAndDate(selectedCategory, selectedDate) : DataSet.billingPeriods.ElementAt(currentPeriod).GetExpensesOfCategory(selectedCategory);
             var gridCreator = new BillingPeriodGridCreator(this);
             var expList = new List<Expense>(expenses);
             gridCreator.CreateExpensesListGrid(ExpensesGrid, expList);
