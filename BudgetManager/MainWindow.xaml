@@ -197,9 +197,8 @@
                     <Grid x:Name="BurndownChartGrid"/>
                 </TabItem>
                 <TabItem x:Name="HistoryTabItem"
-                         Header="Historia"
-                         IsEnabled="False">
-                    <Grid/>
+                         Header="Historia">
+                    <Grid x:Name="HistoryChartGrid"/>
                 </TabItem>
             </TabControl>
 

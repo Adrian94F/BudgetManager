@@ -115,7 +115,7 @@ namespace BudgetManager
             {
                 new LineSeries
                 {
-                    Title = "Pozostała suma",
+                    Title = "Pozostało",
                     Values = new ChartValues<double>(burnValues),
                     PointGeometry = DefaultGeometries.None,
                     LineSmoothness = lineSmoothness,
@@ -124,7 +124,7 @@ namespace BudgetManager
                 },
                 new LineSeries
                 {
-                    Title = "Planowana pozostała suma",
+                    Title = "Pozostało (plan)",
                     Values = new ChartValues<double>(avgBurnValues),
                     PointGeometry = DefaultGeometries.None,
                     LineSmoothness = lineSmoothness,
@@ -134,7 +134,7 @@ namespace BudgetManager
                 },
                 new LineSeries
                 {
-                    Title = "Pozostała suma bez wydatków stałych",
+                    Title = "Pozostało (bez wydatków stałych)",
                     Values = new ChartValues<double>(burnValuesWoMonthlyExp),
                     PointGeometry = DefaultGeometries.None,
                     LineSmoothness = lineSmoothness,
@@ -143,7 +143,7 @@ namespace BudgetManager
                 },
                 new LineSeries
                 {
-                    Title = "Planowana pozostała suma bez wydatków stałych",
+                    Title = "Pozostało (bez wydatków stałych, plan)",
                     Values = new ChartValues<double>(avgBurnValuesWoMonthlyExp),
                     PointGeometry = DefaultGeometries.None,
                     LineSmoothness = lineSmoothness,
@@ -162,6 +162,7 @@ namespace BudgetManager
 
             // add to grid
             chart.Margin = new System.Windows.Thickness(0);
+            chart.LegendLocation = LegendLocation.Top;
             grid.Children.Clear();
             grid.Children.Add(chart);
 

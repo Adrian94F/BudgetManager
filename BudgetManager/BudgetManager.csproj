@@ -83,6 +83,7 @@
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="BillingPeriod.cs" />
+    <Compile Include="BillingPeriodsHistoryChartCreator.cs" />
     <Compile Include="BillingPeriodChartCreator.cs" />
     <Compile Include="BillingPeriodExpensesListCreator.cs" />
     <Compile Include="BillingPeriodSummaryCreator.cs" />

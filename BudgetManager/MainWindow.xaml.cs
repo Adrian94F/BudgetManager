@@ -32,10 +32,14 @@ namespace BudgetManager
             this.Closing += MainWindow_Closing;
         }
 
-        public void RefreshTabControlContentAndSummary()
+        public void RefreshTabControlContentAndSummary(bool includeHistory = true)
         {
             FillTables();
             FillBurndownTab();
+            if (includeHistory)
+            {
+                FillHistoryTab();
+            }
             FillSummaryGrid();
             PrintBillingPeriodDates();
         }
@@ -49,6 +53,11 @@ namespace BudgetManager
         private void FillBurndownTab()
         {
             _ = new BillingPeriodChartCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), BurndownChartGrid);
+        }
+
+        private void FillHistoryTab()
+        {
+            _ = new BillingPeriodsHistoryChartCreator(DataSet.billingPeriods, HistoryChartGrid);
         }
 
         private void PrintBillingPeriodDates()
@@ -260,21 +269,22 @@ namespace BudgetManager
             {
                 EnablMenuItem(MenuItemPrev);
             }
-            RefreshTabControlContentAndSummary();
+            RefreshTabControlContentAndSummary(false);
         }
 
         private void PreviousBillingPeriod()
         {
             DataSet.currentPeriod--;
-            if (DataSet.currentPeriod == 0)
+            if (DataSet.currentPeriod <= 0)
             {
+                DataSet.currentPeriod = 0;
                 DisableMenuItem(MenuItemPrev);
             }
             if (!MenuItemNext.IsEnabled)
             {
                 EnablMenuItem(MenuItemNext);
             }
-            RefreshTabControlContentAndSummary();
+            RefreshTabControlContentAndSummary(false);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
