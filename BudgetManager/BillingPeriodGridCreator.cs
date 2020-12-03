@@ -13,95 +13,23 @@ namespace BudgetManager
     class BillingPeriodGridCreator
     {
         Window window;
-        Grid header, categories, expenses, summary, list;
+        Grid header, categories, expenses;
         BillingPeriod period;
 
-        public BillingPeriodGridCreator(Window w)
+        public BillingPeriodGridCreator(BillingPeriod bp, Window w, Grid h, Grid v, Grid e)
         {
+            period = bp;
             window = w;
-        }
-
-        public void SetGrids(Grid h, Grid v, Grid e, Grid s, Grid l)
-        {
             header = h;
             categories = v;
             expenses = e;
-            summary = s;
-            list = l;
+
+            CreateMultiGridTable();
         }
 
-        public void SetPeriod(BillingPeriod bp)
+        private void CreateMultiGridTable()
         {
-            period = bp;
-        }
-
-        public void CreateSummary()
-        {
-            var net = period.netIncome;
-            var add = period.additionalIncome;
-            var incSum = period.netIncome + period.additionalIncome;
-            var expSum = period.GetSumOfExpenses();
-            var monthlyExpSum = period.GetSumOfMonthlyExpenses();
-            var dailyExpSum = expSum - monthlyExpSum;
-            var savings = period.plannedSavings;
-            var balance = incSum - expSum - savings;
-            var isActualBillingPeriod = (DateTime.Today - period.startDate).Days >= 0 && (period.endDate - DateTime.Today).Days >= 0;
-            var daysLeft = (period.endDate - DateTime.Today).Days;
-            var estimatedExpense = isActualBillingPeriod ? Math.Round(balance / daysLeft, 2) : Math.Round(balance, 2);
-
-            foreach (var child in summary.Children)
-            {
-                if (child.GetType() == typeof(TextBlock) && ((TextBlock)child).Name != "")
-                {
-                    var textBlock = ((TextBlock)child);
-                    switch (textBlock.Name)
-                    {
-                        case "NetIncomeTextBlock":
-                            textBlock.Text = net.ToString("F") + " zł";
-                            break;
-                        case "AddIncomeTextBlock":
-                            textBlock.Text = add.ToString("F") + " zł";
-                            break;
-                        case "IncomeSumTextBlock":
-                            textBlock.Text = incSum.ToString("F") + " zł";
-                            break;
-                        case "IncomeSumTextBlock2":
-                            textBlock.Text = incSum.ToString("F") + " zł";
-                            break;
-                        case "DailyExpensesSumTextBlock":
-                            textBlock.Text = dailyExpSum.ToString("F") + " zł";
-                            break;
-                        case "MonthlyExpensesSumTextBlock":
-                            textBlock.Text = monthlyExpSum.ToString("F") + " zł";
-                            break;
-                        case "ExpensesSumTextBlock":
-                            textBlock.Text = expSum.ToString("F") + " zł";
-                            break;
-                        case "ExpensesSumTextBlock2":
-                            textBlock.Text = expSum.ToString("F") + " zł";
-                            break;
-                        case "PlannedSavingsTextBlock":
-                            textBlock.Text = savings.ToString("F") + " zł";
-                            break;
-                        case "BalanceTextBlock":
-                            textBlock.Text = (balance > 0 ? "+" : "") + balance.ToString("F") + " zł";
-                            break;
-                        case "DaysLeftTextBlock":
-                            textBlock.Text = isActualBillingPeriod ? daysLeft.ToString() : "-";
-                            break;
-                        case "EstimatedDailyExpenseTextBlock":
-                            textBlock.Text = isActualBillingPeriod ? estimatedExpense.ToString("F") + " zł" : "-";
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
-
-        public void CreateMultiGridTable()
-        {
-            foreach (var grid in new Grid[] { header, categories, expenses, list })
+            foreach (var grid in new Grid[] { header, categories, expenses })
             {
                 grid.Children.Clear();
                 grid.RowDefinitions.Clear();
@@ -110,7 +38,6 @@ namespace BudgetManager
             CreateHeaderGrid(header, period);
             CreateVerticalGrid(categories);
             CreateExpensesDataGrid(expenses, period);
-            CreateExpensesListGridForPeriod(list, period);
         }
 
         private void AddColumnDefinitionsForDays(Grid grid, int numOfDays)
@@ -159,7 +86,6 @@ namespace BudgetManager
                 btn.Click += (sender, e) => {
                     DataSet.selectedCategory = null;
                     DataSet.selectedDate = date;
-                    //window.IsEnabled = false;
                     var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
                     if (expWinTuple.Item2)
                     {
@@ -193,7 +119,6 @@ namespace BudgetManager
                 btn.Click += (sender, e) => {
                     DataSet.selectedCategory = category;
                     DataSet.selectedDate = new DateTime();
-                    //window.IsEnabled = false;
                     var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
                     if (expWinTuple.Item2)
                     {
@@ -238,7 +163,6 @@ namespace BudgetManager
                     btn.Click += (sender, e) => {
                         DataSet.selectedCategory = category;
                         DataSet.selectedDate = date;
-                        //window.IsEnabled = false;
                         var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
                         if (expWinTuple.Item2)
                         {
@@ -251,95 +175,6 @@ namespace BudgetManager
 
             AddStretchColumn(grid);
             AddStretchRow(grid);
-        }
-
-        public void CreateExpensesListGrid(Grid grid, List<Expense> expenses)
-        {
-            expenses.Sort(delegate (Expense x, Expense y)
-            {
-                return -DateTime.Compare(x.date, y.date);
-            });
-
-            GridLength[] colWidths = {
-                new GridLength(50, GridUnitType.Pixel),
-                new GridLength(70, GridUnitType.Pixel),
-                new GridLength(200, GridUnitType.Pixel),
-                new GridLength(1, GridUnitType.Star)
-            };
-            HorizontalAlignment[] horizontalAlignments =
-            {
-                HorizontalAlignment.Left,
-                HorizontalAlignment.Right,
-                HorizontalAlignment.Left,
-                HorizontalAlignment.Left
-            };
-            foreach (var expense in expenses)
-            {
-                grid.RowDefinitions.Add(new RowDefinition()
-                {
-                    Height = new GridLength(1, GridUnitType.Auto)
-                });
-                var buttonGrid = new Grid();
-                for (var i = 0; i < colWidths.Length; i++)
-                {
-                    var cd = new ColumnDefinition
-                    {
-                        Width = colWidths[i]
-                    };
-                    buttonGrid.ColumnDefinitions.Add(cd);
-                }
-                var comment = expense.comment;
-                var monthlyExpense = expense.monthlyExpense ? "wydatek stały" : "";
-                string[] a = { comment, monthlyExpense };
-                var appendix = String.Join(", ", a.Where(s => !string.IsNullOrEmpty(s) && !string.IsNullOrWhiteSpace(s)));
-                appendix = !string.IsNullOrEmpty(appendix) && !string.IsNullOrWhiteSpace(appendix) ? appendix : " ";
-                string[] textBlocksValues =
-                {
-                    expense.date.ToString("dd.MM"),
-                    expense.value.ToString("F") + " zł",
-                    expense.category.name,
-                    appendix
-                };
-                for (var i = 0; i < textBlocksValues.Length; i++)
-                {
-                    var textBlock = new TextBlock
-                    {
-                        Text = textBlocksValues[i],
-                        Padding = new Thickness(3, 0, 10, 0),
-                        HorizontalAlignment = horizontalAlignments[i]
-                    };
-                    Grid.SetColumn(textBlock, i);
-                    buttonGrid.Children.Add(textBlock);
-                }
-                var button = new Button
-                {
-                    Content = buttonGrid,
-                    HorizontalContentAlignment = HorizontalAlignment.Left,
-                    BorderThickness = new Thickness(0),
-                    Background = Brushes.Transparent,
-                    MaxHeight = 16,
-                    Margin = new Thickness(0),
-                    Padding = new Thickness(0)
-                };
-                button.Click += (sender, e) => {
-                    DataSet.selectedExpense = expense;
-                    //window.IsEnabled = false;
-                    var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpenseWindow>();
-                    if (expWinTuple.Item2)
-                    {
-                        expWinTuple.Item1.Closed += ExpWin_Closed;
-                    }
-                };
-                Grid.SetColumnSpan(button, colWidths.Length);
-                Grid.SetRow(button, grid.RowDefinitions.Count - 1);
-                grid.Children.Add(button);
-            }
-        }
-
-        private void CreateExpensesListGridForPeriod(Grid grid, BillingPeriod period)
-        {
-            var expenses = new List<Expense>(period.expenses);
-            CreateExpensesListGrid(grid, expenses);
         }
 
         private void AddStretchRow(Grid grid)
@@ -375,7 +210,6 @@ namespace BudgetManager
             btn.Click += (sender, e) => {
                 DataSet.selectedCategory = category;
                 DataSet.selectedDate = date;
-                //window.IsEnabled = false;
                 var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
                 if (expWinTuple.Item2)
                 {
@@ -387,8 +221,6 @@ namespace BudgetManager
 
         private void ExpWin_Closed(object sender, EventArgs e)
         {
-            //window.IsEnabled = true;
-            CreateSummary();
             CreateMultiGridTable();
         }
 

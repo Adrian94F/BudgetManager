@@ -43,13 +43,9 @@ namespace BudgetManager
 
         private void FillWithExpenses()
         {
-            ExpensesGrid.Children.Clear();
-            ExpensesGrid.RowDefinitions.Clear();
-
             var expenses = selectedDate != new DateTime() ? DataSet.billingPeriods.ElementAt(currentPeriod).GetExpensesOfCategoryAndDate(selectedCategory, selectedDate) : DataSet.billingPeriods.ElementAt(currentPeriod).GetExpensesOfCategory(selectedCategory);
-            var gridCreator = new BillingPeriodGridCreator(this);
             var expList = new List<Expense>(expenses);
-            gridCreator.CreateExpensesListGrid(ExpensesGrid, expList);
+            _ = new BillingPeriodExpensesListCreator(ExpensesGrid, expList);
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)

@@ -20,9 +20,10 @@ namespace BudgetManager
         {
             period = bp;
             grid = g;
+            Plot();
         }
 
-        public void Plot()
+        private void Plot()
         {
             var chart = new CartesianChart();
 

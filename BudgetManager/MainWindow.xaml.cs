@@ -34,19 +34,19 @@ namespace BudgetManager
 
         private void FillBurndownTab()
         {
-            var chartCreator = new BillingPeriodChartCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), BurndownChartGrid);
-            chartCreator.Plot();
+            _ = new BillingPeriodChartCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), BurndownChartGrid);
         }
 
         public void RefreshTabs()
         {
-            FillSummaryTab();
+            FillTables();
             FillBurndownTab();
         }
 
-        private void FillSummaryTab()
+        private void FillTables()
         {
             FillExpensesTable();
+            FillExpensesListTable();
             FillSummaryTable();
             PrintBillingPeriodDates();
         }
@@ -112,10 +112,15 @@ namespace BudgetManager
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
-                var gridCreator = new BillingPeriodGridCreator(this);
-                gridCreator.SetPeriod(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod));
-                gridCreator.SetGrids(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, SummaryGrid, ExpensesListGrid);
-                gridCreator.CreateMultiGridTable();
+                _ = new BillingPeriodGridCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), this, HeaderDaysGrid, VerticalDataGrid, ExpensesGrid);
+            }
+        }
+
+        public void FillExpensesListTable()
+        {
+            if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
+            {
+                _ = new BillingPeriodExpensesListCreator(ExpensesListGrid, new List<Expense>(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses));
             }
         }
 
@@ -123,10 +128,7 @@ namespace BudgetManager
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
-                var gridCreator = new BillingPeriodGridCreator(this);
-                gridCreator.SetPeriod(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod));
-                gridCreator.SetGrids(HeaderDaysGrid, VerticalDataGrid, ExpensesGrid, SummaryGrid, ExpensesListGrid);
-                gridCreator.CreateSummary();
+                _ = new BillingPeriodSummaryCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), SummaryGrid);
             }
         }
 
@@ -197,6 +199,7 @@ namespace BudgetManager
         {
             var fh = new FilesHandler();
             fh.SaveData();
+            MessageBox.Show("Pomyslnie zapisano wydatki!", "Zapis", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
@@ -270,8 +273,9 @@ namespace BudgetManager
         private void NextBillingPeriod()
         {
             DataSet.currentPeriod++;
-            if (DataSet.currentPeriod == DataSet.billingPeriods.Count - 1)
+            if (DataSet.currentPeriod >= DataSet.billingPeriods.Count - 1)
             {
+                DataSet.currentPeriod = DataSet.billingPeriods.Count - 1;
                 DisableMenuItem(MenuItemNext);
             }
             if (!MenuItemPrev.IsEnabled)

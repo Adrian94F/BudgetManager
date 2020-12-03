@@ -84,6 +84,8 @@
     </Compile>
     <Compile Include="BillingPeriod.cs" />
     <Compile Include="BillingPeriodChartCreator.cs" />
+    <Compile Include="BillingPeriodExpensesListCreator.cs" />
+    <Compile Include="BillingPeriodSummaryCreator.cs" />
     <Compile Include="BillingPeriodGridCreator.cs" />
     <Compile Include="BillingPeriodsWindow.xaml.cs">
       <DependentUpon>BillingPeriodsWindow.xaml</DependentUpon>
