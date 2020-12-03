@@ -12,11 +12,11 @@ namespace BudgetManager
 {
     class BillingPeriodGridCreator
     {
-        Window window;
+        MainWindow window;
         Grid header, categories, expenses;
         BillingPeriod period;
 
-        public BillingPeriodGridCreator(BillingPeriod bp, Window w, Grid h, Grid v, Grid e)
+        public BillingPeriodGridCreator(BillingPeriod bp, MainWindow w, Grid h, Grid v, Grid e)
         {
             period = bp;
             window = w;
@@ -221,7 +221,7 @@ namespace BudgetManager
 
         private void ExpWin_Closed(object sender, EventArgs e)
         {
-            CreateMultiGridTable();
+            window.RefreshTabControlContentAndSummary();
         }
 
         private void AddUIElementToGrid(UIElement obj, int row, int col, Grid grid)

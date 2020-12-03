@@ -27,28 +27,28 @@ namespace BudgetManager
         {
             InitializeComponent();
             SetupVariables();
-            RefreshTabs();
+            RefreshTabControlContentAndSummary();
             SetupButtons();
             this.Closing += MainWindow_Closing;
         }
 
-        private void FillBurndownTab()
-        {
-            _ = new BillingPeriodChartCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), BurndownChartGrid);
-        }
-
-        public void RefreshTabs()
+        public void RefreshTabControlContentAndSummary()
         {
             FillTables();
             FillBurndownTab();
+            FillSummaryGrid();
+            PrintBillingPeriodDates();
         }
 
         private void FillTables()
         {
             FillExpensesTable();
             FillExpensesListTable();
-            FillSummaryTable();
-            PrintBillingPeriodDates();
+        }
+
+        private void FillBurndownTab()
+        {
+            _ = new BillingPeriodChartCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), BurndownChartGrid);
         }
 
         private void PrintBillingPeriodDates()
@@ -124,7 +124,7 @@ namespace BudgetManager
             }
         }
 
-        public void FillSummaryTable()
+        public void FillSummaryGrid()
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
@@ -142,28 +142,6 @@ namespace BudgetManager
             NextBillingPeriod();
         }
 
-        private void IncomeTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox txtBox = sender as TextBox;
-            var strValue = Regex.Replace(txtBox.Text, "[^0-9,]", "");
-            try
-            {
-                var value = decimal.Parse(strValue, NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
-                if (txtBox.Name == "NetIncomeTextBox")
-                {
-                    DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).netIncome = value;
-                }
-                else if (txtBox.Name == "AddIncomeTextBox")
-                {
-                    DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).additionalIncome = value;
-                }
-
-            } catch (Exception) {
-                txtBox.Text = "!!!" + txtBox.Text;
-            }
-            RefreshTabs();
-        }
-
         private void AddExpenseMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Add();
@@ -171,7 +149,7 @@ namespace BudgetManager
 
         private void ExpenseWindow_Closed(object sender, EventArgs e)
         {
-            RefreshTabs();
+            RefreshTabControlContentAndSummary();
         }
 
         private void CategoriesMenuItem_Click(object sender, RoutedEventArgs e)
@@ -181,7 +159,7 @@ namespace BudgetManager
 
         private void CategoriesWindow_Closed(object sender, EventArgs e)
         {
-            RefreshTabs();
+            RefreshTabControlContentAndSummary();
         }
 
         private void PeriodsMenuItem_Click(object sender, RoutedEventArgs e)
@@ -191,7 +169,7 @@ namespace BudgetManager
 
         private void PeriodsWindow_Closed(object sender, EventArgs e)
         {
-            RefreshTabs();
+            RefreshTabControlContentAndSummary();
             SetupButtons();
         }
 
@@ -282,7 +260,7 @@ namespace BudgetManager
             {
                 EnablMenuItem(MenuItemPrev);
             }
-            RefreshTabs();
+            RefreshTabControlContentAndSummary();
         }
 
         private void PreviousBillingPeriod()
@@ -296,7 +274,7 @@ namespace BudgetManager
             {
                 EnablMenuItem(MenuItemNext);
             }
-            RefreshTabs();
+            RefreshTabControlContentAndSummary();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
