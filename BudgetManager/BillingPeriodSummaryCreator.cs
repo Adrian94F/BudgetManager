@@ -24,6 +24,8 @@ namespace BudgetManager
 
         private void CreateSummary()
         {
+            var startDate = period.startDate.ToString("dd.MM.yyyy");
+            var endDate = period.endDate.ToString("dd.MM.yyyy");
             var net = period.netIncome;
             var add = period.additionalIncome;
             var incSum = period.netIncome + period.additionalIncome;
@@ -43,6 +45,9 @@ namespace BudgetManager
                     var textBlock = ((TextBlock)child);
                     switch (textBlock.Name)
                     {
+                        case "PeriodDatesTextBlock":
+                            textBlock.Text = "Podsumowanie dla " + startDate + "-" + endDate + ":";
+                            break;
                         case "NetIncomeTextBlock":
                             textBlock.Text = net.ToString("F") + " zł";
                             break;

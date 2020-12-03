@@ -30,7 +30,6 @@ namespace BudgetManager
             InitializeComponent();
             LoadData();
             Loaded += ExpenseWindow_Loaded;
-            BtnSave.IsDefault = true;
         }
 
         private void ExpenseWindow_Loaded(object sender, RoutedEventArgs e)

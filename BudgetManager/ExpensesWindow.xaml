@@ -24,7 +24,8 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Content="Ok"
-                Click="BtnOk_Click"/>
+                Click="BtnOk_Click"
+                IsDefault="True"/>
 
         <Label Name="Label"
                Content="..."

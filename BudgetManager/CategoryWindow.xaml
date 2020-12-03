@@ -27,7 +27,8 @@
                 Grid.Column="0"
                 Content="Zapisz"
                 Margin="0,0,150,0"
-                Click="BtnSave_Click"/>
+                Click="BtnSave_Click"
+                IsDefault="True"/>
 
         <Button x:Name="BtnRemove"
                 HorizontalAlignment="Right"

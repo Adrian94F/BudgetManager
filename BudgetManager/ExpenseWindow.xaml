@@ -76,7 +76,8 @@
                 Content="Zapisz"
                 Margin="0,0,150,0"
                 Click="BtnSave_Click"
-                IsEnabled="False"/>
+                IsEnabled="False"
+                IsDefault="True"/>
 
         <Button x:Name="BtnRemove"
                 HorizontalAlignment="Right"

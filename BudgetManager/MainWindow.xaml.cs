@@ -41,7 +41,6 @@ namespace BudgetManager
                 FillHistoryTab();
             }
             FillSummaryGrid();
-            PrintBillingPeriodDates();
         }
 
         private void FillTables()
@@ -58,13 +57,6 @@ namespace BudgetManager
         private void FillHistoryTab()
         {
             _ = new BillingPeriodsHistoryChartCreator(DataSet.billingPeriods, HistoryChartGrid);
-        }
-
-        private void PrintBillingPeriodDates()
-        {
-            var start = DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).startDate.ToString("dd.MM.yyyy");
-            var end = DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).endDate.ToString("dd.MM.yyyy");
-            PeriodDatesTextBlock.Text = "Podsumowanie dla " + start + "-" + end + ":";
         }
 
         private void SetupButtons()
@@ -289,43 +281,54 @@ namespace BudgetManager
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
+            if (Keyboard.Modifiers == ModifierKeys.Control)
             {
-                case Key.Escape:
-                    this.Close();
-                    break;
-                case Key.N:
-                    if (Keyboard.Modifiers == ModifierKeys.Control)
-                    {
+                switch (e.Key)
+                {
+                    case Key.N:
                         Add();
-                    }
-                    break;
-                case Key.K:
-                    if (Keyboard.Modifiers == ModifierKeys.Control)
-                    {
+                        break;
+                    case Key.K:
                         Categories();
-                    }
-                    break;
-                case Key.M:
-                    if (Keyboard.Modifiers == ModifierKeys.Control)
-                    {
+                        break;
+                    case Key.M:
                         BillingPeriods();
-                    }
-                    break;
-                case Key.S:
-                    if (Keyboard.Modifiers == ModifierKeys.Control)
-                    {
+                        break;
+                    case Key.W:
+                        SetViewTab(0);
+                        break;
+                    case Key.L:
+                        SetViewTab(1);
+                        break;
+                    case Key.B:
+                        SetViewTab(2);
+                        break;
+                    case Key.H:
+                        SetViewTab(3);
+                        break;
+                    case Key.S:
                         SaveData();
-                    }
-                    break;
-                case Key.PageDown:
-                    NextBillingPeriod();
-                    break;
-                case Key.PageUp:
-                    PreviousBillingPeriod();
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch (e.Key)
+                {
+                    case Key.Escape:
+                        this.Close();
+                        break;
+                    case Key.PageDown:
+                        NextBillingPeriod();
+                        break;
+                    case Key.PageUp:
+                        PreviousBillingPeriod();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -364,7 +367,6 @@ namespace BudgetManager
                 return;
             }
 
-            var menuItem = (MenuItem)sender;
             if (sender == ExpensesTableMenuItem)
             {
                 ViewTabControl.SelectedIndex = 0;
@@ -380,6 +382,25 @@ namespace BudgetManager
             else if (sender == HistoryMenuItem)
             {
                 ViewTabControl.SelectedIndex = 3;
+            }
+        }
+
+        private void SetViewTab(int n)
+        {
+            if (n > ViewTabControl.Items.Count - 1)
+            {
+                throw new Exception();
+            }
+            ViewTabControl.SelectedIndex = n;
+
+            var i = 0;
+            foreach (var item in ViewMenuItem.Items)
+            {
+                if (item.GetType() == typeof(MenuItem))
+                {
+                    ((MenuItem)item).IsChecked = i == n;
+                    i++;
+                }
             }
         }
     }

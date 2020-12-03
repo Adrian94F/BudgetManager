@@ -21,7 +21,8 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Content="Ok"
-                Click="BtnOk_Click"/>
+                Click="BtnOk_Click"
+                IsDefault="True"/>
 
         <Border Style="{StaticResource MyBorder}"
                 Margin="0,0,0,27">
