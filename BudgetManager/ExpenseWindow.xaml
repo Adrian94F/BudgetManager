@@ -22,6 +22,7 @@
                  Grid.Row="0"
                  VerticalAlignment="Top"
                  LostFocus="ValueTextBox_LostFocus"
+                 TextChanged="ValueTextBox_TextChanged"
                  HorizontalAlignment="Right"
                  Width="126"/>
         <Label Grid.Row="0"
@@ -47,7 +48,8 @@
                   Margin="0,56,0,0"
                   VerticalAlignment="Top"
                   HorizontalAlignment="Right"
-                  Width="145"/>
+                  Width="145"
+                  SelectionChanged="CategoriesComboBox_SelectionChanged"/>
 
         <Label Content="Wydatek stały"
                VerticalAlignment="Top"
@@ -73,7 +75,8 @@
                 Grid.Column="0"
                 Content="Zapisz"
                 Margin="0,0,150,0"
-                Click="BtnSave_Click"/>
+                Click="BtnSave_Click"
+                IsEnabled="False"/>
 
         <Button x:Name="BtnRemove"
                 HorizontalAlignment="Right"

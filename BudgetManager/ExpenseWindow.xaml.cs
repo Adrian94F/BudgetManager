@@ -160,5 +160,28 @@ namespace BudgetManager
                     break;
             }
         }
+
+        private void ValueTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CheckDecimalValueAndComboBoxSelectionAndSetSaveButton();
+        }
+
+        private void CategoriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CheckDecimalValueAndComboBoxSelectionAndSetSaveButton();
+        }
+
+        private void CheckDecimalValueAndComboBoxSelectionAndSetSaveButton()
+        {
+            var value = ParseDecimalString(ValueTextBox.Text);
+            if (value == decimal.Zero || CategoriesComboBox.SelectedItem == null)
+            {
+                BtnSave.IsEnabled = false;
+            }
+            else
+            {
+                BtnSave.IsEnabled = true;
+            }
+        }
     }
 }
