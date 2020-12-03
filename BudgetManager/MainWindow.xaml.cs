@@ -64,7 +64,7 @@ namespace BudgetManager
         {
             var start = DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).startDate.ToString("dd.MM.yyyy");
             var end = DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).endDate.ToString("dd.MM.yyyy");
-            PeriodDatesTextBlock.Text = start + "-" + end;
+            PeriodDatesTextBlock.Text = "Podsumowanie dla " + start + "-" + end + ":";
         }
 
         private void SetupButtons()
@@ -344,6 +344,42 @@ namespace BudgetManager
             if (aboutWindowTuple.Item2)
             {
                 aboutWindowTuple.Item1.Closed += PeriodsWindow_Closed;
+            }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var menuItems = ViewMenuItem.Items;
+
+            foreach (var item in menuItems)
+            {
+                if (item != null && item.GetType() == typeof(MenuItem))
+                {
+                    ((MenuItem)item).IsChecked = sender == item;
+                }
+            }
+
+            if (ViewTabControl == null)
+            {
+                return;
+            }
+
+            var menuItem = (MenuItem)sender;
+            if (sender == ExpensesTableMenuItem)
+            {
+                ViewTabControl.SelectedIndex = 0;
+            }
+            else if (sender == ExpensesListMenuItem)
+            {
+                ViewTabControl.SelectedIndex = 1;
+            }
+            else if (sender == BurndownMenuItem)
+            {
+                ViewTabControl.SelectedIndex = 2;
+            }
+            else if (sender == HistoryMenuItem)
+            {
+                ViewTabControl.SelectedIndex = 3;
             }
         }
     }
