@@ -12,13 +12,11 @@ namespace BudgetManager
 {
     class BillingPeriodExpensesListCreator
     {
-        Grid listGrid;
-        List<Expense> expenses;
+        readonly Grid listGrid;
 
-        public BillingPeriodExpensesListCreator(Grid grid, List<Expense> expensesList)
+        public BillingPeriodExpensesListCreator(Grid grid)
         {
             listGrid = grid;
-            expenses = expensesList;
             CreateExpensesListGrid();
         }
 
@@ -28,7 +26,7 @@ namespace BudgetManager
             listGrid.RowDefinitions.Clear();
             listGrid.ColumnDefinitions.Clear();
 
-            expenses.Sort(delegate (Expense x, Expense y)
+            DataSet.expensesList.Sort(delegate (Expense x, Expense y)
             {
                 return -DateTime.Compare(x.date, y.date);
             });
@@ -46,7 +44,7 @@ namespace BudgetManager
                 HorizontalAlignment.Left,
                 HorizontalAlignment.Left
             };
-            foreach (var expense in expenses)
+            foreach (var expense in DataSet.expensesList)
             {
                 listGrid.RowDefinitions.Add(new RowDefinition()
                 {
@@ -102,52 +100,8 @@ namespace BudgetManager
                         expWinTuple.Item1.Closed += ExpWin_Closed;
                     }
                 };
-                Grid.SetColumnSpan(button, colWidths.Length);
-                Grid.SetRow(button, listGrid.RowDefinitions.Count - 1);
-                listGrid.Children.Add(button);
+                AddUIElementToGrid(button, listGrid.RowDefinitions.Count - 1, 0, listGrid);
             }
-        }
-
-        private void AddStretchRow(Grid grid)
-        {
-            var rowDef = new RowDefinition
-            {
-                Height = new GridLength(100, GridUnitType.Star)
-            };
-            grid.RowDefinitions.Add(rowDef);
-        }
-
-        private void AddStretchColumn(Grid grid)
-        {
-            var colDef = new ColumnDefinition
-            {
-                Width = new GridLength(100, GridUnitType.Star)
-            };
-            grid.ColumnDefinitions.Add(colDef);
-        }
-
-        private void AddButtonToGrid(string text, int row, int col, Grid grid, ExpenseCategory category, DateTime date)
-        {
-            var btn = new Button
-            {
-                Content = text,
-                BorderThickness = new Thickness(0),
-                Background = Brushes.Transparent,
-                MaxHeight = 16,
-                MaxWidth = 40,
-                MinWidth = 40,
-                Padding = new Thickness(0)
-            };
-            btn.Click += (sender, e) => {
-                DataSet.selectedCategory = category;
-                DataSet.selectedDate = date;
-                var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
-                if (expWinTuple.Item2)
-                {
-                    expWinTuple.Item1.Closed += ExpWin_Closed;
-                }
-            };
-            AddUIElementToGrid(btn, row, col, grid);
         }
 
         private void ExpWin_Closed(object sender, EventArgs e)

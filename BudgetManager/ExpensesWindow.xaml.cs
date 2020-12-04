@@ -46,8 +46,8 @@ namespace BudgetManager
             var expenses = selectedDate != new DateTime() ?
                 DataSet.billingPeriods.ElementAt(currentPeriod).GetExpensesOfCategoryAndDate(selectedCategory, selectedDate) :
                 DataSet.billingPeriods.ElementAt(currentPeriod).GetExpensesOfCategory(selectedCategory);
-            var expList = new List<Expense>(expenses);
-            _ = new BillingPeriodExpensesListCreator(ExpensesGrid, expList);
+            DataSet.expensesList = new List<Expense>(expenses);
+            _ = new BillingPeriodExpensesListCreator(ExpensesGrid);
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
@@ -58,16 +58,13 @@ namespace BudgetManager
         private void ExpenseWindow_Closed(object sender, EventArgs e)
         {
             DataSet.selectedExpense = null;
-            this.IsEnabled = true;
             FillWithExpenses();
         }
 
         private void Add()
         {
-            this.IsEnabled = false;
-            var expenseWindow = new ExpenseWindow();
+            var expenseWindow = Utilities.OpenNewOrRestoreWindow<ExpenseWindow>();
             expenseWindow.Closed += ExpenseWindow_Closed;
-            expenseWindow.Show();
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e)
