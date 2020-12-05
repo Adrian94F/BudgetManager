@@ -280,6 +280,34 @@ namespace BudgetManager
             RefreshTabControlContentAndSummary(false);
         }
 
+        private void SelectedPeriodTableView()
+        {
+            SetTab(0);
+            SetSelectedPeriodTab(0);
+        }
+
+        private void SelectedPeriodListView()
+        {
+            SetTab(0);
+            SetSelectedPeriodTab(1);
+        }
+
+        private void SelectedPeriodBurndownView()
+        {
+            SetTab(0);
+            SetSelectedPeriodTab(2);
+        }
+
+        private void HistoryView()
+        {
+            SetTab(1);
+        }
+
+        private void SettingsView()
+        {
+            SetTab(2);
+        }
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (Keyboard.Modifiers == ModifierKeys.Control)
@@ -296,16 +324,16 @@ namespace BudgetManager
                         BillingPeriods();
                         break;
                     case Key.W:
-                        SetViewTab(0);
+                        SelectedPeriodTableView();
                         break;
                     case Key.L:
-                        SetViewTab(1);
+                        SelectedPeriodListView();
                         break;
                     case Key.B:
-                        SetViewTab(2);
+                        SelectedPeriodBurndownView();
                         break;
                     case Key.H:
-                        SetViewTab(3);
+                        HistoryView();
                         break;
                     case Key.S:
                         SaveData();
@@ -363,36 +391,58 @@ namespace BudgetManager
                 }
             }
 
-            if (ViewTabControl == null)
+            if (SelectedPeriodTabControl == null)
             {
                 return;
             }
 
             if (sender == ExpensesTableMenuItem)
             {
-                ViewTabControl.SelectedIndex = 0;
+                SelectedPeriodTableView();
             }
             else if (sender == ExpensesListMenuItem)
             {
-                ViewTabControl.SelectedIndex = 1;
+                SelectedPeriodListView();
             }
             else if (sender == BurndownMenuItem)
             {
-                ViewTabControl.SelectedIndex = 2;
+                SelectedPeriodBurndownView();
             }
             else if (sender == HistoryMenuItem)
             {
-                ViewTabControl.SelectedIndex = 3;
+                HistoryView();
             }
         }
 
-        private void SetViewTab(int n)
+        private void SetTab(int n)
         {
-            if (n > ViewTabControl.Items.Count - 1)
+            if (n > ViewsTabControl.Items.Count - 1)
             {
                 throw new Exception();
             }
-            ViewTabControl.SelectedIndex = n;
+            ViewsTabControl.SelectedIndex = n;
+
+            foreach (var item in ViewMenuItem.Items)
+            {
+                if (item.GetType() == typeof(MenuItem))
+                {
+                    ((MenuItem)item).IsChecked = false;
+                }
+            }
+
+            if (n == 1)
+            {
+                ((MenuItem)ViewMenuItem.Items[ViewMenuItem.Items.Count - 1]).IsChecked = true;
+            }
+        }
+
+        private void SetSelectedPeriodTab(int n)
+        {
+            if (n > SelectedPeriodTabControl.Items.Count - 1)
+            {
+                throw new Exception();
+            }
+            SelectedPeriodTabControl.SelectedIndex = n;
 
             var i = 0;
             foreach (var item in ViewMenuItem.Items)
