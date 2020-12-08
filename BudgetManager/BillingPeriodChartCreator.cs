@@ -79,6 +79,14 @@ namespace BudgetManager
                 //avgBurnValues[i] = avgBurnValues[i - 1] - (incomeSum / (nOfDays - 1));
             }
 
+            // daily expense
+            var dailyExpenses = new double[nOfDays];
+            dailyExpenses[0] = (double)period.GetSumOfMonthlyExpenses();
+            for (var i = 1; i < nOfDays; i++)
+            {
+                dailyExpenses[i] = (double)period.GetSumOfDailyExpensesOfDate(period.startDate.AddDays(i - 1));
+            }
+
             // labels
             var labels = new string[nOfDays];
             labels[0] = "start";
@@ -150,6 +158,13 @@ namespace BudgetManager
                     Stroke = Brushes.YellowGreen,
                     Fill = Brushes.Transparent,
                     StrokeDashArray = new DoubleCollection {2}
+                },
+                new ColumnSeries
+                {
+                    Title = "Dzienny wydatek",
+                    Values = new ChartValues<double>(dailyExpenses),
+                    DataLabels = true,
+                    Fill = Brushes.Gold
                 }
             };
 
