@@ -76,7 +76,6 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <TabControl x:Name="ViewsTabControl"
-                        Margin="0,0,0,0"
                         Grid.Row="1"
                         BorderThickness="0">
                 <TabControl.ItemContainerStyle>
@@ -483,11 +482,53 @@
                 </TabItem>
                 <TabItem x:Name="SettingsTabItem"
                          Header="Ustawienia">
-                    <Border Style="{StaticResource MyBorder}"
-                            Margin="7,7,7,7"
-                            Padding="5">
-                        <Grid x:Name="SettingsGrid"/>
-                    </Border>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Style="{StaticResource MyBorder}"
+                            Margin="7,7,7,0"
+                            Padding="2">
+                            <Grid>
+                                <ScrollViewer>
+                                    <Grid Margin="0,0,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <Label Content="Domyślny początek okresu rozliczeniowego"
+                                               Grid.Column="0"/>
+                                        <TextBox x:Name="TypicalStartDayTextBox"
+                                                 Height="23"
+                                                 Margin="0,4,0,0"
+                                                 HorizontalAlignment="Left"
+                                                 Grid.Column="1"
+                                                 Width="40"/>
+                                        <Label Content="dzień miesiąca"
+                                               Grid.Column="2"/>
+                                    </Grid>
+                                </ScrollViewer>
+                            </Grid>
+                        </Border>
+                        <Button x:Name="BtnSave"
+                                Content="Zapisz"
+                                Margin="7,7,85,7"
+                                Grid.Row="1"
+                                HorizontalAlignment="Right"/>
+                        <Button x:Name="BtnRestore"
+                                Content="Przywróć"
+                                Margin="7,7,7,7"
+                                Grid.Row="1"
+                                HorizontalAlignment="Right"/>
+                    </Grid>
                 </TabItem>
             </TabControl>
         </Grid>
