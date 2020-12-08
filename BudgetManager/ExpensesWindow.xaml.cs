@@ -41,13 +41,12 @@ namespace BudgetManager
             Label.Content = str;
         }
 
-        private void FillWithExpenses()
+        public void FillWithExpenses()
         {
             var expenses = selectedDate != new DateTime() ?
                 DataSet.billingPeriods.ElementAt(currentPeriod).GetExpensesOfCategoryAndDate(selectedCategory, selectedDate) :
                 DataSet.billingPeriods.ElementAt(currentPeriod).GetExpensesOfCategory(selectedCategory);
-            DataSet.expensesList = new List<Expense>(expenses);
-            _ = new BillingPeriodExpensesListCreator(ExpensesGrid);
+            _ = new BillingPeriodExpensesListCreator<ExpensesWindow>(ExpensesGrid, new List<Expense>(expenses), this);
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)

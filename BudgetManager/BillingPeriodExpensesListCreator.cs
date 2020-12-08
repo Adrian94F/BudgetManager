@@ -10,13 +10,17 @@ using System.Windows.Shapes;
 
 namespace BudgetManager
 {
-    class BillingPeriodExpensesListCreator
+    class BillingPeriodExpensesListCreator<W>
     {
         readonly Grid listGrid;
+        readonly List<Expense> expensesList;
+        W parentWindow;
 
-        public BillingPeriodExpensesListCreator(Grid grid)
+        public BillingPeriodExpensesListCreator(Grid grid, List<Expense> expList, W window)
         {
             listGrid = grid;
+            expensesList = expList;
+            parentWindow = window;
             CreateExpensesListGrid();
         }
 
@@ -26,7 +30,7 @@ namespace BudgetManager
             listGrid.RowDefinitions.Clear();
             listGrid.ColumnDefinitions.Clear();
 
-            DataSet.expensesList.Sort(delegate (Expense x, Expense y)
+            expensesList.Sort(delegate (Expense x, Expense y)
             {
                 return -DateTime.Compare(x.date, y.date);
             });
@@ -44,7 +48,7 @@ namespace BudgetManager
                 HorizontalAlignment.Left,
                 HorizontalAlignment.Left
             };
-            foreach (var expense in DataSet.expensesList)
+            foreach (var expense in expensesList)
             {
                 listGrid.RowDefinitions.Add(new RowDefinition()
                 {
@@ -106,7 +110,14 @@ namespace BudgetManager
 
         private void ExpWin_Closed(object sender, EventArgs e)
         {
-            CreateExpensesListGrid();
+            if (parentWindow is MainWindow mainWindow)
+            {
+                mainWindow.FillExpensesListTable();
+            }
+            else if (parentWindow is ExpensesWindow expensesWindow)
+            {
+                expensesWindow.FillWithExpenses();
+            }
         }
 
         private void AddUIElementToGrid(UIElement obj, int row, int col, Grid grid)

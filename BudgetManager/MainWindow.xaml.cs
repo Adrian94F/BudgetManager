@@ -121,8 +121,8 @@ namespace BudgetManager
         {
             if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
             {
-                DataSet.expensesList = new List<Expense>(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses);
-                _ = new BillingPeriodExpensesListCreator(ExpensesListGrid);
+                var expensesList = new List<Expense>(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses);
+                _ = new BillingPeriodExpensesListCreator<MainWindow>(ExpensesListGrid, expensesList, this);
             }
         }
 

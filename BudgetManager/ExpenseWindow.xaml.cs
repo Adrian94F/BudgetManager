@@ -141,7 +141,6 @@ namespace BudgetManager
             if (selectedExpense != null)
             {
                 DataSet.billingPeriods.ElementAt(currentPeriod).expenses.Remove(selectedExpense);
-                DataSet.expensesList.Remove(selectedExpense);
             }
             this.Close();
         }
