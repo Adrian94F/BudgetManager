@@ -97,7 +97,7 @@ namespace BudgetManager
                     Padding = new Thickness(0)
                 };
                 button.Click += (sender, e) => {
-                    DataSet.selectedExpense = expense;
+                    AppData.selectedExpense = expense;
                     var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpenseWindow>();
                     if (expWinTuple.Item2)
                     {
@@ -122,7 +122,6 @@ namespace BudgetManager
 
         private void AddUIElementToGrid(UIElement obj, int row, int col, Grid grid)
         {
-
             Grid.SetRow(obj, row);
             Grid.SetColumn(obj, col);
             grid.Children.Add(obj);

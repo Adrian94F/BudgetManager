@@ -28,7 +28,7 @@ namespace BudgetManager
 
         private void LoadData()
         {
-            TypicalStartDayTextBox.Text = DataSet.settings.TypicalBeginningOfPeriod.ToString();
+            TypicalStartDayTextBox.Text = AppData.settings.TypicalBeginningOfPeriod.ToString();
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -41,7 +41,7 @@ namespace BudgetManager
                 return;
             }
 
-            DataSet.settings.TypicalBeginningOfPeriod = typicalStartDay;
+            AppData.settings.TypicalBeginningOfPeriod = typicalStartDay;
 
             var fh = new FilesHandler();
             fh.SaveSettings();

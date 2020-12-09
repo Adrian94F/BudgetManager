@@ -19,9 +19,9 @@ namespace BudgetManager
     /// </summary>
     public partial class ExpensesWindow : Window
     {
-        int currentPeriod = DataSet.currentPeriod;
-        ExpenseCategory selectedCategory = DataSet.selectedCategory;
-        DateTime selectedDate = DataSet.selectedDate;
+        int currentPeriod = AppData.currentPeriod;
+        ExpenseCategory selectedCategory = AppData.selectedCategory;
+        DateTime selectedDate = AppData.selectedDate;
 
         public ExpensesWindow()
         {
@@ -33,7 +33,7 @@ namespace BudgetManager
 
         private void SetLabel()
         {
-            var str = selectedDate != new DateTime() ? selectedDate.ToString("d.MM.yyyy") : DataSet.billingPeriods.ElementAt(currentPeriod).startDate.ToString("d.MM") + "-" + DataSet.billingPeriods.ElementAt(currentPeriod).endDate.ToString("d.MM");
+            var str = selectedDate != new DateTime() ? selectedDate.ToString("d.MM.yyyy") : AppData.billingPeriods.ElementAt(currentPeriod).startDate.ToString("d.MM") + "-" + AppData.billingPeriods.ElementAt(currentPeriod).endDate.ToString("d.MM");
             if (selectedCategory != null)
             {
                 str += ", " + selectedCategory.name;
@@ -44,8 +44,8 @@ namespace BudgetManager
         public void FillWithExpenses()
         {
             var expenses = selectedDate != new DateTime() ?
-                DataSet.billingPeriods.ElementAt(currentPeriod).GetExpensesOfCategoryAndDate(selectedCategory, selectedDate) :
-                DataSet.billingPeriods.ElementAt(currentPeriod).GetExpensesOfCategory(selectedCategory);
+                AppData.billingPeriods.ElementAt(currentPeriod).GetExpensesOfCategoryAndDate(selectedCategory, selectedDate) :
+                AppData.billingPeriods.ElementAt(currentPeriod).GetExpensesOfCategory(selectedCategory);
             _ = new BillingPeriodExpensesListCreator<ExpensesWindow>(ExpensesGrid, new List<Expense>(expenses), this);
         }
 
@@ -56,7 +56,7 @@ namespace BudgetManager
 
         private void ExpenseWindow_Closed(object sender, EventArgs e)
         {
-            DataSet.selectedExpense = null;
+            AppData.selectedExpense = null;
             FillWithExpenses();
         }
 

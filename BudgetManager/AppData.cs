@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BudgetManager
 {
-    [Serializable]
-    static class DataSet
+    static class AppData
     {
         public static SortedSet<BillingPeriod> billingPeriods = new SortedSet<BillingPeriod>();
         public static HashSet<ExpenseCategory> expenseCategories = new HashSet<ExpenseCategory>();
+        public static bool isDataChanged = false;
 
         // main window
         public static int currentPeriod = -1;

@@ -30,8 +30,8 @@ namespace BudgetManager
             CategoriesGrid.Children.Clear();
             CategoriesGrid.RowDefinitions.Clear();
 
-            var periodNumber = DataSet.currentPeriod;
-            var categories = DataSet.expenseCategories;
+            var periodNumber = AppData.currentPeriod;
+            var categories = AppData.expenseCategories;
             foreach (var category in categories)
             {
                 var content = category.name;
@@ -46,7 +46,7 @@ namespace BudgetManager
                 };
                 categoryBtn.Click += (sender, e) =>
                 {
-                    DataSet.selectedCategory = category;
+                    AppData.selectedCategory = category;
                     BtnAdd_Click(sender, e);
                 };
 
@@ -78,7 +78,7 @@ namespace BudgetManager
         private void CategoryWindow_Closed(object sender, EventArgs e)
         {
             this.IsEnabled = true;
-            DataSet.selectedCategory = null;
+            AppData.selectedCategory = null;
             FillWithCategories();
         }
 

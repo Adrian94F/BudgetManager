@@ -19,7 +19,7 @@ namespace BudgetManager
     /// </summary>
     public partial class CategoryWindow : Window
     {
-        ExpenseCategory selectedCategory = DataSet.selectedCategory;
+        ExpenseCategory selectedCategory = AppData.selectedCategory;
         
         public CategoryWindow()
         {
@@ -50,12 +50,13 @@ namespace BudgetManager
                 {
                     name = name
                 };
-                DataSet.expenseCategories.Add(category);
+                AppData.expenseCategories.Add(category);
             }
             else
             {
-                DataSet.selectedCategory.name = name;
+                AppData.selectedCategory.name = name;
             }
+            AppData.isDataChanged = true;
             this.Close();
         }
 
@@ -65,19 +66,20 @@ namespace BudgetManager
             {
                 if (CategoryNotUsed(selectedCategory))
                 {
-                    DataSet.expenseCategories.Remove(DataSet.selectedCategory);
+                    AppData.expenseCategories.Remove(AppData.selectedCategory);
                 }
                 else
                 {
                     MessageBox.Show("Nie można usunąć kategorii, gdyż jest używana. Usuń wydatki lub zmień ich kategorię, a nastepnie spróbuj ponownie.", "Uwaga", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
+            AppData.isDataChanged = true;
             this.Close();
         }
 
         private bool CategoryNotUsed(ExpenseCategory category)
         {
-            foreach (var period in DataSet.billingPeriods)
+            foreach (var period in AppData.billingPeriods)
             {
                 foreach (var expense in period.expenses)
                 {

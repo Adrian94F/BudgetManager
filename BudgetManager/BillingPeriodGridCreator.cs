@@ -53,7 +53,7 @@ namespace BudgetManager
 
         private void AddRowDefinitionsForCategories(Grid grid)
         {
-            var numOfCategories = DataSet.expenseCategories.Count;
+            var numOfCategories = AppData.expenseCategories.Count;
             for (var i = 0; i < numOfCategories; i++)
             {
                 var rowDef = new RowDefinition();
@@ -84,8 +84,8 @@ namespace BudgetManager
                     Padding = new Thickness(0)
                 };
                 btn.Click += (sender, e) => {
-                    DataSet.selectedCategory = null;
-                    DataSet.selectedDate = date;
+                    AppData.selectedCategory = null;
+                    AppData.selectedDate = date;
                     var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
                     if (expWinTuple.Item2)
                     {
@@ -102,9 +102,9 @@ namespace BudgetManager
         {
             AddRowDefinitionsForCategories(grid);
 
-            for (var i = 0; i < DataSet.expenseCategories.Count; i++)
+            for (var i = 0; i < AppData.expenseCategories.Count; i++)
             {
-                var category = DataSet.expenseCategories.ElementAt(i);
+                var category = AppData.expenseCategories.ElementAt(i);
                 var btn = new Button
                 {
                     Content = category.name,
@@ -117,8 +117,8 @@ namespace BudgetManager
                     HorizontalContentAlignment = HorizontalAlignment.Left
                 };
                 btn.Click += (sender, e) => {
-                    DataSet.selectedCategory = category;
-                    DataSet.selectedDate = new DateTime();
+                    AppData.selectedCategory = category;
+                    AppData.selectedDate = new DateTime();
                     var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
                     if (expWinTuple.Item2)
                     {
@@ -141,10 +141,10 @@ namespace BudgetManager
             AddWeekendsRectangles(grid, period);
             AddTodayRectangle(grid, period);
 
-            var numOfCategories = DataSet.expenseCategories.Count;
+            var numOfCategories = AppData.expenseCategories.Count;
             for (var i = 0; i < numOfCategories; i++)
             {
-                var category = DataSet.expenseCategories.ElementAt(i);
+                var category = AppData.expenseCategories.ElementAt(i);
                 for (var j = 0; j < numOfDays; j++)
                 {
                     var date = period.startDate.AddDays(j);
@@ -161,8 +161,8 @@ namespace BudgetManager
                         Padding = new Thickness(0)
                     };
                     btn.Click += (sender, e) => {
-                        DataSet.selectedCategory = category;
-                        DataSet.selectedDate = date;
+                        AppData.selectedCategory = category;
+                        AppData.selectedDate = date;
                         var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
                         if (expWinTuple.Item2)
                         {
@@ -208,8 +208,8 @@ namespace BudgetManager
                 Padding = new Thickness(0)
             };
             btn.Click += (sender, e) => {
-                DataSet.selectedCategory = category;
-                DataSet.selectedDate = date;
+                AppData.selectedCategory = category;
+                AppData.selectedDate = date;
                 var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
                 if (expWinTuple.Item2)
                 {

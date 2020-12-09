@@ -30,7 +30,7 @@ namespace BudgetManager
             PeriodsGrid.Children.Clear();
             PeriodsGrid.RowDefinitions.Clear();
 
-            foreach (var period in DataSet.billingPeriods.Reverse())
+            foreach (var period in AppData.billingPeriods.Reverse())
             {
                 var dateFormat = "dd.MM.yy";
                 var content = period.startDate.ToString(dateFormat) + "-" + period.endDate.ToString(dateFormat);
@@ -45,7 +45,7 @@ namespace BudgetManager
                 };
                 periodBtn.Click += (sender, e) =>
                 {
-                    DataSet.selectedPeriod = period;
+                    AppData.selectedPeriod = period;
                     BtnAdd_Click(sender, e);
                 };
 
@@ -83,7 +83,7 @@ namespace BudgetManager
         private void BillingPeriodWindow_Closed(object sender, EventArgs e)
         {
             this.IsEnabled = true;
-            DataSet.selectedPeriod = null;
+            AppData.selectedPeriod = null;
             FillWithPeriods();
         }
     }

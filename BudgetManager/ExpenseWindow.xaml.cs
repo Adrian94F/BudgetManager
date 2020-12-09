@@ -21,9 +21,9 @@ namespace BudgetManager
     /// </summary>
     public partial class ExpenseWindow : Window
     {
-        Expense selectedExpense = DataSet.selectedExpense;
-        ExpenseCategory selectedCategory = DataSet.selectedCategory;
-        int currentPeriod = DataSet.currentPeriod;
+        Expense selectedExpense = AppData.selectedExpense;
+        ExpenseCategory selectedCategory = AppData.selectedCategory;
+        int currentPeriod = AppData.currentPeriod;
 
         public ExpenseWindow()
         {
@@ -39,9 +39,9 @@ namespace BudgetManager
 
         private void LoadData()
         {
-            DatePicker.SelectedDate = DataSet.selectedDate;
+            DatePicker.SelectedDate = AppData.selectedDate;
 
-            var categories = DataSet.expenseCategories;
+            var categories = AppData.expenseCategories;
             CategoriesComboBox.ItemsSource = categories;
 
             if (selectedExpense != null)
@@ -122,7 +122,7 @@ namespace BudgetManager
                     comment = comment,
                     monthlyExpense = isMonthlyExpense
                 };
-                DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses.Add(exp);
+                AppData.billingPeriods.ElementAt(AppData.currentPeriod).expenses.Add(exp);
             }
             else
             {
@@ -133,6 +133,7 @@ namespace BudgetManager
                 selectedExpense.comment = comment;
                 selectedExpense.monthlyExpense = isMonthlyExpense;
             }
+            AppData.isDataChanged = true;
             this.Close();
         }
 
@@ -140,8 +141,9 @@ namespace BudgetManager
         {
             if (selectedExpense != null)
             {
-                DataSet.billingPeriods.ElementAt(currentPeriod).expenses.Remove(selectedExpense);
+                AppData.billingPeriods.ElementAt(currentPeriod).expenses.Remove(selectedExpense);
             }
+            AppData.isDataChanged = true;
             this.Close();
         }
 

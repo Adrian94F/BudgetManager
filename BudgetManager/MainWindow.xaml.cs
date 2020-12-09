@@ -51,17 +51,17 @@ namespace BudgetManager
 
         private void FillBurndownTab()
         {
-            _ = new BillingPeriodChartCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), BurndownChartGrid);
+            _ = new BillingPeriodChartCreator(AppData.billingPeriods.ElementAt(AppData.currentPeriod), BurndownChartGrid);
         }
 
         private void FillHistoryTab()
         {
-            _ = new BillingPeriodsHistoryChartCreator(DataSet.billingPeriods, HistoryChartGrid);
+            _ = new BillingPeriodsHistoryChartCreator(AppData.billingPeriods, HistoryChartGrid);
         }
 
         private void SetupButtons()
         {
-            if (DataSet.currentPeriod > 0)
+            if (AppData.currentPeriod > 0)
             {
                 EnablMenuItem(MenuItemPrev);
             }
@@ -69,7 +69,7 @@ namespace BudgetManager
             {
                 DisableMenuItem(MenuItemPrev);
             }
-            if (DataSet.currentPeriod < DataSet.billingPeriods.Count - 1)
+            if (AppData.currentPeriod < AppData.billingPeriods.Count - 1)
             {
                 EnablMenuItem(MenuItemNext);
             }
@@ -91,9 +91,9 @@ namespace BudgetManager
 
         private void SetupVariables()
         {
-            if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
+            if (AppData.billingPeriods != null && AppData.billingPeriods.Count > 0)
             {
-                DataSet.currentPeriod = DataSet.billingPeriods.Count - 1;
+                AppData.currentPeriod = AppData.billingPeriods.Count - 1;
             }
         }
 
@@ -111,26 +111,26 @@ namespace BudgetManager
 
         public void FillExpensesTable()
         {
-            if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
+            if (AppData.billingPeriods != null && AppData.billingPeriods.Count > 0)
             {
-                _ = new BillingPeriodGridCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), this, HeaderDaysGrid, VerticalDataGrid, ExpensesGrid);
+                _ = new BillingPeriodGridCreator(AppData.billingPeriods.ElementAt(AppData.currentPeriod), this, HeaderDaysGrid, VerticalDataGrid, ExpensesGrid);
             }
         }
 
         public void FillExpensesListTable()
         {
-            if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
+            if (AppData.billingPeriods != null && AppData.billingPeriods.Count > 0)
             {
-                var expensesList = new List<Expense>(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod).expenses);
+                var expensesList = new List<Expense>(AppData.billingPeriods.ElementAt(AppData.currentPeriod).expenses);
                 _ = new BillingPeriodExpensesListCreator<MainWindow>(ExpensesListGrid, expensesList, this);
             }
         }
 
         public void FillSummaryGrid()
         {
-            if (DataSet.billingPeriods != null && DataSet.billingPeriods.Count > 0)
+            if (AppData.billingPeriods != null && AppData.billingPeriods.Count > 0)
             {
-                _ = new BillingPeriodSummaryCreator(DataSet.billingPeriods.ElementAt(DataSet.currentPeriod), SummaryGrid);
+                _ = new BillingPeriodSummaryCreator(AppData.billingPeriods.ElementAt(AppData.currentPeriod), SummaryGrid);
             }
         }
 
@@ -179,20 +179,24 @@ namespace BudgetManager
         {
             var fh = new FilesHandler();
             fh.SaveData();
+            AppData.isDataChanged = false;
             MessageBox.Show("Pomyslnie zapisano wydatki!", "Zapis", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            var result = MessageBox.Show("Czy chcesz zapisać wprowadzone zmiany?", "Wyjście", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
-            switch (result)
+            if (AppData.isDataChanged)
             {
-                case MessageBoxResult.Yes:
-                    SaveData();
-                    break;
-                case MessageBoxResult.Cancel:
-                    e.Cancel = true;
-                    break;
+                var result = MessageBox.Show("Czy chcesz zapisać wprowadzone zmiany?", "Wyjście", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        SaveData();
+                        break;
+                    case MessageBoxResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
             }
         }
 
@@ -222,9 +226,9 @@ namespace BudgetManager
 
         private void Add()
         {
-            DataSet.selectedCategory = null;
-            DataSet.selectedDate = DateTime.Now;
-            DataSet.selectedExpense = null;
+            AppData.selectedCategory = null;
+            AppData.selectedDate = DateTime.Now;
+            AppData.selectedExpense = null;
             var expenseWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpenseWindow>();
             if (expenseWindowTuple.Item2)
             {
@@ -252,10 +256,10 @@ namespace BudgetManager
 
         private void NextBillingPeriod()
         {
-            DataSet.currentPeriod++;
-            if (DataSet.currentPeriod >= DataSet.billingPeriods.Count - 1)
+            AppData.currentPeriod++;
+            if (AppData.currentPeriod >= AppData.billingPeriods.Count - 1)
             {
-                DataSet.currentPeriod = DataSet.billingPeriods.Count - 1;
+                AppData.currentPeriod = AppData.billingPeriods.Count - 1;
                 DisableMenuItem(MenuItemNext);
             }
             if (!MenuItemPrev.IsEnabled)
@@ -267,10 +271,10 @@ namespace BudgetManager
 
         private void PreviousBillingPeriod()
         {
-            DataSet.currentPeriod--;
-            if (DataSet.currentPeriod <= 0)
+            AppData.currentPeriod--;
+            if (AppData.currentPeriod <= 0)
             {
-                DataSet.currentPeriod = 0;
+                AppData.currentPeriod = 0;
                 DisableMenuItem(MenuItemPrev);
             }
             if (!MenuItemNext.IsEnabled)

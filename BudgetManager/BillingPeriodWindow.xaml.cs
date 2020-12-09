@@ -27,11 +27,11 @@ namespace BudgetManager
             LoadData();
         }
 
-        BillingPeriod selectedPeriod = DataSet.selectedPeriod;
+        BillingPeriod selectedPeriod = AppData.selectedPeriod;
 
         private void LoadData()
         {
-            if (DataSet.selectedPeriod != null)  // existing billing period
+            if (AppData.selectedPeriod != null)  // existing billing period
             {
                 StartDatePicker.SelectedDate = selectedPeriod.startDate;
                 EndDatePicker.SelectedDate = selectedPeriod.endDate;
@@ -41,10 +41,10 @@ namespace BudgetManager
             }
             else  // new billing period
             {
-                var startDate = DataSet.billingPeriods.Last().endDate.AddDays(1);
+                var startDate = AppData.billingPeriods.Last().endDate.AddDays(1);
                 StartDatePicker.SelectedDate = startDate;
                 var endDate = startDate.AddMonths(1);
-                var typicalEndDay = (DataSet.settings.TypicalBeginningOfPeriod - 1) % 31 + 1;
+                var typicalEndDay = (AppData.settings.TypicalBeginningOfPeriod - 1) % 31 + 1;
                 var daysInMonth = DateTime.DaysInMonth(endDate.Year, endDate.Month);
                 if (typicalEndDay > daysInMonth)
                 {
@@ -52,10 +52,10 @@ namespace BudgetManager
                 }
                 endDate = new DateTime(endDate.Year, endDate.Month, typicalEndDay);
                 EndDatePicker.SelectedDate = endDate;
-                if (DataSet.billingPeriods.Count > 0)
+                if (AppData.billingPeriods.Count > 0)
                 {
-                    NetIncomeTextBox.Text = DataSet.billingPeriods.Last().netIncome.ToString("F");
-                    PlannedSavingsTextBox.Text = DataSet.billingPeriods.Last().plannedSavings.ToString("F");
+                    NetIncomeTextBox.Text = AppData.billingPeriods.Last().netIncome.ToString("F");
+                    PlannedSavingsTextBox.Text = AppData.billingPeriods.Last().plannedSavings.ToString("F");
                 }
             }
         }
@@ -89,7 +89,7 @@ namespace BudgetManager
             var addIncome = ParseDecimalString(AddIncomeTextBox.Text);
             var plannedSavings = ParseDecimalString(PlannedSavingsTextBox.Text);
             
-            if (DataSet.selectedPeriod == null)  // new period
+            if (AppData.selectedPeriod == null)  // new period
             {
                 var period = new BillingPeriod()
                 {
@@ -99,20 +99,21 @@ namespace BudgetManager
                     additionalIncome = addIncome,
                     plannedSavings = plannedSavings
                 };
-                if (DataSet.billingPeriods.Count > 0)
+                if (AppData.billingPeriods.Count > 0)
                 {
-                    period.expenses = DataSet.billingPeriods.Last().GetCopyOfMonthlyExpensesForNextPeriod();
+                    period.expenses = AppData.billingPeriods.Last().GetCopyOfMonthlyExpensesForNextPeriod();
                 }
-                DataSet.billingPeriods.Add(period);
+                AppData.billingPeriods.Add(period);
             }
             else  // existing period
             {
-                DataSet.selectedPeriod.startDate = startDate;
-                DataSet.selectedPeriod.endDate = endDate;
-                DataSet.selectedPeriod.netIncome = netIncome;
-                DataSet.selectedPeriod.additionalIncome = addIncome;
-                DataSet.selectedPeriod.plannedSavings = plannedSavings;
+                AppData.selectedPeriod.startDate = startDate;
+                AppData.selectedPeriod.endDate = endDate;
+                AppData.selectedPeriod.netIncome = netIncome;
+                AppData.selectedPeriod.additionalIncome = addIncome;
+                AppData.selectedPeriod.plannedSavings = plannedSavings;
             }
+            AppData.isDataChanged = true;
             this.Close();
         }
 
@@ -126,11 +127,12 @@ namespace BudgetManager
                     result = MessageBox.Show("Czy jesteś pewien? Nie będzie można cofnąć tej operacji.", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                     if (result == MessageBoxResult.Yes)
                     {
-                        DataSet.billingPeriods.Remove(selectedPeriod);
-                        DataSet.currentPeriod = DataSet.billingPeriods.Count - 1;
+                        AppData.billingPeriods.Remove(selectedPeriod);
+                        AppData.currentPeriod = AppData.billingPeriods.Count - 1;
                     }
                 }
             }
+            AppData.isDataChanged = true;
             this.Close();
         }
 

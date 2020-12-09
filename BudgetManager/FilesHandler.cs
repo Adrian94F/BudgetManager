@@ -44,14 +44,14 @@ namespace BudgetManager
 
         void SetAdditionalData()
         {
-            for (var i = 0; i < DataSet.billingPeriods.Count - 1; i++)
+            for (var i = 0; i < AppData.billingPeriods.Count - 1; i++)
             {
-                DataSet.billingPeriods.ElementAt(i).endDate = DataSet.billingPeriods.ElementAt(i + 1).startDate - TimeSpan.FromDays(1);
+                AppData.billingPeriods.ElementAt(i).endDate = AppData.billingPeriods.ElementAt(i + 1).startDate - TimeSpan.FromDays(1);
             }
-            var typicalEndDay = (DataSet.settings.TypicalBeginningOfPeriod - 1) % 31 + 1;
-            var endYear = DataSet.billingPeriods.Last().startDate.Year;
-            var endMonth = DataSet.billingPeriods.Last().startDate.AddMonths(1).Month;
-            DataSet.billingPeriods.Last().endDate = new DateTime(endYear, endMonth, typicalEndDay);
+            var typicalEndDay = (AppData.settings.TypicalBeginningOfPeriod - 1) % 31 + 1;
+            var endYear = AppData.billingPeriods.Last().startDate.Year;
+            var endMonth = AppData.billingPeriods.Last().startDate.AddMonths(1).Month;
+            AppData.billingPeriods.Last().endDate = new DateTime(endYear, endMonth, typicalEndDay);
         }
 
         void ReadHistoricalFile(string path)
@@ -87,7 +87,7 @@ namespace BudgetManager
                     break;
                 }
                 ExpenseCategory category = null;
-                foreach (var cat in DataSet.expenseCategories)
+                foreach (var cat in AppData.expenseCategories)
                 {
                     if (cat.name == categoryFromFile)
                     {
@@ -99,7 +99,7 @@ namespace BudgetManager
                 {
                     category = new ExpenseCategory();
                     category.name = categoryFromFile;
-                    DataSet.expenseCategories.Add(category);
+                    AppData.expenseCategories.Add(category);
                 }
 
                 for (var col = dataStartColumn; col < fileData[row].Length; col++)
@@ -133,7 +133,7 @@ namespace BudgetManager
             }
 
             // add period
-            DataSet.billingPeriods.Add(period);
+            AppData.billingPeriods.Add(period);
         }
 
 
@@ -141,8 +141,8 @@ namespace BudgetManager
         {
             ReadSettings();
             
-            DataSet.billingPeriods = new SortedSet<BillingPeriod>();
-            DataSet.expenseCategories = new HashSet<ExpenseCategory>();
+            AppData.billingPeriods = new SortedSet<BillingPeriod>();
+            AppData.expenseCategories = new HashSet<ExpenseCategory>();
             //ReadHistoricalData();
             ReadSerialized();
         }
@@ -154,8 +154,8 @@ namespace BudgetManager
                 var formatter = new BinaryFormatter();
                 var stream = new FileStream(pathToDataSet, FileMode.Open, FileAccess.Read);
                 var dataSet = (Tuple<HashSet<ExpenseCategory>, SortedSet<BillingPeriod>>)formatter.Deserialize(stream);
-                DataSet.expenseCategories.UnionWith(dataSet.Item1);
-                DataSet.billingPeriods.UnionWith(dataSet.Item2);
+                AppData.expenseCategories.UnionWith(dataSet.Item1);
+                AppData.billingPeriods.UnionWith(dataSet.Item2);
                 stream.Close();
             }
         }
@@ -167,7 +167,7 @@ namespace BudgetManager
                 var formatter = new BinaryFormatter();
                 var stream = new FileStream(pathToSettings, FileMode.Open, FileAccess.Read);
                 var settings = (Settings)formatter.Deserialize(stream);
-                DataSet.settings = settings;
+                AppData.settings = settings;
                 stream.Close();
             }
         }
@@ -175,7 +175,7 @@ namespace BudgetManager
         public void SaveData()
         {
             var formatter = new BinaryFormatter();
-            var dataSet = new Tuple<HashSet<ExpenseCategory>, SortedSet<BillingPeriod>>(DataSet.expenseCategories, DataSet.billingPeriods);
+            var dataSet = new Tuple<HashSet<ExpenseCategory>, SortedSet<BillingPeriod>>(AppData.expenseCategories, AppData.billingPeriods);
             var stream = new FileStream(pathToDataSet, FileMode.Create, FileAccess.Write);
             formatter.Serialize(stream, dataSet);
             stream.Close();
@@ -185,7 +185,7 @@ namespace BudgetManager
         {
             var formatter = new BinaryFormatter();
             var stream = new FileStream(pathToSettings, FileMode.Create, FileAccess.Write);
-            formatter.Serialize(stream, DataSet.settings);
+            formatter.Serialize(stream, AppData.settings);
             stream.Close();
         }
     }
