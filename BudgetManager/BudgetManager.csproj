@@ -195,43 +195,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\jew.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Icons\018-edit.png" />
-    <Resource Include="Images\Icons\019-add.png" />
-    <Resource Include="Images\Icons\023-remove.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Icons\next-button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Icons\prev-button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\calculator.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Icons\006-verify.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Icons\015-remove.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Icons\archive.png" />
-    <Resource Include="Images\Icons\graph.png" />
-    <Resource Include="Images\Icons\settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Icons\table.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Icons\bug.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\calculator.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="calculator.ico" />
   </ItemGroup>
   <ItemGroup>
