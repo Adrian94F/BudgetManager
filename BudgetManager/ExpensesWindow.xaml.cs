@@ -62,6 +62,7 @@ namespace BudgetManager
 
         private void Add()
         {
+            AppData.selectedExpense = null;
             var expenseWindow = Utilities.OpenNewOrRestoreWindow<ExpenseWindow>();
             expenseWindow.Closed += ExpenseWindow_Closed;
         }
