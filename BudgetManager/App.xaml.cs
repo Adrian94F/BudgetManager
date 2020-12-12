@@ -54,24 +54,14 @@ namespace BudgetManager
             }
             endDate = new DateTime(endDate.Year, endDate.Month, typicalEndDay);
             decimal[] incomesAndSavings = { decimal.Zero, decimal.Zero, decimal.Zero };
+            decimal[] prevIncomesAndSavings = { lastPeriod.netIncome, lastPeriod.additionalIncome, lastPeriod.plannedSavings };
             string[] types = { "przychód netto", "dodatkowy przychód", "planowane oszczędności" };
             for (var i = 0; i < 3; i++)
             {
                 var res = MessageBox.Show("Czy chcesz przenieść " + types[i] + "?", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (res == MessageBoxResult.Yes)
                 {
-                    switch (i)
-                    {
-                        case 0:
-                            incomesAndSavings[i] = lastPeriod.netIncome;
-                            break;
-                        case 1:
-                            incomesAndSavings[i] = lastPeriod.additionalIncome;
-                            break;
-                        case 2:
-                            incomesAndSavings[i] = lastPeriod.plannedSavings;
-                            break;
-                    }
+                    incomesAndSavings[i] = prevIncomesAndSavings[i];
                 }
             }
             
