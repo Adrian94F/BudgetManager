@@ -25,7 +25,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Content="Ok"
-                Click="BtnOk_Click"/>
+                Click="Escape"/>
 
         <Button x:Name="BtnAdd"
                 HorizontalAlignment="Right"

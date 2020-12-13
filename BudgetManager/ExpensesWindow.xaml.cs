@@ -60,12 +60,8 @@ namespace BudgetManager
             var expenseWindow = Utilities.OpenNewOrRestoreWindow<ExpenseWindow>();
             expenseWindow.Closed += ExpenseWindow_Closed;
         }
-        private void Escape(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
 
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
+        private void Escape(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
