@@ -284,85 +284,48 @@ namespace BudgetManager
             RefreshTabControlContentAndSummary(false);
         }
 
-        private void SelectedPeriodTableView()
+        private void ClearViewMenuItemsSelection()
         {
+            foreach (var item in ViewMenuItem.Items)
+            {
+                if (item != null && item.GetType() == typeof(MenuItem))
+                {
+                    ((MenuItem)item).IsChecked = false;
+                }
+            }
+        }
+
+        private void SelectedPeriodTableView(object sender, ExecutedRoutedEventArgs e)
+        {
+            ClearViewMenuItemsSelection();
             SetTab(0);
             SetSelectedPeriodTab(0);
         }
 
-        private void SelectedPeriodListView()
+        private void SelectedPeriodListView(object sender, ExecutedRoutedEventArgs e)
         {
+            ClearViewMenuItemsSelection();
             SetTab(0);
             SetSelectedPeriodTab(1);
         }
 
-        private void SelectedPeriodBurndownView()
+        private void SelectedPeriodBurndownView(object sender, ExecutedRoutedEventArgs e)
         {
+            ClearViewMenuItemsSelection();
             SetTab(0);
             SetSelectedPeriodTab(2);
         }
 
-        private void HistoryView()
+        private void HistoryView(object sender, ExecutedRoutedEventArgs e)
         {
+            ClearViewMenuItemsSelection();
             SetTab(1);
         }
 
-        private void SettingsView()
+        private void SettingsView(object sender, ExecutedRoutedEventArgs e)
         {
+            ClearViewMenuItemsSelection();
             SetTab(2);
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Keyboard.Modifiers == ModifierKeys.Control)
-            {
-                switch (e.Key)
-                {
-                    case Key.N:
-                        Add();
-                        break;
-                    case Key.K:
-                        Categories();
-                        break;
-                    case Key.M:
-                        BillingPeriods();
-                        break;
-                    case Key.W:
-                        SelectedPeriodTableView();
-                        break;
-                    case Key.L:
-                        SelectedPeriodListView();
-                        break;
-                    case Key.B:
-                        SelectedPeriodBurndownView();
-                        break;
-                    case Key.H:
-                        HistoryView();
-                        break;
-                    case Key.S:
-                        SaveData();
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                switch (e.Key)
-                {
-                    case Key.Escape:
-                        this.Close();
-                        break;
-                    case Key.PageDown:
-                        NextBillingPeriod();
-                        break;
-                    case Key.PageUp:
-                        PreviousBillingPeriod();
-                        break;
-                    default:
-                        break;
-                }
-            }
         }
 
         private void HelpMenuItem_Click(object sender, RoutedEventArgs e)
@@ -380,41 +343,6 @@ namespace BudgetManager
             if (aboutWindowTuple.Item2)
             {
                 aboutWindowTuple.Item1.Closed += PeriodsWindow_Closed;
-            }
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            var menuItems = ViewMenuItem.Items;
-
-            foreach (var item in menuItems)
-            {
-                if (item != null && item.GetType() == typeof(MenuItem))
-                {
-                    ((MenuItem)item).IsChecked = sender == item;
-                }
-            }
-
-            if (SelectedPeriodTabControl == null)
-            {
-                return;
-            }
-
-            if (sender == ExpensesTableMenuItem)
-            {
-                SelectedPeriodTableView();
-            }
-            else if (sender == ExpensesListMenuItem)
-            {
-                SelectedPeriodListView();
-            }
-            else if (sender == BurndownMenuItem)
-            {
-                SelectedPeriodBurndownView();
-            }
-            else if (sender == HistoryMenuItem)
-            {
-                HistoryView();
             }
         }
 

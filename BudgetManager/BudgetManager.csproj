@@ -94,6 +94,7 @@
     <Compile Include="BillingPeriodWindow.xaml.cs">
       <DependentUpon>BillingPeriodWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BMCommands.cs" />
     <Compile Include="CategoriesWindow.xaml.cs">
       <DependentUpon>CategoriesWindow.xaml</DependentUpon>
     </Compile>

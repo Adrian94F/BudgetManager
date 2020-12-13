@@ -4,69 +4,107 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BudgetManager" 
+        xmlns:commands="clr-namespace:BudgetManager.Commands"
         mc:Ignorable="d"
         Title="Menedżer Budżetu"
-        Height="450"
-        Width="800"
+        Height="600"
+        Width="900"
         MinWidth="750"
-        MinHeight="220"
-        KeyDown="Window_KeyDown">
+        MinHeight="220">
+    <Window.CommandBindings>
+        <CommandBinding Command="{ x:Static commands:Commands.Save }" Executed="SaveMenuItem_Click" />
+        <CommandBinding Command="{ x:Static commands:Commands.Settings }" Executed="SettingsMenuItem_Click" />
+        <CommandBinding Command="{ x:Static commands:Commands.Close }" Executed="CloseMenuItem_Click" />
+        <CommandBinding Command="{ x:Static commands:Commands.Add }" Executed="AddExpenseMenuItem_Click" />
+        <CommandBinding Command="{ x:Static commands:Commands.Previous }" Executed="PrevMenuItem_Click" />
+        <CommandBinding Command="{ x:Static commands:Commands.Next }" Executed="NextPeriodMenuItem_Click" />
+        <CommandBinding Command="{ x:Static commands:Commands.BillingPeriods }" Executed="PeriodsMenuItem_Click" />
+        <CommandBinding Command="{ x:Static commands:Commands.Categories }" Executed="CategoriesMenuItem_Click" />
+        <CommandBinding Command="{ x:Static commands:Commands.TableView }" Executed="SelectedPeriodTableView" />
+        <CommandBinding Command="{ x:Static commands:Commands.ListView }" Executed="SelectedPeriodListView" />
+        <CommandBinding Command="{ x:Static commands:Commands.BurndownView }" Executed="SelectedPeriodBurndownView" />
+        <CommandBinding Command="{ x:Static commands:Commands.HistoryView }" Executed="HistoryView" />
+        <CommandBinding Command="{ x:Static commands:Commands.About }" Executed="AboutMenuItem_Click" />
+        <CommandBinding Command="{ x:Static commands:Commands.Help }" Executed="HelpMenuItem_Click" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="S" Modifiers="Control" Command="{ x:Static commands:Commands.Save }"/>
+        <KeyBinding Key="N" Modifiers="Control" Command="{ x:Static commands:Commands.Add }"/>
+        <KeyBinding Key="PageUp" Command="{ x:Static commands:Commands.Previous }"/>
+        <KeyBinding Key="PageDown" Command="{ x:Static commands:Commands.Next }"/>
+        <KeyBinding Key="K" Modifiers="Control" Command="{ x:Static commands:Commands.Categories }"/>
+        <KeyBinding Key="M" Modifiers="Control" Command="{ x:Static commands:Commands.BillingPeriods }"/>
+        <KeyBinding Key="W" Modifiers="Control" Command="{ x:Static commands:Commands.TableView }"/>
+        <KeyBinding Key="L" Modifiers="Control" Command="{ x:Static commands:Commands.ListView }"/>
+        <KeyBinding Key="B" Modifiers="Control" Command="{ x:Static commands:Commands.BurndownView }"/>
+        <KeyBinding Key="H" Modifiers="Control" Command="{ x:Static commands:Commands.HistoryView }"/>
+    </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Plik">
                 <MenuItem Header="Zapisz zmiany"
-                          Click="SaveMenuItem_Click"/>
+                          Command="{ x:Static commands:Commands.Save }"
+                          InputGestureText="Ctrl+S"/>
                 <MenuItem Header="Ustawienia programu"
-                          Click="SettingsMenuItem_Click"/>
+                          Command="{ x:Static commands:Commands.Settings }"/>
                 <Separator />
                 <MenuItem Header="Zamknij"
-                          Click="CloseMenuItem_Click"/>
+                          Command="{ x:Static commands:Commands.Close }"/>
             </MenuItem>
             <MenuItem Header="Wydatki">
                 <MenuItem Header="Dodaj wydatek"
-                          Click="AddExpenseMenuItem_Click"/>
+                          Command="{ x:Static commands:Commands.Add }"
+                          InputGestureText="Ctrl+N"/>
                 <Separator />
                 <MenuItem x:Name="MenuItemPrev"
                           Header="Poprzedni miesiąc"
-                          Click="PrevMenuItem_Click"
-                          IsEnabled="False"/>
+                          IsEnabled="False"
+                          Command="{ x:Static commands:Commands.Previous }"
+                          InputGestureText="PageUp"/>
                 <MenuItem x:Name="MenuItemNext"
                           Header="Następny miesiąc"
-                          Click="NextPeriodMenuItem_Click"
-                          IsEnabled="False"/>
+                          IsEnabled="False"
+                          Command="{ x:Static commands:Commands.Next }"
+                          InputGestureText="PageDown"/>
                 <Separator />
                 <MenuItem Header="Miesiące"
-                          Click="PeriodsMenuItem_Click"/>
+                          Command="{ x:Static commands:Commands.BillingPeriods }"
+                          InputGestureText="Ctrl+M"/>
                 <MenuItem Header="Kategorie"
-                          Click="CategoriesMenuItem_Click"/>
+                          Command="{ x:Static commands:Commands.Categories }"
+                          InputGestureText="Ctrl+K"/>
             </MenuItem>
             <MenuItem Name="ViewMenuItem"
                       Header="Widok">
                 <MenuItem Name="ExpensesTableMenuItem"
                           Header="Tabela wydatków"
-                          Click="MenuItem_Click"
                           IsCheckable="True"
-                          IsChecked="True"/>
+                          IsChecked="True"
+                          Command="{ x:Static commands:Commands.TableView }"
+                          InputGestureText="Ctrl+W"/>
                 <MenuItem Name="ExpensesListMenuItem"
                           Header="Lista wydatków"
-                          Click="MenuItem_Click"
-                          IsCheckable="True"/>
+                          IsCheckable="True"
+                          Command="{ x:Static commands:Commands.ListView }"
+                          InputGestureText="Ctrl+L"/>
                 <MenuItem Name="BurndownMenuItem"
                           Header="Wypalenie"
-                          Click="MenuItem_Click"
-                          IsCheckable="True"/>
+                          IsCheckable="True"
+                          Command="{ x:Static commands:Commands.BurndownView }"
+                          InputGestureText="Ctrl+B"/>
                 <Separator />
                 <MenuItem Name="HistoryMenuItem"
                           Header="Historia"
-                          Click="MenuItem_Click"
-                          IsCheckable="True"/>
+                          IsCheckable="True"
+                          Command="{ x:Static commands:Commands.HistoryView }"
+                          InputGestureText="Ctrl+H"/>
             </MenuItem>
             <MenuItem Header="Informacje">
                 <MenuItem Header="O programie"
-                          Click="AboutMenuItem_Click"/>
+                          Command="{ x:Static commands:Commands.About }"/>
                 <Separator />
                 <MenuItem Header="Pomoc"
-                          Click="HelpMenuItem_Click"/>
+                          Command="{ x:Static commands:Commands.Help }"/>
             </MenuItem>
         </Menu>
         <Grid Margin="0,0,0,0" >
