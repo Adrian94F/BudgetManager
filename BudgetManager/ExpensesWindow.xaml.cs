@@ -28,7 +28,6 @@ namespace BudgetManager
             InitializeComponent();
             SetLabel();
             FillWithExpenses();
-            BtnOk.IsDefault = true;
         }
 
         private void SetLabel()
@@ -49,45 +48,26 @@ namespace BudgetManager
             _ = new BillingPeriodExpensesListCreator<ExpensesWindow>(ExpensesGrid, new List<Expense>(expenses), this);
         }
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
-        {
-            Add();
-        }
-
         private void ExpenseWindow_Closed(object sender, EventArgs e)
         {
             AppData.selectedExpense = null;
             FillWithExpenses();
         }
 
-        private void Add()
+        private void Add(object sender, RoutedEventArgs e)
         {
             AppData.selectedExpense = null;
             var expenseWindow = Utilities.OpenNewOrRestoreWindow<ExpenseWindow>();
             expenseWindow.Closed += ExpenseWindow_Closed;
         }
-
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
+        private void Escape(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        private void BtnOk_Click(object sender, RoutedEventArgs e)
         {
-            switch (e.Key)
-            {
-                case Key.Escape:
-                    this.Close();
-                    break;
-                case Key.N:
-                    if (Keyboard.Modifiers == ModifierKeys.Control)
-                    {
-                        Add();
-                    }
-                    break;
-                default:
-                    break;
-            }
+            this.Close();
         }
     }
 }

@@ -4,28 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BudgetManager"
+        xmlns:commands="clr-namespace:BudgetManager.Commands"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="Wydatki"
         Height="300"
-        Width="500"
-        KeyDown="Window_KeyDown">
+        Width="500">
+    <Window.CommandBindings>
+        <CommandBinding Command="{ x:Static commands:Commands.Add }" Executed="Add" />
+        <CommandBinding Command="{ x:Static commands:Commands.Close }" Executed="Escape" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="{ x:Static commands:Commands.Add }"/>
+        <KeyBinding Key="Esc" Command="{ x:Static commands:Commands.Close }"/>
+        <KeyBinding Key="Return" Command="{ x:Static commands:Commands.Close }"/>
+    </Window.InputBindings>
     <Grid Margin="7,7,7,7">
-
-        <Button x:Name="BtnAdd"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="BtnAdd_Click"
-                Grid.Row="0"
-                Content="Dodaj"
-                Margin="0,0,75,0"/>
 
         <Button x:Name="BtnOk"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Content="Ok"
-                Click="BtnOk_Click"
-                IsDefault="True"/>
+                Click="BtnOk_Click"/>
+
+        <Button x:Name="BtnAdd"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="Add"
+                Grid.Row="0"
+                Content="Dodaj"
+                Margin="0,0,75,0"/>
 
         <Label Name="Label"
                Content="..."

@@ -30,6 +30,7 @@
     <Window.InputBindings>
         <KeyBinding Key="S" Modifiers="Control" Command="{ x:Static commands:Commands.Save }"/>
         <KeyBinding Key="N" Modifiers="Control" Command="{ x:Static commands:Commands.Add }"/>
+        <KeyBinding Key="Esc" Command="{ x:Static commands:Commands.Close }"/>
         <KeyBinding Key="PageUp" Command="{ x:Static commands:Commands.Previous }"/>
         <KeyBinding Key="PageDown" Command="{ x:Static commands:Commands.Next }"/>
         <KeyBinding Key="K" Modifiers="Control" Command="{ x:Static commands:Commands.Categories }"/>
@@ -49,7 +50,8 @@
                           Command="{ x:Static commands:Commands.Settings }"/>
                 <Separator />
                 <MenuItem Header="Zamknij"
-                          Command="{ x:Static commands:Commands.Close }"/>
+                          Command="{ x:Static commands:Commands.Close }"
+                          InputGestureText="Esc"/>
             </MenuItem>
             <MenuItem Header="Wydatki">
                 <MenuItem Header="Dodaj wydatek"
