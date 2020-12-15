@@ -29,7 +29,7 @@ namespace BudgetManager
             SetupVariables();
             RefreshTabControlContentAndSummary();
             SetupButtons();
-            this.Closing += MainWindow_Closing;
+            Closing += MainWindow_Closing;
         }
 
         public void RefreshTabControlContentAndSummary(bool includeHistory = true)
@@ -202,7 +202,7 @@ namespace BudgetManager
 
         private void CloseMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
@@ -213,12 +213,11 @@ namespace BudgetManager
         private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
             SetTab(2);
-            var settingsWindow = Utilities.OpenNewOrRestoreWindow<SettingsWindow>();
+            _ = Utilities.OpenNewOrRestoreWindow<SettingsWindow>();
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var tabControl = (TabControl)sender;
             if (BurndownTabItem.IsSelected)
             {
                 FillBurndownTab();
