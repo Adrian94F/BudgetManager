@@ -56,7 +56,6 @@ namespace BudgetManager
                 var a = -(incomeSumWoMonthlyExp - plannedSavings) / (nOfDays - 1);
                 var b = incomeSumWoMonthlyExp;
                 avgBurnValuesWoMonthlyExp[i] = a * i + b;
-                //avgBurnValues[i] = avgBurnValues[i - 1] - (incomeSum / (nOfDays - 1));
             }
 
             // daily expense
@@ -72,7 +71,6 @@ namespace BudgetManager
             labels[0] = "start";
             for (var i = 1; i < nOfDays; i++)
             {
-                //labels[i] = period.startDate.AddDays(i - 1).ToString("dd.MM");
                 labels[i] = period.startDate.AddDays(i - 1).ToString("dd");
             }
 
@@ -93,7 +91,6 @@ namespace BudgetManager
                     Step = 1,
                     IsEnabled = false //disable it to make it invisible.
                 },
-                //LabelsRotation = 60,
                 Sections = { todayAxisSection }
             });
 
