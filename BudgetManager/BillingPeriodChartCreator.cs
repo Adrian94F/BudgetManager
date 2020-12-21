@@ -31,15 +31,15 @@ namespace BudgetManager
             var nOfDays = (period.endDate - period.startDate).Days + 2;
             var minValue = 0.0;
 
-            // burndown
-            var burnValues = new double[nOfDays];
-            var incomeSum = (double)(period.netIncome + period.additionalIncome);
-            var yesterdaySum = burnValues[0] = incomeSum;
+            // burndown without monhly expenses
+            var burnValuesWoMonthlyExp = new double[nOfDays];
+            var incomeSumWoMonthlyExp = (double)(period.netIncome + period.additionalIncome - period.GetSumOfMonthlyExpenses());
+            var yesterdaySum = burnValuesWoMonthlyExp[0] = incomeSumWoMonthlyExp;
             for (var i = 1; i < nOfDays; i++)
             {
-                burnValues[i] = yesterdaySum - (double)period.GetSumOfAllExpensesOfDate(period.startDate.AddDays(i - 1));
-                yesterdaySum = burnValues[i];
-                minValue = burnValues[i] < minValue ? burnValues[i] : minValue;
+                burnValuesWoMonthlyExp[i] = yesterdaySum - (double)period.GetSumOfDailyExpensesOfDate(period.startDate.AddDays(i - 1));
+                yesterdaySum = burnValuesWoMonthlyExp[i];
+                minValue = burnValuesWoMonthlyExp[i] < minValue ? burnValuesWoMonthlyExp[i] : minValue;
             }
 
             // minimal value on chart
@@ -48,28 +48,8 @@ namespace BudgetManager
                 minValue = Math.Floor(minValue / 1000) * 1000;
             }
 
-            // burndown without monhly expenses
-            var burnValuesWoMonthlyExp = new double[nOfDays];
-            var incomeSumWoMonthlyExp = (double)(period.netIncome + period.additionalIncome - period.GetSumOfMonthlyExpenses());
-            yesterdaySum = burnValuesWoMonthlyExp[0] = incomeSumWoMonthlyExp;
-            for (var i = 1; i < nOfDays; i++)
-            {
-                burnValuesWoMonthlyExp[i] = yesterdaySum - (double)period.GetSumOfDailyExpensesOfDate(period.startDate.AddDays(i - 1));
-                yesterdaySum = burnValuesWoMonthlyExp[i];
-            }
-
-            // average burndown
-            var avgBurnValues = new double[nOfDays];
-            var plannedSavings = (double)period.plannedSavings;
-            for (var i = 0; i < nOfDays; i++)
-            {
-                var a = -(incomeSum - plannedSavings) / (nOfDays - 1);
-                var b = incomeSum;
-                avgBurnValues[i] = a * i + b;
-                //avgBurnValues[i] = avgBurnValues[i - 1] - (incomeSum / (nOfDays - 1));
-            }
-
             //average burndown without monthly expenses
+            var plannedSavings = (double)period.plannedSavings;
             var avgBurnValuesWoMonthlyExp = new double[nOfDays];
             for (var i = 0; i < nOfDays; i++)
             {
@@ -124,7 +104,7 @@ namespace BudgetManager
                 new LineSeries
                 {
                     Title = "Pozostało",
-                    Values = new ChartValues<double>(burnValues),
+                    Values = new ChartValues<double>(burnValuesWoMonthlyExp),
                     PointGeometry = DefaultGeometries.None,
                     LineSmoothness = lineSmoothness,
                     Stroke = Brushes.DodgerBlue,
@@ -133,29 +113,10 @@ namespace BudgetManager
                 new LineSeries
                 {
                     Title = "Pozostało (plan)",
-                    Values = new ChartValues<double>(avgBurnValues),
-                    PointGeometry = DefaultGeometries.None,
-                    LineSmoothness = lineSmoothness,
-                    Stroke = Brushes.DodgerBlue,
-                    Fill = Brushes.Transparent,
-                    StrokeDashArray = new DoubleCollection {2}
-                },
-                new LineSeries
-                {
-                    Title = "Pozostało (bez wydatków stałych)",
-                    Values = new ChartValues<double>(burnValuesWoMonthlyExp),
-                    PointGeometry = DefaultGeometries.None,
-                    LineSmoothness = lineSmoothness,
-                    Stroke = Brushes.YellowGreen,
-                    Fill = Brushes.Transparent
-                },
-                new LineSeries
-                {
-                    Title = "Pozostało (bez wydatków stałych, plan)",
                     Values = new ChartValues<double>(avgBurnValuesWoMonthlyExp),
                     PointGeometry = DefaultGeometries.None,
                     LineSmoothness = lineSmoothness,
-                    Stroke = Brushes.YellowGreen,
+                    Stroke = Brushes.DodgerBlue,
                     Fill = Brushes.Transparent,
                     StrokeDashArray = new DoubleCollection {2}
                 },
