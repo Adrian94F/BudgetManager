@@ -149,7 +149,7 @@ namespace BudgetManager
                 {
                     var date = period.startDate.AddDays(j);
                     var sum = period.GetSumOfExpensesOfCategoryAndDate(category, date);
-                    var sumStr = sum > 0 ? Decimal.Round(sum).ToString() : "";
+                    var sumStr = sum != 0 ? Decimal.Round(sum).ToString() : "";
                     var btn = new Button
                     {
                         Content = sumStr,

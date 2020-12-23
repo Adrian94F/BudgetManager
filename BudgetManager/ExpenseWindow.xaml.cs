@@ -65,11 +65,11 @@ namespace BudgetManager
 
         private decimal ParseDecimalString(string str)
         {
-            str = Regex.Replace(str, "[^0-9,]", "");
+            str = Regex.Replace(str, "[^0-9-,]", "");
             decimal ret;
             try
             {
-                ret = decimal.Parse(str, NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
+                ret = decimal.Parse(str, NumberStyles.AllowCurrencySymbol | NumberStyles.Number | NumberStyles.AllowLeadingSign );
             }
             catch (Exception)
             {

@@ -95,7 +95,7 @@ namespace BudgetManager
             });
 
             // series
-            var lineSmoothness = 0.1;
+            var lineSmoothness = 0;
             chart.Series = new SeriesCollection
             {
                 new LineSeries
