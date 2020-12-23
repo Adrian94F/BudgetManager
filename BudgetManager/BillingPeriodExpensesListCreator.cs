@@ -81,7 +81,8 @@ namespace BudgetManager
                     {
                         Text = textBlocksValues[i],
                         Padding = new Thickness(3, 0, 10, 0),
-                        HorizontalAlignment = horizontalAlignments[i]
+                        HorizontalAlignment = horizontalAlignments[i],
+                        Foreground = (i == 1 && textBlocksValues[i][0] == '-') ? Brushes.MediumSeaGreen : Brushes.Black
                     };
                     Grid.SetColumn(textBlock, i);
                     buttonGrid.Children.Add(textBlock);
