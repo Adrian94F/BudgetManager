@@ -77,12 +77,15 @@ namespace BudgetManager
                 };
                 for (var i = 0; i < textBlocksValues.Length; i++)
                 {
+                    var textColor = (i == 1 && textBlocksValues[i][0] == '-') ? Brushes.MediumSeaGreen : Brushes.Black;
+                    var fontStyle = i == 3 ? FontStyles.Italic : FontStyles.Normal;
                     var textBlock = new TextBlock
                     {
                         Text = textBlocksValues[i],
                         Padding = new Thickness(3, 0, 10, 0),
                         HorizontalAlignment = horizontalAlignments[i],
-                        Foreground = (i == 1 && textBlocksValues[i][0] == '-') ? Brushes.MediumSeaGreen : Brushes.Black
+                        Foreground = textColor,
+                        FontStyle = fontStyle
                     };
                     Grid.SetColumn(textBlock, i);
                     buttonGrid.Children.Add(textBlock);
@@ -114,6 +117,7 @@ namespace BudgetManager
             if (parentWindow is MainWindow mainWindow)
             {
                 mainWindow.FillExpensesListTable();
+                mainWindow.FillSummaryGrid();
             }
             else if (parentWindow is ExpensesWindow expensesWindow)
             {
