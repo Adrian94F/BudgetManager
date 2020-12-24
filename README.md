@@ -4,18 +4,7 @@ Aplikacja umożliwiająca zapisywanie codziennych wydatków i wyświetlanie stat
 
 ## TODO
 
-- Odczyt z xlsx
-
-  1. Odczyt każdego z wydatków osobno
-
-  2. Łączenie z wydatkami już odczytanymi
-     w kwestiach spornych pytanie użytkownika o pozostawienie danych z
-
-     - arkusza
-
-     - pliku
-
-     - obu źródeł
+- Zmiana ścieżki do pliku z danymi (w ustawieniach)
 
 - Generowanie raportu
 
@@ -28,13 +17,6 @@ Aplikacja umożliwiająca zapisywanie codziennych wydatków i wyświetlanie stat
     - Jeśli okresu brak, pytanie o zmianę daty lub usunięcie
   - Usuwanie nieużywanych kategorii
   
-- UX
-  
-  - Zapytanie o utworzenie nowego miesiąca po uruchomieniu po końcu ostatniego miesiąca
-  
 - Ustawienia
   - Skróty klawiszowe
     - Szybkie dodawanie do predefiniowanych kategorii (Ctrl + 1-9)
-  - Zmiana rozmiaru czcionki w ustawianiach
-  - Tryb jasny/ciemny
-
