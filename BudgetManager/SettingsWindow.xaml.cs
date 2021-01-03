@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace BudgetManager
 {
@@ -29,6 +30,7 @@ namespace BudgetManager
         private void LoadData()
         {
             TypicalStartDayTextBox.Text = AppData.settings.TypicalBeginningOfPeriod.ToString();
+            DataPathTextBox.Text = AppData.settings.PathToAppData;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -69,6 +71,29 @@ namespace BudgetManager
         {
             TextBox txtBox = (TextBox)sender;
             txtBox.Text = ParseIntegerString(txtBox.Text).ToString();
+        }
+
+        private void BtnChangePathToDataSet_Click(object sender, RoutedEventArgs e)
+        {
+            this.IsEnabled = false;
+
+            var dialog = new CommonOpenFileDialog()
+            {
+                IsFolderPicker = false,
+                AllowNonFileSystemItems = true,
+                Multiselect = false,
+                DefaultFileName = "dataset.data",
+                Title = "Wybierz lokalizację pliku z danymi aplikacji"
+            };
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                var directory = dialog.FileName;
+                AppData.settings.PathToAppData = directory;
+                DataPathTextBox.Text = directory;
+            }
+
+            this.IsEnabled = true;
+            this.Focus();
         }
     }
 }

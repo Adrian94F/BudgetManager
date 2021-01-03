@@ -16,7 +16,6 @@ namespace BudgetManager
     {
         readonly string pathToHistoricalFolder = "..\\..\\import data";
         readonly string pathToSettings = "settings.data";
-        readonly string pathToDataSet = "dataset.data";
         public void ReadHistoricalData()
         {
             var files = Directory.GetFiles(pathToHistoricalFolder);
@@ -149,6 +148,7 @@ namespace BudgetManager
 
         private void ReadSerialized()
         {
+            var pathToDataSet = AppData.settings.PathToAppData;
             if (File.Exists(pathToDataSet))
             {
                 var formatter = new BinaryFormatter();
@@ -174,6 +174,7 @@ namespace BudgetManager
 
         public void SaveData()
         {
+            var pathToDataSet = AppData.settings.PathToAppData;
             var formatter = new BinaryFormatter();
             var dataSet = new Tuple<HashSet<ExpenseCategory>, SortedSet<BillingPeriod>>(AppData.expenseCategories, AppData.billingPeriods);
             var stream = new FileStream(pathToDataSet, FileMode.Create, FileAccess.Write);

@@ -67,7 +67,8 @@
         <TextBox Name="CommentTextBox"
                  Margin="0,104,0,27"
                  HorizontalAlignment="Right"
-                 Width="145"/>
+                 Width="145"
+                 TextWrapping="Wrap"/>
 
         <Button x:Name="BtnSave"
                 HorizontalAlignment="Right"

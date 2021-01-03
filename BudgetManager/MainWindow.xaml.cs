@@ -212,7 +212,6 @@ namespace BudgetManager
 
         private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            SetTab(2);
             _ = Utilities.OpenNewOrRestoreWindow<SettingsWindow>();
         }
 
