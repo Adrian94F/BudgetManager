@@ -4,8 +4,6 @@ Aplikacja umożliwiająca zapisywanie codziennych wydatków i wyświetlanie stat
 
 ## TODO
 
-- Zmiana ścieżki do pliku z danymi (w ustawieniach)
-
 - Generowanie raportu
 
 - Wydatki
