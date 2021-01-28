@@ -34,6 +34,8 @@ namespace BudgetManager
 
         public void RefreshTabControlContentAndSummary(bool includeHistory = true)
         {
+            if (AppData.billingPeriods.Count == 0)
+                return;
             FillTables();
             FillBurndownTab();
             if (includeHistory)
@@ -217,7 +219,7 @@ namespace BudgetManager
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (BurndownTabItem.IsSelected)
+            if (BurndownTabItem.IsSelected && AppData.billingPeriods.Count > 0)
             {
                 FillBurndownTab();
             }

@@ -22,6 +22,8 @@ namespace BudgetManager
 
         private void CheckIfNewPeriodIsNeeded()
         {
+            if (AppData.billingPeriods.Count == 0)
+                return;
             var lastPeriodEndDate = AppData.billingPeriods.Last().endDate;
             var todayDate = DateTime.Today;
             if (lastPeriodEndDate < todayDate)
