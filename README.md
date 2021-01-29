@@ -4,7 +4,7 @@ Aplikacja umożliwiająca zapisywanie codziennych wydatków i wyświetlanie stat
 
 ![Wydatki miesięczne](doc/s1.png)
 
-![Wykres wypalenia](doc/s1.png)
+![Wykres wypalenia](doc/s2.png)
 
 ## TODO
 
