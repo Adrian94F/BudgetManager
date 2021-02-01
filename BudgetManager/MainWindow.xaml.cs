@@ -332,19 +332,11 @@ namespace BudgetManager
         private void HelpMenuItem_Click(object sender, RoutedEventArgs e)
         {
             var helpWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<HelpWindow>();
-            if (helpWindowTuple.Item2)
-            {
-                helpWindowTuple.Item1.Closed += PeriodsWindow_Closed;
-            }
         }
 
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
             var aboutWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<AboutWindow>();
-            if (aboutWindowTuple.Item2)
-            {
-                aboutWindowTuple.Item1.Closed += PeriodsWindow_Closed;
-            }
         }
 
         private void SetTab(int n)

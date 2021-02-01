@@ -78,7 +78,6 @@ namespace BudgetManager
                     Content = date.ToString("d.MM"),
                     BorderThickness = new Thickness(0),
                     Background = Brushes.Transparent,
-                    MaxHeight = 16,
                     MaxWidth = 40,
                     MinWidth = 40,
                     Padding = new Thickness(0)
@@ -110,7 +109,6 @@ namespace BudgetManager
                     Content = category.name,
                     BorderThickness = new Thickness(0),
                     Background = Brushes.Transparent,
-                    MaxHeight = 16,
                     MaxWidth = 300,
                     MinWidth = 100,
                     Padding = new Thickness(3, 0, 0, 0),
@@ -155,7 +153,6 @@ namespace BudgetManager
                         Content = sumStr,
                         BorderThickness = new Thickness(0),
                         Background = Brushes.Transparent,
-                        MaxHeight = 16,
                         MaxWidth = 40,
                         MinWidth = 40,
                         Padding = new Thickness(0)
@@ -202,7 +199,6 @@ namespace BudgetManager
                 Content = text,
                 BorderThickness = new Thickness(0),
                 Background = Brushes.Transparent,
-                MaxHeight = 16,
                 MaxWidth = 40,
                 MinWidth = 40,
                 Padding = new Thickness(0)

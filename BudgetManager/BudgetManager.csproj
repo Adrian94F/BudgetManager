@@ -85,43 +85,43 @@
     <Compile Include="AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BillingPeriod.cs" />
-    <Compile Include="BillingPeriodsHistoryChartCreator.cs" />
-    <Compile Include="BillingPeriodChartCreator.cs" />
-    <Compile Include="BillingPeriodExpensesListCreator.cs" />
-    <Compile Include="BillingPeriodSummaryCreator.cs" />
-    <Compile Include="BillingPeriodGridCreator.cs" />
+    <Compile Include="Models\BillingPeriod.cs" />
+    <Compile Include="Creators\BillingPeriodsHistoryChartCreator.cs" />
+    <Compile Include="Creators\BillingPeriodChartCreator.cs" />
+    <Compile Include="Creators\BillingPeriodExpensesListCreator.cs" />
+    <Compile Include="Creators\BillingPeriodSummaryCreator.cs" />
+    <Compile Include="Creators\BillingPeriodGridCreator.cs" />
     <Compile Include="BillingPeriodsWindow.xaml.cs">
       <DependentUpon>BillingPeriodsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="BillingPeriodWindow.xaml.cs">
       <DependentUpon>BillingPeriodWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BMCommands.cs" />
+    <Compile Include="Utilities\BMCommands.cs" />
     <Compile Include="CategoriesWindow.xaml.cs">
       <DependentUpon>CategoriesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="CategoryWindow.xaml.cs">
       <DependentUpon>CategoryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AppData.cs" />
-    <Compile Include="Expense.cs" />
-    <Compile Include="ExpenseCategory.cs" />
+    <Compile Include="Models\AppData.cs" />
+    <Compile Include="Models\Expense.cs" />
+    <Compile Include="Models\ExpenseCategory.cs" />
     <Compile Include="ExpensesWindow.xaml.cs">
       <DependentUpon>ExpensesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExpenseWindow.xaml.cs">
       <DependentUpon>ExpenseWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FilesHandler.cs" />
+    <Compile Include="Utilities\FilesHandler.cs" />
     <Compile Include="HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities.cs" />
+    <Compile Include="Utilities\Utilities.cs" />
     <Page Include="AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,6 +208,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.WindowsAPICodePack-Shell">
       <Version>1.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="ModernWpfUI">
+      <Version>0.9.3</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

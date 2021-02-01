@@ -96,7 +96,6 @@ namespace BudgetManager
                     HorizontalContentAlignment = HorizontalAlignment.Left,
                     BorderThickness = new Thickness(0),
                     Background = Brushes.Transparent,
-                    MaxHeight = 16,
                     Margin = new Thickness(0),
                     Padding = new Thickness(0)
                 };
