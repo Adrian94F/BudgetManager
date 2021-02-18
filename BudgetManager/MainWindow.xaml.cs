@@ -115,7 +115,7 @@ namespace BudgetManager
         {
             if (AppData.billingPeriods != null && AppData.billingPeriods.Count > 0)
             {
-                _ = new BillingPeriodGridCreator(AppData.billingPeriods.ElementAt(AppData.currentPeriod), this, HeaderDaysGrid, VerticalDataGrid, ExpensesGrid);
+                _ = new BillingPeriodGridCreator(AppData.billingPeriods.ElementAt(AppData.currentPeriod), HeaderDaysGrid, VerticalDataGrid, ExpensesGrid);
             }
         }
 
@@ -237,7 +237,7 @@ namespace BudgetManager
             }
         }
 
-        private void Categories()
+        public void Categories()
         {
             var categoriesWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<CategoriesWindow>();
             if (categoriesWindowTuple.Item2)

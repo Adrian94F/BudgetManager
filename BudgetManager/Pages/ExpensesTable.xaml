@@ -1,0 +1,81 @@
+﻿<Page x:Class="BudgetManager.Pages.ExpensesTablePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BudgetManager.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ExpensesTablePage">
+
+    <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="16" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"
+                              MinWidth="100"
+                              MaxWidth="300"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Rectangle Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Fill="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
+
+        <Rectangle Grid.Row="1"
+                   Grid.Column="0"
+                   Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+
+        <Grid x:Name="Header"
+              Grid.Row="0"
+              Grid.Column="0">
+            <Button Content="Kategoria"
+                    HorizontalContentAlignment="Left"
+                    VerticalAlignment="Top"
+                    BorderThickness="0"
+                    Padding="3, 0, 0, 0"
+                    Click="CategoriesMenuItem_Click"/>
+
+        </Grid>
+
+        <ScrollViewer x:Name="HeaderDaysScrollViewer"
+                      CanContentScroll="True"
+                      Grid.Row="0"
+                      Grid.Column="1"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Hidden"
+                      PanningMode="HorizontalOnly">
+            <Grid x:Name="HeaderDaysGrid"
+                  Margin="0,0,20,0"/>
+        </ScrollViewer>
+
+        <ScrollViewer x:Name="VerticalScrolViewer"
+                      CanContentScroll="True"
+                      ScrollChanged="VerticalScrolViewer_ScrollChanged"
+                      Grid.Row="1"
+                      Grid.Column="0"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Hidden"
+                      PanningMode="VerticalOnly">
+            <Grid x:Name="VerticalDataGrid"
+                  Margin="0,0,0,17" />
+        </ScrollViewer>
+
+        <ScrollViewer x:Name="DataScrolViewer"
+                      HorizontalScrollBarVisibility="Visible"
+                      VerticalAlignment="Stretch"
+                      VerticalScrollBarVisibility="Visible"
+                      ScrollChanged="DataScrolViewer_ScrollChanged"
+                      Grid.Row="1"
+                      Grid.Column="1"
+                      Margin="0,0,0,0"
+                      PanningMode="Both"
+                      PanningRatio="1.2">
+            <Grid x:Name="ExpensesGrid"
+                  ScrollViewer.CanContentScroll="True"/>
+        </ScrollViewer>
+    </Grid>
+</Page>

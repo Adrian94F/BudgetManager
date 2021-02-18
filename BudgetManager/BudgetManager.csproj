@@ -97,6 +97,12 @@
     <Compile Include="BillingPeriodWindow.xaml.cs">
       <DependentUpon>BillingPeriodWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BillingPeriodSummary.xaml.cs">
+      <DependentUpon>BillingPeriodSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ExpensesTable.xaml.cs">
+      <DependentUpon>ExpensesTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\BMCommands.cs" />
     <Compile Include="CategoriesWindow.xaml.cs">
       <DependentUpon>CategoriesWindow.xaml</DependentUpon>
@@ -166,6 +172,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\BillingPeriodSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ExpensesTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
