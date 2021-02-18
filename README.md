@@ -8,6 +8,8 @@ Aplikacja umożliwiająca zapisywanie codziennych wydatków i wyświetlanie stat
 
 ## TODO
 
+- Lista wydatków z filtrowaniem wg daty (lub zakresu dat) i kategorii
+  - Zmiana widoku zamiast otwierania okna
 - Dostosowanie wyglądu do [ModernWpf](https://github.com/Kinnara/ModernWpf)
 - Generowanie raportu
 - Wydatki
