@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BudgetManager
 {
     [Serializable]
-    class ExpenseCategory
+    public class ExpenseCategory
     {
         public string name;
         public ExpenseCategory parent;

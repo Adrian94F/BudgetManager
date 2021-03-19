@@ -53,12 +53,12 @@ namespace BudgetManager
 
         private void FillBurndownTab()
         {
-            _ = new BillingPeriodChartCreator(AppData.billingPeriods.ElementAt(AppData.currentPeriod), BurndownChartGrid);
+            //_ = new BillingPeriodChartCreator(AppData.billingPeriods.ElementAt(AppData.currentPeriod), BurndownChartGrid);
         }
 
         private void FillHistoryTab()
         {
-            _ = new BillingPeriodsHistoryChartCreator(AppData.billingPeriods, HistoryChartGrid);
+            //_ = new BillingPeriodsHistoryChartCreator(AppData.billingPeriods, HistoryChartGrid);
         }
 
         private void SetupButtons()
@@ -101,21 +101,21 @@ namespace BudgetManager
 
         private void DataScrolViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            HeaderDaysScrollViewer.ScrollToHorizontalOffset(e.HorizontalOffset);
-            VerticalScrolViewer.ScrollToVerticalOffset(e.VerticalOffset);
+            //HeaderDaysScrollViewer.ScrollToHorizontalOffset(e.HorizontalOffset);
+            //VerticalScrolViewer.ScrollToVerticalOffset(e.VerticalOffset);
         }
 
         private void VerticalScrolViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            VerticalScrolViewer.ScrollToVerticalOffset(e.VerticalOffset);
-            DataScrolViewer.ScrollToVerticalOffset(e.VerticalOffset);
+            //VerticalScrolViewer.ScrollToVerticalOffset(e.VerticalOffset);
+            //DataScrolViewer.ScrollToVerticalOffset(e.VerticalOffset);
         }
 
         public void FillExpensesTable()
         {
             if (AppData.billingPeriods != null && AppData.billingPeriods.Count > 0)
             {
-                _ = new BillingPeriodGridCreator(AppData.billingPeriods.ElementAt(AppData.currentPeriod), HeaderDaysGrid, VerticalDataGrid, ExpensesGrid);
+                //_ = new BillingPeriodGridCreator(AppData.billingPeriods.ElementAt(AppData.currentPeriod), DaysGrid, CategoriesGrid, ExpensesGrid);
             }
         }
 
@@ -124,7 +124,7 @@ namespace BudgetManager
             if (AppData.billingPeriods != null && AppData.billingPeriods.Count > 0)
             {
                 var expensesList = new List<Expense>(AppData.billingPeriods.ElementAt(AppData.currentPeriod).expenses);
-                _ = new BillingPeriodExpensesListCreator<MainWindow>(ExpensesListGrid, expensesList, this);
+                //_ = new BillingPeriodExpensesListCreator<MainWindow>(ExpensesListGrid, expensesList, this);
             }
         }
 
@@ -132,7 +132,7 @@ namespace BudgetManager
         {
             if (AppData.billingPeriods != null && AppData.billingPeriods.Count > 0)
             {
-                _ = new BillingPeriodSummaryCreator(AppData.billingPeriods.ElementAt(AppData.currentPeriod), SummaryGrid);
+                //_ = new BillingPeriodSummaryCreator(AppData.billingPeriods.ElementAt(AppData.currentPeriod), SummaryGrid);
             }
         }
 
@@ -331,20 +331,20 @@ namespace BudgetManager
 
         private void HelpMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var helpWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<HelpWindow>();
+            /*var helpWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<HelpWindow>();
             if (helpWindowTuple.Item2)
             {
                 helpWindowTuple.Item1.Closed += PeriodsWindow_Closed;
-            }
+            }*/
         }
 
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var aboutWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<AboutWindow>();
+            /*var aboutWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<AboutWindow>();
             if (aboutWindowTuple.Item2)
             {
                 aboutWindowTuple.Item1.Closed += PeriodsWindow_Closed;
-            }
+            }*/
         }
 
         private void SetTab(int n)

@@ -10,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BudgetManager
+namespace BudgetManager.Pages
 {
     /// <summary>
-    /// Interaction logic for HelpWindow.xaml
+    /// Interaction logic for BurndownPage.xaml
     /// </summary>
-    public partial class HelpWindow : Window
+    public partial class BurndownPage : Page
     {
-        public HelpWindow()
+        public BurndownPage()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

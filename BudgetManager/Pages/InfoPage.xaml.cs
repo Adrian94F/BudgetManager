@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace BudgetManager.Pages
 {
     /// <summary>
-    /// Interaction logic for BillingPeriodSummary.xaml
+    /// Interaction logic for InfoPage.xaml
     /// </summary>
-    public partial class BillingPeriodSummary : Page
+    public partial class InfoPage : Page
     {
-        public BillingPeriodSummary()
+        public InfoPage()
         {
             InitializeComponent();
         }

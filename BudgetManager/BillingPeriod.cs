@@ -10,7 +10,7 @@ using System.Windows.Controls;
 namespace BudgetManager
 {
     [Serializable]
-    class BillingPeriod : IComparable
+    public class BillingPeriod : IComparable
     {
         public DateTime startDate;
         public DateTime endDate;

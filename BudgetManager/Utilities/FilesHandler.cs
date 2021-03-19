@@ -144,6 +144,12 @@ namespace BudgetManager
             AppData.expenseCategories = new HashSet<ExpenseCategory>();
             //ReadHistoricalData();
             ReadSerialized();
+            SetupVariables();
+        }
+
+        private void SetupVariables()
+        {
+            AppData.currentPeriod = AppData.billingPeriods.Count - 1;
         }
 
         private void ReadSerialized()

@@ -10,23 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BudgetManager
+namespace BudgetManager.Pages
 {
     /// <summary>
-    /// Interaction logic for AboutWindow.xaml
+    /// Interaction logic for TablePage.xaml
     /// </summary>
-    public partial class AboutWindow : Window
+    public partial class TablePage : Page
     {
-        public AboutWindow()
+        public TablePage()
         {
             InitializeComponent();
+            FillTable();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void FillTable()
         {
-            this.Close();
+            if (AppData.billingPeriods != null && AppData.billingPeriods.Count > 0)
+            {
+                var period = AppData.billingPeriods.ElementAt(AppData.currentPeriod);
+                Table?.FillTable(period);
+            }
         }
     }
 }

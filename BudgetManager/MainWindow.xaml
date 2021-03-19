@@ -260,7 +260,7 @@
                             </TabItem>
                         </TabControl>
 
-                        <Border Style="{StaticResource MyBorder}"
+                        <Border 
                             VerticalAlignment="Bottom"
                             Grid.Row="1"
                             Margin="7,0,7,7"
@@ -514,7 +514,7 @@
                 </TabItem>
                 <TabItem x:Name="HistoryTabItem"
                          Header="Historia">
-                    <Border Style="{StaticResource MyBorder}"
+                    <Border 
                             Margin="7,7,7,7"
                             Padding="5">
                         <Grid x:Name="HistoryChartGrid"/>

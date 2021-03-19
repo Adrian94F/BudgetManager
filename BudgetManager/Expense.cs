@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BudgetManager
 {
     [Serializable]
-    class Expense
+    public class Expense
     {
         public DateTime date;
         public decimal value;
