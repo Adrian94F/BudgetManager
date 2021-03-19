@@ -25,8 +25,9 @@ namespace BudgetManager.User_controls
             InitializeComponent();
         }
 
-        private double rowHeight = 18;
+        private double rowHeight;
         private double fontSize;
+        private BillingPeriod billingPeriod;
 
         private void ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
@@ -49,10 +50,11 @@ namespace BudgetManager.User_controls
             }
         }
 
-        public void FillTable(BillingPeriod period)
+        public void FillTable(BillingPeriod period = null)
         {
-
-            if (period == null)
+            if (period != null)
+                billingPeriod = period;
+            else if (billingPeriod == null)
                 return;
 
             foreach (var grid in new Grid[] { DaysGrid, DaySumsGrid, CategoriesGrid, CategorySumsGrid, ExpensesGrid })
@@ -61,11 +63,11 @@ namespace BudgetManager.User_controls
                 grid.RowDefinitions.Clear();
                 grid.ColumnDefinitions.Clear();
             }
-            FillDaysGrid(DaysGrid, period);
-            FillDaySumsGrid(DaySumsGrid, period);
+            FillDaysGrid(DaysGrid, billingPeriod);
+            FillDaySumsGrid(DaySumsGrid, billingPeriod);
             FillCategoriesGrid(CategoriesGrid);
-            FillCategorySumsGrid(CategorySumsGrid, period);
-            FillexpensesGrid(ExpensesGrid, period);
+            FillCategorySumsGrid(CategorySumsGrid, billingPeriod);
+            FillexpensesGrid(ExpensesGrid, billingPeriod);
         }
 
         private void AddColumnDefinitionsForDays(Grid grid, int numOfDays)
@@ -314,7 +316,7 @@ namespace BudgetManager.User_controls
 
         private void ExpWin_Closed(object sender, EventArgs e)
         {
-            //parent.RefreshTabControlContentAndSummary();
+            FillTable();
         }
 
         private void AddUIElementToGrid(UIElement obj, int row, int col, Grid grid)
