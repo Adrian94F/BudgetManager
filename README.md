@@ -11,6 +11,12 @@ Aplikacja umożliwiająca zapisywanie codziennych wydatków i wyświetlanie stat
 - Lista wydatków z filtrowaniem wg daty (lub zakresu dat) i kategorii
   - Zmiana widoku zamiast otwierania okna
 - Dostosowanie wyglądu do [ModernWpf](https://github.com/Kinnara/ModernWpf)
+  - Widok listy wydatków, podsumowania, wypalenia, historii
+  - Widok miesięcy (DataGrid)
+  - Widok ustawień
+    - Kategorie
+    - Typowy początek miesiąca
+    - Ścieżka zapisu danych
 - Generowanie raportu
 - Wydatki
   
@@ -19,6 +25,3 @@ Aplikacja umożliwiająca zapisywanie codziennych wydatków i wyświetlanie stat
   - W przypadku daty spoza zakresu przenoszenie wydatków do właściwego okresu rozliczeniowego
     - Jeśli okresu brak, pytanie o zmianę daty lub usunięcie
   - Usuwanie nieużywanych kategorii
-- Ustawienia
-  - Skróty klawiszowe
-    - Szybkie dodawanie do predefiniowanych kategorii (Ctrl + 1-9)
