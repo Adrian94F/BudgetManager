@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace BudgetManager
             InitializeComponent();
             SetStartPage();
             NavigateToSelectedPage();
+            Closing += Window_Closing;
         }
 
         private void SetStartPage()
@@ -48,6 +50,117 @@ namespace BudgetManager
         private void PagesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             NavigateToSelectedPage();
+        }
+
+        private void SaveData()
+        {
+            var fh = new FilesHandler();
+            fh.SaveData();
+            AppData.isDataChanged = false;
+            MessageBox.Show("Pomyslnie zapisano wydatki!", "Zapis", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void ReloadData()
+        {
+            var fh = new FilesHandler();
+            fh.ReadData();
+            AppData.isDataChanged = false;
+            NavigateToSelectedPage();
+        }
+
+        private void ExpenseWindow_Closed(object sender, EventArgs e)
+        {
+            NavigateToSelectedPage();
+        }
+
+        private void Add()
+        {
+            AppData.selectedCategory = null;
+            AppData.selectedDate = DateTime.Now;
+            AppData.selectedExpense = null;
+            var expenseWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpenseWindow>();
+            if (expenseWindowTuple.Item2)
+            {
+                expenseWindowTuple.Item1.Closed += ExpenseWindow_Closed;
+            }
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if (AppData.isDataChanged)
+            {
+                var result = MessageBox.Show("Czy chcesz zapisać wprowadzone zmiany?", "Wyjście", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        SaveData();
+                        break;
+                    case MessageBoxResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
+            }
+        }
+        private void NextBillingPeriod()
+        {
+            AppData.currentPeriod++;
+            if (AppData.currentPeriod >= AppData.billingPeriods.Count - 1)
+            {
+                AppData.currentPeriod = AppData.billingPeriods.Count - 1;
+                MenuItemNext.IsEnabled = false;
+            }
+            if (!MenuItemPrev.IsEnabled)
+            {
+                MenuItemPrev.IsEnabled = true;
+            }
+
+            NavigateToSelectedPage();
+        }
+
+        private void PreviousBillingPeriod()
+        {
+            AppData.currentPeriod--;
+            if (AppData.currentPeriod <= 0)
+            {
+                AppData.currentPeriod = 0;
+                MenuItemPrev.IsEnabled = false;
+            }
+            if (!MenuItemNext.IsEnabled)
+            {
+                MenuItemNext.IsEnabled = true;
+            }
+
+            NavigateToSelectedPage();
+        }
+
+        private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            SaveData();
+        }
+
+        private void ReloadMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ReloadData();
+        }
+
+        private void AddExpenseMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Add();
+        }
+
+        private void PrevMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            PreviousBillingPeriod();
+        }
+
+        private void NextPeriodMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            NextBillingPeriod();
+        }
+
+        private void CloseMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 

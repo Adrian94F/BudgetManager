@@ -9,14 +9,14 @@
         ui:WindowHelper.UseModernWindowStyle="True"
         mc:Ignorable="d"
         Title="Menedżer budżetu" Height="450" Width="800">
-    <!-- <Window.CommandBindings>
+    <Window.CommandBindings>
         <CommandBinding Command="{ x:Static commands:Commands.Save }" Executed="SaveMenuItem_Click" />
-        <CommandBinding Command="{ x:Static commands:Commands.Settings }" Executed="SettingsMenuItem_Click" />
+        <CommandBinding Command="{ x:Static commands:Commands.Reload }" Executed="ReloadMenuItem_Click" />
         <CommandBinding Command="{ x:Static commands:Commands.Close }" Executed="CloseMenuItem_Click" />
         <CommandBinding Command="{ x:Static commands:Commands.Add }" Executed="AddExpenseMenuItem_Click" />
         <CommandBinding Command="{ x:Static commands:Commands.Previous }" Executed="PrevMenuItem_Click" />
         <CommandBinding Command="{ x:Static commands:Commands.Next }" Executed="NextPeriodMenuItem_Click" />
-    </Window.CommandBindings> -->
+    </Window.CommandBindings>
     <!-- <Window.InputBindings>
         <KeyBinding Key="S" Modifiers="Control" Command="{ x:Static commands:Commands.Save }"/>
         <KeyBinding Key="N" Modifiers="Control" Command="{ x:Static commands:Commands.Add }"/>
@@ -39,14 +39,22 @@
 
         <Menu Grid.ColumnSpan="2">
             <MenuItem Header="Plik">
-                <MenuItem Header="Zapisz"/>
-                <MenuItem Header="Wczytaj ponownie"/>
+                <MenuItem Header="Zapisz"
+                          Command="{ x:Static commands:Commands.Save }"/>
+                <MenuItem Header="Wczytaj ponownie"
+                          Command="{ x:Static commands:Commands.Reload }"/>
                 <Separator/>
-                <MenuItem Header="Zamknij"/>
+                <MenuItem Header="Zamknij"
+                          Command="{ x:Static commands:Commands.Close }"/>
             </MenuItem>
-            <MenuItem Header="Dodaj"/>
-            <MenuItem Header="Poprzedni"/>
-            <MenuItem Header="Następny"/>
+            <MenuItem Header="Dodaj"
+                      Command="{ x:Static commands:Commands.Add }"/>
+            <MenuItem Header="Poprzedni"
+                      x:Name="MenuItemPrev"
+                      Command="{ x:Static commands:Commands.Previous }"/>
+            <MenuItem Header="Następny"
+                      x:Name="MenuItemNext"
+                      Command="{ x:Static commands:Commands.Next }"/>
         </Menu>
 
         <ui:ListView Grid.Row="1"
