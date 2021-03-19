@@ -47,6 +47,16 @@ namespace BudgetManager
             }
         }
 
+        private void RefreshPage()
+        {
+            if (RootFrame.Content.GetType() == typeof(TablePage))
+            {
+                ((TablePage) RootFrame.Content).FillTable();
+            }
+            else
+                NavigateToSelectedPage();
+        }
+
         private void PagesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             NavigateToSelectedPage();
@@ -65,12 +75,12 @@ namespace BudgetManager
             var fh = new FilesHandler();
             fh.ReadData();
             AppData.isDataChanged = false;
-            NavigateToSelectedPage();
+            RefreshPage();
         }
 
         private void ExpenseWindow_Closed(object sender, EventArgs e)
         {
-            NavigateToSelectedPage();
+            RefreshPage();
         }
 
         private void Add()

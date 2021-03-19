@@ -26,7 +26,7 @@ namespace BudgetManager.Pages
             FillTable();
         }
 
-        private void FillTable()
+        public void FillTable()
         {
             if (AppData.billingPeriods != null && AppData.billingPeriods.Count > 0)
             {
