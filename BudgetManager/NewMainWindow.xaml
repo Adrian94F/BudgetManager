@@ -17,15 +17,13 @@
         <CommandBinding Command="{ x:Static commands:Commands.Previous }" Executed="PrevMenuItem_Click" />
         <CommandBinding Command="{ x:Static commands:Commands.Next }" Executed="NextPeriodMenuItem_Click" />
     </Window.CommandBindings>
-    <!-- <Window.InputBindings>
+    <Window.InputBindings>
         <KeyBinding Key="S" Modifiers="Control" Command="{ x:Static commands:Commands.Save }"/>
         <KeyBinding Key="N" Modifiers="Control" Command="{ x:Static commands:Commands.Add }"/>
         <KeyBinding Key="Esc" Command="{ x:Static commands:Commands.Close }"/>
         <KeyBinding Key="PageUp" Command="{ x:Static commands:Commands.Previous }"/>
         <KeyBinding Key="PageDown" Command="{ x:Static commands:Commands.Next }"/>
-        <KeyBinding Key="K" Modifiers="Control" Command="{ x:Static commands:Commands.Categories }"/>
-    </Window.InputBindings> -->
-
+    </Window.InputBindings>
 
     <Grid Margin="0">
         <Grid.RowDefinitions>
