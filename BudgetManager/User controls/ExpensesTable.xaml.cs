@@ -67,7 +67,7 @@ namespace BudgetManager.User_controls
             FillDaySumsGrid(DaySumsGrid, billingPeriod);
             FillCategoriesGrid(CategoriesGrid);
             FillCategorySumsGrid(CategorySumsGrid, billingPeriod);
-            FillexpensesGrid(ExpensesGrid, billingPeriod);
+            FillExpensesGrid(ExpensesGrid, billingPeriod);
         }
 
         private void AddColumnDefinitionsForDays(Grid grid, int numOfDays)
@@ -201,7 +201,7 @@ namespace BudgetManager.User_controls
                 };
                 AddUIElementToGrid(btn, i, 0, grid);
             }
-
+            
             AddStretchRow(grid);
         }
 
@@ -224,11 +224,11 @@ namespace BudgetManager.User_controls
                 };
                 AddUIElementToGrid(txtBlock, i, 0, grid);
             }
-
+            
             AddStretchRow(grid);
         }
 
-        private void FillexpensesGrid(Grid grid, BillingPeriod period)
+        private void FillExpensesGrid(Grid grid, BillingPeriod period)
         {
             var numOfDays = (period.endDate - period.startDate).Days + 1;
             AddColumnDefinitionsForDays(grid, numOfDays);
@@ -276,7 +276,8 @@ namespace BudgetManager.User_controls
         {
             var rowDef = new RowDefinition
             {
-                Height = new GridLength(100, GridUnitType.Star)
+                Height = new GridLength(100, GridUnitType.Star),
+                MinHeight = 16
             };
             grid.RowDefinitions.Add(rowDef);
         }
@@ -327,7 +328,7 @@ namespace BudgetManager.User_controls
             grid.Children.Add(obj);
         }
 
-        private void AddRectangleAt(int row, int col, int rowSpan, int colSpan, Brush fill, double opacity, Grid grid)
+        private void AddRectangleAt(int row, int col, int rowSpan, int colSpan, Brush fill, Grid grid)
         {
             if (row < 0 || col < 0)
             {
@@ -343,7 +344,6 @@ namespace BudgetManager.User_controls
             {
                 colSpan = 1;
             }
-            rect.Opacity = opacity;
             Grid.SetRow(rect, row);
             Grid.SetRowSpan(rect, rowSpan);
             Grid.SetColumn(rect, col);
@@ -355,17 +355,17 @@ namespace BudgetManager.User_controls
         private void AddWeekendsRectangles(Grid grid, BillingPeriod period)
         {
             var row = 0;
-            var rowSpan = grid.RowDefinitions.Count;
+            var rowSpan = grid.RowDefinitions.Count + 1;
             var col = 0;
             var colSpan = 1;
-            var fill = new SolidColorBrush(System.Windows.Media.Colors.LightGray);
+            var fill = (Brush)FindResource("Alpha-Gray-2");
 
             var day = period.startDate;
             while (day.Date <= period.endDate.Date)
             {
                 if (day.DayOfWeek == DayOfWeek.Saturday || day.DayOfWeek == DayOfWeek.Sunday)
                 {
-                    AddRectangleAt(row, col, rowSpan, colSpan, fill, 0.2, grid);
+                    AddRectangleAt(row, col, rowSpan, colSpan, fill, grid);
                 }
                 day = day.AddDays(1);
                 col++;
@@ -379,11 +379,11 @@ namespace BudgetManager.User_controls
                 return;
             }
             var row = 0;
-            var rowSpan = grid.RowDefinitions.Count;
+            var rowSpan = grid.RowDefinitions.Count + 1;
             var col = (DateTime.Now - period.startDate).Days;
             var colSpan = 1;
-            var fill = new SolidColorBrush(System.Windows.Media.Colors.LightGreen);
-            AddRectangleAt(row, col, rowSpan, colSpan, fill, 0.3, grid);
+            var fill = (Brush)FindResource("Alpha-Green");
+            AddRectangleAt(row, col, rowSpan, colSpan, fill, grid);
         }
     }
 }

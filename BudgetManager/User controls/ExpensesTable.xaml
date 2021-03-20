@@ -19,20 +19,34 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+
+        <Rectangle Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.RowSpan="2"
+                   Grid.ColumnSpan="3"
+                   Fill="{StaticResource Alpha-Gray-1}" />
+
+        <Rectangle Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.RowSpan="3"
+                   Grid.ColumnSpan="2"
+                   Fill="{StaticResource Alpha-Gray-1}" />
+
         <Rectangle Grid.Row="0"
                    Grid.Column="0"
                    Grid.ColumnSpan="3"
-                   Grid.RowSpan="2"
-                   Fill="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
+                   Fill="{StaticResource Alpha-Gray-1}" />
 
-        <Rectangle Grid.Row="2"
-                   Grid.ColumnSpan="2"
-                   Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+        <Rectangle Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.RowSpan="3"
+                   Fill="{StaticResource Alpha-Gray-1}" />
+
 
         <TextBlock x:Name="TextBlock01"
                    Grid.Row="1"
                    Text="Kategoria"
-                   Padding="4"
+                   Padding="12, 4"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"/>
         <TextBlock x:Name="TextBlock10"
@@ -79,9 +93,9 @@
                       HorizontalScrollBarVisibility="Hidden"
                       VerticalScrollBarVisibility="Hidden"
                       PanningMode="VerticalOnly"
-                      ScrollChanged="ScrollChanged">
-            <Grid x:Name="CategoriesGrid"
-                  Margin="0,0,0,16" />
+                      ScrollChanged="ScrollChanged"
+                      Padding="10,0,10,0">
+            <Grid x:Name="CategoriesGrid"/>
         </ScrollViewer>
 
         <ScrollViewer x:Name="CategorySumsScrollViewer"
@@ -92,8 +106,7 @@
                       VerticalScrollBarVisibility="Hidden"
                       PanningMode="VerticalOnly"
                       ScrollChanged="ScrollChanged">
-            <Grid x:Name="CategorySumsGrid"
-                  Margin="0,0,0,16" />
+            <Grid x:Name="CategorySumsGrid"/>
         </ScrollViewer>
 
         <ScrollViewer x:Name="DataScrollViewer"
@@ -106,7 +119,6 @@
                       PanningMode="Both"
                       ScrollChanged="ScrollChanged">
             <Grid x:Name="ExpensesGrid"
-                  Margin="0,0,0,16"
                   ScrollViewer.CanContentScroll="True"/>
         </ScrollViewer>
     </Grid>
