@@ -82,7 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BillingPeriod.cs" />
+    <Compile Include="Models\BillingPeriod.cs" />
     <Compile Include="Creators\BillingPeriodsHistoryChartCreator.cs" />
     <Compile Include="Creators\BillingPeriodChartCreator.cs" />
     <Compile Include="Creators\BillingPeriodExpensesListCreator.cs" />
@@ -132,8 +132,8 @@
       <DependentUpon>CategoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AppData.cs" />
-    <Compile Include="Expense.cs" />
-    <Compile Include="ExpenseCategory.cs" />
+    <Compile Include="Models\Expense.cs" />
+    <Compile Include="Models\ExpenseCategory.cs" />
     <Compile Include="ExpensesWindow.xaml.cs">
       <DependentUpon>ExpensesWindow.xaml</DependentUpon>
     </Compile>
