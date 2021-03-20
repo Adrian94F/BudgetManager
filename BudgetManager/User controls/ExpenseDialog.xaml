@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="BudgetManager.User_controls.ExpenseDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BudgetManager.User_controls"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="500">
+    <ui:ContentDialog>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="10px"
+                   VerticalAlignment="Center"
+                   Content="Wartość"/>
+            <TextBox Grid.Row="0"
+                     Grid.Column="1"
+                     Margin="0,3,0,4"/>
+            <Label Grid.Row="0"
+                   Grid.Column="2"
+                   Margin="10px"
+                   VerticalAlignment="Center"
+                   Content="zł"/>
+
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Margin="10px"
+                   VerticalAlignment="Center"
+                   Content="Data"/>
+            <DatePicker Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,3,0,4"/>
+
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Margin="10px"
+                   VerticalAlignment="Center"
+                   Content="Kategoria"/>
+            <ComboBox Grid.Row="2"
+                      Grid.Column="1"
+                      Grid.ColumnSpan="2"
+                      HorizontalAlignment="Stretch"
+                      Margin="0,3,0,4"/>
+
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   Margin="10px"
+                   VerticalAlignment="Center"
+                   Content="Wydatek stały"/>
+            <ui:ToggleSwitch Grid.Row="3"
+                             Grid.Column="1"
+                             OnContent="Tak"
+                             OffContent="Nie"/>
+
+            <Label Grid.Row="4"
+                   Grid.Column="0"
+                   Margin="10px"
+                   VerticalAlignment="Center"
+                   Content="Komentarz"/>
+            <TextBox Grid.Row="4"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="2"
+                     Margin="0,3,0,4"
+                     Height="60"
+                     TextWrapping="Wrap"/>
+
+            <Grid Grid.Row="5"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="2"
+                  Margin="0, 3, 0, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"
+                        Content="Zapisz"/>
+                <Button Grid.Column="1"
+                        Margin="10, 0, 0, 0"
+                        Content="Usuń"/>
+                <Button Grid.Column="2"
+                        Margin="10, 0, 0, 0"
+                        Content="Anuluj"/>
+            </Grid>
+        </Grid>
+    </ui:ContentDialog>
+</UserControl>
