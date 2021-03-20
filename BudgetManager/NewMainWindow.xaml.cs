@@ -178,14 +178,14 @@ namespace BudgetManager
     {
         public PagesData()
         {
-            AddPage(typeof(Pages.SummaryPage), "Podsumowanie");
-            AddPage(typeof(Pages.TablePage), "Tabela");
-            AddPage(typeof(Pages.ListPage), "Lista");
-            AddPage(typeof(Pages.BurndownPage), "Wypalenie");
-            AddPage(typeof(Pages.HistoryPage), "Historia");
-            AddPage(typeof(Pages.BillingPeriodsPage), "Miesiące");
-            AddPage(typeof(Pages.SettingsPage), "Ustawienia");
-            AddPage(typeof(Pages.InfoPage), "Informacje");
+            AddPage(typeof(SummaryPage), "Podsumowanie");
+            AddPage(typeof(TablePage), "Tabela");
+            AddPage(typeof(ListPage), "Lista");
+            AddPage(typeof(BurndownPage), "Wypalenie");
+            AddPage(typeof(HistoryPage), "Historia");
+            AddPage(typeof(BillingPeriodsPage), "Miesiące");
+            AddPage(typeof(SettingsPage), "Ustawienia");
+            AddPage(typeof(InfoPage), "Informacje");
         }
 
         private void AddPage(Type pageType, string displayName = null)

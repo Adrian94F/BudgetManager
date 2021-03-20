@@ -62,7 +62,8 @@
             SelectedValuePath="PageType"
             SelectedIndex="0"
             Width="auto"
-            SelectionChanged="PagesList_SelectionChanged">
+            SelectionChanged="PagesList_SelectionChanged"
+            Background="{StaticResource Alpha-Gray-2}">
             <ui:ListView.ItemsSource>
                 <local:PagesData />
             </ui:ListView.ItemsSource>
