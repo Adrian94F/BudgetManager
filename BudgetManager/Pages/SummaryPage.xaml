@@ -5,10 +5,243 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BudgetManager.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="350" d:DesignWidth="600"
       Title="SummaryPage">
+    
+    <ScrollViewer PanningMode="Both">
+        <Grid x:Name="SummaryGrid"
+              Margin="0, 24, 0, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="24"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"
+                                  MinWidth="24"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="auto"
+                                  MinWidth="80"/>
+                <ColumnDefinition Width="*"
+                                  MinWidth="24"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="auto"
+                                  MinWidth="80"/>
+                <ColumnDefinition Width="5*"
+                                  MinWidth="24"/>
 
-    <Grid>
-        
-    </Grid>
+            </Grid.ColumnDefinitions>
+
+            <!-- title -->
+            <TextBlock x:Name="PeriodDatesTextBlock"
+                       Text="Podsumowanie dla..."
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       Grid.ColumnSpan="7"/>
+            <Separator Grid.Row="1"
+                       Grid.Column="1"
+                       Grid.ColumnSpan="7"/>
+
+
+            <!-- separators -->
+            <Separator Grid.Row="5"
+                       Grid.Column="3"/>
+            <Separator Grid.Row="5"
+                       Grid.Column="7"/>
+            <Separator Grid.Row="11"
+                       Grid.Column="3"/>
+
+            <!-- expenses -->
+            <TextBlock HorizontalAlignment="Left"
+                       Grid.Row="3"
+                       Grid.Column="1"
+                       TextWrapping="Wrap"
+                       Text="Wydatki codzienne"
+                       VerticalAlignment="Top"/>
+            <TextBlock x:Name="DailyExpensesSumTextBlock"
+                       Grid.Column="3"
+                       Grid.Row="3"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Text="...zł"
+                       VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left"
+                       Grid.Row="4"
+                       Grid.Column="1"
+                       TextWrapping="Wrap"
+                       Text="Wydatki miesięczne"
+                       VerticalAlignment="Top"/>
+            <TextBlock x:Name="MonthlyExpensesSumTextBlock"
+                       Grid.Column="3"
+                       Grid.Row="4"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Text="...zł"
+                       VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left"
+                       Grid.Row="6"
+                       Grid.Column="1"
+                       TextWrapping="Wrap"
+                       Text="Suma wydatków"
+                       VerticalAlignment="Top"/>
+            <TextBlock x:Name="ExpensesSumTextBlock"
+                       Grid.Column="3"
+                       Grid.Row="6"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Text="...zł"
+                       VerticalAlignment="Top"/>
+
+            <!-- incomes -->
+            <TextBlock HorizontalAlignment="Left"
+                       Grid.Column="5"
+                       Grid.Row="3"
+                       TextWrapping="Wrap"
+                       Text="Dochód netto"
+                       VerticalAlignment="Top"/>
+            <TextBlock x:Name="NetIncomeTextBlock"
+                       Grid.Column="7"
+                       Grid.Row="3"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Text="...zł"
+                       VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left"
+                       Grid.Column="5"
+                       Grid.Row="4"
+                       TextWrapping="Wrap"
+                       Text="Inny dochód"
+                       VerticalAlignment="Top"
+                       Width="69"/>
+            <TextBlock x:Name="AddIncomeTextBlock"
+                       Grid.Column="7"
+                       Grid.Row="4"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Text="...zł"
+                       VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left"
+                       Grid.Column="5"
+                       Grid.Row="6"
+                       TextWrapping="Wrap"
+                       Text="Suma dochodów"
+                       VerticalAlignment="Top"/>
+            <TextBlock x:Name="IncomeSumTextBlock"
+                       Grid.Column="7"
+                       Grid.Row="6"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Text="...zł"
+                       VerticalAlignment="Top"/>
+
+            <!-- balance -->
+            <TextBlock HorizontalAlignment="Left"
+                       Grid.Column="1"
+                       Grid.Row="8"
+                       TextWrapping="Wrap"
+                       Text="Suma dochodów"
+                       VerticalAlignment="Top"/>
+            <TextBlock x:Name="IncomeSumTextBlock2"
+                       Grid.Column="3"
+                       Grid.Row="8"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Text="...zł"
+                       VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left"
+                       Grid.Column="1"
+                       Grid.Row="9"
+                       TextWrapping="Wrap"
+                       Text="Suma wydatków"
+                       VerticalAlignment="Top"/>
+            <TextBlock x:Name="ExpensesSumTextBlock2"
+                       Grid.Column="3"
+                       Grid.Row="9"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Text="...zł"
+                       VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left"
+                       Grid.Column="1"
+                       Grid.Row="10"
+                       TextWrapping="Wrap"
+                       Text="Planowane oszczędności"
+                       VerticalAlignment="Top"/>
+            <TextBlock x:Name="PlannedSavingsTextBlock"
+                       Grid.Column="3"
+                       Grid.Row="10"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Text="...zł"
+                       VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left"
+                       Grid.Column="1"
+                       Grid.Row="12"
+                       TextWrapping="Wrap"
+                       Text="Bilans"
+                       VerticalAlignment="Top"/>
+            <TextBlock x:Name="BalanceTextBlock"
+                       Grid.Column="3"
+                       Grid.Row="12"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Text="...zł"
+                       VerticalAlignment="Top"/>
+
+            <!-- daily expense estimation -->
+            <TextBlock HorizontalAlignment="Left"
+                       Grid.Row="8"
+                       Grid.Column="5"
+                       TextWrapping="Wrap"
+                       Text="Pozostałe dni"
+                       VerticalAlignment="Top"/>
+            <TextBlock x:Name="DaysLeftTextBlock"
+                       Grid.Column="7"
+                       Grid.Row="8"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Text="..."
+                       VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left"
+                       Grid.Column="5"
+                       Grid.Row="9"
+                       TextWrapping="Wrap"
+                       Text="Szacowany dzienny wydatek"
+                       VerticalAlignment="Top"/>
+            <TextBlock x:Name="EstimatedDailyExpenseTextBlock"
+                       Grid.Column="7"
+                       Grid.Row="9"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Text="...zł"
+                       VerticalAlignment="Top"/>
+
+        </Grid>
+    </ScrollViewer>
+
 </Page>

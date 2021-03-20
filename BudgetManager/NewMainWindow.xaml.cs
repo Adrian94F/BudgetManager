@@ -22,7 +22,7 @@ namespace BudgetManager
     /// </summary>
     public partial class NewMainWindow : Window
     {
-        private Type _startPage = typeof(TablePage);
+        private Type startPageType = typeof(SummaryPage);
 
         public NewMainWindow()
         {
@@ -35,7 +35,7 @@ namespace BudgetManager
         private void SetStartPage()
         {
             RootFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            PagesList.SelectedItem = PagesList.Items.OfType<InfoDataItem>().FirstOrDefault(x => x.PageType == _startPage);
+            PagesList.SelectedItem = PagesList.Items.OfType<InfoDataItem>().FirstOrDefault(x => x.PageType == startPageType);
         }
 
         private void NavigateToSelectedPage()
