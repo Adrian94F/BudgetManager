@@ -49,12 +49,22 @@ namespace BudgetManager
 
         private void RefreshPage()
         {
-            if (RootFrame.Content.GetType() == typeof(TablePage))
+            if (RootFrame.Content.GetType() == typeof(SummaryPage))
             {
-                ((TablePage) RootFrame.Content).FillTable();
+                ((SummaryPage)RootFrame.Content).FillPage();
+            }
+            else if (RootFrame.Content.GetType() == typeof(TablePage))
+            {
+                ((TablePage)RootFrame.Content).FillTable();
+            }
+            else if (RootFrame.Content.GetType() == typeof(ListPage))
+            {
+                ((ListPage) RootFrame.Content).FillPage();
             }
             else
+            {
                 NavigateToSelectedPage();
+            }
         }
 
         private void PagesList_SelectionChanged(object sender, SelectionChangedEventArgs e)

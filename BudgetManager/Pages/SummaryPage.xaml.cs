@@ -23,10 +23,10 @@ namespace BudgetManager.Pages
         public SummaryPage()
         {
             InitializeComponent();
-            CreateSummary();
+            FillPage();
         }
 
-        public void CreateSummary()
+        public void FillPage()
         {
             if (AppData.billingPeriods != null && AppData.billingPeriods.Count > 0)
             {

@@ -29,6 +29,11 @@ namespace BudgetManager.Pages
         public ListPage()
         {
             InitializeComponent();
+            FillPage();
+        }
+
+        public void FillPage()
+        {
             LoadCategories();
             SetupDatePicker();
             FillDataGridWithExpenses();
