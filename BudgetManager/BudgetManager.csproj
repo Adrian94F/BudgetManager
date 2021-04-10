@@ -124,6 +124,9 @@
     <Compile Include="User controls\ExpenseDialog.xaml.cs">
       <DependentUpon>ExpenseDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User controls\ExpensesList.xaml.cs">
+      <DependentUpon>ExpensesList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User controls\ExpensesTable.xaml.cs">
       <DependentUpon>ExpensesTable.xaml</DependentUpon>
     </Compile>
@@ -230,6 +233,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="User controls\ExpenseDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User controls\ExpensesList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
