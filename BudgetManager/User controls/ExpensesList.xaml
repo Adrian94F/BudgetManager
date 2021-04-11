@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <controls:ContentDialog PrimaryButtonText="Ok">
-            <Frame Source="ExpensesList.xaml"></Frame>
+            <Frame Width="500px"/>
         </controls:ContentDialog>
     </Grid>
 </UserControl>

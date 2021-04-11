@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BudgetManager.Annotations;
+using BudgetManager.Pages;
+using ModernWpf.Controls;
+using Frame = System.Windows.Controls.Frame;
 
 namespace BudgetManager.User_controls
 {
@@ -113,13 +117,7 @@ namespace BudgetManager.User_controls
                     Padding = new Thickness(0)
                 };
                 btn.Click += (sender, e) => {
-                    AppData.selectedCategory = null;
-                    AppData.selectedDate = date;
-                    var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
-                    if (expWinTuple.Item2)
-                    {
-                        expWinTuple.Item1.Closed += ExpWin_Closed;
-                    }
+                    OpenExpensesListDialog(null, date);
                 };
                 AddUIElementToGrid(btn, 0, i, grid);
 
@@ -191,13 +189,7 @@ namespace BudgetManager.User_controls
                 };
                 btn.Click += (sender, e) =>
                 {
-                    AppData.selectedCategory = category;
-                    AppData.selectedDate = new DateTime();
-                    var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
-                    if (expWinTuple.Item2)
-                    {
-                        expWinTuple.Item1.Closed += ExpWin_Closed;
-                    }
+                    OpenExpensesListDialog(category, null);
                 };
                 AddUIElementToGrid(btn, i, 0, grid);
             }
@@ -256,13 +248,7 @@ namespace BudgetManager.User_controls
                         Padding = new Thickness(0)
                     };
                     btn.Click += (sender, e) => {
-                        AppData.selectedCategory = category;
-                        AppData.selectedDate = date;
-                        var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
-                        if (expWinTuple.Item2)
-                        {
-                            expWinTuple.Item1.Closed += ExpWin_Closed;
-                        }
+                        OpenExpensesListDialog(category, date);
                     };
                     AddUIElementToGrid(btn, i, j, grid);
                 }
@@ -384,6 +370,19 @@ namespace BudgetManager.User_controls
             var colSpan = 1;
             var fill = (Brush)FindResource("Alpha-Green");
             AddRectangleAt(row, col, rowSpan, colSpan, fill, grid);
+        }
+
+        private void OpenExpensesListDialog(ExpenseCategory cat, DateTime? date)
+        {
+            var listPage = new ListPage(cat, date);
+            var listFrame = new Frame();
+            listFrame.Navigate(listPage);
+            var dialog = new ContentDialog
+            {
+                PrimaryButtonText = "Ok",
+                Content = listFrame
+            };
+            var result = dialog.ShowAsync();
         }
     }
 }

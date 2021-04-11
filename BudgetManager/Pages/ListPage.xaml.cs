@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BudgetManager.Annotations;
 
 namespace BudgetManager.Pages
 {
@@ -26,9 +28,19 @@ namespace BudgetManager.Pages
 
         public DateTime? selectedDate;
 
+        private ObservableCollection<ExpenseDataItem> filteredExpenses;
+
         public ListPage()
         {
             InitializeComponent();
+            FillPage();
+        }
+
+        public ListPage(ExpenseCategory cat, DateTime? date)
+        {
+            InitializeComponent();
+            selectedCategory = cat;
+            selectedDate = date;
             FillPage();
         }
 
@@ -43,11 +55,16 @@ namespace BudgetManager.Pages
         {
             var categories = AppData.expenseCategories;
             CategoriesComboBox.Items.Add("—");
-            CategoriesComboBox.SelectedIndex = 0;
+            var selectedIndex = 0;
             foreach (var category in categories)
             {
                 CategoriesComboBox.Items.Add(category);
+                if (category == selectedCategory)
+                {
+                    selectedIndex = CategoriesComboBox.Items.Count - 1;
+                }
             }
+            CategoriesComboBox.SelectedIndex = selectedIndex;
         }
 
         private ExpenseCategory GetSelectedCategory()
@@ -89,22 +106,24 @@ namespace BudgetManager.Pages
         private void FillDataGridWithExpenses()
         {
             var expenses = AppData.billingPeriods?.ElementAt(AppData.currentPeriod).expenses;
+            filteredExpenses = new ObservableCollection<ExpenseDataItem>();
 
             var isCategorySelected = CategoriesComboBox.SelectedIndex != 0;
             var category = GetSelectedCategory();
             var date = ExpensesDatePicker.SelectedDate;
             var isDateSelected = date != null;
 
-            ExpensesDataGrid.Items.Clear();
+            //ExpensesDataGrid.Items.Clear();
             foreach (var expense in expenses)
             {
                 if (((isCategorySelected && expense.category == category) || !isCategorySelected) &&
                     ((isDateSelected && expense.date == date) || !isDateSelected))
                 {
-                    var expenseDataItem = new ExpenseDataItem(expense);
-                    ExpensesDataGrid.Items.Add(expenseDataItem);
+                    filteredExpenses.Add(new ExpenseDataItem(expense));
                 }
             }
+
+            ExpensesDataGrid.ItemsSource = filteredExpenses;
             SortWithDateAndCategory();
         }
 
@@ -140,6 +159,11 @@ namespace BudgetManager.Pages
         {
             selectedDate = ExpensesDatePicker.SelectedDate;
             FillDataGridWithExpenses();
+        }
+
+        private void DataGridRow_OnDoubleClickHandler(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 
