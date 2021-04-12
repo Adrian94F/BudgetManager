@@ -177,7 +177,8 @@ namespace BudgetManager.Pages
             var expense = objectToShowOn.GetType() == typeof(DataGridRow)
                 ? ((ExpenseDataItem) ((DataGridRow) objectToShowOn).Item).originalExpense // DataGridRow
                 : null;  // Button etc.
-            var expensePage = new ExpensePage(flyout, expense, selectedCategory, selectedDate);
+            var date = selectedDate != null ? selectedDate : DateTime.Today;
+            var expensePage = new ExpensePage(flyout, expense, selectedCategory, date);
             listFrame.Navigate(expensePage);
             flyout.Closed += (sender, o) => FillDataGridWithExpenses();
             flyout.ShowAt(objectToShowOn);
