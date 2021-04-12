@@ -165,33 +165,49 @@ namespace BudgetManager.Pages
             FillDataGridWithExpenses();
         }
 
-        private void DataGridRow_OnDoubleClickHandler(object sender, MouseButtonEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ButtonAdd_OnClick(object sender, RoutedEventArgs e)
-        {
-            ShowAddExpenseFlyout((Button)sender);
-        }
-
         private void ShowAddExpenseFlyout(FrameworkElement objectToShowOn)
         {
             var listFrame = new Frame();
             var flyout = new Flyout
             {
                 Content = listFrame,
-                ShowMode = FlyoutShowMode.Standard
+                ShowMode = FlyoutShowMode.Standard,
+                Placement = FlyoutPlacementMode.Bottom
             };
-            var expensePage = new ExpensePage
-            {
-                category = selectedCategory,
-                date = selectedDate,
-                parentFlyout = flyout
-            };
+            var expense = objectToShowOn.GetType() == typeof(DataGridRow)
+                ? ((ExpenseDataItem) ((DataGridRow) objectToShowOn).Item).originalExpense // DataGridRow
+                : null;  // Button etc.
+            var expensePage = new ExpensePage(flyout, expense, selectedCategory, selectedDate);
             listFrame.Navigate(expensePage);
             flyout.Closed += (sender, o) => FillDataGridWithExpenses();
             flyout.ShowAt(objectToShowOn);
+        }
+
+        private void ButtonAdd_OnClick(object sender, RoutedEventArgs e)
+        {
+            ShowAddExpenseFlyout((FrameworkElement)sender);
+        }
+
+        private void ShowFlyoutOnRow(DataGridRow row)
+        {
+            if (row != null)
+            {
+                ShowAddExpenseFlyout(row);
+            }
+        }
+
+        private void ExpensesDataGrid_OnMouseUpHandler(object sender, MouseButtonEventArgs e)
+        {
+            var row = ItemsControl.ContainerFromElement((DataGrid) sender,
+                e.OriginalSource as DependencyObject) as DataGridRow;
+            ShowFlyoutOnRow(row);
+        }
+
+        private void ExpensesDataGrid_OnTouchUp(object sender, TouchEventArgs e)
+        {
+            var row = ItemsControl.ContainerFromElement((DataGrid)sender,
+                e.OriginalSource as DependencyObject) as DataGridRow;
+            ShowFlyoutOnRow(row);
         }
     }
 
@@ -202,7 +218,7 @@ namespace BudgetManager.Pages
         public string comment { get; set; }
         public string category { get; set; }
         public Boolean monthlyExpense { get; set; }
-        private Expense originalExpense;
+        public Expense originalExpense;
 
         public ExpenseDataItem(Expense exp)
         {

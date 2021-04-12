@@ -32,8 +32,7 @@
         <TextBox Grid.Column="2"
                  Grid.Row="0"
                  x:Name="ValueTextBox"
-                 LostFocus="ValueTextBox_OnLostFocus"
-                 TextChanged="ValueTextBox_OnTextChanged"/>
+                 LostFocus="ValueTextBox_OnLostFocus"/>
         <Label Grid.Column="4"
                Grid.Row="0"
                VerticalAlignment="Center"
@@ -48,7 +47,8 @@
                     Grid.Row="1"
                     Margin="0, 5"
                     HorizontalAlignment="Stretch"
-                    x:Name="DatePicker"/>
+                    x:Name="ExpenseDatePicker"
+                    SelectedDateChanged="ExpenseDatePicker_OnSelectedDateChanged"/>
 
         <Label Grid.Column="0"
                Grid.Row="2"
@@ -67,7 +67,9 @@
                Content="Wydatek stały"/>
         <CheckBox Grid.Column="2"
                   Grid.Row="3"
-                  x:Name="MonthlyExpenseCheckBox"/>
+                  x:Name="MonthlyExpenseCheckBox"
+                  Checked="MonthlyExpenseCheckBox_OnCheckedUnchecked"
+                  Unchecked="MonthlyExpenseCheckBox_OnCheckedUnchecked"/>
 
         <Label Grid.Column="0"
                Grid.Row="4"
@@ -76,7 +78,8 @@
         <TextBox Grid.Column="2"
                  Grid.ColumnSpan="3"
                  Grid.Row="4"
-                 x:Name="CommentTextBox"/>
+                 x:Name="CommentTextBox"
+                 TextChanged="CommentTextBox_OnTextChanged"/>
 
         <Grid Grid.Column="0"
               Grid.ColumnSpan="5"
@@ -90,11 +93,15 @@
             <Button Grid.Column="0"
                     HorizontalAlignment="Right"
                     Content="Usuń"
-                    IsEnabled="False"/>
+                    IsEnabled="False"
+                    x:Name="DeleteButton"
+                    Click="DeleteButton_OnClick"/>
             <Button Grid.Column="1"
                     Margin="5, 0, 0, 0"
                     Content="Zapisz"
-                    IsEnabled="False"/>
+                    IsEnabled="False"
+                    x:Name="SaveButton"
+                    Click="SaveButton_OnClick"/>
         </Grid>
     </Grid>
 </Page>

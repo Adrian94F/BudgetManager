@@ -64,12 +64,10 @@
                   IsReadOnly="True"
                   AutoGenerateColumns="False"
                   SelectionMode="Single"
-                  SelectionUnit="FullRow">
-            <DataGrid.Resources>
-                <Style TargetType="DataGridRow">
-                    <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_OnDoubleClickHandler"></EventSetter>
-                </Style>
-            </DataGrid.Resources>
+                  SelectionUnit="FullRow"
+                  MouseUp="ExpensesDataGrid_OnMouseUpHandler"
+                  MouseRightButtonUp="ExpensesDataGrid_OnMouseUpHandler"
+                  TouchUp="ExpensesDataGrid_OnTouchUp">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Data"
                                     Binding="{Binding date, StringFormat={}{0:dd.MM.yyyy}}"
