@@ -16,6 +16,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BudgetManager.Annotations;
+using ModernWpf.Controls;
+using ModernWpf.Controls.Primitives;
+using Frame = System.Windows.Controls.Frame;
+using Page = System.Windows.Controls.Page;
 
 namespace BudgetManager.Pages
 {
@@ -164,6 +168,30 @@ namespace BudgetManager.Pages
         private void DataGridRow_OnDoubleClickHandler(object sender, MouseButtonEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void ButtonAdd_OnClick(object sender, RoutedEventArgs e)
+        {
+            ShowAddExpenseFlyout((Button)sender);
+        }
+
+        private void ShowAddExpenseFlyout(FrameworkElement objectToShowOn)
+        {
+            var listFrame = new Frame();
+            var flyout = new Flyout
+            {
+                Content = listFrame,
+                ShowMode = FlyoutShowMode.Standard
+            };
+            var expensePage = new ExpensePage
+            {
+                category = selectedCategory,
+                date = selectedDate,
+                parentFlyout = flyout
+            };
+            listFrame.Navigate(expensePage);
+            flyout.Closed += (sender, o) => FillDataGridWithExpenses();
+            flyout.ShowAt(objectToShowOn);
         }
     }
 

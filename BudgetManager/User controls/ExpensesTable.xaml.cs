@@ -372,7 +372,7 @@ namespace BudgetManager.User_controls
             AddRectangleAt(row, col, rowSpan, colSpan, fill, grid);
         }
 
-        private void OpenExpensesListDialog(ExpenseCategory cat, DateTime? date)
+        private async Task OpenExpensesListDialog(ExpenseCategory cat, DateTime? date)
         {
             var listPage = new ListPage(cat, date);
             var listFrame = new Frame();
@@ -382,7 +382,11 @@ namespace BudgetManager.User_controls
                 PrimaryButtonText = "Ok",
                 Content = listFrame
             };
-            var result = dialog.ShowAsync();
+            dialog.Closing += delegate(ContentDialog sender, ContentDialogClosingEventArgs args)
+            {
+                FillTable();
+            };
+            var result = await dialog.ShowAsync();
         }
     }
 }
