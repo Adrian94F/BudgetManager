@@ -205,6 +205,9 @@ namespace BudgetManager.Pages
                 expense.monthlyExpense = MonthlyExpenseCheckBox.IsChecked ?? false;
                 expense.comment = CommentTextBox.Text;
             }
+
+            AppData.isDataChanged = true;
+
             parent.Hide();
         }
 
