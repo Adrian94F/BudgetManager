@@ -117,7 +117,7 @@ namespace BudgetManager.User_controls
                     Padding = new Thickness(0)
                 };
                 btn.Click += (sender, e) => {
-                    OpenExpensesListDialog(null, date);
+                    _ = OpenExpensesListDialog(null, date);
                 };
                 AddUIElementToGrid(btn, 0, i, grid);
 
@@ -189,7 +189,7 @@ namespace BudgetManager.User_controls
                 };
                 btn.Click += (sender, e) =>
                 {
-                    OpenExpensesListDialog(category, null);
+                    _ = OpenExpensesListDialog(category, null);
                 };
                 AddUIElementToGrid(btn, i, 0, grid);
             }
@@ -248,7 +248,7 @@ namespace BudgetManager.User_controls
                         Padding = new Thickness(0)
                     };
                     btn.Click += (sender, e) => {
-                        OpenExpensesListDialog(category, date);
+                        _ = OpenExpensesListDialog(category, date);
                     };
                     AddUIElementToGrid(btn, i, j, grid);
                 }
@@ -379,13 +379,12 @@ namespace BudgetManager.User_controls
             listFrame.Navigate(listPage);
             var dialog = new ContentDialog
             {
+                Title = "Lista wydatków",
                 PrimaryButtonText = "Ok",
+                DefaultButton = ContentDialogButton.Primary,
                 Content = listFrame
             };
-            dialog.Closing += delegate(ContentDialog sender, ContentDialogClosingEventArgs args)
-            {
-                FillTable();
-            };
+            dialog.Closed += (sender, args) => FillTable();
             var result = await dialog.ShowAsync();
         }
     }
