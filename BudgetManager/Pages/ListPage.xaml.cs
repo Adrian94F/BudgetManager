@@ -71,14 +71,6 @@ namespace BudgetManager.Pages
             CategoriesComboBox.SelectedIndex = selectedIndex;
         }
 
-        private ExpenseCategory GetSelectedCategory()
-        {
-            var selectedCategoryIndex = CategoriesComboBox.SelectedIndex - 1;
-            return selectedCategoryIndex >= 0
-                ? AppData.expenseCategories.ElementAt(selectedCategoryIndex)
-                : null;
-        }
-
         private void SetupDatePicker()
         {
             var selectedPeriod = AppData.billingPeriods?.ElementAt(AppData.currentPeriod);
@@ -93,7 +85,7 @@ namespace BudgetManager.Pages
 
         private void ClearSelectedDate()
         {
-            ExpensesDatePicker.SelectedDate = null;
+            selectedDate = null;
             SetSelectedDate();
         }
 
@@ -112,8 +104,10 @@ namespace BudgetManager.Pages
             var expenses = AppData.billingPeriods?.ElementAt(AppData.currentPeriod).expenses;
             filteredExpenses = new ObservableCollection<ExpenseDataItem>();
 
-            var isCategorySelected = CategoriesComboBox.SelectedIndex != 0;
-            var category = GetSelectedCategory();
+            var isCategorySelected = CategoriesComboBox.SelectedItem.GetType() == typeof(ExpenseCategory);
+            var category = isCategorySelected
+                ? (ExpenseCategory) CategoriesComboBox.SelectedItem
+                : null;
             var date = ExpensesDatePicker.SelectedDate;
             var isDateSelected = date != null;
 
@@ -154,14 +148,11 @@ namespace BudgetManager.Pages
 
         private void CategoriesComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedCategoryIndex = CategoriesComboBox.SelectedIndex - 1;
-            selectedCategory = GetSelectedCategory();
             FillDataGridWithExpenses();
         }
 
         private void ExpensesDatePicker_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedDate = ExpensesDatePicker.SelectedDate;
             FillDataGridWithExpenses();
         }
 
