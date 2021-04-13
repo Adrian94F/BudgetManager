@@ -9,26 +9,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Colors.xaml"/>
+                <ui:XamlControlsResources/>
                 <ui:ThemeResources />
-                <ui:XamlControlsResources>
-                    <!-- <Style TargetType="{x:Type Button}">
-                        <Setter Property="MinWidth" Value="70"/>
-                        <Setter Property="Padding" Value="7,2"/>
-                        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
-                    </Style>
-                    <Style x:Key="MyBorder" TargetType="{x:Type Border}">
-                        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="Padding" Value="2"/>
-                    </Style>
-                    <Style TargetType="{x:Type Menu}">
-                        <Setter Property="Background" Value="White"/>
-                    </Style>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                    </Style> -->
-                </ui:XamlControlsResources>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -78,7 +78,15 @@
                                     CanUserReorder="False"/>
                 <DataGridTextColumn Header="Wartość"
                                     Binding="{Binding value}"
-                                    CanUserReorder="False"/>
+                                    CanUserReorder="False">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                            <Setter Property="Padding" Value="15, 0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Kategoria"
                                     Binding="{Binding category}"
                                     SortDirection="Ascending"
