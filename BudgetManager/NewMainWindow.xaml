@@ -45,8 +45,6 @@
                 <MenuItem Header="Zamknij"
                           Command="{ x:Static commands:Commands.Close }"/>
             </MenuItem>
-            <MenuItem Header="Dodaj"
-                      Command="{ x:Static commands:Commands.Add }"/>
             <MenuItem Header="Poprzedni"
                       x:Name="MenuItemPrev"
                       Command="{ x:Static commands:Commands.Previous }"/>
