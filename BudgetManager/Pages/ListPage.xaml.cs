@@ -110,7 +110,6 @@ namespace BudgetManager.Pages
             var date = ExpensesDatePicker.SelectedDate;
             var isDateSelected = date != null;
 
-            //ExpensesDataGrid.Items.Clear();
             foreach (var expense in expenses)
             {
                 if (((isCategorySelected && expense.category == category) || !isCategorySelected) &&
