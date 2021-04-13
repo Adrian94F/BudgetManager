@@ -124,7 +124,6 @@
     <Compile Include="Pages\TablePage.xaml.cs">
       <DependentUpon>TablePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="User controls\ExpenseDialog.xaml.cs">
       <DependentUpon>ExpenseDialog.xaml</DependentUpon>
     </Compile>
