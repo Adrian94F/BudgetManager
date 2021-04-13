@@ -25,7 +25,6 @@
                     <Paragraph>
                         Wszelkie i niewszelkie prawa zastrzeżone.
                     </Paragraph>
-
                     <Paragraph>
                         <Bold>
                             <Run Text="Skróty klawiszowe"/>
@@ -33,12 +32,12 @@
                     </Paragraph>
                     <Paragraph>
                         <Run Text="Ctrl + N – nowy wydatek"/>
-                        <LineBreak/>
+                        <!--<LineBreak/>
                         <Run Text="Ctrl + K – kategorie"/>
                         <LineBreak/>
-                        <Run Text="Ctrl + M – miesiące"/>
+                        <Run Text="Ctrl + M – miesiące"/>-->
                     </Paragraph>
-                    <Paragraph>
+                    <!--<Paragraph>
                         <Run Text="Ctrl + W – tabela wydatków"/>
                         <LineBreak/>
                         <Run Text="Ctrl + L – lista wydatków"/>
@@ -46,15 +45,15 @@
                         <Run Text="Ctrl + B – wykres wypalenia"/>
                         <LineBreak/>
                         <Run Text="Ctrl + H – historia"/>
-                    </Paragraph>
+                    </Paragraph>-->
                     <Paragraph>
                         <Run Text="CTRL + S – zapisz"/>
                     </Paragraph>
-                    <Paragraph>
+                    <!--<Paragraph>
                         <Run Text="Page Up – poprzedni miesiąc"/>
                         <LineBreak/>
                         <Run Text="Page Down – następny miesiąc"/>
-                    </Paragraph>
+                    </Paragraph>-->
                 </FlowDocument>
             </RichTextBox>
     </ScrollViewer>
