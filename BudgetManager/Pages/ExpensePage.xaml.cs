@@ -40,11 +40,14 @@ namespace BudgetManager.Pages
                 category = expense.category;
                 date = expense.date;
                 DeleteButton.IsEnabled = true;
+                TitleTextBlock.Text = "Edycja wydatku";
             }
             else
             {
                 category = cat;
                 date = datetime;
+                TitleTextBlock.Text = "Nowy wydatek";
+                DeleteButton.Visibility = Visibility.Collapsed;
             }
 
             LoadCategories();
