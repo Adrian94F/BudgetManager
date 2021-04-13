@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,40 @@ namespace BudgetManager.Pages
         public BillingPeriodsPage()
         {
             InitializeComponent();
+            FillTable();
+        }
+
+        public void FillTable()
+        {
+            var periods = AppData.billingPeriods.Reverse();
+            var periodsCollection = new ObservableCollection<BillingPeriodDataItem>();
+            
+            foreach (var period in periods)
+            {
+                periodsCollection.Add(new BillingPeriodDataItem(period));
+            }
+
+            ExpensesDataGrid.ItemsSource = periodsCollection;
+        }
+    }
+
+    class BillingPeriodDataItem
+    {
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
+        public string netIncome { get; set; }
+        public string addIncome { get; set; }
+        public string plannedSavings { get; set; }
+        public BillingPeriod originalBillingPeriod;
+
+        public BillingPeriodDataItem(BillingPeriod bp)
+        {
+            startDate = bp.startDate;
+            endDate = bp.endDate;
+            netIncome = Utilities.EmptyIfZero(bp.netIncome);
+            addIncome = Utilities.EmptyIfZero(bp.additionalIncome);
+            plannedSavings = Utilities.EmptyIfZero(bp.plannedSavings);
+            originalBillingPeriod = bp;
         }
     }
 }

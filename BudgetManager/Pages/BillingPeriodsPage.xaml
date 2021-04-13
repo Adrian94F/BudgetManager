@@ -9,6 +9,71 @@
       Title="BillingPeriodsPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="AddButton"
+                Grid.Row="0"
+                Grid.Column="7"
+                Margin="10"
+                HorizontalAlignment="Right"
+                Content="Dodaj"/>
+
+        <DataGrid x:Name="ExpensesDataGrid"
+                  Grid.Row="1"
+                  Grid.ColumnSpan="9"
+                  ItemsSource="{Binding}"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow">
+                  <!--MouseUp="ExpensesDataGrid_OnMouseUpHandler"
+                  MouseRightButtonUp="ExpensesDataGrid_OnMouseUpHandler"
+                  TouchUp="ExpensesDataGrid_OnTouchUp">-->
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Początek"
+                                    Binding="{Binding startDate, StringFormat={}{0:dd.MM.yyyy}}"
+                                    SortDirection="Descending"
+                                    CanUserReorder="False"/>
+                <DataGridTextColumn Header="Koniec"
+                                    Binding="{Binding endDate, StringFormat={}{0:dd.MM.yyyy}}"
+                                    CanUserReorder="False"/>
+                <DataGridTextColumn Header="Dochód netto"
+                                    Binding="{Binding netIncome}"
+                                    CanUserReorder="False">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                            <Setter Property="Padding" Value="15, 0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Dochód dodatkowy"
+                                    Binding="{Binding addIncome}"
+                                    CanUserReorder="False">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                            <Setter Property="Padding" Value="15, 0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Planowane oszczędności"
+                                    Binding="{Binding plannedSavings}"
+                                    CanUserReorder="False">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                            <Setter Property="Padding" Value="15, 0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

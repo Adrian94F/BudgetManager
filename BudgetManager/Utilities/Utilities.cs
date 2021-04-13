@@ -9,6 +9,11 @@ namespace BudgetManager
 {
     class Utilities
     {
+        public static string EmptyIfZero(Decimal value)
+        {
+            return value > Decimal.Zero ? value.ToString("F") : "";
+        }
+
         public static Window OpenNewOrRestoreWindow<T>() where T : Window, new()
         {
             foreach (Window w in Application.Current.Windows)
