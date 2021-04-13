@@ -103,6 +103,9 @@
     <Compile Include="Pages\BurndownPage.xaml.cs">
       <DependentUpon>BurndownPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ExpensePage.xaml.cs">
+      <DependentUpon>ExpensePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HistoryPage.xaml.cs">
       <DependentUpon>HistoryPage.xaml</DependentUpon>
     </Compile>
@@ -121,11 +124,9 @@
     <Compile Include="Pages\TablePage.xaml.cs">
       <DependentUpon>TablePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="User controls\ExpenseDialog.xaml.cs">
       <DependentUpon>ExpenseDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="User controls\ExpensesList.xaml.cs">
-      <DependentUpon>ExpensesList.xaml</DependentUpon>
     </Compile>
     <Compile Include="User controls\ExpensesTable.xaml.cs">
       <DependentUpon>ExpensesTable.xaml</DependentUpon>
@@ -147,7 +148,7 @@
       <DependentUpon>ExpenseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\FilesHandler.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -204,6 +205,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ExpensePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\HistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -233,10 +238,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="User controls\ExpenseDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="User controls\ExpensesList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
