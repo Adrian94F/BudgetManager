@@ -48,9 +48,10 @@
 
             <Button Grid.Row="0"
                     Grid.Column="5"
-                    Margin="5, 0,0, 0"
-                    Content="X"
-                    Click="ButtonClear_OnClick" />
+                    Margin="5, 0"
+                    FontFamily="Segoe MDL2 Assets"
+                    Content="&#xE106;"
+                    Click="ButtonClear_OnClick"/>
 
             <Button x:Name="AddButton"
                     Grid.Row="0"
