@@ -53,6 +53,8 @@ namespace BudgetManager.Pages
             LoadCategories();
             SetupDatePicker();
             FillWithCorrectValues();
+
+            ValueTextBox.Focus();
         }
 
         private void FillWithCorrectValues()
@@ -145,7 +147,7 @@ namespace BudgetManager.Pages
             var category = (ExpenseCategory)CategoriesComboBox.SelectedItem;
             var date = (DateTime?)ExpenseDatePicker.SelectedDate;
 
-            return value > 0 &&
+            return value != 0 &&
                    category != null &&
                    date != null;
         }
@@ -161,6 +163,11 @@ namespace BudgetManager.Pages
         private void ValueTextBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
             ValueTextBox.Text = ParseDecimalString(ValueTextBox.Text).ToString("F");
+            OnSomethingChanged();
+        }
+
+        private void ValueTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
             OnSomethingChanged();
         }
 
