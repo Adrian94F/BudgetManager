@@ -14,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BudgetManager.Pages;
+using ModernWpf.Controls;
+using ModernWpf.Controls.Primitives;
+using Frame = System.Windows.Controls.Frame;
 
 namespace BudgetManager.User_controls
 {
@@ -39,6 +42,43 @@ namespace BudgetManager.User_controls
             }
 
             CategoriesDataGrid.ItemsSource = categoriesCollection;
+        }
+
+        private void ShowCategoryFlyout(FrameworkElement objectToShowOn)
+        {
+            var categoryFrame = new Frame();
+            var flyout = new Flyout
+            {
+                Content = categoryFrame,
+                ShowMode = FlyoutShowMode.Standard,
+                Placement = FlyoutPlacementMode.Bottom
+            };
+            var category = objectToShowOn.GetType() == typeof(DataGridRow)
+                ? ((CategoryDataItem)((DataGridRow)objectToShowOn).Item).originalCategory // DataGridRow
+                : null;  // Button etc.
+            var categoryPage = new CategoryPage(flyout, category);
+            categoryFrame.Navigate(categoryPage);
+            flyout.Closed += (sender, o) => LoadCategories();
+            flyout.ShowAt(objectToShowOn);
+        }
+
+        private void AddButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ShowCategoryFlyout((Button)sender);
+        }
+
+        private void CategoriesDataGrid_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var row = ItemsControl.ContainerFromElement((DataGrid)sender,
+                e.OriginalSource as DependencyObject) as DataGridRow;
+            ShowCategoryFlyout(row);
+        }
+
+        private void CategoriesDataGrid_OnTouchUp(object sender, TouchEventArgs e)
+        {
+            var row = ItemsControl.ContainerFromElement((DataGrid)sender,
+                e.OriginalSource as DependencyObject) as DataGridRow;
+            ShowCategoryFlyout(row);
         }
     }
 

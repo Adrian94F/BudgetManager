@@ -24,7 +24,8 @@
         <Button Grid.Row="0"
                 Grid.Column="1"
                 Margin="10"
-                Content="Dodaj"/>
+                Content="Dodaj"
+                Click="AddButton_OnClick"/>
         <DataGrid Grid.Row="1"
                   Grid.Column="0"
                   Grid.ColumnSpan="2"
@@ -33,7 +34,10 @@
                   AutoGenerateColumns="False"
                   SelectionMode="Single"
                   SelectionUnit="FullRow"
-                  x:Name="CategoriesDataGrid">
+                  x:Name="CategoriesDataGrid"
+                  MouseUp="CategoriesDataGrid_OnMouseUp"
+                  MouseRightButtonUp="CategoriesDataGrid_OnMouseUp"
+                  TouchUp="CategoriesDataGrid_OnTouchUp">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nazwa"
                                     Binding="{Binding name}"/>
