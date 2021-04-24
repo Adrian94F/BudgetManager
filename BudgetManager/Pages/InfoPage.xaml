@@ -7,55 +7,35 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="InfoPage">
+    <Page.Resources>
+        <Style BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="10, 5"/>
+        </Style>
+        <Style x:Key="Header" BasedOn="{StaticResource TitleTextBlockStyle}" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="10, 10, 10, 5"/>
+        </Style>
+    </Page.Resources>
 
     <Grid>
-        <ScrollViewer CanContentScroll="True"
-                      PanningMode="VerticalOnly">
-            <RichTextBox IsReadOnly="True"
-                         BorderThickness="0">
-                <FlowDocument PagePadding="24">
-                    <Paragraph>
-                        Program stworzony do kontroli domowego budżetu przez Adrian Frydmańskiego na licencji GPL.
-                    </Paragraph>
-                    <Paragraph>
-                        Repozytorium:
-                        <LineBreak/>
-                        <Hyperlink NavigateUri="https://github.com/Adrian94F">github.com/Adrian94F/BudgetManager</Hyperlink>
-                    </Paragraph>
-                    <Paragraph>
-                        Wszelkie i niewszelkie prawa zastrzeżone.
-                    </Paragraph>
-                    <Paragraph>
-                        <Bold>
-                            <Run Text="Skróty klawiszowe"/>
-                        </Bold>
-                    </Paragraph>
-                    <Paragraph>
-                        <Run Text="Ctrl + N – nowy wydatek"/>
-                        <!--<LineBreak/>
-                        <Run Text="Ctrl + K – kategorie"/>
-                        <LineBreak/>
-                        <Run Text="Ctrl + M – miesiące"/>-->
-                    </Paragraph>
-                    <!--<Paragraph>
-                        <Run Text="Ctrl + W – tabela wydatków"/>
-                        <LineBreak/>
-                        <Run Text="Ctrl + L – lista wydatków"/>
-                        <LineBreak/>
-                        <Run Text="Ctrl + B – wykres wypalenia"/>
-                        <LineBreak/>
-                        <Run Text="Ctrl + H – historia"/>
-                    </Paragraph>-->
-                    <Paragraph>
-                        <Run Text="CTRL + S – zapisz"/>
-                    </Paragraph>
-                    <!--<Paragraph>
-                        <Run Text="Page Up – poprzedni miesiąc"/>
-                        <LineBreak/>
-                        <Run Text="Page Down – następny miesiąc"/>
-                    </Paragraph>-->
-                </FlowDocument>
-            </RichTextBox>
-    </ScrollViewer>
+        <StackPanel Orientation="Vertical"
+                    CanVerticallyScroll="True">
+            <TextBlock Style="{StaticResource Header}"
+                       Text="Skróty klawiszowe"/>
+            <TextBlock Text="Ctrl + S – zapisz"/>
+
+            <TextBlock Style="{StaticResource Header}"
+                       Text="O programie"/>
+            <TextBlock Text="Program stworzony do kontroli domowego budżetu przez Adrian Frydmańskiego na licencji GPL."/>
+            <TextBlock>
+                Repozytorium:
+                <Hyperlink NavigateUri="github.com/Adrian94F/BudgetManager"
+                           RequestNavigate="Hyperlink_OnRequestNavigate">
+                    GitHub
+                </Hyperlink>
+            </TextBlock>
+            <TextBlock Text="Wszelkie i niewszelkie prawa zastrzeżone."/>
+            <TextBlock Text="Używasz na własną odpowiedzialność!"/>
+        </StackPanel>
     </Grid>
 </Page>

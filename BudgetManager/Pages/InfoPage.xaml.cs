@@ -24,5 +24,10 @@ namespace BudgetManager.Pages
         {
             InitializeComponent();
         }
+
+        private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
