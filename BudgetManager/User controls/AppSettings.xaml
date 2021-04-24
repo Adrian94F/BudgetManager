@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
         <Grid.Resources>
             <Style TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
-                <Setter Property="Margin" Value="0, 10"/>
+                <Setter Property="Margin" Value="10"/>
             </Style>
             <Style TargetType="Separator">
                 <Setter Property="Margin" Value="0, 10"/>
@@ -35,7 +35,7 @@
         <controls:NumberBox Grid.Row="0"
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
-                            Margin="10, 0, 0 , 0"
+                            Margin="10, 0"
                             VerticalAlignment="Center"
                             Maximum="31"
                             Minimum="1"
@@ -55,12 +55,13 @@
         <TextBox Grid.Row="3"
                  Grid.Column="0"
                  Grid.ColumnSpan="2"
+                 Margin="10, 0"
                  VerticalAlignment="Center"
                  x:Name="DataPathTextBox"
                  IsReadOnly="True"/>
         <Button Grid.Row="3"
                 Grid.Column="2"
-                Margin="10, 0, 0 , 0"
+                Margin="10, 0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Content="Zmień"
