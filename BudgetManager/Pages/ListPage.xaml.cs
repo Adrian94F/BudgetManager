@@ -57,17 +57,14 @@ namespace BudgetManager.Pages
         private void LoadCategories()
         {
             var categories = AppData.expenseCategories;
-            CategoriesComboBox.Items.Add("—");
-            var selectedIndex = 0;
             foreach (var category in categories)
             {
                 CategoriesComboBox.Items.Add(category);
                 if (category == selectedCategory)
                 {
-                    selectedIndex = CategoriesComboBox.Items.Count - 1;
+                    CategoriesComboBox.SelectedIndex = CategoriesComboBox.Items.Count - 1;
                 }
             }
-            CategoriesComboBox.SelectedIndex = selectedIndex;
         }
 
         private void SetupDatePicker()
@@ -93,7 +90,7 @@ namespace BudgetManager.Pages
             ExpensesDatePicker.SelectedDate = selectedDate;
         }
 
-        private void ButtonClear_OnClick(object sender, RoutedEventArgs e)
+        private void ButtonClearDate_OnClick(object sender, RoutedEventArgs e)
         {
             ClearSelectedDate();
         }
@@ -103,16 +100,14 @@ namespace BudgetManager.Pages
             var expenses = AppData.billingPeriods?.ElementAt(AppData.currentPeriod).expenses;
             filteredExpenses = new ObservableCollection<ExpenseDataItem>();
 
-            var isCategorySelected = CategoriesComboBox.SelectedItem.GetType() == typeof(ExpenseCategory);
-            var category = isCategorySelected
-                ? (ExpenseCategory) CategoriesComboBox.SelectedItem
-                : null;
+            var isCategorySelected = CategoriesComboBox.SelectedIndex >= 0;
+            var category = CategoriesComboBox.SelectedItem;
             var date = ExpensesDatePicker.SelectedDate;
             var isDateSelected = date != null;
 
             foreach (var expense in expenses)
             {
-                if (((isCategorySelected && expense.category == category) || !isCategorySelected) &&
+                if ((expense.category == category || category == null) &&
                     ((isDateSelected && expense.date == date) || !isDateSelected))
                 {
                     filteredExpenses.Add(new ExpenseDataItem(expense));
@@ -198,6 +193,11 @@ namespace BudgetManager.Pages
             var row = ItemsControl.ContainerFromElement((DataGrid)sender,
                 e.OriginalSource as DependencyObject) as DataGridRow;
             ShowFlyoutOnRow(row);
+        }
+
+        private void ButtonClearCategory_OnClick(object sender, RoutedEventArgs e)
+        {
+            CategoriesComboBox.SelectedIndex = -1;
         }
     }
 
