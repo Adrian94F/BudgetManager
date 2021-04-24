@@ -14,6 +14,7 @@ namespace BudgetManager
     public partial class App : Application
     {
         private FilesHandler filesHandler;
+
         private void LoadData()
         {
             filesHandler = new FilesHandler();
