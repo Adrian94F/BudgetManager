@@ -8,6 +8,13 @@
       d:DesignHeight="450" d:DesignWidth="480"
       Title="ListPage">
 
+
+    <Page.Resources>
+        <Style BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
