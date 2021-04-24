@@ -43,7 +43,6 @@ namespace BudgetManager
             if (PagesList.SelectedValue is Type type && RootFrame != null)
             {
                 RootFrame.Content = Activator.CreateInstance(type);
-                //RootFrame?.Navigate(type);
             }
         }
 
@@ -88,11 +87,6 @@ namespace BudgetManager
             RefreshPage();
         }
 
-        private void ExpenseWindow_Closed(object sender, EventArgs e)
-        {
-            RefreshPage();
-        }
-
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             if (AppData.isDataChanged)
@@ -124,6 +118,8 @@ namespace BudgetManager
             }
 
             NavigateToSelectedPage();
+
+            StatusBar.Refresh();
         }
 
         private void PreviousBillingPeriod()
@@ -140,6 +136,8 @@ namespace BudgetManager
             }
 
             NavigateToSelectedPage();
+
+            StatusBar.Refresh();
         }
 
         private void ButtonSave_OnClick(object sender, RoutedEventArgs e)

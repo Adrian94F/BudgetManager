@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:BudgetManager"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:commands="clr-namespace:BudgetManager.Commands"
+        xmlns:uc="clr-namespace:BudgetManager.User_controls"
         ui:ThemeManager.IsThemeAware="True"
         ui:WindowHelper.UseModernWindowStyle="True"
         mc:Ignorable="d"
@@ -20,6 +21,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -48,8 +50,7 @@
                <!--Background="{DynamicResource SystemControlPageBackgroundChromeLowBrush}"/>-->
 
         <Grid Grid.Row="1"
-              Grid.Column="0"
-              MouseDown="WindowElement_OnMouseDown">
+              Grid.Column="0">
             <!--<Grid.Resources>
                 <Style TargetType="Button">
                     <Setter Property="OverridesDefaultStyle" Value="False" />
@@ -112,5 +113,10 @@
                     x:Name="SaveButton"
                     Click="ButtonSave_OnClick"/>
         </Grid>
+
+        <uc:StatusBar x:Name="StatusBar"
+                      Grid.Row="2"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2"/>
     </Grid>
 </Window>
