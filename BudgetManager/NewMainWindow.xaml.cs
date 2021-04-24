@@ -93,18 +93,6 @@ namespace BudgetManager
             RefreshPage();
         }
 
-        private void Add()
-        {
-            AppData.selectedCategory = null;
-            AppData.selectedDate = DateTime.Now;
-            AppData.selectedExpense = null;
-            var expenseWindowTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpenseWindow>();
-            if (expenseWindowTuple.Item2)
-            {
-                expenseWindowTuple.Item1.Closed += ExpenseWindow_Closed;
-            }
-        }
-
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             if (AppData.isDataChanged)
@@ -121,17 +109,18 @@ namespace BudgetManager
                 }
             }
         }
+
         private void NextBillingPeriod()
         {
             AppData.currentPeriod++;
             if (AppData.currentPeriod >= AppData.billingPeriods.Count - 1)
             {
                 AppData.currentPeriod = AppData.billingPeriods.Count - 1;
-                MenuItemNext.IsEnabled = false;
+                NextButton.IsEnabled = false;
             }
-            if (!MenuItemPrev.IsEnabled)
+            if (!PrevButton.IsEnabled)
             {
-                MenuItemPrev.IsEnabled = true;
+                PrevButton.IsEnabled = true;
             }
 
             NavigateToSelectedPage();
@@ -143,44 +132,34 @@ namespace BudgetManager
             if (AppData.currentPeriod <= 0)
             {
                 AppData.currentPeriod = 0;
-                MenuItemPrev.IsEnabled = false;
+                PrevButton.IsEnabled = false;
             }
-            if (!MenuItemNext.IsEnabled)
+            if (!NextButton.IsEnabled)
             {
-                MenuItemNext.IsEnabled = true;
+                NextButton.IsEnabled = true;
             }
 
             NavigateToSelectedPage();
         }
 
-        private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
+        private void ButtonSave_OnClick(object sender, RoutedEventArgs e)
         {
             SaveData();
         }
 
-        private void ReloadMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            ReloadData();
-        }
-
-        private void AddExpenseMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            Add();
-        }
-
-        private void PrevMenuItem_Click(object sender, RoutedEventArgs e)
+        private void ButtonPrev_OnClick(object sender, RoutedEventArgs e)
         {
             PreviousBillingPeriod();
         }
 
-        private void NextPeriodMenuItem_Click(object sender, RoutedEventArgs e)
+        private void ButtonNext_OnClick(object sender, RoutedEventArgs e)
         {
             NextBillingPeriod();
         }
 
-        private void CloseMenuItem_Click(object sender, RoutedEventArgs e)
+        private void WindowElement_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Close();
+            this.DragMove();
         }
     }
 
