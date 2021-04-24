@@ -27,7 +27,8 @@ namespace BudgetManager.Pages
 
         private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            throw new NotImplementedException();
+            System.Diagnostics.Process.Start(e.Uri.ToString());
+            e.Handled = true;
         }
     }
 }

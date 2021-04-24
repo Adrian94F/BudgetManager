@@ -29,7 +29,7 @@
             <TextBlock Text="Program stworzony do kontroli domowego budżetu przez Adrian Frydmańskiego na licencji GPL."/>
             <TextBlock>
                 Repozytorium:
-                <Hyperlink NavigateUri="github.com/Adrian94F/BudgetManager"
+                <Hyperlink NavigateUri="https://github.com/Adrian94F/BudgetManager"
                            RequestNavigate="Hyperlink_OnRequestNavigate">
                     GitHub
                 </Hyperlink>
