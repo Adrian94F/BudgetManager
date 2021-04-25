@@ -45,8 +45,7 @@ namespace BudgetManager
 
             AppData.settings.TypicalBeginningOfPeriod = typicalStartDay;
 
-            var fh = new FilesHandler();
-            fh.SaveSettings();
+            FilesHandler.SaveSettings();
             this.Close();
         }
 

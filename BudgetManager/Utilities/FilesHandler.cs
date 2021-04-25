@@ -14,9 +14,9 @@ namespace BudgetManager
 {
     class FilesHandler
     {
-        readonly string pathToSettings = "settings.data";
+        readonly static string pathToSettings = "settings.data";
 
-        public void ReadData()
+        public static void ReadData()
         {
             ReadSettings();
             
@@ -27,12 +27,12 @@ namespace BudgetManager
             SetupVariables();
         }
 
-        private void SetupVariables()
+        private static void SetupVariables()
         {
             AppData.currentPeriod = AppData.billingPeriods.Count - 1;
         }
 
-        private void ReadSerialized()
+        private static void ReadSerialized()
         {
             var pathToDataSet = AppData.settings.PathToAppData;
             if (File.Exists(pathToDataSet))
@@ -46,7 +46,7 @@ namespace BudgetManager
             }
         }
 
-        private void ReadSettings()
+        private static void ReadSettings()
         {
             if (File.Exists(pathToSettings))
             {
@@ -58,7 +58,7 @@ namespace BudgetManager
             }
         }
 
-        public void SaveData()
+        public static void SaveData()
         {
             var pathToDataSet = AppData.settings.PathToAppData;
             var formatter = new BinaryFormatter();
@@ -68,7 +68,7 @@ namespace BudgetManager
             stream.Close();
         }
 
-        public void SaveSettings()
+        public static void SaveSettings()
         {
             var formatter = new BinaryFormatter();
             var stream = new FileStream(pathToSettings, FileMode.Create, FileAccess.Write);

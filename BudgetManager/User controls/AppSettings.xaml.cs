@@ -69,8 +69,7 @@ namespace BudgetManager.User_controls
 
         private void SaveSettings()
         {
-            var fh = new FilesHandler();
-            fh.SaveSettings();
+            FilesHandler.SaveSettings();
         }
     }
 }

@@ -17,8 +17,7 @@ namespace BudgetManager
 
         private void LoadData()
         {
-            filesHandler = new FilesHandler();
-            filesHandler.ReadData();
+            FilesHandler.ReadData();
         }
 
         private void CheckIfNewPeriodIsNeeded()

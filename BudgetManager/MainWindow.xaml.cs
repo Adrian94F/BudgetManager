@@ -179,8 +179,7 @@ namespace BudgetManager
 
         private void SaveData()
         {
-            var fh = new FilesHandler();
-            fh.SaveData();
+            FilesHandler.SaveData();
             AppData.isDataChanged = false;
             MessageBox.Show("Pomyslnie zapisano wydatki!", "Zapis", MessageBoxButton.OK, MessageBoxImage.Information);
         }
