@@ -350,6 +350,7 @@ namespace BudgetManager.User_controls
         private async Task OpenExpensesListDialog(ExpenseCategory cat, DateTime? date)
         {
             var listPage = new ListPage(cat, date);
+            listPage.HideTitleAndLabels();
             var listFrame = new Frame();
             listFrame.Navigate(listPage);
             var dialog = new ContentDialog

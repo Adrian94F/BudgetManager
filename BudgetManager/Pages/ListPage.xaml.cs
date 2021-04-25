@@ -39,6 +39,15 @@ namespace BudgetManager.Pages
             FillPage();
         }
 
+        public void HideTitleAndLabels()
+        {
+            TextBlock[] tbs = {TitleTextBlock, CategoryTextBlock, DateTextBlock};
+            foreach (var tb in tbs)
+            {
+                tb.Visibility = Visibility.Collapsed;
+            }
+        }
+
         public ListPage(ExpenseCategory cat, DateTime? date)
         {
             InitializeComponent();

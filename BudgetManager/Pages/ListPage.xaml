@@ -24,6 +24,8 @@
               Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="10"/>
@@ -34,37 +36,44 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Kategoria"
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="10"
+                       Style="{StaticResource TitleTextBlockStyle}"
+                       Text="Lista wydatków"
+                       x:Name="TitleTextBlock"/>
+
+            <TextBlock Grid.Column="2"
+                       Text="Kategoria"
                        VerticalAlignment="Center"
                        Padding="4"
-                       Visibility="Collapsed"/>
+                       x:Name="CategoryTextBlock"/>
             <ComboBox x:Name="CategoriesComboBox"
                       Grid.Row="0"
-                      Grid.Column="1"
+                      Grid.Column="3"
+                      VerticalAlignment="Center"
                       Width="150px"
                       SelectionChanged="CategoriesComboBox_OnSelectionChanged" />
-
             <Button Grid.Row="0"
-                    Grid.Column="2"
+                    Grid.Column="4"
                     Margin="5, 0"
                     FontFamily="Segoe MDL2 Assets"
                     Content="&#xE106;"
                     Click="ButtonClearCategory_OnClick"/>
 
             <TextBlock Grid.Row="0"
-                       Grid.Column="4"
+                       Grid.Column="6"
                        Text="Data"
                        VerticalAlignment="Center"
                        Padding="4"
-                       Visibility="Collapsed"/>
+                       x:Name="DateTextBlock"/>
             <DatePicker x:Name="ExpensesDatePicker"
                         Grid.Row="0"
-                        Grid.Column="5"
+                        Grid.Column="7"
                         Text="wybierz datę"
                         SelectedDateChanged="ExpensesDatePicker_OnSelectedDateChanged" />
-
             <Button Grid.Row="0"
-                    Grid.Column="6"
+                    Grid.Column="8"
                     Margin="5, 0"
                     FontFamily="Segoe MDL2 Assets"
                     Content="&#xE106;"
@@ -72,7 +81,7 @@
 
             <Button x:Name="AddButton"
                     Grid.Row="0"
-                    Grid.Column="8"
+                    Grid.Column="10"
                     Content="Dodaj"
                     Click="ButtonAdd_OnClick" />
 

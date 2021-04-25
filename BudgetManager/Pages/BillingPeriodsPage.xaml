@@ -14,6 +14,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="10"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   Text="Miesiące"/>
+
         <Button x:Name="AddButton"
                 Grid.Row="0"
                 Grid.Column="7"
