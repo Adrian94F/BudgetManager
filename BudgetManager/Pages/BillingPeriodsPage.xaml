@@ -19,7 +19,8 @@
                 Grid.Column="7"
                 Margin="10"
                 HorizontalAlignment="Right"
-                Content="Dodaj"/>
+                Content="Dodaj"
+                Click="AddButton_OnClick"/>
 
         <DataGrid x:Name="ExpensesDataGrid"
                   Grid.Row="1"
@@ -28,10 +29,10 @@
                   IsReadOnly="True"
                   AutoGenerateColumns="False"
                   SelectionMode="Single"
-                  SelectionUnit="FullRow">
-                  <!--MouseUp="ExpensesDataGrid_OnMouseUpHandler"
-                  MouseRightButtonUp="ExpensesDataGrid_OnMouseUpHandler"
-                  TouchUp="ExpensesDataGrid_OnTouchUp">-->
+                  SelectionUnit="FullRow"
+                  MouseUp="CategoriesDataGrid_OnMouseUp"
+                  MouseRightButtonUp="CategoriesDataGrid_OnMouseUp"
+                  TouchUp="CategoriesDataGrid_OnTouchUp">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Początek"
                                     Binding="{Binding startDate, StringFormat={}{0:dd.MM.yyyy}}"

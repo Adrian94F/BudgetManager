@@ -13,6 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ModernWpf.Controls;
+using ModernWpf.Controls.Primitives;
+using Frame = System.Windows.Controls.Frame;
+using Page = System.Windows.Controls.Page;
 
 namespace BudgetManager.Pages
 {
@@ -38,6 +42,43 @@ namespace BudgetManager.Pages
             }
 
             ExpensesDataGrid.ItemsSource = periodsCollection;
+        }
+
+        private void ShowBillingPeriodFlyout(FrameworkElement objectToShowOn)
+        {
+            var periodFrame = new Frame();
+            var flyout = new Flyout
+            {
+                Content = periodFrame,
+                ShowMode = FlyoutShowMode.Standard,
+                Placement = FlyoutPlacementMode.Bottom
+            };
+            var period = objectToShowOn.GetType() == typeof(DataGridRow)
+                ? ((BillingPeriodDataItem)((DataGridRow)objectToShowOn).Item).originalBillingPeriod  // DataGridRow
+                : null;  // Button etc.
+            var periodPage = new BillingPeriodPage(flyout, period);
+            periodFrame.Navigate(periodPage);
+            flyout.Closed += (sender, o) => FillTable();
+            flyout.ShowAt(objectToShowOn);
+        }
+
+        private void AddButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ShowBillingPeriodFlyout((Button)sender);
+        }
+
+        private void CategoriesDataGrid_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var row = ItemsControl.ContainerFromElement((DataGrid)sender,
+                e.OriginalSource as DependencyObject) as DataGridRow;
+            ShowBillingPeriodFlyout(row);
+        }
+
+        private void CategoriesDataGrid_OnTouchUp(object sender, TouchEventArgs e)
+        {
+            var row = ItemsControl.ContainerFromElement((DataGrid)sender,
+                e.OriginalSource as DependencyObject) as DataGridRow;
+            ShowBillingPeriodFlyout(row);
         }
     }
 
