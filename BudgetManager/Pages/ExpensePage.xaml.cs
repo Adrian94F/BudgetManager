@@ -106,21 +106,6 @@ namespace BudgetManager.Pages
             SetSelectedDate();
         }
 
-        private decimal ParseDecimalString(string str)
-        {
-            str = Regex.Replace(str, "[^0-9-,]", "");
-            decimal ret;
-            try
-            {
-                ret = decimal.Parse(str, NumberStyles.AllowCurrencySymbol | NumberStyles.Number | NumberStyles.AllowLeadingSign);
-            }
-            catch (Exception)
-            {
-                ret = Decimal.Zero;
-            }
-            return ret;
-        }
-
         private bool IsAnyOfExpenseValuesDifferent()
         {
             if (expense == null || ExpenseDatePicker == null)
@@ -128,7 +113,7 @@ namespace BudgetManager.Pages
                 return false;
             }
 
-            var value = ParseDecimalString(ValueTextBox.Text);
+            var value = Utilities.ParseDecimalString(ValueTextBox.Text);
             var category = (ExpenseCategory)CategoriesComboBox.SelectedItem;
             var date = (DateTime?)ExpenseDatePicker.SelectedDate;
             var comment = CommentTextBox.Text;
@@ -143,7 +128,7 @@ namespace BudgetManager.Pages
 
         private bool AreRequiredValuesExisting()
         {
-            var value = ParseDecimalString(ValueTextBox.Text);
+            var value = Utilities.ParseDecimalString(ValueTextBox.Text);
             var category = (ExpenseCategory)CategoriesComboBox.SelectedItem;
             var date = (DateTime?)ExpenseDatePicker.SelectedDate;
 
@@ -162,7 +147,7 @@ namespace BudgetManager.Pages
 
         private void ValueTextBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
-            ValueTextBox.Text = ParseDecimalString(ValueTextBox.Text).ToString("F");
+            ValueTextBox.Text = Utilities.ParseDecimalString(ValueTextBox.Text).ToString("F");
             OnSomethingChanged();
         }
 
@@ -198,7 +183,7 @@ namespace BudgetManager.Pages
                 // new expense
                 var exp = new Expense
                 {
-                    value = ParseDecimalString(ValueTextBox.Text),
+                    value = Utilities.ParseDecimalString(ValueTextBox.Text),
                     date = ExpenseDatePicker.SelectedDate ?? DateTime.Today,
                     category = (ExpenseCategory) CategoriesComboBox.SelectedItem,
                     monthlyExpense = MonthlyExpenseCheckBox.IsChecked ?? false,
@@ -209,7 +194,7 @@ namespace BudgetManager.Pages
             else
             {
                 // existing expense
-                expense.value = ParseDecimalString(ValueTextBox.Text);
+                expense.value = Utilities.ParseDecimalString(ValueTextBox.Text);
                 expense.date = ExpenseDatePicker.SelectedDate ?? DateTime.Today;
                 expense.category = (ExpenseCategory) CategoriesComboBox.SelectedItem;
                 expense.monthlyExpense = MonthlyExpenseCheckBox.IsChecked ?? false;
