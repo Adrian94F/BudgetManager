@@ -51,31 +51,6 @@
 
         <Grid Grid.Row="1"
               Grid.Column="0">
-            <!--<Grid.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="OverridesDefaultStyle" Value="False" />
-                    <Setter Property="Background" Value="MediumAquamarine" />
-
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Grid Background="{TemplateBinding Background}">
-                                    <ContentPresenter x:Name="MyContentPresenter" 
-                                                      Content="{TemplateBinding Content}"
-                                                      HorizontalAlignment="Center" 
-                                                      VerticalAlignment="Center" />
-                                </Grid>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-
-                    <Style.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" Value="Green"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Resources>-->
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
