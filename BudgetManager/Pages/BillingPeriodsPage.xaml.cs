@@ -46,6 +46,8 @@ namespace BudgetManager.Pages
 
         private void ShowBillingPeriodFlyout(FrameworkElement objectToShowOn)
         {
+            if (objectToShowOn == null)
+                return;
             var periodFrame = new Frame();
             var flyout = new Flyout
             {
