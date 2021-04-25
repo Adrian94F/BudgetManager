@@ -18,13 +18,13 @@ using BudgetManager.Pages;
 namespace BudgetManager
 {
     /// <summary>
-    /// Interaction logic for NewMainWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class NewMainWindow : Window
+    public partial class MainWindow : Window
     {
         private Type startPageType = typeof(SummaryPage);
 
-        public NewMainWindow()
+        public MainWindow()
         {
             InitializeComponent();
             SetStartPage();
@@ -71,7 +71,7 @@ namespace BudgetManager
             NavigateToSelectedPage();
         }
 
-        private void SaveData()
+        public void SaveData()
         {
             FilesHandler.SaveData();
             AppData.isDataChanged = false;
@@ -102,60 +102,22 @@ namespace BudgetManager
             }
         }
 
-        private void NextBillingPeriod()
+        public void ChangeBillingPeriod()
         {
-            AppData.currentPeriod++;
-            if (AppData.currentPeriod >= AppData.billingPeriods.Count - 1)
-            {
-                AppData.currentPeriod = AppData.billingPeriods.Count - 1;
-                NextButton.IsEnabled = false;
-            }
-            if (!PrevButton.IsEnabled)
-            {
-                PrevButton.IsEnabled = true;
-            }
 
             NavigateToSelectedPage();
 
             StatusBar.Refresh();
-        }
-
-        private void PreviousBillingPeriod()
-        {
-            AppData.currentPeriod--;
-            if (AppData.currentPeriod <= 0)
-            {
-                AppData.currentPeriod = 0;
-                PrevButton.IsEnabled = false;
-            }
-            if (!NextButton.IsEnabled)
-            {
-                NextButton.IsEnabled = true;
-            }
-
-            NavigateToSelectedPage();
-
-            StatusBar.Refresh();
-        }
-
-        private void ButtonSave_OnClick(object sender, RoutedEventArgs e)
-        {
-            SaveData();
-        }
-
-        private void ButtonPrev_OnClick(object sender, RoutedEventArgs e)
-        {
-            PreviousBillingPeriod();
-        }
-
-        private void ButtonNext_OnClick(object sender, RoutedEventArgs e)
-        {
-            NextBillingPeriod();
         }
 
         private void WindowElement_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void SaveCommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            SaveData();
         }
     }
 

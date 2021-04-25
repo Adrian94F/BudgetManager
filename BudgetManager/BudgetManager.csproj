@@ -131,6 +131,9 @@
     <Compile Include="User controls\ExpensesTable.xaml.cs">
       <DependentUpon>ExpensesTable.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User controls\NavigationButtons.xaml.cs">
+      <DependentUpon>NavigationButtons.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User controls\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
@@ -210,6 +213,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="User controls\ExpensesTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User controls\NavigationButtons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
