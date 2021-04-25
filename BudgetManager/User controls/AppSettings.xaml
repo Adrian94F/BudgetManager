@@ -13,6 +13,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -30,9 +32,15 @@
 
         <TextBlock Grid.Row="0"
                    Grid.Column="0"
+                   Margin="10"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   Text="Ustawienia ogólne"/>
+
+        <TextBlock Grid.Row="1"
+                   Grid.Column="0"
                    VerticalAlignment="Center"
                    Text="Domyślny początek okresu rozliczeniowego:"/>
-        <controls:NumberBox Grid.Row="0"
+        <controls:NumberBox Grid.Row="1"
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
                             Margin="10, 0"
@@ -44,27 +52,31 @@
                             ValueChanged="BillingPeriodTypicalBeginningNumberBox_OnValueChanged"
                             x:Name="BillingPeriodTypicalBeginningNumberBox"/>
 
-        <Separator Grid.Row="1"
+        <Separator Grid.Row="2"
                    Grid.Column="0"
                    Grid.ColumnSpan="3"/>
 
-        <TextBlock Grid.Row="2"
+        <TextBlock Grid.Row="3"
                    Grid.Column="0"
                    VerticalAlignment="Center"
                    Text="Ścieżka do pliku z danymi:"/>
-        <TextBox Grid.Row="3"
+        <TextBox Grid.Row="4"
                  Grid.Column="0"
                  Grid.ColumnSpan="2"
                  Margin="10, 0"
                  VerticalAlignment="Center"
                  x:Name="DataPathTextBox"
                  IsReadOnly="True"/>
-        <Button Grid.Row="3"
+        <Button Grid.Row="4"
                 Grid.Column="2"
                 Margin="10, 0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Content="Zmień"
                 Click="BtnChangePathToDataSet_Click"/>
+
+        <Separator Grid.Row="5"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="3"/>
     </Grid>
 </UserControl>

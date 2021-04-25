@@ -55,14 +55,36 @@ namespace BudgetManager.Pages
             parent.Hide();
         }
 
+        private bool CategoryNotUsed(ExpenseCategory category)
+        {
+            foreach (var period in AppData.billingPeriods)
+            {
+                foreach (var expense in period.expenses)
+                {
+                    if (expense.category == category)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (AppData.expenseCategories.Contains(category))
+            if (category != null)
             {
-                AppData.expenseCategories.Remove(category);
-                AppData.isDataChanged = true;
-                parent.Hide();
+                if (CategoryNotUsed(category))
+                {
+                    AppData.expenseCategories.Remove(category);
+                    AppData.isDataChanged = true;
+                }
+                else
+                {
+                    MessageBox.Show("Nie można usunąć kategorii, gdyż jest używana. Usuń wydatki lub zmień ich kategorię, a nastepnie spróbuj ponownie.", "Uwaga", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
+            parent.Hide();
         }
     }
 }

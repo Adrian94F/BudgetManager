@@ -97,11 +97,17 @@
     <Compile Include="NewMainWindow.xaml.cs">
       <DependentUpon>NewMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BillingPeriodPage.xaml.cs">
+      <DependentUpon>BillingPeriodPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\BillingPeriodsPage.xaml.cs">
       <DependentUpon>BillingPeriodsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\BurndownPage.xaml.cs">
       <DependentUpon>BurndownPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CategoryPage.xaml.cs">
+      <DependentUpon>CategoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ExpensePage.xaml.cs">
       <DependentUpon>ExpensePage.xaml</DependentUpon>
@@ -124,11 +130,20 @@
     <Compile Include="Pages\TablePage.xaml.cs">
       <DependentUpon>TablePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User controls\AppSettings.xaml.cs">
+      <DependentUpon>AppSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User controls\ExpenseCategories.xaml.cs">
+      <DependentUpon>ExpenseCategories.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User controls\ExpenseDialog.xaml.cs">
       <DependentUpon>ExpenseDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="User controls\ExpensesTable.xaml.cs">
       <DependentUpon>ExpensesTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User controls\StatusBar.xaml.cs">
+      <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\BMCommands.cs" />
     <Compile Include="CategoriesWindow.xaml.cs">
@@ -196,11 +211,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\BillingPeriodPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\BillingPeriodsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\BurndownPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\CategoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -236,11 +259,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="User controls\AppSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User controls\ExpenseCategories.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="User controls\ExpenseDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="User controls\ExpensesTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User controls\StatusBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -277,6 +312,9 @@
     <Resource Include="calculator.ico" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FluentWPF">
+      <Version>0.9.0</Version>
+    </PackageReference>
     <PackageReference Include="MetroRadiance.Chrome">
       <Version>2.2.0</Version>
     </PackageReference>
