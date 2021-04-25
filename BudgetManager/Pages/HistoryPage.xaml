@@ -8,7 +8,11 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HistoryPage">
 
-    <Grid Margin="10">
-        <Grid x:Name="HistoryChartGrid"/>
-    </Grid>
+    <ScrollViewer x:Name="HistoryScrollViewer"
+                  HorizontalScrollBarVisibility="Visible"
+                  VerticalScrollBarVisibility="Disabled"
+                  PanningMode="HorizontalOnly">
+        <Grid x:Name="HistoryChartGrid"
+              Margin="10, 10, 10, 15"/>
+    </ScrollViewer>
 </Page>

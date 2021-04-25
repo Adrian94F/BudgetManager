@@ -23,13 +23,11 @@ namespace BudgetManager.Pages
     public partial class HistoryPage : Page
     {
         SortedSet<BillingPeriod> periods;
-        Grid grid;
 
         public HistoryPage()
         {
             InitializeComponent();
             periods = AppData.billingPeriods;
-            grid = HistoryChartGrid;
             Plot();
         }
 
@@ -103,14 +101,19 @@ namespace BudgetManager.Pages
             {
                 LabelFormatter = value => Math.Round(value).ToString(),
                 Separator = new LiveCharts.Wpf.Separator(),
+                Position = AxisPosition.RightTop
             });
 
             // add to grid
-            chart.Margin = new System.Windows.Thickness(0);
-            chart.LegendLocation = LegendLocation.Top;
-            grid.Children.Clear();
-            grid.Children.Add(chart);
+            //chart.Margin = new System.Windows.Thickness(0);
+            chart.LegendLocation = LegendLocation.None;
+            HistoryChartGrid.Children.Clear();
+            HistoryChartGrid.Children.Add(chart);
 
+            var widthForSinglePeriod = 80;
+            HistoryChartGrid.Width = widthForSinglePeriod * nOfPeriods;
+
+            HistoryScrollViewer.ScrollToRightEnd();
         }
     }
 }
