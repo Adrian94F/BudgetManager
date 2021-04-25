@@ -117,7 +117,15 @@ namespace BudgetManager.Pages
 
         private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
         {
-            AppData.billingPeriods.Remove(period);
+            if (period.IsEmpty())
+            {
+                AppData.billingPeriods.Remove(period);
+                AppData.isDataChanged = true;
+            }
+            else
+            {
+                MessageBox.Show("Nie można usunąć miesiąca, gdyż nie jest pusty. Usuń wszystkie wydatki, a nastepnie spróbuj ponownie.", "Uwaga", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
             parent.Hide();
         }
 

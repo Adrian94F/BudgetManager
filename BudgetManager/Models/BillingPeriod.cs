@@ -41,6 +41,11 @@ namespace BudgetManager
             return ret;
         }
 
+        public bool IsEmpty()
+        {
+            return expenses.Count == 0;
+        }
+
         public int CompareTo(object obj)
         {
             return startDate.CompareTo(((BillingPeriod)obj).startDate);
