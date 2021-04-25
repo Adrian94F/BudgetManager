@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -32,12 +33,105 @@ namespace BudgetManager.Pages
 
             if (p != null)
             {
-                StartDatePicker.SelectedDate = p.startDate;
-                EndDatePicker.SelectedDate = p.endDate;
-                NetIncomeTextBox.Text = p.netIncome.ToString("F");
-                AddIncomeTextBox.Text = p.additionalIncome.ToString("F");
-                PlannedSavingsTextBox.Text = p.plannedSavings.ToString("F");
+                FillForExistingPeriod(p);
             }
+            else
+            {
+                FillForNewPeriod();
+            }
+            SetupButtons();
+        }
+
+        private bool IsSaveable()
+        {
+            var startDate = StartDatePicker.SelectedDate;
+            var endDate = EndDatePicker.SelectedDate;
+            var netIncome = Utilities.ParseDecimalString(NetIncomeTextBox.Text);
+            var addIncome = Utilities.ParseDecimalString(AddIncomeTextBox.Text);
+            var plannedSavings = Utilities.ParseDecimalString(PlannedSavingsTextBox.Text);
+
+            return (period != null &&
+                    (startDate != period.startDate ||
+                     endDate != period.endDate ||
+                     netIncome != period.netIncome ||
+                     addIncome != period.additionalIncome ||
+                     plannedSavings != period.plannedSavings)) ||
+                   (startDate != null && endDate != null);
+        }
+
+        private void SetupButtons()
+        {
+            DeleteButton.IsEnabled = period != null;
+            SaveButton.IsEnabled = IsSaveable();
+        }
+
+        private void FillForExistingPeriod(BillingPeriod p)
+        {
+            StartDatePicker.SelectedDate = p.startDate;
+            EndDatePicker.SelectedDate = p.endDate;
+            NetIncomeTextBox.Text = p.netIncome.ToString("F");
+            AddIncomeTextBox.Text = p.additionalIncome.ToString("F");
+            PlannedSavingsTextBox.Text = p.plannedSavings.ToString("F");
+        }
+
+        private void FillForNewPeriod()
+        {
+            if (AppData.billingPeriods.Count > 0)
+            {
+                var endDateOfLastPeriod =
+                    AppData.billingPeriods.ElementAt(AppData.billingPeriods.Count - 1).endDate;
+                StartDatePicker.SelectedDate = endDateOfLastPeriod.AddDays(1);
+
+                var proposedEndDateOfNewPeriod = endDateOfLastPeriod.AddMonths(1);
+                proposedEndDateOfNewPeriod = new DateTime(proposedEndDateOfNewPeriod.Year,
+                    proposedEndDateOfNewPeriod.Month, AppData.settings.TypicalBeginningOfPeriod - 1);
+                EndDatePicker.SelectedDate = proposedEndDateOfNewPeriod;
+            }
+        }
+
+        private void SaveButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (period != null)
+            {
+                period.startDate = (DateTime) StartDatePicker.SelectedDate;
+                period.endDate = (DateTime) EndDatePicker.SelectedDate;
+                period.netIncome = Utilities.ParseDecimalString(NetIncomeTextBox.Text);
+                period.additionalIncome = Utilities.ParseDecimalString(AddIncomeTextBox.Text);
+                period.plannedSavings = Utilities.ParseDecimalString(PlannedSavingsTextBox.Text);
+
+            }
+            else
+            {
+                var period = new BillingPeriod()
+                {
+                    startDate = (DateTime) StartDatePicker.SelectedDate,
+                    endDate = (DateTime) EndDatePicker.SelectedDate,
+                    netIncome = Utilities.ParseDecimalString(NetIncomeTextBox.Text),
+                    additionalIncome = Utilities.ParseDecimalString(AddIncomeTextBox.Text),
+                    plannedSavings = Utilities.ParseDecimalString(PlannedSavingsTextBox.Text)
+                };
+                AppData.billingPeriods.Add(period);
+            }
+            parent.Hide();
+        }
+
+        private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            AppData.billingPeriods.Remove(period);
+            parent.Hide();
+        }
+
+        private void DatePicker_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetupButtons();
+        }
+
+        private void TextBox_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            var tb = (TextBox)sender;
+            var value = Utilities.ParseDecimalString(tb.Text);
+            tb.Text = value.ToString("F");
+            SetupButtons();
         }
     }
 }
