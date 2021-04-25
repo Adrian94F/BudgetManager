@@ -13,8 +13,6 @@ namespace BudgetManager
     /// </summary>
     public partial class App : Application
     {
-        private FilesHandler filesHandler;
-
         private void LoadData()
         {
             FilesHandler.ReadData();
