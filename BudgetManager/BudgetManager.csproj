@@ -83,17 +83,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\BillingPeriod.cs" />
-    <Compile Include="Creators\BillingPeriodsHistoryChartCreator.cs" />
-    <Compile Include="Creators\BillingPeriodChartCreator.cs" />
-    <Compile Include="Creators\BillingPeriodExpensesListCreator.cs" />
-    <Compile Include="Creators\BillingPeriodSummaryCreator.cs" />
-    <Compile Include="Creators\BillingPeriodGridCreator.cs" />
-    <Compile Include="BillingPeriodsWindow.xaml.cs">
-      <DependentUpon>BillingPeriodsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BillingPeriodWindow.xaml.cs">
-      <DependentUpon>BillingPeriodWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="NewMainWindow.xaml.cs">
       <DependentUpon>NewMainWindow.xaml</DependentUpon>
     </Compile>
@@ -146,65 +135,18 @@
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\BMCommands.cs" />
-    <Compile Include="CategoriesWindow.xaml.cs">
-      <DependentUpon>CategoriesWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CategoryWindow.xaml.cs">
-      <DependentUpon>CategoryWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Models\AppData.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\ExpenseCategory.cs" />
-    <Compile Include="ExpensesWindow.xaml.cs">
-      <DependentUpon>ExpensesWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ExpenseWindow.xaml.cs">
-      <DependentUpon>ExpenseWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Utilities\FilesHandler.cs" />
     <Compile Include="Models\Settings.cs" />
-    <Compile Include="SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Utilities\Utilities.cs" />
-    <Page Include="BillingPeriodsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BillingPeriodWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CategoriesWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CategoryWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExpensesWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ExpenseWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NewMainWindow.xaml">
@@ -252,10 +194,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\TablePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

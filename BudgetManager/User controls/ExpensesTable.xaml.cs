@@ -276,30 +276,6 @@ namespace BudgetManager.User_controls
             grid.ColumnDefinitions.Add(colDef);
         }
 
-        private void AddButtonToGrid(string text, int row, int col, Grid grid, ExpenseCategory category, DateTime date)
-        {
-            var btn = new Button
-            {
-                Content = text,
-                BorderThickness = new Thickness(0),
-                Background = Brushes.Transparent,
-                MaxHeight = 16,
-                MaxWidth = 40,
-                MinWidth = 40,
-                Padding = new Thickness(0)
-            };
-            btn.Click += (sender, e) => {
-                AppData.selectedCategory = category;
-                AppData.selectedDate = date;
-                var expWinTuple = Utilities.OpenNewOrRestoreWindowAndCheckIfNew<ExpensesWindow>();
-                if (expWinTuple.Item2)
-                {
-                    expWinTuple.Item1.Closed += ExpWin_Closed;
-                }
-            };
-            AddUIElementToGrid(btn, row, col, grid);
-        }
-
         private void ExpWin_Closed(object sender, EventArgs e)
         {
             FillTable();
