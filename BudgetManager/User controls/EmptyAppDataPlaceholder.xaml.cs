@@ -23,6 +23,7 @@ namespace BudgetManager.User_controls
         public EmptyAppDataPlaceholder()
         {
             InitializeComponent();
+            CheckIfNeeded();
         }
 
         private void CheckIfNeeded()
