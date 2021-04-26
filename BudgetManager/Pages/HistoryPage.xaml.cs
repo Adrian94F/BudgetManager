@@ -27,8 +27,11 @@ namespace BudgetManager.Pages
         public HistoryPage()
         {
             InitializeComponent();
-            periods = AppData.billingPeriods;
-            Plot();
+            if (AppData.IsNotEmpty())
+            {
+                periods = AppData.billingPeriods;
+                Plot();
+            }
         }
 
         private void Plot()

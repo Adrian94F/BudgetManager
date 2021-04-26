@@ -27,8 +27,11 @@ namespace BudgetManager.Pages
         public BurndownPage()
         {
             InitializeComponent();
-            period = AppData.billingPeriods.ElementAt(AppData.currentPeriod);
-            Plot();
+            if (AppData.IsNotEmpty())
+            {
+                period = AppData.billingPeriods.ElementAt(AppData.currentPeriod);
+                Plot();
+            }
         }
 
         private void Plot()

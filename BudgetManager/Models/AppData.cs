@@ -17,5 +17,10 @@ namespace BudgetManager
 
         // settings
         public static Settings settings = new Settings();
+
+        public static bool IsNotEmpty()
+        {
+            return billingPeriods.Count > 0;
+        }
     }
 }

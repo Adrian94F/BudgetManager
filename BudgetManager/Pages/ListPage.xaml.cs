@@ -59,8 +59,11 @@ namespace BudgetManager.Pages
         public void FillPage()
         {
             LoadCategories();
-            SetupDatePicker();
-            FillDataGridWithExpenses();
+            if (AppData.IsNotEmpty())
+            {
+                SetupDatePicker();
+                FillDataGridWithExpenses();
+            }
         }
 
         private void LoadCategories()

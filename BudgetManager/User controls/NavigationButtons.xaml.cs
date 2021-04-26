@@ -23,6 +23,20 @@ namespace BudgetManager.User_controls
         public NavigationButtons()
         {
             InitializeComponent();
+            SetupButtons();
+        }
+
+        private void SetupButtons()
+        {
+            if (AppData.IsNotEmpty())
+            {
+                var min = 0;
+                var current = AppData.currentPeriod;
+                var max = AppData.billingPeriods.Count - 1;
+
+                PrevButton.IsEnabled = current > min;
+                NextButton.IsEnabled = current < max;
+            }
         }
 
         private void ButtonSave_OnClick(object sender, RoutedEventArgs e)
@@ -33,30 +47,14 @@ namespace BudgetManager.User_controls
         private void ButtonPrev_OnClick(object sender, RoutedEventArgs e)
         {
             AppData.currentPeriod--;
-            if (AppData.currentPeriod <= 0)
-            {
-                AppData.currentPeriod = 0;
-                PrevButton.IsEnabled = false;
-            }
-            if (!NextButton.IsEnabled)
-            {
-                NextButton.IsEnabled = true;
-            }
+            SetupButtons();
             ((MainWindow)Window.GetWindow(this)).ChangeBillingPeriod();
         }
 
         private void ButtonNext_OnClick(object sender, RoutedEventArgs e)
         {
             AppData.currentPeriod++;
-            if (AppData.currentPeriod >= AppData.billingPeriods.Count - 1)
-            {
-                AppData.currentPeriod = AppData.billingPeriods.Count - 1;
-                NextButton.IsEnabled = false;
-            }
-            if (!PrevButton.IsEnabled)
-            {
-                PrevButton.IsEnabled = true;
-            }
+            SetupButtons();
             ((MainWindow)Window.GetWindow(this)).ChangeBillingPeriod();
         }
     }
