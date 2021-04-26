@@ -15,12 +15,6 @@ namespace BudgetManager
         // main window
         public static int currentPeriod = -1;
 
-        // expense(s) window, list...
-        public static BillingPeriod selectedPeriod;
-        public static ExpenseCategory selectedCategory;
-        public static DateTime selectedDate;
-        public static Expense selectedExpense;
-
         // settings
         public static Settings settings = new Settings();
     }
