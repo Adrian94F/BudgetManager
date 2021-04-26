@@ -7,7 +7,8 @@
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
+            <BitmapImage x:Key="Calculator128" UriSource="Images/calculator_128.png"/>
+                <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Colors.xaml"/>
                 <ui:XamlControlsResources/>
                 <ui:ThemeResources />

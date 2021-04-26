@@ -58,7 +58,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>calculator.ico</ApplicationIcon>
+    <ApplicationIcon>Images\calculator.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -151,6 +151,9 @@
     <Compile Include="User controls\AppSettings.xaml.cs">
       <DependentUpon>AppSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User controls\EmptyAppDataPlaceholder.xaml.cs">
+      <DependentUpon>EmptyAppDataPlaceholder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User controls\ExpenseCategories.xaml.cs">
       <DependentUpon>ExpenseCategories.xaml</DependentUpon>
     </Compile>
@@ -233,6 +236,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="User controls\EmptyAppDataPlaceholder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="User controls\ExpenseCategories.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -284,7 +291,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="calculator.ico" />
+    <Resource Include="Images\calculator.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentWPF">
@@ -311,6 +318,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\calculator_128.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

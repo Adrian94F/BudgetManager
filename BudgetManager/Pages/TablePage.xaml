@@ -10,8 +10,7 @@
       Title="TablePage">
 
     <Grid>
-        <Border>
-            <userControls:ExpensesTable x:Name="Table"/>
-        </Border>
+        <userControls:ExpensesTable x:Name="Table"/>
+        <userControls:EmptyAppDataPlaceholder/>
     </Grid>
 </Page>
