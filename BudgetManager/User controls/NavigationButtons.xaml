@@ -49,9 +49,13 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style TargetType="Separator" BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Height="32">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
@@ -69,10 +73,7 @@
                 x:Name="NextButton"
                 Click="ButtonNext_OnClick"
                 IsEnabled="False"/>
-        <ui:AppBarSeparator Grid.Column="2"
-                            Margin="0"
-                            Padding="0"
-                            Height="32"/>
+        <Separator Grid.Column="2"/>
         <Button Grid.Column="3"
                 Content="&#xE74E;"
                 x:Name="SaveButton"
