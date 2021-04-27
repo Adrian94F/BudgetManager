@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:BudgetManager"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:commands="clr-namespace:BudgetManager.Commands"
-        xmlns:uc="clr-namespace:BudgetManager.User_controls"
+        xmlns:userControls="clr-namespace:BudgetManager.User_controls"
         ui:ThemeManager.IsThemeAware="True"
         ui:WindowHelper.UseModernWindowStyle="True"
+        ui:TitleBar.ExtendViewIntoTitleBar="True"
+        ui:TitleBar.IsBackButtonVisible="False"
         mc:Ignorable="d"
         Title="Menedżer budżetu" Height="500" Width="1100">
     <Window.CommandBindings>
@@ -20,8 +22,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -29,7 +31,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ui:ListView Grid.Row="0"
+        <userControls:TitleBar Grid.Row="0"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"/>
+
+        <ui:ListView Grid.Row="1"
                      Grid.Column="0"
                      x:Name="PagesList"
                      DockPanel.Dock="Top"
@@ -44,17 +50,13 @@
         </ui:ListView>
 
         <Frame x:Name="RootFrame"
-               Grid.Row="0"
-               Grid.RowSpan="2"
+               Grid.Row="1"
                Grid.Column="1"/>
                <!--Background="{DynamicResource SystemControlPageBackgroundChromeLowBrush}"/>-->
 
-        <uc:NavigationButtons Grid.Row="1"
-                              Grid.Column="0"/>
-
-        <uc:StatusBar x:Name="StatusBar"
-                      Grid.Row="2"
-                      Grid.Column="0"
-                      Grid.ColumnSpan="2"/>
+        <userControls:StatusBar x:Name="StatusBar"
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

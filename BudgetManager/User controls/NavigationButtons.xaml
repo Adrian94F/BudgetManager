@@ -4,45 +4,77 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BudgetManager.User_controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="800">
-    <Grid Grid.Row="1"
-          Grid.Column="0">
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             mc:Ignorable="d">
 
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Width" Value="46"/>
+            <Setter Property="TextElement.Foreground" Value="{DynamicResource SystemBaseHighBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource TitleBarButtonBackground}" />
+            <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighBrush}" />
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="MyContentPresenter" 
+                                                  Content="{TemplateBinding Content}"
+                                                  HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{DynamicResource TitleBarButtonBackground}" />
+                    <Setter Property="TextElement.Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListLowBrush}" />
+                    <Setter Property="TextElement.Foreground" Value="{DynamicResource SystemControlHighlightAltBaseHighBrush}" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListMediumBrush}" />
+                    <Setter Property="TextElement.Foreground" Value="{DynamicResource SystemControlHighlightAltBaseHighBrush}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <Button Grid.Column="0"
-                Margin="5"
                 Content="&#xE76B;"
-                FontFamily="Segoe MDL2 Assets"
                 x:Name="PrevButton"
                 Click="ButtonPrev_OnClick"
                 IsEnabled="False"/>
         <Button Grid.Column="1"
-                Margin="5"
                 Content="&#xE76C;"
-                FontFamily="Segoe MDL2 Assets"
                 x:Name="NextButton"
                 Click="ButtonNext_OnClick"
                 IsEnabled="False"/>
-        <Separator Grid.Column="2"
-                   Margin="5"
-                   Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+        <ui:AppBarSeparator Grid.Column="2"
+                            Margin="0"
+                            Padding="0"
+                            Height="32"/>
         <Button Grid.Column="3"
-                Margin="5"
                 Content="&#xE74E;"
-                FontFamily="Segoe MDL2 Assets"
                 x:Name="SaveButton"
                 Click="ButtonSave_OnClick"/>
     </Grid>
