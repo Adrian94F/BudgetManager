@@ -12,7 +12,11 @@
         ui:TitleBar.ExtendViewIntoTitleBar="True"
         ui:TitleBar.IsBackButtonVisible="False"
         mc:Ignorable="d"
-        Title="Menedżer budżetu" Height="500" Width="1100">
+        Title="Menedżer budżetu"
+        Height="500"
+        Width="1100"
+        MinHeight="300"
+        MinWidth="700">
     <Window.CommandBindings>
         <CommandBinding Command="{ x:Static commands:Commands.Save }" Executed="SaveCommandBinding_OnExecuted" />
     </Window.CommandBindings>
