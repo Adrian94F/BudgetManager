@@ -112,6 +112,8 @@ namespace BudgetManager.Pages
                 };
                 AppData.billingPeriods.Add(period);
             }
+
+            AppData.isDataChanged = true;
             parent.Hide();
         }
 
