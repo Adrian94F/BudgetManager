@@ -48,8 +48,7 @@ Podsumowanie przychodów, wydatków i bilansu na przestrzeni wszystkich wpisanyc
   - Wypalenie
     - zaznaczone weekendy
   - Raport
-- Ustawienia
-  - Szerokość kolumny w widoku historii
+- Serializacja danych do JSONa celem wyeliminowania problemu ze zmianą struktury zapisywanych danych
 - Porządkowanie danych
   - W przypadku daty spoza zakresu przenoszenie wydatków do właściwego okresu rozliczeniowego
     - Jeśli okresu brak, pytanie o zmianę daty lub usunięcie
