@@ -23,6 +23,7 @@ namespace BudgetManager.Pages
     public partial class HistoryPage : Page
     {
         SortedSet<BillingPeriod> periods;
+        private int widthForSinglePeriod = 75;
 
         public HistoryPage()
         {
@@ -32,6 +33,18 @@ namespace BudgetManager.Pages
                 periods = AppData.billingPeriods;
                 Plot();
             }
+        }
+
+        public void SetPeriodWidth(int w)
+        {
+            widthForSinglePeriod = w;
+            ChangeGridWidth();
+        }
+
+        private void ChangeGridWidth()
+        {
+            HistoryChartGrid.Width = widthForSinglePeriod * periods.Count - 1;
+            HistoryScrollViewer.ScrollToRightEnd();
         }
 
         private void Plot()
@@ -113,10 +126,7 @@ namespace BudgetManager.Pages
             HistoryChartGrid.Children.Clear();
             HistoryChartGrid.Children.Add(chart);
 
-            var widthForSinglePeriod = 80;
-            HistoryChartGrid.Width = widthForSinglePeriod * nOfPeriods;
-
-            HistoryScrollViewer.ScrollToRightEnd();
+            ChangeGridWidth();
         }
     }
 }
