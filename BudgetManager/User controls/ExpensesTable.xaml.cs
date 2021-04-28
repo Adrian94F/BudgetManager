@@ -357,7 +357,6 @@ namespace BudgetManager.User_controls
             {
                 Title = "Lista wydatków",
                 PrimaryButtonText = "Ok",
-                DefaultButton = ContentDialogButton.Primary,
                 Content = listFrame
             };
             dialog.Closed += (sender, args) => FillTable();
