@@ -46,7 +46,7 @@ namespace BudgetManager
             }
         }
 
-        private void RefreshPage()
+        public void RefreshPage()
         {
             if (RootFrame.Content.GetType() == typeof(SummaryPage))
             {
