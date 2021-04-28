@@ -61,6 +61,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <Button Grid.Column="0"
@@ -78,5 +79,9 @@
                 Content="&#xE74E;"
                 x:Name="SaveButton"
                 Click="ButtonSave_OnClick"/>
+        <Button Grid.Column="4"
+                Content="&#xE72C;"
+                x:Name="RefreshButton"
+                Click="ButtonRefresh_OnClick"/>
     </Grid>
 </UserControl>

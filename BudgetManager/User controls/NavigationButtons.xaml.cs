@@ -57,5 +57,11 @@ namespace BudgetManager.User_controls
             SetupButtons();
             ((MainWindow)Window.GetWindow(this)).ChangeBillingPeriod();
         }
+
+        private void ButtonRefresh_OnClick(object sender, RoutedEventArgs e)
+        {
+            FilesHandler.ReadData();
+            ((MainWindow)Window.GetWindow(this)).RefreshPage();
+        }
     }
 }
