@@ -18,6 +18,12 @@
     </Page.Resources>
 
     <Grid>
+        <Image Source="{StaticResource Calculator128}"
+               Width="128"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Bottom"
+               Margin="15"/>
+
         <StackPanel Orientation="Vertical"
                     CanVerticallyScroll="True">
             <TextBlock Style="{StaticResource Header}"
