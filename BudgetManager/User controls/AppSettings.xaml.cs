@@ -70,6 +70,7 @@ namespace BudgetManager.User_controls
         private void SaveSettings()
         {
             FilesHandler.SaveSettings();
+            FilesHandler.ReadData();
         }
     }
 }
