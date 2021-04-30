@@ -47,7 +47,8 @@
                      SelectedValuePath="PageType"
                      SelectedIndex="0"
                      Width="auto"
-                     SelectionChanged="PagesList_SelectionChanged">
+                     SelectionChanged="PagesList_SelectionChanged"
+                     VirtualizingPanel.ScrollUnit="Pixel">
             <ui:ListView.ItemsSource>
                 <local:PagesData />
             </ui:ListView.ItemsSource>

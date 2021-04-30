@@ -37,7 +37,8 @@
                   x:Name="CategoriesDataGrid"
                   MouseUp="CategoriesDataGrid_OnMouseUp"
                   MouseRightButtonUp="CategoriesDataGrid_OnMouseUp"
-                  TouchUp="CategoriesDataGrid_OnTouchUp">
+                  TouchUp="CategoriesDataGrid_OnTouchUp"
+                  VirtualizingPanel.ScrollUnit="Pixel">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nazwa"
                                     Binding="{Binding name}"/>

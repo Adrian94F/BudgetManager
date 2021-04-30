@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <DataGrid x:Name="ExpensesDataGrid"
+        <DataGrid x:Name="BillingPeriodsDataGrid"
                   Grid.Row="1"
                   Grid.ColumnSpan="9"
                   ItemsSource="{Binding}"
@@ -25,7 +25,8 @@
                   SelectionUnit="FullRow"
                   MouseUp="CategoriesDataGrid_OnMouseUp"
                   MouseRightButtonUp="CategoriesDataGrid_OnMouseUp"
-                  TouchUp="CategoriesDataGrid_OnTouchUp">
+                  TouchUp="CategoriesDataGrid_OnTouchUp"
+                  VirtualizingPanel.ScrollUnit="Pixel">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Początek"
                                     Binding="{Binding startDate, StringFormat={}{0:dd.MM.yyyy}}"

@@ -98,7 +98,8 @@
                   SelectionUnit="FullRow"
                   MouseUp="ExpensesDataGrid_OnMouseUpHandler"
                   MouseRightButtonUp="ExpensesDataGrid_OnMouseUpHandler"
-                  TouchUp="ExpensesDataGrid_OnTouchUp">
+                  TouchUp="ExpensesDataGrid_OnTouchUp"
+                  VirtualizingPanel.ScrollUnit="Pixel">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Data"
                                     Binding="{Binding date, StringFormat={}{0:dd.MM.yyyy}}"

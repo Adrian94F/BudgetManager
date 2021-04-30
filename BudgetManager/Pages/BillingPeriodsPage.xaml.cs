@@ -41,7 +41,7 @@ namespace BudgetManager.Pages
                 periodsCollection.Add(new BillingPeriodDataItem(period));
             }
 
-            ExpensesDataGrid.ItemsSource = periodsCollection;
+            BillingPeriodsDataGrid.ItemsSource = periodsCollection;
         }
 
         private void ShowBillingPeriodFlyout(FrameworkElement objectToShowOn)
