@@ -44,6 +44,7 @@ Podsumowanie przychodów, wydatków i bilansu na przestrzeni wszystkich wpisanyc
 
 ## TODO
 
+- Cofnij/powtórz wykonaną operację
 - Dostosowanie widoków
   - Wypalenie
     - zaznaczone weekendy
