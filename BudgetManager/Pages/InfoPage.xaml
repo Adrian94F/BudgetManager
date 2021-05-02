@@ -22,31 +22,32 @@
                Width="128"
                HorizontalAlignment="Right"
                VerticalAlignment="Bottom"
-               Margin="15"/>
+               Margin="32, 32"/>
 
-        <StackPanel Orientation="Vertical"
-                    CanVerticallyScroll="True">
-            <TextBlock Style="{StaticResource Header}"
-                       Text="Skróty klawiszowe"/>
-            <TextBlock Text="Ctrl + S – zapisz"/>
-            <TextBlock Text="Ctrl + T – widok tabeli"/>
-            <TextBlock Text="Ctrl + L – widok listy wydatków"/>
-            <TextBlock Text="Ctrl + W – widok wypalenia"/>
-            <TextBlock Text="Ctrl + H – widok historii"/>
-            <TextBlock Text="Ctrl + M – widok miesięcy"/>
+        <ScrollViewer>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Style="{StaticResource Header}"
+                           Text="Skróty klawiszowe"/>
+                <TextBlock Text="Ctrl + S – zapisz"/>
+                <TextBlock Text="Ctrl + T – widok tabeli"/>
+                <TextBlock Text="Ctrl + L – widok listy wydatków"/>
+                <TextBlock Text="Ctrl + W – widok wypalenia"/>
+                <TextBlock Text="Ctrl + H – widok historii"/>
+                <TextBlock Text="Ctrl + M – widok miesięcy"/>
 
-            <TextBlock Style="{StaticResource Header}"
-                       Text="O programie"/>
-            <TextBlock Text="Program stworzony do kontroli domowego budżetu przez Adrian Frydmańskiego na licencji GPL."/>
-            <TextBlock>
-                Repozytorium:
-                <Hyperlink NavigateUri="https://github.com/Adrian94F/BudgetManager"
-                           RequestNavigate="Hyperlink_OnRequestNavigate">
-                    GitHub
-                </Hyperlink>
-            </TextBlock>
-            <TextBlock Text="Wszelkie i niewszelkie prawa zastrzeżone."/>
-            <TextBlock Text="Używasz na własną odpowiedzialność!"/>
-        </StackPanel>
+                <TextBlock Style="{StaticResource Header}"
+                           Text="O programie"/>
+                <TextBlock Text="Program stworzony do kontroli domowego budżetu przez Adrian Frydmańskiego na licencji GPL."/>
+                <TextBlock>
+                    Repozytorium:
+                    <Hyperlink NavigateUri="https://github.com/Adrian94F/BudgetManager"
+                               RequestNavigate="Hyperlink_OnRequestNavigate">
+                        GitHub
+                    </Hyperlink>
+                </TextBlock>
+                <TextBlock Text="Wszelkie i niewszelkie prawa zastrzeżone."/>
+                <TextBlock Text="Używasz na własną odpowiedzialność!"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
