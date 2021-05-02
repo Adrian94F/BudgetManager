@@ -119,6 +119,13 @@ namespace BudgetManager
         {
             SaveData();
         }
+
+        private void ChangePageToNCommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var index = Convert.ToInt32(e.Parameter);
+            index %= PagesList.Items.Count;
+            PagesList.SelectedIndex = index;
+        }
     }
 
     public class PagesData : List<InfoDataItem>

@@ -172,7 +172,7 @@
     <Compile Include="User controls\TitleBar.xaml.cs">
       <DependentUpon>TitleBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\BMCommands.cs" />
+    <Compile Include="Utilities\Commands.cs" />
     <Compile Include="Models\AppData.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\ExpenseCategory.cs" />

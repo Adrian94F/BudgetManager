@@ -22,10 +22,7 @@ namespace BudgetManager.Commands
         public static RoutedUICommand BillingPeriods = new RoutedUICommand("BillingPeriods", "BillingPeriods", typeof(Commands));
         public static RoutedUICommand Categories = new RoutedUICommand("Categories", "Categories", typeof(Commands));
 
-        public static RoutedUICommand TableView = new RoutedUICommand("TableView", "TableView", typeof(Commands));
-        public static RoutedUICommand ListView = new RoutedUICommand("ListView", "ListView", typeof(Commands));
-        public static RoutedUICommand BurndownView = new RoutedUICommand("BurndownView", "BurndownView", typeof(Commands));
-        public static RoutedUICommand HistoryView = new RoutedUICommand("HistoryView", "HistoryView", typeof(Commands));
+        public static RoutedUICommand ChangePageToN = new RoutedUICommand("ChangeView", "ChangeView", typeof(Commands));
 
         public static RoutedUICommand About = new RoutedUICommand("About", "About", typeof(Commands));
         public static RoutedUICommand Help = new RoutedUICommand("Help", "Help", typeof(Commands));
