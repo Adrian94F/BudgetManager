@@ -28,6 +28,10 @@ namespace BudgetManager.User_controls
             InitializeComponent();
         }
 
+        public DateTime? selectedDate = null;
+        public ExpenseCategory selectedCategory = null;
+        public FrameworkElement listPageElement = null;
+
         private double rowHeight;
         private double fontSize;
         private BillingPeriod billingPeriod;
@@ -115,7 +119,8 @@ namespace BudgetManager.User_controls
                     MinWidth = 40,
                     Padding = new Thickness(0)
                 };
-                btn.Click += (sender, e) => {
+                btn.Click += (sender, e) =>
+                {
                     _ = OpenExpensesListDialog(null, date);
                 };
                 AddUIElementToGrid(btn, 0, i, grid);
@@ -246,7 +251,8 @@ namespace BudgetManager.User_controls
                         MinWidth = 40,
                         Padding = new Thickness(0)
                     };
-                    btn.Click += (sender, e) => {
+                    btn.Click += (sender, e) =>
+                    {
                         _ = OpenExpensesListDialog(category, date);
                     };
                     AddUIElementToGrid(btn, i, j, grid);
@@ -349,6 +355,8 @@ namespace BudgetManager.User_controls
 
         private async Task OpenExpensesListDialog(ExpenseCategory cat, DateTime? date)
         {
+            selectedCategory = cat;
+            selectedDate = date;
             var listPage = new ListPage(cat, date);
             listPage.HideTitleAndLabels();
             var listFrame = new Frame();
@@ -359,7 +367,12 @@ namespace BudgetManager.User_controls
                 PrimaryButtonText = "Ok",
                 Content = listFrame
             };
-            dialog.Closed += (sender, args) => FillTable();
+            listPageElement = listPage;
+            dialog.Closed += (sender, args) =>
+            {
+                FillTable();
+                listPageElement = null;
+            };
             var result = await dialog.ShowAsync();
         }
     }

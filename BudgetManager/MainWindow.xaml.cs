@@ -14,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BudgetManager.Pages;
+using ModernWpf.Controls;
+using ModernWpf.Controls.Primitives;
+using Frame = System.Windows.Controls.Frame;
 
 namespace BudgetManager
 {
@@ -118,6 +121,60 @@ namespace BudgetManager
         private void SaveCommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             SaveData();
+        }
+
+        private void AddCommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            DateTime? date = DateTime.Today;
+            ExpenseCategory category = null;
+            FrameworkElement objectToShowAt = PagesList;
+            FlyoutPlacementMode placement = FlyoutPlacementMode.Right;
+
+            // new expense flyout
+            var listFrame = new Frame();
+            var flyout = new Flyout
+            {
+                Content = listFrame,
+                ShowMode = FlyoutShowMode.Standard,
+                Placement = placement
+            };
+            flyout.Closed += (s, o) => RefreshPage();
+
+            switch (PagesList.SelectedIndex)
+            {
+                case 1:  // table view
+                    var listPageInTablePage = (ListPage)((TablePage)RootFrame.Content).Table.listPageElement;
+                    if (listPageInTablePage != null)
+                    {
+                        date = listPageInTablePage.ExpensesDatePicker.SelectedDate;
+                        if (date == null)
+                        {
+                            date = DateTime.Today;
+                        }
+                        category = (ExpenseCategory)listPageInTablePage.CategoriesComboBox.SelectedItem;
+                        objectToShowAt = listPageInTablePage;
+
+                        flyout.Closed += (s, o) => listPageInTablePage.FillPage();
+                    }
+                    else
+                    {
+                        date = DateTime.Today;
+                    }
+
+                    break;
+                case 2: // list view --> new expense for selected date/category
+                    var listPage = (ListPage)RootFrame.Content;
+                    date = listPage.ExpensesDatePicker.SelectedDate;
+                    category = (ExpenseCategory)listPage.CategoriesComboBox.SelectedItem;
+                    objectToShowAt = listPage.AddButton;
+                    placement = FlyoutPlacementMode.Bottom;
+                    break;
+            }
+
+            Expense expense = null;
+            var expensePage = new ExpensePage(flyout, expense, category, date);
+            listFrame.Navigate(expensePage);
+            flyout.ShowAt(objectToShowAt);
         }
 
         private void ChangePageToNCommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)

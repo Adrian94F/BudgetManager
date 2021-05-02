@@ -19,10 +19,12 @@
         MinWidth="700">
     <Window.CommandBindings>
         <CommandBinding Command="{ x:Static commands:Commands.Save }" Executed="SaveCommandBinding_OnExecuted" />
+        <CommandBinding Command="{ x:Static commands:Commands.Add }" Executed="AddCommandBinding_OnExecuted" />
         <CommandBinding Command="{ x:Static commands:Commands.ChangePageToN }" Executed="ChangePageToNCommandBinding_OnExecuted"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="S" Modifiers="Control" Command="{ x:Static commands:Commands.Save }"/>
+        <KeyBinding Key="N" Modifiers="Control" Command="{ x:Static commands:Commands.Add }"/>
         <KeyBinding Key="T" Modifiers="Control" Command="{ x:Static commands:Commands.ChangePageToN }" CommandParameter="1"/>
         <KeyBinding Key="L" Modifiers="Control" Command="{ x:Static commands:Commands.ChangePageToN }" CommandParameter="2"/>
         <KeyBinding Key="W" Modifiers="Control" Command="{ x:Static commands:Commands.ChangePageToN }" CommandParameter="3"/>
