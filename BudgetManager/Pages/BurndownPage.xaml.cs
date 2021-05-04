@@ -54,12 +54,6 @@ namespace BudgetManager.Pages
                 minValue = burnValues[i] < minValue ? burnValues[i] : minValue;
             }
 
-            // minimal value on chart
-            if (minValue < 0)
-            {
-                minValue = Math.Floor(minValue / 1000) * 1000;
-            }
-
             // burndown without monhly expenses
             var burnValuesWoMonthlyExp = new double[nOfDays];
             var incomeSumWoMonthlyExp = (double)(period.netIncome + period.additionalIncome - period.GetSumOfMonthlyExpenses());
@@ -68,12 +62,6 @@ namespace BudgetManager.Pages
             {
                 burnValuesWoMonthlyExp[i] = yesterdaySum - (double)period.GetSumOfDailyExpensesOfDate(period.startDate.AddDays(i - 1));
                 yesterdaySum = burnValuesWoMonthlyExp[i];
-            }
-
-            // minimal value on chart
-            if (minValue < 0)
-            {
-                minValue = Math.Floor(minValue / 1000) * 1000;
             }
 
             // average burndown
@@ -101,6 +89,13 @@ namespace BudgetManager.Pages
             for (var i = 1; i < nOfDays; i++)
             {
                 dailyExpenses[i] = (double)period.GetSumOfDailyExpensesOfDate(period.startDate.AddDays(i - 1));
+                minValue = dailyExpenses[i] < minValue ? dailyExpenses[i] : minValue;
+            }
+
+            // minimal value on chart
+            if (minValue < 0)
+            {
+                minValue = Math.Floor(minValue / 500) * 500;
             }
 
             // labels
