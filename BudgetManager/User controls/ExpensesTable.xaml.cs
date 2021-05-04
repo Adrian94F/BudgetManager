@@ -40,7 +40,7 @@ namespace BudgetManager.User_controls
         {
             if (e.HorizontalChange != 0)
             {
-                ScrollViewer[] horizontalScrollViewers = { HeaderDaysScrollViewer, DaySumsScrollViewer, DataScrollViewer };
+                ScrollViewer[] horizontalScrollViewers = { DaysScrollViewer, DaySumsScrollViewer, ExpensesScrollViewer };
                 foreach (var viewer in horizontalScrollViewers)
                 {
                     viewer.ScrollToHorizontalOffset(e.HorizontalOffset);
@@ -49,7 +49,7 @@ namespace BudgetManager.User_controls
 
             if (e.VerticalChange != 0)
             {
-                ScrollViewer[] verticalScrollViewers = { CategoriesScrollViewer, CategorySumsScrollViewer, DataScrollViewer };
+                ScrollViewer[] verticalScrollViewers = { CategoriesScrollViewer, CategorySumsScrollViewer, ExpensesScrollViewer };
                 foreach (var viewer in verticalScrollViewers)
                 {
                     viewer.ScrollToVerticalOffset(e.VerticalOffset);
@@ -139,7 +139,7 @@ namespace BudgetManager.User_controls
             rowHeight = btn.Height;
             fontSize = btn.FontSize;
 
-            TextBlock[] tbs = { TextBlock01, TextBlock10, TextBlock11 };
+            TextBlock[] tbs = { TextBlock00, TextBlock01, TextBlock10, TextBlock11 };
             foreach (var tb in tbs)
             {
                 tb.Height = rowHeight;

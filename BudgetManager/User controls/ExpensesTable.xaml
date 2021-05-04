@@ -43,6 +43,11 @@
                    Fill="{StaticResource Alpha-Gray-1}" />
 
 
+        <TextBlock x:Name="TextBlock00"
+                   Text="Sumy wydatków"
+                   Padding="12, 4"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"/>
         <TextBlock x:Name="TextBlock01"
                    Grid.Row="1"
                    Text="Kategoria"
@@ -64,7 +69,7 @@
                    VerticalAlignment="Center"/>
 
 
-        <ScrollViewer x:Name="HeaderDaysScrollViewer"
+        <ScrollViewer x:Name="DaysScrollViewer"
                       CanContentScroll="True"
                       Grid.Row="0"
                       Grid.Column="2"
@@ -109,7 +114,7 @@
             <Grid x:Name="CategorySumsGrid"/>
         </ScrollViewer>
 
-        <ScrollViewer x:Name="DataScrollViewer"
+        <ScrollViewer x:Name="ExpensesScrollViewer"
                       HorizontalScrollBarVisibility="Visible"
                       VerticalAlignment="Stretch"
                       VerticalScrollBarVisibility="Visible"
