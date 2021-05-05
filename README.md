@@ -46,9 +46,13 @@ Podsumowanie przychodów, wydatków i bilansu na przestrzeni wszystkich wpisanyc
 
 - Cofnij/powtórz wykonaną operację
 - Dostosowanie widoków
+  - Tabela wydatków
+    - automatyczne przewinięcie do aktualnego dnia
   - Wypalenie
     - zaznaczone weekendy
   - Raport
+- Sortowanie / zmiana kolejności kategorii
+- Najczęściej używane kategorie na górze listy rozwijanej
 - Serializacja danych do JSONa celem wyeliminowania problemu ze zmianą struktury zapisywanych danych
 - Porządkowanie danych
   - W przypadku daty spoza zakresu przenoszenie wydatków do właściwego okresu rozliczeniowego
