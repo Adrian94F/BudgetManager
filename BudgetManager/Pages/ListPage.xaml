@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:BudgetManager.Pages"
       xmlns:userControls="clr-namespace:BudgetManager.User_controls"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="480"
+      d:DesignHeight="450" d:DesignWidth="750"
       Title="ListPage">
 
 
@@ -21,8 +21,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0"
-              Margin="10">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="10"/>
@@ -83,6 +82,7 @@
             <Button x:Name="AddButton"
                     Grid.Row="0"
                     Grid.Column="10"
+                    Margin="10"
                     Content="Dodaj"
                     Click="ButtonAdd_OnClick" />
 
