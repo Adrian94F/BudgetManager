@@ -48,8 +48,6 @@ Podsumowanie przychodów, wydatków i bilansu na przestrzeni wszystkich wpisanyc
 - Dostosowanie widoków
   - Tabela wydatków
     - automatyczne przewinięcie do aktualnego dnia
-  - Wypalenie
-    - zaznaczone weekendy
   - Raport
 - Sortowanie / zmiana kolejności kategorii
 - Najczęściej używane kategorie na górze listy rozwijanej
