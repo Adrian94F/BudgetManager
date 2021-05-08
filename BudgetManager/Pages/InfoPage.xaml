@@ -29,6 +29,7 @@
                 <TextBlock Style="{StaticResource Header}"
                            Text="Skróty klawiszowe"/>
                 <TextBlock Text="Ctrl + S – zapisz"/>
+                <TextBlock Text="Ctrl + 1-8 – zmiana widoku"/>
                 <TextBlock Text="Ctrl + T – widok tabeli"/>
                 <TextBlock Text="Ctrl + L – widok listy wydatków"/>
                 <TextBlock Text="Ctrl + W – widok wypalenia"/>
