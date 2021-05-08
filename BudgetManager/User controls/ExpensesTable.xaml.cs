@@ -26,6 +26,12 @@ namespace BudgetManager.User_controls
         public ExpensesTable()
         {
             InitializeComponent();
+            this.Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ScrollToToday();
         }
 
         public DateTime? selectedDate = null;
@@ -75,6 +81,17 @@ namespace BudgetManager.User_controls
             FillCategoriesGrid(CategoriesGrid);
             FillCategorySumsGrid(CategorySumsGrid, billingPeriod);
             FillExpensesGrid(ExpensesGrid, billingPeriod);
+        }
+
+        public void ScrollToToday()
+        {
+            var columnWidth = 40;
+            var todayPosition = (DateTime.Today - billingPeriod.startDate).Days * columnWidth;
+            var scrollViewerWidth = ExpensesScrollViewer.ActualWidth;
+            var remainder = (scrollViewerWidth - 1) % columnWidth + 1;
+            var rightTodayMargin = columnWidth + remainder;
+            var offset = todayPosition - scrollViewerWidth + rightTodayMargin;
+            DaysScrollViewer.ScrollToHorizontalOffset(offset);
         }
 
         private void AddColumnDefinitionsForDays(Grid grid, int numOfDays)
@@ -139,7 +156,7 @@ namespace BudgetManager.User_controls
             rowHeight = btn.Height;
             fontSize = btn.FontSize;
 
-            TextBlock[] tbs = { TextBlock00, TextBlock01, TextBlock10, TextBlock11 };
+            TextBlock[] tbs = { TextBlock01, TextBlock10, TextBlock11 };
             foreach (var tb in tbs)
             {
                 tb.Height = rowHeight;
@@ -295,11 +312,11 @@ namespace BudgetManager.User_controls
             grid.Children.Add(obj);
         }
 
-        private void AddRectangleAt(int row, int col, int rowSpan, int colSpan, Brush fill, Grid grid)
+        private Rectangle AddRectangleAt(int row, int col, int rowSpan, int colSpan, Brush fill, Grid grid)
         {
             if (row < 0 || col < 0)
             {
-                return;
+                return null;
             }
             var rect = new Rectangle();
             rect.Fill = fill;
@@ -317,6 +334,8 @@ namespace BudgetManager.User_controls
             Grid.SetColumnSpan(rect, colSpan);
 
             grid.Children.Add(rect);
+
+            return rect;
         }
 
         private void AddWeekendsRectangles(Grid grid, BillingPeriod period)
@@ -350,7 +369,7 @@ namespace BudgetManager.User_controls
             var col = (DateTime.Now - period.startDate).Days;
             var colSpan = 1;
             var fill = (Brush)FindResource("Alpha-Green");
-            AddRectangleAt(row, col, rowSpan, colSpan, fill, grid);
+            var rect = AddRectangleAt(row, col, rowSpan, colSpan, fill, grid);
         }
 
         private async Task OpenExpensesListDialog(ExpenseCategory cat, DateTime? date)

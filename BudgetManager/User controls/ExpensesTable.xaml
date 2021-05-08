@@ -43,11 +43,6 @@
                    Fill="{StaticResource Alpha-Gray-1}" />
 
 
-        <TextBlock x:Name="TextBlock00"
-                   Text="Sumy wydatków"
-                   Padding="12, 4"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center"/>
         <TextBlock x:Name="TextBlock01"
                    Grid.Row="1"
                    Text="Kategoria"
