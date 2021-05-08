@@ -34,5 +34,10 @@ namespace BudgetManager.Pages
                 Table?.FillTable(period);
             }
         }
+
+        private void TodayButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Table.ScrollToToday();
+        }
     }
 }

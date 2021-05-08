@@ -10,7 +10,29 @@
       Title="TablePage">
 
     <Grid>
-        <userControls:ExpensesTable x:Name="Table"/>
-        <userControls:EmptyAppDataPlaceholder/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Row="0"
+              Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Sumy wydatków"
+                       Style="{StaticResource TitleTextBlockStyle}"/>
+            <Button Grid.Column="1"
+                    Content="Dzisiaj"
+                    Click="TodayButton_OnClick"/>
+        </Grid>
+
+        <userControls:ExpensesTable x:Name="Table"
+                                    Grid.Row="1"/>
+
+        <userControls:EmptyAppDataPlaceholder Grid.Row="0"
+                                              Grid.RowSpan="2"/>
     </Grid>
 </Page>
