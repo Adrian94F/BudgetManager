@@ -85,6 +85,9 @@ namespace BudgetManager.User_controls
 
         public void ScrollToToday()
         {
+            if (billingPeriod == null)
+                return;
+
             var columnWidth = 40;
             var todayPosition = (DateTime.Today - billingPeriod.startDate).Days * columnWidth;
             var scrollViewerWidth = ExpensesScrollViewer.ActualWidth;
