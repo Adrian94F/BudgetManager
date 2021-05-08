@@ -106,13 +106,33 @@ namespace BudgetManager.Pages
                 labels[i] = period.startDate.AddDays(i - 1).ToString("dd");
             }
 
-            // axis section
+            // axis sections
+            var axisSections = new SectionsCollection();
+
             var todayAxisSection = new AxisSection
             {
                 Draggable = false,
                 SectionOffset = 0.5 + (DateTime.Today - period.startDate).Days,
-                SectionWidth = 1
+                SectionWidth = 1,
+                Fill = Application.Current.Resources["Alpha-Green"] as SolidColorBrush
             };
+            axisSections.Add(todayAxisSection);
+
+            var start = period.startDate;
+            int daysUntilSaturday = ((int)DayOfWeek.Saturday - (int)start.DayOfWeek + 7) % 7;
+            var saturday = start.AddDays(daysUntilSaturday);
+            while ((period.endDate - saturday).Days >= 0)
+            {
+                var weekendSection = new AxisSection
+                {
+                    Draggable = false,
+                    SectionOffset = 0.5 + (saturday - period.startDate).Days,
+                    SectionWidth = 2,
+                    Fill = Application.Current.Resources["Alpha-Gray-1"] as SolidColorBrush
+                };
+                axisSections.Add(weekendSection);
+                saturday = saturday.AddDays(7);
+            }
 
             // X axis
             chart.AxisX.Add(new Axis
@@ -123,7 +143,7 @@ namespace BudgetManager.Pages
                     Step = 1,
                     IsEnabled = false //disable it to make it invisible.
                 },
-                Sections = { todayAxisSection }
+                Sections = axisSections
             });
 
             // series
