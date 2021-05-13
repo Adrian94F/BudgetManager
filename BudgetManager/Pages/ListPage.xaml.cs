@@ -87,7 +87,6 @@ namespace BudgetManager.Pages
             var today = DateTime.Today.Date;
             ExpensesDatePicker.DisplayDateStart = begin;
             ExpensesDatePicker.DisplayDateEnd = end;
-            ExpensesDatePicker.SelectedDate = selectedDate;
             SetSelectedDate();
         }
 
@@ -113,8 +112,8 @@ namespace BudgetManager.Pages
             filteredExpenses = new ObservableCollection<ExpenseDataItem>();
 
             var isCategorySelected = CategoriesComboBox.SelectedIndex >= 0;
-            var category = CategoriesComboBox.SelectedItem;
-            var date = ExpensesDatePicker.SelectedDate;
+            var category = selectedCategory = (ExpenseCategory)CategoriesComboBox.SelectedItem;
+            var date = selectedDate = (DateTime?)ExpensesDatePicker.SelectedDate;
             var isDateSelected = date != null;
 
             foreach (var expense in expenses)
@@ -210,6 +209,11 @@ namespace BudgetManager.Pages
         private void ButtonClearCategory_OnClick(object sender, RoutedEventArgs e)
         {
             CategoriesComboBox.SelectedIndex = -1;
+        }
+
+        private void ButtonToday_OnClick(object sender, RoutedEventArgs e)
+        {
+            ExpensesDatePicker.SelectedDate = DateTime.Today;
         }
     }
 

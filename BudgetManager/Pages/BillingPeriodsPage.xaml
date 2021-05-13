@@ -85,7 +85,9 @@
                 Grid.Column="7"
                 Margin="10"
                 HorizontalAlignment="Right"
-                Content="Dodaj"
+                FontFamily="Segoe MDL2 Assets"
+                FontSize="18"
+                Content="&#xE710;"
                 Click="AddButton_OnClick"/>
     </Grid>
 </Page>

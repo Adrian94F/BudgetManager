@@ -24,7 +24,9 @@
         <Button Grid.Row="0"
                 Grid.Column="1"
                 Margin="10"
-                Content="Dodaj"
+                FontFamily="Segoe MDL2 Assets"
+                FontSize="18"
+                Content="&#xE710;"
                 Click="AddButton_OnClick"/>
         <DataGrid Grid.Row="1"
                   Grid.Column="0"

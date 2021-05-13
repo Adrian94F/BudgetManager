@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BudgetManager.Pages"
       xmlns:userControls="clr-namespace:BudgetManager.User_controls"
+      xmlns:controls="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TablePage">
@@ -25,7 +26,9 @@
                        Text="Sumy wydatków"
                        Style="{StaticResource TitleTextBlockStyle}"/>
             <Button Grid.Column="1"
-                    Content="Dzisiaj"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="18"
+                    Content="&#xE8D1;"
                     Click="TodayButton_OnClick"/>
         </Grid>
 

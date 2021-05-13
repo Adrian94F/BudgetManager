@@ -32,6 +32,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
@@ -58,6 +59,7 @@
                     Grid.Column="4"
                     Margin="5, 0"
                     FontFamily="Segoe MDL2 Assets"
+                    FontSize="18"
                     Content="&#xE106;"
                     Click="ButtonClearCategory_OnClick"/>
 
@@ -71,19 +73,28 @@
                         Grid.Row="0"
                         Grid.Column="7"
                         Text="wybierz datę"
-                        SelectedDateChanged="ExpensesDatePicker_OnSelectedDateChanged" />
+                        SelectedDateChanged="ExpensesDatePicker_OnSelectedDateChanged"/>
             <Button Grid.Row="0"
                     Grid.Column="8"
                     Margin="5, 0"
                     FontFamily="Segoe MDL2 Assets"
+                    FontSize="18"
+                    Content="&#xE8D1;"
+                    Click="ButtonToday_OnClick"/>
+            <Button Grid.Row="0"
+                    Grid.Column="9"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="18"
                     Content="&#xE106;"
                     Click="ButtonClearDate_OnClick"/>
 
             <Button x:Name="AddButton"
                     Grid.Row="0"
-                    Grid.Column="10"
-                    Margin="10"
-                    Content="Dodaj"
+                    Grid.Column="11"
+                    Margin="10, 0"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="18"
+                    Content="&#xE710;"
                     Click="ButtonAdd_OnClick" />
 
         </Grid>
