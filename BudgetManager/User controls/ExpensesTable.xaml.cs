@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BudgetManager.Pages;
 using ModernWpf.Controls;
+using Button = System.Windows.Controls.Button;
 using Frame = System.Windows.Controls.Frame;
 
 namespace BudgetManager.User_controls
@@ -396,6 +397,89 @@ namespace BudgetManager.User_controls
                 listPageElement = null;
             };
             var result = await dialog.ShowAsync();
+        }
+
+        public void ToggleHeatMap(bool enabled)
+        {
+            if (enabled)
+            {
+                GenerateHeatMapForGrid(ExpensesGrid);
+            }
+            else
+            {
+                ClearHeatMapForGrid(ExpensesGrid);
+            }
+        }
+
+        private void GenerateHeatMapForGrid(Grid grid)
+        {
+            var nOfRanges = 6;
+            var rangesMaxValuesAndColors = new SortedDictionary<int, Brush>();
+            var minValue = Int64.MaxValue;
+            var maxValue = Int64.MinValue;
+
+            List<KeyValuePair<Button, long>> buttonPairs = new List<KeyValuePair<Button, long>>();
+            foreach (var element in grid.Children)
+            {
+                if (element.GetType() == typeof(Button) && (element as Button)?.Content.ToString() != "")
+                {
+                    var button = element as Button;
+                    var value = Convert.ToInt64(button?.Content);
+                    buttonPairs.Add(new KeyValuePair<Button, long>(button, value));
+                }
+            }
+
+            foreach (var buttonPair in buttonPairs)
+            {
+                if (buttonPair.Value < minValue)
+                {
+                    minValue = buttonPair.Value;
+                }
+                if (buttonPair.Value > maxValue)
+                {
+                    maxValue = buttonPair.Value;
+                }
+            }
+
+            var rangeWidth = (maxValue - minValue) / nOfRanges;
+            var colorMin = Colors.LimeGreen;
+            var colorMax = Colors.Red;
+            int alpha = 128;
+            for (var i = 0; i < nOfRanges; i++)
+            {
+                int rangeMaxValue = (int)(minValue + i * rangeWidth);
+
+                int rAverage = colorMin.R + (int)((colorMax.R - colorMin.R) * i / nOfRanges);
+                int gAverage = colorMin.G + (int)((colorMax.G - colorMin.G) * i / nOfRanges);
+                int bAverage = colorMin.B + (int)((colorMax.B - colorMin.B) * i / nOfRanges);
+                var color = Color.FromArgb((byte)alpha, (byte)rAverage, (byte)gAverage, (byte)bAverage);
+                var brush = new SolidColorBrush(color);
+                
+                rangesMaxValuesAndColors.Add(rangeMaxValue, brush);
+            }
+
+            rangesMaxValuesAndColors.Reverse();
+            foreach (var buttonPair in buttonPairs)
+            {
+                foreach (var range in rangesMaxValuesAndColors)
+                {
+                    if (buttonPair.Value >= range.Key)
+                    {
+                        buttonPair.Key.Background = range.Value;
+                    }
+                }
+            }
+        }
+
+        private void ClearHeatMapForGrid(Grid grid)
+        {
+            foreach (var element in grid.Children)
+            {
+                if (element.GetType() == typeof(Button))
+                {
+                    var button = element as Button;
+                }
+            }
         }
     }
 }

@@ -21,11 +21,17 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Sumy wydatków"
                        Style="{StaticResource TitleTextBlockStyle}"/>
-            <Button Grid.Column="1"
+            <controls:ToggleSwitch Grid.Column="1"
+                                   Margin="10, 0"
+                                   OnContent="Mapa ciepła"
+                                   OffContent="Mapa ciepła"
+                                   Toggled="HeatMapToggleSwitch_OnToggled"/>
+            <Button Grid.Column="2"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="18"
                     Content="&#xE8D1;"
