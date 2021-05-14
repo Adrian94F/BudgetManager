@@ -442,7 +442,7 @@ namespace BudgetManager.User_controls
             }
 
             var rangeWidth = (maxValue - minValue) / nOfRanges;
-            var colorMin = Colors.LimeGreen;
+            var colorMin = Colors.Yellow;
             var colorMax = Colors.Red;
             int alpha = 128;
             for (var i = 0; i < nOfRanges; i++)
@@ -478,6 +478,7 @@ namespace BudgetManager.User_controls
                 if (element.GetType() == typeof(Button))
                 {
                     var button = element as Button;
+                    button.Background = Brushes.Transparent;
                 }
             }
         }
