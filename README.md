@@ -46,8 +46,6 @@ Podsumowanie przychodów, wydatków i bilansu na przestrzeni wszystkich wpisanyc
 
 - Cofnij/powtórz wykonaną operację
 - Dostosowanie widoków
-  - Tabela wydatków
-    - automatyczne przewinięcie do aktualnego dnia
   - Raport
 - Sortowanie / zmiana kolejności kategorii
 - Najczęściej używane kategorie na górze listy rozwijanej
