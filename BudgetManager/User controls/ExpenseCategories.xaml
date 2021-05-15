@@ -27,7 +27,8 @@
                 FontFamily="Segoe MDL2 Assets"
                 FontSize="18"
                 Content="&#xE710;"
-                Click="AddButton_OnClick"/>
+                Click="AddButton_OnClick"
+                ToolTip="Dodaj"/>
         <DataGrid Grid.Row="1"
                   Grid.Column="0"
                   Grid.ColumnSpan="2"

@@ -61,7 +61,8 @@
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="18"
                     Content="&#xE106;"
-                    Click="ButtonClearCategory_OnClick"/>
+                    Click="ButtonClearCategory_OnClick"
+                    ToolTip="Wyczyść"/>
 
             <TextBlock Grid.Row="0"
                        Grid.Column="6"
@@ -80,13 +81,15 @@
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="18"
                     Content="&#xE8D1;"
-                    Click="ButtonToday_OnClick"/>
+                    Click="ButtonToday_OnClick"
+                    ToolTip="Dzisiaj"/>
             <Button Grid.Row="0"
                     Grid.Column="9"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="18"
                     Content="&#xE106;"
-                    Click="ButtonClearDate_OnClick"/>
+                    Click="ButtonClearDate_OnClick"
+                    ToolTip="Wyczyść"/>
 
             <Button x:Name="AddButton"
                     Grid.Row="0"
@@ -95,7 +98,8 @@
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="18"
                     Content="&#xE710;"
-                    Click="ButtonAdd_OnClick" />
+                    Click="ButtonAdd_OnClick"
+                    ToolTip="Dodaj"/>
 
         </Grid>
 
