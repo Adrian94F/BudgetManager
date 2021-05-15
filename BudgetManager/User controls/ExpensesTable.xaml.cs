@@ -24,6 +24,8 @@ namespace BudgetManager.User_controls
     /// </summary>
     public partial class ExpensesTable : UserControl
     {
+        private bool isHeatMapEnabled = false;
+
         public ExpensesTable()
         {
             InitializeComponent();
@@ -82,6 +84,11 @@ namespace BudgetManager.User_controls
             FillCategoriesGrid(CategoriesGrid);
             FillCategorySumsGrid(CategorySumsGrid, billingPeriod);
             FillExpensesGrid(ExpensesGrid, billingPeriod);
+
+            if (isHeatMapEnabled)
+            {
+                GenerateHeatMap();
+            }
         }
 
         public void ScrollToToday()
@@ -403,12 +410,22 @@ namespace BudgetManager.User_controls
         {
             if (enabled)
             {
-                GenerateHeatMapForGrid(ExpensesGrid);
+                GenerateHeatMap();
             }
             else
             {
-                ClearHeatMapForGrid(ExpensesGrid);
+                ClearHeatMap();
             }
+        }
+
+        private void GenerateHeatMap()
+        {
+            GenerateHeatMapForGrid(ExpensesGrid);
+        }
+
+        private void ClearHeatMap()
+        {
+            ClearHeatMapForGrid(ExpensesGrid);
         }
 
         private void GenerateHeatMapForGrid(Grid grid)
@@ -418,14 +435,14 @@ namespace BudgetManager.User_controls
             var minValue = Int64.MaxValue;
             var maxValue = Int64.MinValue;
 
-            List<KeyValuePair<Button, long>> buttonPairs = new List<KeyValuePair<Button, long>>();
+            var buttonPairs = new Dictionary<Button, long>();
             foreach (var element in grid.Children)
             {
                 if (element.GetType() == typeof(Button) && (element as Button)?.Content.ToString() != "")
                 {
                     var button = element as Button;
                     var value = Convert.ToInt64(button?.Content);
-                    buttonPairs.Add(new KeyValuePair<Button, long>(button, value));
+                    buttonPairs.Add(button, value);
                 }
             }
 
