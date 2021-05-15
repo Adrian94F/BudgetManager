@@ -27,12 +27,6 @@ namespace BudgetManager.Pages
     /// </summary>
     public partial class ListPage : Page
     {
-        public ExpenseCategory selectedCategory;
-
-        public DateTime? selectedDate;
-
-        private ObservableCollection<ExpenseDataItem> filteredExpenses;
-
         public ListPage()
         {
             InitializeComponent();
@@ -51,8 +45,8 @@ namespace BudgetManager.Pages
         public ListPage(ExpenseCategory cat, DateTime? date)
         {
             InitializeComponent();
-            selectedCategory = cat;
-            selectedDate = date;
+            CategoriesComboBox.SelectedItem = cat;
+            ExpensesDatePicker.SelectedDate = date;
             FillPage();
         }
 
@@ -72,7 +66,7 @@ namespace BudgetManager.Pages
             foreach (var category in categories)
             {
                 CategoriesComboBox.Items.Add(category);
-                if (category == selectedCategory)
+                if (category == (ExpenseCategory)CategoriesComboBox.SelectedItem)
                 {
                     CategoriesComboBox.SelectedIndex = CategoriesComboBox.Items.Count - 1;
                 }
@@ -87,18 +81,11 @@ namespace BudgetManager.Pages
             var today = DateTime.Today.Date;
             ExpensesDatePicker.DisplayDateStart = begin;
             ExpensesDatePicker.DisplayDateEnd = end;
-            SetSelectedDate();
         }
 
         private void ClearSelectedDate()
         {
-            selectedDate = null;
-            SetSelectedDate();
-        }
-
-        private void SetSelectedDate()
-        {
-            ExpensesDatePicker.SelectedDate = selectedDate;
+            ExpensesDatePicker.SelectedDate = null;
         }
 
         private void ButtonClearDate_OnClick(object sender, RoutedEventArgs e)
@@ -109,11 +96,11 @@ namespace BudgetManager.Pages
         private void FillDataGridWithExpenses()
         {
             var expenses = AppData.billingPeriods?.ElementAt(AppData.currentPeriod).expenses;
-            filteredExpenses = new ObservableCollection<ExpenseDataItem>();
+            var filteredExpenses = new ObservableCollection<ExpenseDataItem>();
 
             var isCategorySelected = CategoriesComboBox.SelectedIndex >= 0;
-            var category = selectedCategory = (ExpenseCategory)CategoriesComboBox.SelectedItem;
-            var date = selectedDate = (DateTime?)ExpensesDatePicker.SelectedDate;
+            var category = (ExpenseCategory)CategoriesComboBox.SelectedItem;
+            var date = (DateTime?)ExpensesDatePicker.SelectedDate;
             var isDateSelected = date != null;
 
             foreach (var expense in expenses)
@@ -172,8 +159,8 @@ namespace BudgetManager.Pages
             var expense = objectToShowOn.GetType() == typeof(DataGridRow)
                 ? ((ExpenseDataItem) ((DataGridRow) objectToShowOn).Item).originalExpense // DataGridRow
                 : null;  // Button etc.
-            var date = selectedDate != null ? selectedDate : DateTime.Today;
-            var expensePage = new ExpensePage(flyout, expense, selectedCategory, date);
+            var date = ExpensesDatePicker.SelectedDate != null ? ExpensesDatePicker.SelectedDate : DateTime.Today;
+            var expensePage = new ExpensePage(flyout, expense, (ExpenseCategory)CategoriesComboBox.SelectedItem, date);
             listFrame.Navigate(expensePage);
             flyout.Closed += (sender, o) => FillDataGridWithExpenses();
             flyout.ShowAt(objectToShowOn);
