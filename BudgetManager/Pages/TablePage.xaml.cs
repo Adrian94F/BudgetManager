@@ -45,5 +45,15 @@ namespace BudgetManager.Pages
         {
             Table.ToggleHeatMap(((ToggleSwitch)sender).IsOn);
         }
+
+        private void ScrollToLeftButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Table.ExpensesScrollViewer.ScrollToHorizontalOffset(0);
+        }
+
+        private void ScrollToRightButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Table.ExpensesScrollViewer.ScrollToHorizontalOffset(Table.ExpensesScrollViewer.ScrollableWidth);
+        }
     }
 }
