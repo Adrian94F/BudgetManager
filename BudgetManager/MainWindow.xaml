@@ -53,7 +53,8 @@
 
         <userControls:TitleBar Grid.Row="0"
                                Grid.Column="0"
-                               Grid.ColumnSpan="2"/>
+                               Grid.ColumnSpan="2"
+                               x:Name="TitleBar"/>
 
         <ui:ListView Grid.Row="1"
                      Grid.Column="0"

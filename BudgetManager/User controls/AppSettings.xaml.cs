@@ -53,6 +53,8 @@ namespace BudgetManager.User_controls
                 DataPathTextBox.Text = directory;
 
                 SaveSettings();
+
+                ((MainWindow)Window.GetWindow(this))?.TitleBar.NavigationButtons.SetupButtons();
             }
 
             this.IsEnabled = true;

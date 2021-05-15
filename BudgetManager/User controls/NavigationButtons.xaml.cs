@@ -26,7 +26,7 @@ namespace BudgetManager.User_controls
             SetupButtons();
         }
 
-        private void SetupButtons()
+        public void SetupButtons()
         {
             if (AppData.IsNotEmpty())
             {
@@ -36,6 +36,10 @@ namespace BudgetManager.User_controls
 
                 PrevButton.IsEnabled = current > min;
                 NextButton.IsEnabled = current < max;
+            }
+            else
+            {
+                PrevButton.IsEnabled = NextButton.IsEnabled = false;
             }
         }
 
