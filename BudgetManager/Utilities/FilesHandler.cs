@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Automation.Peers;
 using System.Data;
@@ -14,7 +16,7 @@ namespace BudgetManager
 {
     class FilesHandler
     {
-        readonly static string pathToSettings = "settings.data";
+        readonly static string pathToSettings = "settings.json";
 
         public static void ReadData()
         {
@@ -46,16 +48,13 @@ namespace BudgetManager
             }
         }
 
-        private static void ReadSettings()
+        public static void ReadSettings()
         {
-            if (File.Exists(pathToSettings))
-            {
-                var formatter = new BinaryFormatter();
-                var stream = new FileStream(pathToSettings, FileMode.Open, FileAccess.Read);
-                var settings = (Settings)formatter.Deserialize(stream);
-                AppData.settings = settings;
-                stream.Close();
-            }
+            var jsonString = File.ReadAllText(pathToSettings);
+            AppData.settings = JsonSerializer.Deserialize<Settings>(jsonString);
+
+            if (AppData.settings.PathToAppData == null)
+                AppData.settings.PathToAppData = "dataset.data";
         }
 
         public static void SaveData()
@@ -70,10 +69,13 @@ namespace BudgetManager
 
         public static void SaveSettings()
         {
-            var formatter = new BinaryFormatter();
-            var stream = new FileStream(pathToSettings, FileMode.Create, FileAccess.Write);
-            formatter.Serialize(stream, AppData.settings);
-            stream.Close();
+            byte[] jsonUtf8Bytes;
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+            jsonUtf8Bytes = JsonSerializer.SerializeToUtf8Bytes(AppData.settings, options);
+            File.WriteAllBytes(pathToSettings, jsonUtf8Bytes);
         }
     }
 }

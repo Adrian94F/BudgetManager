@@ -9,7 +9,7 @@ namespace BudgetManager
     [Serializable]
     class Settings
     {
-        public int TypicalBeginningOfPeriod = 1;
-        public string PathToAppData = "dataset.data";
+        public int TypicalBeginningOfPeriod { get; set; }
+        public string PathToAppData { get; set; }
     }
 }
