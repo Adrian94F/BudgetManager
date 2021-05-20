@@ -45,8 +45,10 @@ namespace BudgetManager
         {
             var lastPeriod = AppData.billingPeriods.Last();
             var startDate = lastPeriod.endDate.AddDays(1);
-            var endDate = startDate.AddMonths(1);
-            var typicalEndDay = (AppData.settings.TypicalBeginningOfPeriod - 1) % 31 + 1;
+            var endDate = lastPeriod.endDate.AddMonths(1);
+            endDate = new DateTime(endDate.Year, endDate.Month, AppData.settings.TypicalBeginningOfPeriod - 1);
+
+            var typicalEndDay = (AppData.settings.TypicalBeginningOfPeriod - 2) % 31 + 1;
             var daysInMonth = DateTime.DaysInMonth(endDate.Year, endDate.Month);
             if (typicalEndDay > daysInMonth)
             {
