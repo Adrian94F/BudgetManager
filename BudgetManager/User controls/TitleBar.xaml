@@ -6,7 +6,7 @@
              xmlns:userControls="clr-namespace:BudgetManager.User_controls"
              mc:Ignorable="d" 
              d:DesignWidth="800">
-    <Grid>
+    <Grid Background="{StaticResource Alpha-Gray-1}">
         <userControls:NavigationButtons Grid.Row="0"
                                         Grid.Column="0"
                                         x:Name="NavigationButtons"/>

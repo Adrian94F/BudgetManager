@@ -65,7 +65,8 @@
                      SelectedIndex="0"
                      Width="auto"
                      SelectionChanged="PagesList_SelectionChanged"
-                     VirtualizingPanel.ScrollUnit="Pixel">
+                     VirtualizingPanel.ScrollUnit="Pixel"
+                     Background="{StaticResource Alpha-Gray-2}">
             <ui:ListView.ItemsSource>
                 <local:PagesData />
             </ui:ListView.ItemsSource>
