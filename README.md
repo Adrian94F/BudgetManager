@@ -44,6 +44,7 @@ Podsumowanie przychodów, wydatków i bilansu na przestrzeni wszystkich wpisanyc
 
 ## TODO
 
+- Przycisk do zrzutu ekranu (kopiowanie wyświetlanej zawartości strony)
 - Serializacja danych do JSONa celem wyeliminowania problemu ze zmianą struktury zapisywanych danych
 - Duże wydatki (próg np. 400 zł, do zmiany w ustawieniach)
   - w wypaleniu dodatkowy wykres biorący pod uwagę wszystkie duże wydatki na początku (analogicznie do wydatków cyklicznych)
