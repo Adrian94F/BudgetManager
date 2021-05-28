@@ -57,33 +57,26 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Height="32">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-
-        <Button Grid.Column="0"
-                Content="&#xE76B;"
+    <StackPanel Height="32"
+                Orientation="Horizontal">
+        <Button Content="&#xE76B;"
                 x:Name="PrevButton"
                 Click="ButtonPrev_OnClick"
                 IsEnabled="False"/>
-        <Button Grid.Column="1"
-                Content="&#xE76C;"
+        <Button Content="&#xE76C;"
                 x:Name="NextButton"
                 Click="ButtonNext_OnClick"
                 IsEnabled="False"/>
-        <Separator Grid.Column="2"/>
-        <Button Grid.Column="3"
-                Content="&#xE74E;"
+        <Separator/>
+        <Button Content="&#xE74E;"
                 x:Name="SaveButton"
                 Click="ButtonSave_OnClick"/>
-        <Button Grid.Column="4"
-                Content="&#xE72C;"
+        <Button Content="&#xE72C;"
                 x:Name="RefreshButton"
                 Click="ButtonRefresh_OnClick"/>
-    </Grid>
+        <Separator/>
+        <Button Content="&#xE722;"
+                x:Name="ScreenshotButton"
+                Click="ScreenshotButton_OnClick"/>
+    </StackPanel>
 </UserControl>

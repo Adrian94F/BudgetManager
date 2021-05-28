@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,6 +67,39 @@ namespace BudgetManager.User_controls
         {
             FilesHandler.ReadData();
             ((MainWindow)Window.GetWindow(this)).RefreshPage();
+        }
+
+        private void ScreenshotButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var window = ((MainWindow) Window.GetWindow(this));
+            var frame = (Page)window.RootFrame.Content;
+            Point relativePoint = frame.TransformToAncestor(window).Transform(new Point(0, 0));
+            var dpiX = 96.0;
+            var dpiY = 96.0;
+            var source = PresentationSource.FromVisual(this);
+            if (source != null)
+            {
+                dpiX = 96.0 * source.CompositionTarget.TransformToDevice.M11;
+                dpiY = 96.0 * source.CompositionTarget.TransformToDevice.M22;
+            }
+            var frameRenderTargetBitmap = new RenderTargetBitmap((int)window.ActualWidth, (int)window.ActualHeight, dpiX, dpiY, PixelFormats.Pbgra32);
+            frameRenderTargetBitmap.Render(window);
+            
+            var cropped = new CroppedBitmap(frameRenderTargetBitmap,
+                new Int32Rect((int)relativePoint.X, (int)relativePoint.Y, (int)frame.ActualWidth, (int)frame.ActualHeight));
+
+            var pngImage = new PngBitmapEncoder();
+            pngImage.Frames.Add(BitmapFrame.Create(cropped));
+
+            using (var ms = new MemoryStream())
+            {
+                pngImage.Save(ms);
+                BitmapImage bi = new BitmapImage();
+                bi.BeginInit();
+                bi.StreamSource = ms;
+                bi.EndInit();
+                Clipboard.SetImage(bi);
+            }
         }
     }
 }
