@@ -40,7 +40,6 @@ namespace BudgetManager
             
             AppData.billingPeriods = new SortedSet<BillingPeriod>();
             AppData.expenseCategories = new HashSet<ExpenseCategory>();
-            //ReadSerialized();
             ReadDataJsonDict();
             SetupVariables();
         }
@@ -50,27 +49,14 @@ namespace BudgetManager
             AppData.currentPeriod = AppData.billingPeriods.Count - 1;
         }
 
-        private static void ReadSerialized()
+        private static void ReadDataJsonDict()
         {
             var pathToDataSet = AppData.settings.PathToAppData;
             if (File.Exists(pathToDataSet))
             {
-                var formatter = new BinaryFormatter();
-                var stream = new FileStream(pathToDataSet, FileMode.Open, FileAccess.Read);
-                var dataSet = (Tuple<HashSet<ExpenseCategory>, SortedSet<BillingPeriod>>)formatter.Deserialize(stream);
-                AppData.expenseCategories.UnionWith(dataSet.Item1);
-                AppData.billingPeriods.UnionWith(dataSet.Item2);
-                stream.Close();
-            }
-        }
-
-        private static void ReadDataJsonDict()
-        {
-            var pathToDataSet = AppData.settings.PathToAppData + ".json";
-            if (File.Exists(pathToDataSet))
-            {
                 var sr = new StreamReader(pathToDataSet);
                 string jsonString = sr.ReadToEnd();
+                sr.Close();
 
                 var dataSet = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonString);
 
@@ -94,9 +80,9 @@ namespace BudgetManager
                     var startDate = DateTime.Parse(billingPeriodFromJson[billingPeriodStartDateKey].ToString());
                     var endDate = DateTime.Parse(billingPeriodFromJson[billingPeriodEndDateKey].ToString());
                     var net = billingPeriodFromJson[billingPeriodNetIncomeKey];
-                    var netIncome = Decimal.Parse(billingPeriodFromJson[billingPeriodNetIncomeKey].ToString());
-                    var addIncome = Decimal.Parse(billingPeriodFromJson[billingPeriodAdditionalIncomeKey].ToString());
-                    var plannedSavings = Decimal.Parse(billingPeriodFromJson[billingPeriodPlannedSavingsKey].ToString());
+                    var netIncome = Decimal.Parse(billingPeriodFromJson[billingPeriodNetIncomeKey].ToString(), CultureInfo.InvariantCulture);
+                    var addIncome = Decimal.Parse(billingPeriodFromJson[billingPeriodAdditionalIncomeKey].ToString(), CultureInfo.InvariantCulture);
+                    var plannedSavings = Decimal.Parse(billingPeriodFromJson[billingPeriodPlannedSavingsKey].ToString(), CultureInfo.InvariantCulture);
 
                     var billingPeriod = new BillingPeriod()
                     {
@@ -113,7 +99,7 @@ namespace BudgetManager
                     {
                         var expenseFromJson = JsonSerializer.Deserialize<Dictionary<string, string>>(exp.ToString());
 
-                        var value = Decimal.Parse(expenseFromJson[expenseValueKey].ToString());
+                        var value = Decimal.Parse(expenseFromJson[expenseValueKey].ToString(), CultureInfo.InvariantCulture);
                         var date = DateTime.Parse(expenseFromJson[expenseDateKey].ToString());
                         var comment = expenseFromJson[expenseCommentKey].ToString();
                         var monthlyExpense = expenseFromJson[expenseMonthlyExpenseKey].ToString().Equals("True")
@@ -160,18 +146,12 @@ namespace BudgetManager
             }
 
             if (AppData.settings.PathToAppData == null)
-                AppData.settings.PathToAppData = "dataset.data";
+                AppData.settings.PathToAppData = "dataset.json";
         }
 
         public static void SaveData()
         {
             SaveDataJsonDict();
-            /*var pathToDataSet = AppData.settings.PathToAppData;
-            var formatter = new BinaryFormatter();
-            var dataSet = new Tuple<HashSet<ExpenseCategory>, SortedSet<BillingPeriod>>(AppData.expenseCategories, AppData.billingPeriods);
-            var stream = new FileStream(pathToDataSet, FileMode.Create, FileAccess.Write);
-            formatter.Serialize(stream, dataSet);
-            stream.Close();*/
         }
 
         public static void SaveDataJsonDict()
@@ -225,7 +205,7 @@ namespace BudgetManager
                 NumberHandling = JsonNumberHandling.WriteAsString
             };
             var jsonUtf8Bytes = JsonSerializer.SerializeToUtf8Bytes(output, options);
-            File.WriteAllBytes(AppData.settings.PathToAppData + ".json", jsonUtf8Bytes);
+            File.WriteAllBytes(AppData.settings.PathToAppData, jsonUtf8Bytes);
         }
         
         public static void SaveSettings()

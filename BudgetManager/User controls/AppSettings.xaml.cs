@@ -43,7 +43,7 @@ namespace BudgetManager.User_controls
                 IsFolderPicker = false,
                 AllowNonFileSystemItems = true,
                 Multiselect = false,
-                DefaultFileName = "dataset.data",
+                DefaultFileName = "dataset.json",
                 Title = "Wybierz lokalizację pliku z danymi aplikacji"
             };
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
