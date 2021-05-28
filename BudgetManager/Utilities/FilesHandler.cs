@@ -135,12 +135,12 @@ namespace BudgetManager
 
         public static void ReadSettings()
         {
-            var jsonString = File.ReadAllText(pathToSettings);
-            try
+            if (File.Exists(pathToSettings))
             {
+                var jsonString = File.ReadAllText(pathToSettings);
                 AppData.settings = JsonSerializer.Deserialize<Settings>(jsonString);
             }
-            catch (Exception e)
+            else
             {
                 AppData.settings = new Settings();
             }
