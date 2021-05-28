@@ -32,6 +32,7 @@ namespace BudgetManager.User_controls
         {
             BillingPeriodTypicalBeginningNumberBox.Value = AppData.settings.TypicalBeginningOfPeriod;
             DataPathTextBox.Text = AppData.settings.PathToAppData;
+            BigExpenseThresholdNumberBox.Value = Convert.ToInt32(AppData.settings.BigExpenseThreshold);
         }
 
         private void BtnChangePathToDataSet_Click(object sender, RoutedEventArgs e)
@@ -61,10 +62,14 @@ namespace BudgetManager.User_controls
             this.Focus();
         }
 
-        private void BillingPeriodTypicalBeginningNumberBox_OnValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        private void NumberBox_OnValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
         {
             var typicalDay = (int)BillingPeriodTypicalBeginningNumberBox.Value;
             AppData.settings.TypicalBeginningOfPeriod = typicalDay;
+
+            var threshold = BigExpenseThresholdNumberBox.Value;
+            if (threshold > 0)
+                AppData.settings.BigExpenseThreshold = Convert.ToDecimal(threshold);
 
             SaveSettings();
         }

@@ -15,10 +15,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
@@ -50,7 +52,7 @@
                             Minimum="1"
                             SpinButtonPlacementMode="Inline"
                             AcceptsExpression="False"
-                            ValueChanged="BillingPeriodTypicalBeginningNumberBox_OnValueChanged"
+                            ValueChanged="NumberBox_OnValueChanged"
                             x:Name="BillingPeriodTypicalBeginningNumberBox"/>
 
         <Separator Grid.Row="2"
@@ -77,6 +79,26 @@
                 Click="BtnChangePathToDataSet_Click"/>
 
         <Separator Grid.Row="5"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="4"/>
+
+        <TextBlock Grid.Row="6"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   Text="Próg dla dużych wydatków:"/>
+        <controls:NumberBox Grid.Row="6"
+                            Grid.Column="2"
+                            Grid.ColumnSpan="2"
+                            Margin="10, 0"
+                            VerticalAlignment="Center"
+                            SpinButtonPlacementMode="Inline"
+                            Minimum="0"
+                            Maximum="999999"
+                            AcceptsExpression="False"
+                            ValueChanged="NumberBox_OnValueChanged"
+                            x:Name="BigExpenseThresholdNumberBox"/>
+
+        <Separator Grid.Row="7"
                    Grid.Column="0"
                    Grid.ColumnSpan="4"/>
     </Grid>

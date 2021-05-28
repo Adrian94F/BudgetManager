@@ -10,5 +10,11 @@ namespace BudgetManager
     {
         public int TypicalBeginningOfPeriod { get; set; }
         public string PathToAppData { get; set; }
+        public decimal BigExpenseThreshold { get; set; }
+
+        public Settings()
+        {
+            BigExpenseThreshold = (Decimal)300.0;
+        }
     }
 }
