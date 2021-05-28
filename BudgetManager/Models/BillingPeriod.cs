@@ -9,16 +9,33 @@ using System.Windows.Controls;
 
 namespace BudgetManager
 {
-    [Serializable]
     public class BillingPeriod : IComparable
     {
-        public DateTime startDate;
-        public DateTime endDate;
-        public decimal netIncome = decimal.Zero;
-        public decimal additionalIncome = decimal.Zero;
-        public decimal plannedSavings = decimal.Zero;
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
+        public decimal netIncome { get; set; }
+        public decimal additionalIncome { get; set; }
+        public decimal plannedSavings { get; set; }
 
-        public HashSet<Expense> expenses = new HashSet<Expense>();
+        public HashSet<Expense> expenses { get; set; }
+
+        public BillingPeriod()
+        {
+            expenses = new HashSet<Expense>();
+        }
+
+        public DateTime NewPeriodEndDate()
+        {
+            var date = this.endDate.AddMonths(1);
+            var endDay = AppData.settings.TypicalBeginningOfPeriod - 1;
+            var daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
+            if (endDay > daysInMonth)
+            {
+                endDay = daysInMonth;
+            }
+            date = new DateTime(date.Year, date.Month, endDay);
+            return date;
+        }
 
         public HashSet<Expense> GetCopyOfMonthlyExpensesForNextPeriod()
         {

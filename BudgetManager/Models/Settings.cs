@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace BudgetManager
 {
-    [Serializable]
     class Settings
     {
         public int TypicalBeginningOfPeriod { get; set; }
