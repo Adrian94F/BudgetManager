@@ -45,16 +45,8 @@ namespace BudgetManager
         {
             var lastPeriod = AppData.billingPeriods.Last();
             var startDate = lastPeriod.endDate.AddDays(1);
-            var endDate = lastPeriod.endDate.AddMonths(1);
-            endDate = new DateTime(endDate.Year, endDate.Month, AppData.settings.TypicalBeginningOfPeriod - 1);
+            var endDate = lastPeriod.NewPeriodEndDate();
 
-            var typicalEndDay = (AppData.settings.TypicalBeginningOfPeriod - 2) % 31 + 1;
-            var daysInMonth = DateTime.DaysInMonth(endDate.Year, endDate.Month);
-            if (typicalEndDay > daysInMonth)
-            {
-                typicalEndDay = daysInMonth;
-            }
-            endDate = new DateTime(endDate.Year, endDate.Month, typicalEndDay);
             decimal[] incomesAndSavings = { decimal.Zero, decimal.Zero, decimal.Zero };
             decimal[] prevIncomesAndSavings = { lastPeriod.netIncome, lastPeriod.additionalIncome, lastPeriod.plannedSavings };
             string[] types = { "przychód netto", "dodatkowy przychód", "planowane oszczędności" };

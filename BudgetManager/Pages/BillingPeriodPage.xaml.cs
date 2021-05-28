@@ -78,14 +78,8 @@ namespace BudgetManager.Pages
         {
             if (AppData.billingPeriods.Count > 0)
             {
-                var endDateOfLastPeriod =
-                    AppData.billingPeriods.ElementAt(AppData.billingPeriods.Count - 1).endDate;
-                StartDatePicker.SelectedDate = endDateOfLastPeriod.AddDays(1);
-
-                var proposedEndDateOfNewPeriod = endDateOfLastPeriod.AddMonths(1);
-                proposedEndDateOfNewPeriod = new DateTime(proposedEndDateOfNewPeriod.Year,
-                    proposedEndDateOfNewPeriod.Month, AppData.settings.TypicalBeginningOfPeriod - 1);
-                EndDatePicker.SelectedDate = proposedEndDateOfNewPeriod;
+                StartDatePicker.SelectedDate = AppData.billingPeriods.Last().endDate.AddDays(1);
+                EndDatePicker.SelectedDate = AppData.billingPeriods.Last().NewPeriodEndDate();
             }
         }
 
