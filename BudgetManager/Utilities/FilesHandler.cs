@@ -195,9 +195,9 @@ namespace BudgetManager
                 // fields
                 period.Add(billingPeriodStartDateKey, bp.startDate);
                 period.Add(billingPeriodEndDateKey, bp.endDate);
-                period.Add(billingPeriodNetIncomeKey, bp.netIncome.ToString());
-                period.Add(billingPeriodAdditionalIncomeKey, bp.additionalIncome.ToString());
-                period.Add(billingPeriodPlannedSavingsKey, bp.plannedSavings.ToString());
+                period.Add(billingPeriodNetIncomeKey, bp.netIncome);
+                period.Add(billingPeriodAdditionalIncomeKey, bp.additionalIncome);
+                period.Add(billingPeriodPlannedSavingsKey, bp.plannedSavings);
 
                 // expenses
                 var expenses = new List<Dictionary<string, object>>();
@@ -205,7 +205,7 @@ namespace BudgetManager
                 {
                     var expense = new Dictionary<string, object>();
                     // fields
-                    expense.Add(expenseValueKey, exp.value.ToString());
+                    expense.Add(expenseValueKey, exp.value);
                     expense.Add(expenseDateKey, exp.date);
                     expense.Add(expenseCommentKey, exp.comment);
                     expense.Add(expenseMonthlyExpenseKey, exp.monthlyExpense.ToString());
@@ -221,12 +221,13 @@ namespace BudgetManager
 
             var options = new JsonSerializerOptions
             {
-                WriteIndented = true
+                WriteIndented = false,
+                NumberHandling = JsonNumberHandling.WriteAsString
             };
             var jsonUtf8Bytes = JsonSerializer.SerializeToUtf8Bytes(output, options);
             File.WriteAllBytes(AppData.settings.PathToAppData + ".json", jsonUtf8Bytes);
         }
-
+        
         public static void SaveSettings()
         {
             var options = new JsonSerializerOptions
