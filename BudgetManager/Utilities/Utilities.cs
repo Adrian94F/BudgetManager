@@ -13,7 +13,7 @@ namespace BudgetManager
     {
         public static string EmptyIfZero(Decimal value)
         {
-            return value > Decimal.Zero ? value.ToString("F") : "";
+            return value == Decimal.Zero ? "" : value.ToString("F");
         }
 
         public static decimal ParseDecimalString(string str)
