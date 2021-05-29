@@ -72,5 +72,11 @@ namespace BudgetManager.Pages
             var page = new BurndownPage(true);
             Frame.Navigate(page);
         }
+
+        private void BurndownButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = ((MainWindow) Window.GetWindow(this));
+            mainWindow.PagesList.SelectedIndex = 3;
+        }
     }
 }

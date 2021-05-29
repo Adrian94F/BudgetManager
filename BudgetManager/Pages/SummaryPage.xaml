@@ -223,7 +223,16 @@
                x:Name="Frame"
                Margin="20"/>
 
-        <userControls:EmptyAppDataPlaceholder Grid.Row="0"
+        <Button Grid.Row="1"
+                Grid.Column="1"
+                Margin="20"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="Transparent"
+                BorderThickness="0"
+                Click="BurndownButton_OnClick"/>
+
+<userControls:EmptyAppDataPlaceholder Grid.Row="0"
                                               Grid.Column="0"
                                               Grid.ColumnSpan="2"
                                               Grid.RowSpan="2"/>
