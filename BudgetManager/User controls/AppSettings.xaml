@@ -20,7 +20,6 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="0"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
@@ -44,7 +43,7 @@
                    VerticalAlignment="Center"
                    Text="Domyślny początek okresu rozliczeniowego:"/>
         <controls:NumberBox Grid.Row="1"
-                            Grid.Column="2"
+                            Grid.Column="1"
                             Grid.ColumnSpan="2"
                             Margin="10, 0"
                             VerticalAlignment="Center"
@@ -57,21 +56,22 @@
 
         <Separator Grid.Row="2"
                    Grid.Column="0"
-                   Grid.ColumnSpan="4"/>
+                   Grid.ColumnSpan="3"/>
 
         <TextBlock Grid.Row="3"
                    Grid.Column="0"
+                   Margin="10, 0, 0, 10"
                    VerticalAlignment="Center"
                    Text="Ścieżka do pliku z danymi:"/>
         <TextBox Grid.Row="4"
                  Grid.Column="0"
-                 Grid.ColumnSpan="3"
+                 Grid.ColumnSpan="2"
                  Margin="10, 0, 0, 0"
                  VerticalAlignment="Center"
                  x:Name="DataPathTextBox"
                  IsReadOnly="True"/>
         <Button Grid.Row="4"
-                Grid.Column="3"
+                Grid.Column="2"
                 Margin="10, 0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
@@ -80,14 +80,14 @@
 
         <Separator Grid.Row="5"
                    Grid.Column="0"
-                   Grid.ColumnSpan="4"/>
+                   Grid.ColumnSpan="3"/>
 
         <TextBlock Grid.Row="6"
                    Grid.Column="0"
                    VerticalAlignment="Center"
                    Text="Próg dla dużych wydatków:"/>
         <controls:NumberBox Grid.Row="6"
-                            Grid.Column="2"
+                            Grid.Column="1"
                             Grid.ColumnSpan="2"
                             Margin="10, 0"
                             VerticalAlignment="Center"
@@ -100,6 +100,6 @@
 
         <Separator Grid.Row="7"
                    Grid.Column="0"
-                   Grid.ColumnSpan="4"/>
+                   Grid.ColumnSpan="3"/>
     </Grid>
 </UserControl>
