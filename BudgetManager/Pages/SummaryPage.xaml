@@ -6,184 +6,226 @@
       xmlns:local="clr-namespace:BudgetManager.Pages"
       xmlns:userControls="clr-namespace:BudgetManager.User_controls"
       mc:Ignorable="d" 
-      d:DesignHeight="350" d:DesignWidth="600"
+      d:DesignHeight="400" d:DesignWidth="700"
       Title="SummaryPage">
 
     <Page.Resources>
         <Style BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="{x:Type TextBlock}" />
     </Page.Resources>
 
-    <ScrollViewer PanningMode="Both">
-        <Grid x:Name="SummaryGrid"
-              Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="36"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="36"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="auto"
-                                  MinWidth="80"/>
-                <ColumnDefinition Width="36"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="auto"
-                                  MinWidth="80"/>
-                <ColumnDefinition Width="*"
-                                  MinWidth="36"/>
-            </Grid.ColumnDefinitions>
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <!-- title -->
-            <TextBlock x:Name="PeriodDatesTextBlock"
-                       Text="Podsumowanie dla..."
-                       Style="{StaticResource TitleTextBlockStyle}"
-                       Grid.Row="0"
-                       Grid.Column="1"
-                       Grid.ColumnSpan="7"/>
+        <!-- title -->
+        <TextBlock x:Name="PeriodDatesTextBlock"
+                   Text="Podsumowanie dla..."
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"/>
 
-            <!-- separators -->
-            <Separator Grid.Row="5"
-                       Grid.Column="3"/>
-            <Separator Grid.Row="5"
-                       Grid.Column="7"/>
-            <Separator Grid.Row="11"
-                       Grid.Column="3"/>
+        <ScrollViewer Grid.Row="1"
+                      Grid.Column="0"
+                      VerticalScrollBarVisibility="Auto">
 
-            <!-- expenses -->
-            <TextBlock Grid.Row="3"
-                       Grid.Column="1"
-                       Text="Wydatki codzienne"/>
-            <TextBlock x:Name="DailyExpensesSumTextBlock"
-                       Grid.Column="3"
-                       Grid.Row="3"
-                       HorizontalAlignment="Right"
-                       TextAlignment="Right"
-                       Text="...zł"/>
-            <TextBlock Grid.Row="4"
-                       Grid.Column="1"
-                       Text="Wydatki miesięczne"/>
-            <TextBlock x:Name="MonthlyExpensesSumTextBlock"
-                       Grid.Column="3"
-                       Grid.Row="4"
-                       HorizontalAlignment="Right"
-                       TextAlignment="Right"
-                       Text="...zł"/>
-            <TextBlock Grid.Row="6"
-                       Grid.Column="1"
-                       Text="Suma wydatków"/>
-            <TextBlock x:Name="ExpensesSumTextBlock"
-                       Grid.Column="3"
-                       Grid.Row="6"
-                       HorizontalAlignment="Right"
-                       TextAlignment="Right"
-                       Text="...zł"/>
+            <StackPanel Orientation="Vertical"
+                        CanVerticallyScroll="True"
+                        Margin="10, 0, 30, 0">
 
-            <!-- incomes -->
-            <TextBlock Grid.Column="5"
-                       Grid.Row="3"
-                       Text="Dochód netto"/>
-            <TextBlock x:Name="NetIncomeTextBlock"
-                       Grid.Column="7"
-                       Grid.Row="3"
-                       HorizontalAlignment="Right"
-                       TextAlignment="Right"
-                       Text="...zł"/>
-            <TextBlock Grid.Column="5"
-                       Grid.Row="4"
-                       Text="Inny dochód"/>
-            <TextBlock x:Name="AddIncomeTextBlock"
-                       Grid.Column="7"
-                       Grid.Row="4"
-                       HorizontalAlignment="Right"
-                       TextAlignment="Right"
-                       Text="...zł"/>
-            <TextBlock Grid.Column="5"
-                       Grid.Row="6"
-                       Text="Suma dochodów"/>
-            <TextBlock x:Name="IncomeSumTextBlock"
-                       Grid.Column="7"
-                       Grid.Row="6"
-                       HorizontalAlignment="Right"
-                       TextAlignment="Right"
-                       Text="...zł"/>
+                <!-- expenses -->
+                <Grid Margin="0, 15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
 
-            <!-- balance -->
-            <TextBlock Grid.Column="1"
-                       Grid.Row="8"
-                       Text="Suma dochodów"/>
-            <TextBlock x:Name="IncomeSumTextBlock2"
-                       Grid.Column="3"
-                       Grid.Row="8"
-                       HorizontalAlignment="Right"
-                       TextAlignment="Right"
-                       Text="...zł"/>
-            <TextBlock Grid.Column="1"
-                       Grid.Row="9"
-                       Text="Suma wydatków"/>
-            <TextBlock x:Name="ExpensesSumTextBlock2"
-                       Grid.Column="3"
-                       Grid.Row="9"
-                       HorizontalAlignment="Right"
-                       TextAlignment="Right"
-                       Text="...zł"/>
-            <TextBlock Grid.Column="1"
-                       Grid.Row="10"
-                       Text="Planowane oszczędności"/>
-            <TextBlock x:Name="PlannedSavingsTextBlock"
-                       Grid.Column="3"
-                       Grid.Row="10"
-                       HorizontalAlignment="Right"
-                       TextAlignment="Right"
-                       Text="...zł"/>
-            <TextBlock Grid.Column="1"
-                       Grid.Row="12"
-                       Text="Bilans"/>
-            <TextBlock x:Name="BalanceTextBlock"
-                       Grid.Column="3"
-                       Grid.Row="12"
-                       HorizontalAlignment="Right"
-                       TextAlignment="Right"
-                       Text="...zł"/>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Wydatki codzienne"/>
+                    <TextBlock x:Name="DailyExpensesSumTextBlock"
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł"/>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Wydatki miesięczne"/>
+                    <TextBlock x:Name="MonthlyExpensesSumTextBlock"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł"/>
+                    <Separator Grid.Row="2"
+                               Grid.Column="1"/>
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Text="Suma wydatków"/>
+                    <TextBlock x:Name="ExpensesSumTextBlock"
+                               Grid.Row="3"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł"/>
+                </Grid>
 
-            <!-- daily expense estimation -->
-            <TextBlock Grid.Row="8"
-                       Grid.Column="5"
-                       Text="Pozostałe dni"/>
-            <TextBlock x:Name="DaysLeftTextBlock"
-                       Grid.Column="7"
-                       Grid.Row="8"
-                       HorizontalAlignment="Right"
-                       TextAlignment="Right"
-                       Text="..."/>
-            <TextBlock Grid.Column="5"
-                       Grid.Row="9"
-                       Text="Szacowany dzienny wydatek"/>
-            <TextBlock x:Name="EstimatedDailyExpenseTextBlock"
-                       Grid.Column="7"
-                       Grid.Row="9"
-                       HorizontalAlignment="Right"
-                       TextAlignment="Right"
-                       Text="...zł"/>
+                <!-- incomes -->
+                <Grid Margin="0, 15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
 
-            <userControls:EmptyAppDataPlaceholder Grid.Row="0"
-                                                  Grid.Column="0"
-                                                  Grid.ColumnSpan="9"
-                                                  Grid.RowSpan="14"/>
-        </Grid>
-    </ScrollViewer>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Dochód netto"/>
+                    <TextBlock x:Name="NetIncomeTextBlock"
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł"/>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Inny dochód"/>
+                    <TextBlock x:Name="AddIncomeTextBlock"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł"/>
+                    <Separator Grid.Row="2"
+                               Grid.Column="1"/>
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Text="Suma dochodów"/>
+                    <TextBlock x:Name="IncomeSumTextBlock"
+                               Grid.Row="3"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł"/>
+                </Grid>
 
+                <!-- balance -->
+                <Grid Margin="0, 15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Suma dochodów"/>
+                    <TextBlock x:Name="IncomeSumTextBlock2"
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł"/>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Suma wydatków"/>
+                    <TextBlock x:Name="ExpensesSumTextBlock2"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł"/>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Text="Planowane oszczędności"/>
+                    <TextBlock x:Name="PlannedSavingsTextBlock"
+                               Grid.Row="2"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł"/>
+                    <Separator Grid.Row="3"
+                               Grid.Column="1"/>
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="0"
+                               Text="Bilans"/>
+                    <TextBlock x:Name="BalanceTextBlock"
+                               Grid.Row="4"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł"/>
+                </Grid>
+
+                <!-- daily expense estimation -->
+                <Grid Margin="0, 15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Pozostałe dni"/>
+                    <TextBlock x:Name="DaysLeftTextBlock"
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="..."/>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Szacowany dzienny wydatek"/>
+                    <TextBlock x:Name="EstimatedDailyExpenseTextBlock"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł"/>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Frame Grid.Row="1"
+               Grid.Column="1"
+               x:Name="Frame"
+               Margin="20"/>
+
+        <userControls:EmptyAppDataPlaceholder Grid.Row="0"
+                                              Grid.Column="0"
+                                              Grid.ColumnSpan="2"
+                                              Grid.RowSpan="2"/>
+    </Grid>
 </Page>
