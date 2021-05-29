@@ -435,14 +435,22 @@ namespace BudgetManager.User_controls
             var minValue = Int64.MaxValue;
             var maxValue = Int64.MinValue;
 
+            var colorMin = Colors.Yellow;
+            var colorMax = Colors.Red;
+            int alpha = 128;
+
             var buttonPairs = new Dictionary<Button, long>();
             foreach (var element in grid.Children)
             {
-                if (element.GetType() == typeof(Button) && (element as Button)?.Content.ToString() != "")
+                if (element.GetType() == typeof(Button))
                 {
                     var button = element as Button;
-                    var value = Convert.ToInt64(button?.Content);
-                    buttonPairs.Add(button, value);
+                    button.Background = new SolidColorBrush(Color.FromArgb((byte)(alpha / 2), colorMin.R, colorMin.G, colorMin.B));
+                    if ((element as Button)?.Content.ToString() != "")
+                    {
+                        var value = Convert.ToInt64(button?.Content);
+                        buttonPairs.Add(button, value);
+                    }
                 }
             }
 
@@ -459,9 +467,6 @@ namespace BudgetManager.User_controls
             }
 
             var rangeWidth = (maxValue - minValue) / nOfRanges;
-            var colorMin = Colors.Yellow;
-            var colorMax = Colors.Red;
-            int alpha = 128;
             for (var i = 0; i < nOfRanges; i++)
             {
                 int rangeMaxValue = (int)(minValue + i * rangeWidth);
