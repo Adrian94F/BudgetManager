@@ -44,13 +44,17 @@ Podsumowanie przychodów, wydatków i bilansu na przestrzeni wszystkich wpisanyc
 
 ## TODO
 
-- Duże wydatki (próg np. 400 zł, do zmiany w ustawieniach)
-  - w wypaleniu dodatkowy wykres biorący pod uwagę wszystkie duże wydatki na początku (analogicznie do wydatków cyklicznych)
+- Naprawić tryb ciemny
+  
 - Dostosowanie widoków
   - Raport
+  
 - Cofnij/powtórz wykonaną operację
+
 - Sortowanie / zmiana kolejności kategorii
+
 - Najczęściej używane kategorie na górze listy rozwijanej
+
 - Porządkowanie danych
   - W przypadku daty spoza zakresu przenoszenie wydatków do właściwego okresu rozliczeniowego
     - Jeśli okresu brak, pytanie o zmianę daty lub usunięcie
