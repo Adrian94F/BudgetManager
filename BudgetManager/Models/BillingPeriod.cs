@@ -137,7 +137,7 @@ namespace BudgetManager
             return ret;
         }
 
-        private decimal GetSumOfExpensesOfDate(DateTime date, bool includeMonthly)
+        private decimal GetSumOfValidExpensesOfDate(DateTime date, Func<Expense, bool> validator)
         {
             var ret = Decimal.Zero;
             var day = date.Day;
@@ -150,7 +150,7 @@ namespace BudgetManager
                     var expMonth = expense.date.Month;
                     if (day == expDay && month == expMonth)
                     {
-                        if (includeMonthly || !expense.monthlyExpense)
+                        if (validator(expense))
                         {
                             ret += expense.value;
                         }
@@ -162,12 +162,17 @@ namespace BudgetManager
 
         public decimal GetSumOfAllExpensesOfDate(DateTime date)
         {
-            return GetSumOfExpensesOfDate(date, true);
+            return GetSumOfValidExpensesOfDate(date, exp => true);
         }
 
         public decimal GetSumOfDailyExpensesOfDate(DateTime date)
         {
-            return GetSumOfExpensesOfDate(date, false);
+            return GetSumOfValidExpensesOfDate(date, exp => !exp.monthlyExpense);
+        }
+
+        public decimal GetSumOfDailyNotBigExpensesOfDate(DateTime date)
+        {
+            return GetSumOfValidExpensesOfDate(date, exp => !exp.monthlyExpense && exp.value < AppData.settings.BigExpenseThreshold);
         }
 
         public decimal GetSumOfMonthlyExpensesOfDate(DateTime date)
@@ -183,6 +188,22 @@ namespace BudgetManager
                 foreach (var expense in expenses)
                 {
                     if (expense.monthlyExpense)
+                    {
+                        ret += expense.value;
+                    }
+                }
+            }
+            return ret;
+        }
+
+        public decimal GetSumOfBigExpenses()
+        {
+            var ret = Decimal.Zero;
+            if (expenses != null)
+            {
+                foreach (var expense in expenses)
+                {
+                    if (!expense.monthlyExpense && expense.value >= AppData.settings.BigExpenseThreshold)
                     {
                         ret += expense.value;
                     }
