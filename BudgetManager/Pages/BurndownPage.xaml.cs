@@ -172,23 +172,23 @@ namespace BudgetManager.Pages
                     dashArray = new DoubleCollection {2};
                     break;
                 case Series.BurndownWithoutMonthlyExpenses:
-                    title = "Codzienne";
+                    title = "Codzienne z dużymi";
                     values = GetBurndown(ExpensesType.Daily);
                     stroke = Brushes.LightSeaGreen;
                     break;
                 case Series.AverageBurndownWithoutMonthlyExpenses:
-                    title = "Codzienne (plan)";
+                    title = "Codzienne z dużymi (plan)";
                     values = GetAverageBurndown(ExpensesType.Daily);
                     stroke = Brushes.LightSeaGreen;
                     dashArray = new DoubleCollection { 2 };
                     break;
                 case Series.BurndownWithoutBigAndMonthlyExpenses:
-                    title = "Codzienne bez dużych";
+                    title = "Codzienne";
                     values = GetBurndown(ExpensesType.DailyWithoutBig);
                     stroke = Brushes.DodgerBlue;
                     break;
                 case Series.AverageBurndownWithoutBigAndMonthlyExpenses:
-                    title = "Codzienne bez dużych (plan)";
+                    title = "Codzienne (plan)";
                     values = GetAverageBurndown(ExpensesType.DailyWithoutBig);
                     stroke = Brushes.DodgerBlue;
                     dashArray = new DoubleCollection { 2 };
