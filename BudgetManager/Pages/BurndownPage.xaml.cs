@@ -54,24 +54,59 @@ namespace BudgetManager.Pages
         {
             Burndown,
             BurndownWithoutMonthlyExpenses,
+            BurndownWithoutBigAndMonthlyExpenses,
             AverageBurndown,
             AverageBurndownWithoutMonthlyExpenses,
+            AverageBurndownWithoutBigAndMonthlyExpenses,
             DailySums
         }
 
-        private double[] GetBurndown(bool onlyDailyExpenses = false)
+        private enum ExpensesType
+        {
+            Daily,
+            DailyWithoutBig,
+            All
+        };
+
+        private double GetIncomeSum(ExpensesType type)
+        {
+            var sum = (double)(period.netIncome + period.additionalIncome);
+            switch (type)
+            {
+                case ExpensesType.Daily:
+                    sum -= (double)period.GetSumOfMonthlyExpenses();
+                    break;
+                case ExpensesType.DailyWithoutBig:
+                    sum -= (double)period.GetSumOfMonthlyExpenses();
+                    sum -= (double)period.GetSumOfBigExpenses();
+                    break;
+                case ExpensesType.All:
+                    break;
+            }
+            return sum;
+        }
+
+        private double[] GetBurndown(ExpensesType type)
         {
             var burnValues = new double[nOfDays];
-            var incomeSum = onlyDailyExpenses
-                ? (double) (period.netIncome + period.additionalIncome - period.GetSumOfMonthlyExpenses())
-                : (double) (period.netIncome + period.additionalIncome);
+            var incomeSum = GetIncomeSum(type);
+            
             var yesterdaySum = burnValues[0] = incomeSum;
             for (var i = 1; i < nOfDays; i++)
             {
-                var todaySum = onlyDailyExpenses
-                    ? (double)period.GetSumOfDailyExpensesOfDate(period.startDate.AddDays(i - 1))
-                    : (double)period.GetSumOfAllExpensesOfDate(period.startDate.AddDays(i - 1));
-                burnValues[i] = yesterdaySum - todaySum;
+                burnValues[i] = yesterdaySum;
+                switch (type)
+                {
+                    case ExpensesType.Daily:
+                        burnValues[i] -= (double)period.GetSumOfDailyExpensesOfDate(period.startDate.AddDays(i - 1));
+                        break;
+                    case ExpensesType.DailyWithoutBig:
+                        burnValues[i] -= (double)period.GetSumOfDailyNotBigExpensesOfDate(period.startDate.AddDays(i - 1)); ;
+                        break;
+                    case ExpensesType.All:
+                        burnValues[i] -= (double)period.GetSumOfAllExpensesOfDate(period.startDate.AddDays(i - 1));
+                        break;
+                }
                 yesterdaySum = burnValues[i];
             }
             return burnValues;
@@ -86,12 +121,10 @@ namespace BudgetManager.Pages
                 minValue = Math.Floor(minValue / 500) * 500;
         }
 
-        private double[] GetAverageBurndown(bool onlyDailyExpenses = false)
+        private double[] GetAverageBurndown(ExpensesType type)
         {
             var avgBurnValues = new double[nOfDays];
-            var incomeSum = onlyDailyExpenses
-                ? (double)(period.netIncome + period.additionalIncome - period.GetSumOfMonthlyExpenses())
-                : (double)(period.netIncome + period.additionalIncome);
+            var incomeSum = GetIncomeSum(type);
             var plannedSavings = (double)period.plannedSavings;
             for (var i = 0; i < nOfDays; i++)
             {
@@ -129,25 +162,36 @@ namespace BudgetManager.Pages
             {
                 case Series.Burndown:
                     title = "Wszystkie";
-                    values = GetBurndown();
-                    stroke = Brushes.DodgerBlue;
+                    values = GetBurndown(ExpensesType.All);
+                    stroke = Brushes.YellowGreen;
                     break;
                 case Series.AverageBurndown:
                     title = "Wszystkie (plan)";
-                    values = GetAverageBurndown();
-                    stroke = Brushes.DodgerBlue;
+                    values = GetAverageBurndown(ExpensesType.All);
+                    stroke = Brushes.YellowGreen;
                     dashArray = new DoubleCollection {2};
                     break;
                 case Series.BurndownWithoutMonthlyExpenses:
                     title = "Codzienne";
-                    values = GetBurndown(true);
-                    stroke = Brushes.YellowGreen;
+                    values = GetBurndown(ExpensesType.Daily);
+                    stroke = Brushes.LightSeaGreen;
                     break;
                 case Series.AverageBurndownWithoutMonthlyExpenses:
                     title = "Codzienne (plan)";
-                    values = GetAverageBurndown(true);
-                    stroke = Brushes.YellowGreen;
-                    dashArray = new DoubleCollection {2};
+                    values = GetAverageBurndown(ExpensesType.Daily);
+                    stroke = Brushes.LightSeaGreen;
+                    dashArray = new DoubleCollection { 2 };
+                    break;
+                case Series.BurndownWithoutBigAndMonthlyExpenses:
+                    title = "Codzienne bez dużych";
+                    values = GetBurndown(ExpensesType.DailyWithoutBig);
+                    stroke = Brushes.DodgerBlue;
+                    break;
+                case Series.AverageBurndownWithoutBigAndMonthlyExpenses:
+                    title = "Codzienne bez dużych (plan)";
+                    values = GetAverageBurndown(ExpensesType.DailyWithoutBig);
+                    stroke = Brushes.DodgerBlue;
+                    dashArray = new DoubleCollection { 2 };
                     break;
             }
 
@@ -188,18 +232,25 @@ namespace BudgetManager.Pages
             };
         }
 
-        private SeriesCollection GetSeriesCollection(bool onlyDailyExpenses = false, bool averages = true)
+        private SeriesCollection GetSeriesCollection(bool onlyDailyAndNotBigExpenses = false, bool averages = true)
         {
             var collection = new SeriesCollection();
 
-            if (!onlyDailyExpenses)
-                collection.Add(GetLineSeries(Series.Burndown));
-            if (averages && !onlyDailyExpenses)
-                collection.Add(GetLineSeries(Series.AverageBurndown));
-            collection.Add(GetLineSeries(Series.BurndownWithoutMonthlyExpenses));
-            if (averages)
-                collection.Add(GetLineSeries(Series.AverageBurndownWithoutMonthlyExpenses));
             collection.Add(GetColumnSeries(Series.DailySums));
+
+            if (!onlyDailyAndNotBigExpenses)
+                collection.Add(GetLineSeries(Series.Burndown));
+            if (averages && !onlyDailyAndNotBigExpenses)
+                collection.Add(GetLineSeries(Series.AverageBurndown));
+
+            if (!onlyDailyAndNotBigExpenses) 
+                collection.Add(GetLineSeries(Series.BurndownWithoutMonthlyExpenses));
+            if (averages && !onlyDailyAndNotBigExpenses)
+                collection.Add(GetLineSeries(Series.AverageBurndownWithoutMonthlyExpenses));
+
+            collection.Add(GetLineSeries(Series.BurndownWithoutBigAndMonthlyExpenses));
+            if (averages)
+                collection.Add(GetLineSeries(Series.AverageBurndownWithoutBigAndMonthlyExpenses));
 
             return collection;
         }
@@ -266,10 +317,15 @@ namespace BudgetManager.Pages
             chart.AxisX.Add(new Axis
             {
                 Labels = GetLabels(),
-                Separator = new LiveCharts.Wpf.Separator  // force the separator step to 1, so it always display all labels
+                Separator = !simplified
+                ? new LiveCharts.Wpf.Separator  // force the separator step to 1, so it always display all labels
                 {
                     Step = 1,
-                    IsEnabled = false  // disable it to make it invisible.
+                    IsEnabled = false
+                }
+                : new LiveCharts.Wpf.Separator
+                {
+                    IsEnabled = false
                 },
                 Sections = GetSections(true, true)
             });
