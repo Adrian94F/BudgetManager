@@ -408,6 +408,7 @@ namespace BudgetManager.User_controls
 
         public void ToggleHeatMap(bool enabled)
         {
+            isHeatMapEnabled = enabled;
             if (enabled)
             {
                 GenerateHeatMap();
@@ -496,6 +497,7 @@ namespace BudgetManager.User_controls
 
         private void ClearHeatMapForGrid(Grid grid)
         {
+            grid.Background = Brushes.Transparent;
             foreach (var element in grid.Children)
             {
                 if (element.GetType() == typeof(Button))
