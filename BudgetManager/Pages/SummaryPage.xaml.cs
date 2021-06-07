@@ -45,7 +45,8 @@ namespace BudgetManager.Pages
             var incSum = period.netIncome + period.additionalIncome;
             var expSum = period.GetSumOfExpenses();
             var monthlyExpSum = period.GetSumOfMonthlyExpenses();
-            var dailyExpSum = expSum - monthlyExpSum;
+            var bigExpSum = period.GetSumOfBigExpenses();
+            var dailyExpSum = expSum - monthlyExpSum - bigExpSum;
             var savings = period.plannedSavings;
             var balance = incSum - expSum - savings;
             var isActualBillingPeriod = (DateTime.Today - period.startDate).Days >= 0 && (period.endDate - DateTime.Today).Days >= 0;
@@ -61,7 +62,8 @@ namespace BudgetManager.Pages
             IncomeSumTextBlock.Text = incSum.ToString("F") + " zł";
             IncomeSumTextBlock2.Text = incSum.ToString("F") + " zł";
             DailyExpensesSumTextBlock.Text = dailyExpSum.ToString("F") + " zł";
-            MonthlyExpensesSumTextBlock.Text = monthlyExpSum.ToString("F") + " zł"; 
+            BigExpensesSumTextBlock.Text = bigExpSum.ToString("F") + " zł";
+            MonthlyExpensesSumTextBlock.Text = monthlyExpSum.ToString("F") + " zł";
             ExpensesSumTextBlock.Text = expSum.ToString("F") + " zł";
             ExpensesSumTextBlock2.Text = expSum.ToString("F") + " zł";
             PlannedSavingsTextBlock.Text = savings.ToString("F") + " zł";

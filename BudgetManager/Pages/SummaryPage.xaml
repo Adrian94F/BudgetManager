@@ -47,6 +47,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>
@@ -64,20 +65,29 @@
                                Text="...zł"/>
                     <TextBlock Grid.Row="1"
                                Grid.Column="0"
-                               Text="Wydatki miesięczne"/>
-                    <TextBlock x:Name="MonthlyExpensesSumTextBlock"
+                               Text="Duże wydatki"/>
+                    <TextBlock x:Name="BigExpensesSumTextBlock"
                                Grid.Row="1"
                                Grid.Column="1"
                                HorizontalAlignment="Right"
                                TextAlignment="Right"
                                Text="...zł"/>
-                    <Separator Grid.Row="2"
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Text="Wydatki miesięczne"/>
+                    <TextBlock x:Name="MonthlyExpensesSumTextBlock"
+                               Grid.Row="2"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł"/>
+                    <Separator Grid.Row="3"
                                Grid.Column="1"/>
-                    <TextBlock Grid.Row="3"
+                    <TextBlock Grid.Row="4"
                                Grid.Column="0"
                                Text="Suma wydatków"/>
                     <TextBlock x:Name="ExpensesSumTextBlock"
-                               Grid.Row="3"
+                               Grid.Row="4"
                                Grid.Column="1"
                                HorizontalAlignment="Right"
                                TextAlignment="Right"
@@ -229,24 +239,31 @@
 
         <StackPanel Grid.Row="1"
                     Grid.Column="1">
-            <TextBlock Margin="20, 15, 0, 0"
-                       Text="Wypalenie małych wydatków"/>
             <Button Height="250"
                     MinWidth="570"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Margin="20"
+                    Margin="20, 10"
                     Background="Transparent"
                     BorderThickness="0"
                     Click="BurndownButton_OnClick">
                 <Grid>
-                    <Frame Margin="0"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Frame Grid.Row="1"
+                           Margin="0"
                            x:Name="Frame"/>
-                    <Rectangle HorizontalAlignment="Stretch"
+                    <Rectangle Grid.Row="1"
+                               HorizontalAlignment="Stretch"
                                VerticalAlignment="Stretch"
                                Fill="#01FFFFFF"/>
+                    <TextBlock Grid.Row="0"
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               Text="Wypalenie (małe wydatki):"/>
                 </Grid>
             </Button>
         </StackPanel>
