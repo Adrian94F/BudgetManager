@@ -439,13 +439,14 @@ namespace BudgetManager.User_controls
             var colorMax = Colors.Red;
             int alpha = 128;
 
+            grid.Background = new SolidColorBrush(Color.FromArgb((byte)(alpha / 2), colorMin.R, colorMin.G, colorMin.B));
+
             var buttonPairs = new Dictionary<Button, long>();
             foreach (var element in grid.Children)
             {
                 if (element.GetType() == typeof(Button))
                 {
                     var button = element as Button;
-                    button.Background = new SolidColorBrush(Color.FromArgb((byte)(alpha / 2), colorMin.R, colorMin.G, colorMin.B));
                     if ((element as Button)?.Content.ToString() != "")
                     {
                         var value = Convert.ToInt64(button?.Content);
