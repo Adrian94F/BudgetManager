@@ -50,7 +50,10 @@ namespace BudgetManager.Pages
             var balance = incSum - expSum - savings;
             var isActualBillingPeriod = (DateTime.Today - period.startDate).Days >= 0 && (period.endDate - DateTime.Today).Days >= 0;
             var daysLeft = (period.endDate - DateTime.Today).Days + 1;
-            var estimatedExpense = isActualBillingPeriod ? Math.Round(balance / daysLeft, 2) : Math.Round(balance, 2);
+            var balanceWithoutToday = balance + period.GetSumOfAllExpensesOfDate(DateTime.Today);
+            var estimatedExpense = isActualBillingPeriod ? Math.Round(balanceWithoutToday / daysLeft, 2) : Math.Round(balance, 2);
+            var todayExpenses = period.GetSumOfDailyExpensesOfDate(DateTime.Today);
+            var todayExpensesPercent = todayExpenses / estimatedExpense * 100;
 
             PeriodDatesTextBlock.Text = "Podsumowanie dla " + startDate + "-" + endDate + ":";
             NetIncomeTextBlock.Text = net.ToString("F") + " zł";
@@ -65,6 +68,7 @@ namespace BudgetManager.Pages
             BalanceTextBlock.Text = (balance > 0 ? "+" : "") + balance.ToString("F") + " zł";
             DaysLeftTextBlock.Text = isActualBillingPeriod ? daysLeft.ToString() : "-";
             EstimatedDailyExpenseTextBlock.Text = isActualBillingPeriod ? estimatedExpense.ToString("F") + " zł" : "-";
+            SumOfTodayExpenses.Text = isActualBillingPeriod ? todayExpenses.ToString("F") + " zł (" + todayExpensesPercent.ToString("F0") + "%)" : "-";
         }
 
         private void FillFrame(BillingPeriod period)

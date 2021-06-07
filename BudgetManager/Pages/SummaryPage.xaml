@@ -49,7 +49,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="80"/>
                     </Grid.ColumnDefinitions>
 
@@ -93,7 +93,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="80"/>
                     </Grid.ColumnDefinitions>
 
@@ -138,7 +138,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="80"/>
                     </Grid.ColumnDefinitions>
 
@@ -193,7 +193,7 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="180"/>
-                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="100"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0"
@@ -214,25 +214,44 @@
                                HorizontalAlignment="Right"
                                TextAlignment="Right"
                                Text="...zł"/>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Text="Wydano dziś"/>
+                    <TextBlock x:Name="SumOfTodayExpenses"
+                               Grid.Row="2"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...zł (...%)"/>
                 </Grid>
             </StackPanel>
         </ScrollViewer>
 
-        <Frame Grid.Row="1"
-               Grid.Column="1"
-               x:Name="Frame"
-               Margin="20"/>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1">
+            <TextBlock Margin="20, 15, 0, 0"
+                       Text="Wypalenie małych wydatków"/>
+            <Button Height="250"
+                    MinWidth="570"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Margin="20"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="BurndownButton_OnClick">
+                <Grid>
+                    <Frame Margin="0"
+                           x:Name="Frame"/>
+                    <Rectangle HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch"
+                               Fill="#01FFFFFF"/>
+                </Grid>
+            </Button>
+        </StackPanel>
 
-        <Button Grid.Row="1"
-                Grid.Column="1"
-                Margin="20"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Background="Transparent"
-                BorderThickness="0"
-                Click="BurndownButton_OnClick"/>
-
-<userControls:EmptyAppDataPlaceholder Grid.Row="0"
+        <userControls:EmptyAppDataPlaceholder Grid.Row="0"
                                               Grid.Column="0"
                                               Grid.ColumnSpan="2"
                                               Grid.RowSpan="2"/>
