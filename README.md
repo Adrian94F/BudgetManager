@@ -44,11 +44,12 @@ Podsumowanie przychodów, wydatków i bilansu na przestrzeni wszystkich wpisanyc
 
 ## TODO
 
+- Wypalenie:
+  - szacowany dzienny wydatek na każdy dzień
 - Naprawić tryb ciemny
-  
-- Dostosowanie widoków
-  - Raport
-  
+
+- Raport
+
 - Cofnij/powtórz wykonaną operację
 
 - Sortowanie / zmiana kolejności kategorii
