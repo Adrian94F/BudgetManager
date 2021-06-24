@@ -139,10 +139,10 @@ namespace BudgetManager.Pages
         private double[] GetDailyExpenses()
         {
             var dailyExpenses = new double[nOfDays];
-            dailyExpenses[0] = (double)period.GetSumOfMonthlyExpenses();
+            dailyExpenses[0] = (double)(period.GetSumOfMonthlyExpenses() + period.GetSumOfBigExpenses());
             for (var i = 1; i < nOfDays; i++)
             {
-                dailyExpenses[i] = (double)period.GetSumOfDailyExpensesOfDate(period.startDate.AddDays(i - 1));
+                dailyExpenses[i] = (double)period.GetSumOfDailyNotBigExpensesOfDate(period.startDate.AddDays(i - 1));
                 SetMinValue(dailyExpenses[i]);
             }
             return dailyExpenses;
