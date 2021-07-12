@@ -142,7 +142,6 @@
                     HorizontalAlignment="Right"
                     Margin="5, 0, 0, 0"
                     Content="OK"
-                    IsEnabled="False"
                     x:Name="SaveButton"
                     Click="SaveButton_OnClick"/>
             <Button Grid.Column="1"
