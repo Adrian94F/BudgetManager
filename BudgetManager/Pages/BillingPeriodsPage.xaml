@@ -35,19 +35,8 @@
                 <DataGridTextColumn Header="Koniec"
                                     Binding="{Binding endDate, StringFormat={}{0:dd.MM.yyyy}}"
                                     CanUserReorder="False"/>
-                <DataGridTextColumn Header="Dochód netto"
-                                    Binding="{Binding netIncome}"
-                                    CanUserReorder="False">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                            <Setter Property="HorizontalAlignment" Value="Right"/>
-                            <Setter Property="Padding" Value="15, 0"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Dochód dodatkowy"
-                                    Binding="{Binding addIncome}"
+                <DataGridTextColumn Header="Dochód"
+                                    Binding="{Binding incomes}"
                                     CanUserReorder="False">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">

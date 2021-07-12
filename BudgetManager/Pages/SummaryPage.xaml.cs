@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BudgetManager.Models;
 
 namespace BudgetManager.Pages
 {
@@ -40,9 +41,9 @@ namespace BudgetManager.Pages
         {
             var startDate = period.startDate.ToString("dd.MM.yyyy");
             var endDate = period.endDate.ToString("dd.MM.yyyy");
-            var net = period.netIncome;
-            var add = period.additionalIncome;
-            var incSum = period.netIncome + period.additionalIncome;
+            var net = period.GetSumOfIncomes(Income.IncomeType.Salary);
+            var incSum = period.GetSumOfIncomes();
+            var add = incSum - net;
             var expSum = period.GetSumOfExpenses();
             var monthlyExpSum = period.GetSumOfMonthlyExpenses();
             var bigExpSum = period.GetSumOfBigExpenses();

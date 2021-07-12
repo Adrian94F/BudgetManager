@@ -60,7 +60,7 @@ namespace BudgetManager.Pages
             var periodBalances = new double[nOfPeriods];
             for (var i = 0; i < nOfPeriods; i++)
             {
-                periodIncomes[i] = (double)(periods.ElementAt(i).netIncome + periods.ElementAt(i).additionalIncome);
+                periodIncomes[i] = (double)(periods.ElementAt(i).GetSumOfIncomes());
                 periodExpenses[i] = (double)periods.ElementAt(i).GetSumOfExpenses();
                 periodBalances[i] = periodIncomes[i] - periodExpenses[i];
             }

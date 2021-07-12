@@ -70,7 +70,7 @@ namespace BudgetManager.Pages
 
         private double GetIncomeSum(ExpensesType type)
         {
-            var sum = (double)(period.netIncome + period.additionalIncome);
+            var sum = (double)(period.GetSumOfIncomes());
             switch (type)
             {
                 case ExpensesType.Daily:
@@ -108,6 +108,7 @@ namespace BudgetManager.Pages
                         break;
                 }
                 yesterdaySum = burnValues[i];
+                SetMinValue(burnValues[i]);
             }
             return burnValues;
         }

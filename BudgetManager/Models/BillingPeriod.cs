@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using BudgetManager.Models;
 
 namespace BudgetManager
 {
@@ -13,14 +14,15 @@ namespace BudgetManager
     {
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
-        public decimal netIncome { get; set; }
-        public decimal additionalIncome { get; set; }
         public decimal plannedSavings { get; set; }
 
         public HashSet<Expense> expenses { get; set; }
 
+        public HashSet<Income> incomes { get; set; }
+
         public BillingPeriod()
         {
+            incomes = new HashSet<Income>();
             expenses = new HashSet<Expense>();
         }
 
@@ -35,6 +37,15 @@ namespace BudgetManager
             }
             date = new DateTime(date.Year, date.Month, endDay);
             return date;
+        }
+
+        public decimal GetSumOfIncomes(Income.IncomeType? type = null)
+        {
+            var sum = decimal.Zero;
+            foreach (var income in incomes)
+                if (type == null || income.type == type)
+                    sum += income.value;
+            return sum;
         }
 
         public HashSet<Expense> GetCopyOfMonthlyExpensesForNextPeriod()

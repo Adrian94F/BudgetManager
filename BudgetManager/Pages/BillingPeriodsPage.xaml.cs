@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BudgetManager.Models;
 using ModernWpf.Controls;
 using ModernWpf.Controls.Primitives;
 using Frame = System.Windows.Controls.Frame;
@@ -44,6 +45,26 @@ namespace BudgetManager.Pages
             BillingPeriodsDataGrid.ItemsSource = periodsCollection;
         }
 
+        private async Task OpenBillingPeriodDialog(FrameworkElement objectToShowOn)
+        {
+            if (objectToShowOn == null)
+                return;
+            var period = objectToShowOn.GetType() == typeof(DataGridRow)
+                ? ((BillingPeriodDataItem)((DataGridRow)objectToShowOn).Item).originalBillingPeriod  // DataGridRow
+                : null;  // Button etc.
+            var periodFrame = new Frame();
+            var dialog = new ContentDialog
+            {
+                Title = "Miesiąc",
+                IsPrimaryButtonEnabled = false,
+                Content = periodFrame
+            };
+            var periodPage = new BillingPeriodPage(dialog, period);
+            periodFrame.Navigate(periodPage);
+            dialog.Closed += (sender, args) => FillTable();
+            var result = await dialog.ShowAsync();
+        }
+
         private void ShowBillingPeriodFlyout(FrameworkElement objectToShowOn)
         {
             if (objectToShowOn == null)
@@ -58,29 +79,29 @@ namespace BudgetManager.Pages
             var period = objectToShowOn.GetType() == typeof(DataGridRow)
                 ? ((BillingPeriodDataItem)((DataGridRow)objectToShowOn).Item).originalBillingPeriod  // DataGridRow
                 : null;  // Button etc.
-            var periodPage = new BillingPeriodPage(flyout, period);
-            periodFrame.Navigate(periodPage);
+            //var periodPage = new BillingPeriodPage(flyout, period);
+            //periodFrame.Navigate(periodPage);
             flyout.Closed += (sender, o) => FillTable();
             flyout.ShowAt(objectToShowOn);
         }
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ShowBillingPeriodFlyout((Button)sender);
+            OpenBillingPeriodDialog((Button)sender);
         }
 
         private void CategoriesDataGrid_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             var row = ItemsControl.ContainerFromElement((DataGrid)sender,
                 e.OriginalSource as DependencyObject) as DataGridRow;
-            ShowBillingPeriodFlyout(row);
+            OpenBillingPeriodDialog(row);
         }
 
         private void CategoriesDataGrid_OnTouchUp(object sender, TouchEventArgs e)
         {
             var row = ItemsControl.ContainerFromElement((DataGrid)sender,
                 e.OriginalSource as DependencyObject) as DataGridRow;
-            ShowBillingPeriodFlyout(row);
+            OpenBillingPeriodDialog(row);
         }
     }
 
@@ -88,8 +109,7 @@ namespace BudgetManager.Pages
     {
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
-        public string netIncome { get; set; }
-        public string addIncome { get; set; }
+        public string incomes { get; set; }
         public string plannedSavings { get; set; }
         public BillingPeriod originalBillingPeriod;
 
@@ -97,9 +117,8 @@ namespace BudgetManager.Pages
         {
             startDate = bp.startDate;
             endDate = bp.endDate;
-            netIncome = Utilities.EmptyIfZero(bp.netIncome);
-            addIncome = Utilities.EmptyIfZero(bp.additionalIncome);
-            plannedSavings = Utilities.EmptyIfZero(bp.plannedSavings);
+            incomes = Utilities.EmptyIfZero(bp.GetSumOfIncomes(), " zł");
+            plannedSavings = Utilities.EmptyIfZero(bp.plannedSavings, " zł");
             originalBillingPeriod = bp;
         }
     }

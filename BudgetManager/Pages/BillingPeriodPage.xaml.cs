@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BudgetManager.Models;
 using ModernWpf.Controls;
 using Page = System.Windows.Controls.Page;
 
@@ -22,13 +24,13 @@ namespace BudgetManager.Pages
     /// </summary>
     public partial class BillingPeriodPage : Page
     {
-        private Flyout parent;
+        private ContentDialog parent;
         private BillingPeriod period;
 
-        public BillingPeriodPage(Flyout fylout, BillingPeriod p)
+        public BillingPeriodPage(ContentDialog dialog, BillingPeriod p)
         {
             InitializeComponent();
-            parent = fylout;
+            parent = dialog;
             period = p;
 
             if (p != null)
@@ -42,36 +44,27 @@ namespace BudgetManager.Pages
             SetupButtons();
         }
 
-        private bool IsSaveable()
-        {
-            var startDate = StartDatePicker.SelectedDate;
-            var endDate = EndDatePicker.SelectedDate;
-            var netIncome = Utilities.ParseDecimalString(NetIncomeTextBox.Text);
-            var addIncome = Utilities.ParseDecimalString(AddIncomeTextBox.Text);
-            var plannedSavings = Utilities.ParseDecimalString(PlannedSavingsTextBox.Text);
-
-            return (period != null &&
-                    (startDate != period.startDate ||
-                     endDate != period.endDate ||
-                     netIncome != period.netIncome ||
-                     addIncome != period.additionalIncome ||
-                     plannedSavings != period.plannedSavings)) ||
-                   (startDate != null && endDate != null);
-        }
-
         private void SetupButtons()
         {
             DeleteButton.IsEnabled = period != null;
-            SaveButton.IsEnabled = IsSaveable();
+        }
+
+        private void FillTable(BillingPeriod p)
+        {
+            var incomesCollection = new ObservableCollection<IncomeDataItem>();
+            foreach (var inc in p.incomes)
+            {
+                incomesCollection.Add(new IncomeDataItem(inc));
+            }
+            IncomesDataGrid.ItemsSource = incomesCollection;
         }
 
         private void FillForExistingPeriod(BillingPeriod p)
         {
             StartDatePicker.SelectedDate = p.startDate;
             EndDatePicker.SelectedDate = p.endDate;
-            NetIncomeTextBox.Text = p.netIncome.ToString("F");
-            AddIncomeTextBox.Text = p.additionalIncome.ToString("F");
             PlannedSavingsTextBox.Text = p.plannedSavings.ToString("F");
+            FillTable(p);
         }
 
         private void FillForNewPeriod()
@@ -85,27 +78,31 @@ namespace BudgetManager.Pages
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (period != null)
-            {
-                period.startDate = (DateTime) StartDatePicker.SelectedDate;
-                period.endDate = (DateTime) EndDatePicker.SelectedDate;
-                period.netIncome = Utilities.ParseDecimalString(NetIncomeTextBox.Text);
-                period.additionalIncome = Utilities.ParseDecimalString(AddIncomeTextBox.Text);
-                period.plannedSavings = Utilities.ParseDecimalString(PlannedSavingsTextBox.Text);
+            bool newPeriod = period == null;
 
-            }
-            else
+            if (newPeriod)
+                period = new BillingPeriod();
+
+            period.startDate = (DateTime)StartDatePicker.SelectedDate;
+            period.endDate = (DateTime)EndDatePicker.SelectedDate;
+            period.plannedSavings = Utilities.ParseDecimalString(PlannedSavingsTextBox.Text);
+
+            var incomes = new HashSet<Income>();
+            foreach (var inc in IncomesDataGrid.Items)
             {
-                var period = new BillingPeriod()
+                incomes.Add(new Income()
                 {
-                    startDate = (DateTime) StartDatePicker.SelectedDate,
-                    endDate = (DateTime) EndDatePicker.SelectedDate,
-                    netIncome = Utilities.ParseDecimalString(NetIncomeTextBox.Text),
-                    additionalIncome = Utilities.ParseDecimalString(AddIncomeTextBox.Text),
-                    plannedSavings = Utilities.ParseDecimalString(PlannedSavingsTextBox.Text)
-                };
-                AppData.billingPeriods.Add(period);
+                    value = Convert.ToDecimal(((IncomeDataItem)inc).value),
+                    type = ((IncomeDataItem)inc).isSalary
+                        ? Income.IncomeType.Salary
+                        : Income.IncomeType.Additional,
+                    comment = ((IncomeDataItem)inc).comment
+                });
             }
+            period.incomes = incomes;
+
+            if (newPeriod)
+                AppData.billingPeriods.Add(period);
 
             AppData.isDataChanged = true;
             parent.Hide();
@@ -125,6 +122,32 @@ namespace BudgetManager.Pages
             parent.Hide();
         }
 
+        private void CancelButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            parent.Hide();
+        }
+
+        private void AddIncomeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var newIncome = new IncomeDataItem(new Income());
+            ObservableCollection<IncomeDataItem> data = (ObservableCollection<IncomeDataItem>)IncomesDataGrid.ItemsSource;
+            data.Add(newIncome);
+            IncomesDataGrid.ItemsSource = data;
+        }
+
+        private void DeleteIncomeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var selectedIdx = IncomesDataGrid.SelectedIndex;
+            if (selectedIdx >= 0)
+            {
+                var row = (IncomeDataItem)IncomesDataGrid.SelectedItems[0];
+
+                ObservableCollection<IncomeDataItem> data = (ObservableCollection<IncomeDataItem>)IncomesDataGrid.ItemsSource;
+                data.Remove(row);
+                IncomesDataGrid.ItemsSource = data;
+            }
+        }
+
         private void DatePicker_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             SetupButtons();
@@ -136,6 +159,22 @@ namespace BudgetManager.Pages
             var value = Utilities.ParseDecimalString(tb.Text);
             tb.Text = value.ToString("F");
             SetupButtons();
+        }
+    }
+
+    class IncomeDataItem
+    {
+        public double value { get; set; }
+        public bool isSalary { get; set; }
+        public string comment { get; set; }
+
+        public Income originalIncome;
+
+        public IncomeDataItem(Income inc)
+        {
+            value = Convert.ToDouble(inc.value);
+            isSalary = inc.type == Income.IncomeType.Salary;
+            originalIncome = inc;
         }
     }
 }

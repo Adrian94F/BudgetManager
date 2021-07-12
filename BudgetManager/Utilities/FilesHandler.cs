@@ -12,6 +12,7 @@ using System.Data;
 using System.Globalization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
+using BudgetManager.Models;
 using JsonSerializerOptions = System.Text.Json.JsonSerializerOptions;
 
 namespace BudgetManager
@@ -24,6 +25,12 @@ namespace BudgetManager
         readonly static string billingPeriodsKey = "billingPeriods";
         readonly static string billingPeriodStartDateKey = "start";
         readonly static string billingPeriodEndDateKey = "end";
+        readonly static string billingPeriodIncomesKey = "incomes";
+        readonly static string incomeValueKey = "value";
+        readonly static string incomeTypeKey = "type";
+        readonly static string billingPeriodIncomeTypeSalary = "salary";
+        readonly static string billingPeriodIncomeTypeAdditional = "additional";
+        readonly static string incomeCommentKey = "comment";
         readonly static string billingPeriodNetIncomeKey = "netIncome";
         readonly static string billingPeriodAdditionalIncomeKey = "additionalIncome";
         readonly static string billingPeriodPlannedSavingsKey = "plannedSavings";
@@ -79,19 +86,65 @@ namespace BudgetManager
 
                     var startDate = DateTime.Parse(billingPeriodFromJson[billingPeriodStartDateKey].ToString());
                     var endDate = DateTime.Parse(billingPeriodFromJson[billingPeriodEndDateKey].ToString());
-                    var net = billingPeriodFromJson[billingPeriodNetIncomeKey];
-                    var netIncome = Decimal.Parse(billingPeriodFromJson[billingPeriodNetIncomeKey].ToString(), CultureInfo.InvariantCulture);
-                    var addIncome = Decimal.Parse(billingPeriodFromJson[billingPeriodAdditionalIncomeKey].ToString(), CultureInfo.InvariantCulture);
                     var plannedSavings = Decimal.Parse(billingPeriodFromJson[billingPeriodPlannedSavingsKey].ToString(), CultureInfo.InvariantCulture);
 
                     var billingPeriod = new BillingPeriod()
                     {
                         startDate = startDate,
                         endDate = endDate,
-                        netIncome = netIncome,
-                        additionalIncome = addIncome,
                         plannedSavings = plannedSavings
                     };
+
+                    // new incomes
+                    if (billingPeriodFromJson.Keys.Contains(billingPeriodIncomesKey))
+                    {
+                        var incomes = JsonSerializer.Deserialize<List<object>>(billingPeriodFromJson[billingPeriodIncomesKey].ToString());
+                        foreach (var inc in incomes)
+                        {
+                            var incomeFromJson = JsonSerializer.Deserialize<Dictionary<string, string>>(inc.ToString());
+                            var value = Decimal.Parse(incomeFromJson[incomeValueKey].ToString(), CultureInfo.InvariantCulture);
+                            if (value == 0)
+                                continue;
+                            var typeString = incomeFromJson[incomeTypeKey];
+                            var type = typeString.Equals(billingPeriodIncomeTypeSalary)
+                                ? Income.IncomeType.Salary
+                                : Income.IncomeType.Additional;
+                            var comment = incomeFromJson.Keys.Contains(incomeCommentKey)
+                                ? incomeFromJson[incomeCommentKey]
+                                : "";
+
+                            var income = new Income()
+                            {
+                                value = value,
+                                type = type,
+                                comment = comment
+                            };
+                            billingPeriod.incomes.Add(income);
+                        }
+                    }
+                    else
+                    {
+                        if (billingPeriodFromJson.Keys.Contains(billingPeriodNetIncomeKey))
+                        {
+                            var income = new Income()
+                            {
+                                value = Decimal.Parse(billingPeriodFromJson[billingPeriodNetIncomeKey].ToString(), CultureInfo.InvariantCulture),
+                                type = Income.IncomeType.Salary
+                            };
+                            if (income.value > decimal.Zero)
+                                billingPeriod.incomes.Add(income);
+                        }
+                        if (billingPeriodFromJson.Keys.Contains(billingPeriodAdditionalIncomeKey))
+                        {
+                            var income = new Income()
+                            {
+                                value = Decimal.Parse(billingPeriodFromJson[billingPeriodAdditionalIncomeKey].ToString(), CultureInfo.InvariantCulture),
+                                type = Income.IncomeType.Additional
+                            };
+                            if (income.value > decimal.Zero)
+                                billingPeriod.incomes.Add(income);
+                        }
+                    }
 
                     //expenses
                     var expenses = JsonSerializer.Deserialize<List<object>>(billingPeriodFromJson[billingPeriodExpensesKey].ToString());
@@ -154,7 +207,7 @@ namespace BudgetManager
             SaveDataJsonDict();
         }
 
-        public static void SaveDataJsonDict()
+        public static byte[] SaveDataJsonDict()
         {
             var output = new Dictionary<string, object>();
 
@@ -175,9 +228,30 @@ namespace BudgetManager
                 // fields
                 period.Add(billingPeriodStartDateKey, bp.startDate);
                 period.Add(billingPeriodEndDateKey, bp.endDate);
-                period.Add(billingPeriodNetIncomeKey, bp.netIncome);
-                period.Add(billingPeriodAdditionalIncomeKey, bp.additionalIncome);
                 period.Add(billingPeriodPlannedSavingsKey, bp.plannedSavings);
+
+                // backwards compatibility
+                period.Add(billingPeriodNetIncomeKey, bp.GetSumOfIncomes(Income.IncomeType.Salary));
+                period.Add(billingPeriodAdditionalIncomeKey, bp.GetSumOfIncomes(Income.IncomeType.Additional));
+
+                // incomes
+                var incomes = new List<Dictionary<string, object>>();
+
+                foreach (var inc in bp.incomes)
+                {
+                    var income = new Dictionary<string, object>();
+                    income.Add(incomeValueKey, inc.value);
+                    var type = inc.type == Income.IncomeType.Salary
+                        ? billingPeriodIncomeTypeSalary
+                        : billingPeriodIncomeTypeAdditional;
+                    income.Add(incomeTypeKey, type);
+                    if (inc.comment != null)
+                        income.Add(incomeCommentKey, inc.comment);
+                    incomes.Add(income);
+                }
+
+
+                period.Add(billingPeriodIncomesKey, incomes);
 
                 // expenses
                 var expenses = new List<Dictionary<string, object>>();
@@ -206,6 +280,8 @@ namespace BudgetManager
             };
             var jsonUtf8Bytes = JsonSerializer.SerializeToUtf8Bytes(output, options);
             File.WriteAllBytes(AppData.settings.PathToAppData, jsonUtf8Bytes);
+            
+            return jsonUtf8Bytes;
         }
         
         public static void SaveSettings()

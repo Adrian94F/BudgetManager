@@ -48,7 +48,7 @@ namespace BudgetManager
             var endDate = lastPeriod.NewPeriodEndDate();
 
             decimal[] incomesAndSavings = { decimal.Zero, decimal.Zero, decimal.Zero };
-            decimal[] prevIncomesAndSavings = { lastPeriod.netIncome, lastPeriod.additionalIncome, lastPeriod.plannedSavings };
+            /*decimal[] prevIncomesAndSavings = { lastPeriod.netIncome, lastPeriod.additionalIncome, lastPeriod.plannedSavings };
             string[] types = { "przychód netto", "dodatkowy przychód", "planowane oszczędności" };
             for (var i = 0; i < 3; i++)
             {
@@ -57,14 +57,12 @@ namespace BudgetManager
                 {
                     incomesAndSavings[i] = prevIncomesAndSavings[i];
                 }
-            }
+            }*/
             
             var period = new BillingPeriod()
             {
                 startDate = startDate,
                 endDate = endDate,
-                netIncome = incomesAndSavings[0],
-                additionalIncome = incomesAndSavings[1],
                 plannedSavings = incomesAndSavings[2]
             };
             if (AppData.billingPeriods.Count > 0)
