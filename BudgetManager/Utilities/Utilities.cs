@@ -11,9 +11,14 @@ namespace BudgetManager
 {
     class Utilities
     {
-        public static string EmptyIfZero(Decimal value)
+        public static string EmptyIfZero(Decimal value, string? appendix = null)
         {
-            return value == Decimal.Zero ? "" : value.ToString("F");
+            if (value == Decimal.Zero)
+                return "";
+            var ret = value.ToString("F");
+            if (appendix != null)
+                ret += appendix;
+            return ret;
         }
 
         public static decimal ParseDecimalString(string str)
