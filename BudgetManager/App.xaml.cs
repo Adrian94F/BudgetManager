@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using BudgetManager.Models;
 
 namespace BudgetManager
 {
@@ -47,24 +48,24 @@ namespace BudgetManager
             var startDate = lastPeriod.endDate.AddDays(1);
             var endDate = lastPeriod.NewPeriodEndDate();
 
-            decimal[] incomesAndSavings = { decimal.Zero, decimal.Zero, decimal.Zero };
-            /*decimal[] prevIncomesAndSavings = { lastPeriod.netIncome, lastPeriod.additionalIncome, lastPeriod.plannedSavings };
-            string[] types = { "przychód netto", "dodatkowy przychód", "planowane oszczędności" };
-            for (var i = 0; i < 3; i++)
-            {
-                var res = MessageBox.Show("Czy chcesz przenieść " + types[i] + "?", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (res == MessageBoxResult.Yes)
-                {
-                    incomesAndSavings[i] = prevIncomesAndSavings[i];
-                }
-            }*/
-            
             var period = new BillingPeriod()
             {
                 startDate = startDate,
-                endDate = endDate,
-                plannedSavings = incomesAndSavings[2]
+                endDate = endDate
             };
+
+            var res = MessageBox.Show("Czy chcesz przenieść pensję?", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (res == MessageBoxResult.Yes)
+            {
+                foreach (var income in lastPeriod.incomes)
+                {
+                    if (income.type == Income.IncomeType.Salary)
+                    {
+                        period.incomes.Add(income);
+                    }
+                }
+            }
+
             if (AppData.billingPeriods.Count > 0)
             {
                 period.expenses = AppData.billingPeriods.Last().GetCopyOfMonthlyExpensesForNextPeriod();
