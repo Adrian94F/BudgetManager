@@ -46,8 +46,7 @@ namespace BudgetManager.Pages
             var add = incSum - net;
             var expSum = period.GetSumOfExpenses();
             var monthlyExpSum = period.GetSumOfMonthlyExpenses();
-            var bigExpSum = period.GetSumOfBigExpenses();
-            var dailyExpSum = expSum - monthlyExpSum - bigExpSum;
+            var dailyExpSum = expSum - monthlyExpSum;
             var savings = period.plannedSavings;
             var balance = incSum - expSum - savings;
             var isActualBillingPeriod = (DateTime.Today - period.startDate).Days >= 0 && (period.endDate - DateTime.Today).Days >= 0;
@@ -63,7 +62,6 @@ namespace BudgetManager.Pages
             IncomeSumTextBlock.Text = incSum.ToString("F") + " zł";
             IncomeSumTextBlock2.Text = incSum.ToString("F") + " zł";
             DailyExpensesSumTextBlock.Text = dailyExpSum.ToString("F") + " zł";
-            BigExpensesSumTextBlock.Text = bigExpSum.ToString("F") + " zł";
             MonthlyExpensesSumTextBlock.Text = monthlyExpSum.ToString("F") + " zł";
             ExpensesSumTextBlock.Text = expSum.ToString("F") + " zł";
             ExpensesSumTextBlock2.Text = expSum.ToString("F") + " zł";
@@ -71,7 +69,8 @@ namespace BudgetManager.Pages
             BalanceTextBlock.Text = (balance > 0 ? "+" : "") + balance.ToString("F") + " zł";
             DaysLeftTextBlock.Text = isActualBillingPeriod ? daysLeft.ToString() : "-";
             EstimatedDailyExpenseTextBlock.Text = isActualBillingPeriod ? estimatedExpense.ToString("F") + " zł" : "-";
-            SumOfTodayExpenses.Text = isActualBillingPeriod ? todayExpenses.ToString("F") + " zł (" + todayExpensesPercent.ToString("F0") + "%)" : "-";
+            SumOfTodayExpenses.Text = isActualBillingPeriod ? todayExpenses.ToString("F") + " zł" : "-";
+            PercentOfTodayExpenses.Text = isActualBillingPeriod ? todayExpensesPercent.ToString("F0") + "%" : "-";
         }
 
         private void FillFrame(BillingPeriod period)

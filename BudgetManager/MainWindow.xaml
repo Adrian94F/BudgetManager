@@ -13,7 +13,7 @@
         ui:TitleBar.IsBackButtonVisible="False"
         mc:Ignorable="d"
         Title="Menedżer budżetu"
-        Height="510"
+        Height="530"
         Width="1100"
         MinHeight="300"
         MinWidth="700">

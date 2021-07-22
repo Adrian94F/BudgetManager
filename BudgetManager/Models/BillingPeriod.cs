@@ -181,11 +181,6 @@ namespace BudgetManager
             return GetSumOfValidExpensesOfDate(date, exp => !exp.monthlyExpense);
         }
 
-        public decimal GetSumOfDailyNotBigExpensesOfDate(DateTime date)
-        {
-            return GetSumOfValidExpensesOfDate(date, exp => !exp.monthlyExpense && exp.value < AppData.settings.BigExpenseThreshold);
-        }
-
         public decimal GetSumOfMonthlyExpensesOfDate(DateTime date)
         {
             return GetSumOfAllExpensesOfDate(date) - GetSumOfDailyExpensesOfDate(date);
@@ -199,22 +194,6 @@ namespace BudgetManager
                 foreach (var expense in expenses)
                 {
                     if (expense.monthlyExpense)
-                    {
-                        ret += expense.value;
-                    }
-                }
-            }
-            return ret;
-        }
-
-        public decimal GetSumOfBigExpenses()
-        {
-            var ret = Decimal.Zero;
-            if (expenses != null)
-            {
-                foreach (var expense in expenses)
-                {
-                    if (!expense.monthlyExpense && expense.value >= AppData.settings.BigExpenseThreshold)
                     {
                         ret += expense.value;
                     }

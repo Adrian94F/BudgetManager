@@ -168,13 +168,10 @@ namespace BudgetManager.Pages
         public bool isSalary { get; set; }
         public string comment { get; set; }
 
-        public Income originalIncome;
-
         public IncomeDataItem(Income inc)
         {
             value = Convert.ToDouble(inc.value);
             isSalary = inc.type == Income.IncomeType.Salary;
-            originalIncome = inc;
         }
     }
 }

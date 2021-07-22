@@ -63,15 +63,6 @@
                                HorizontalAlignment="Right"
                                TextAlignment="Right"
                                Text="...zł"/>
-                    <TextBlock Grid.Row="1"
-                               Grid.Column="0"
-                               Text="Duże wydatki"/>
-                    <TextBlock x:Name="BigExpensesSumTextBlock"
-                               Grid.Row="1"
-                               Grid.Column="1"
-                               HorizontalAlignment="Right"
-                               TextAlignment="Right"
-                               Text="...zł"/>
                     <TextBlock Grid.Row="2"
                                Grid.Column="0"
                                Text="Wydatki miesięczne"/>
@@ -199,7 +190,6 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
-                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="180"/>
@@ -232,7 +222,13 @@
                                Grid.Column="1"
                                HorizontalAlignment="Right"
                                TextAlignment="Right"
-                               Text="...zł (...%)"/>
+                               Text="...zł"/>
+                    <TextBlock x:Name="PercentOfTodayExpenses"
+                               Grid.Row="3"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               Text="...%"/>
                 </Grid>
             </StackPanel>
         </ScrollViewer>
@@ -263,7 +259,7 @@
                                Fill="#01FFFFFF"/>
                     <TextBlock Grid.Row="0"
                                Style="{StaticResource BodyTextBlockStyle}"
-                               Text="Wypalenie (małe wydatki):"/>
+                               Text="Wypalenie – codzienne wydatki:"/>
                 </Grid>
             </Button>
         </StackPanel>
